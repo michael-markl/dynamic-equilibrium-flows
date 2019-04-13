@@ -1,0 +1,44 @@
+
+% Literatur-Bibliothek
+\bibliographystyle{alphadin}               % deutscher Bibliotheksstil
+
+% Erweiterte Einstellungen zu hyperref
+
+\hypersetup{
+        breaklinks=true,        % zu lange Links unterbrechen
+        colorlinks=true,        % Färben von Referenzen
+        citecolor=black,        % Farbe der Zitate
+        linkcolor=black,        % Farbe der Links
+        extension=pdf,          % Externe Dokumente können eingebunden werden.
+        ngerman,		
+	pdfview=FitH,
+	pdfstartview=FitH,		
+	bookmarksnumbered=true,     % Anzeige der Abschnittsnummern	% pdf-Titel
+	pdfauthor={\autor}          % pdf-Autor
+}
+
+% Namen für Referenzen 
+
+\newcommand{\ownautorefnames}{
+  \renewcommand{\sectionautorefname}{Kapitel}
+  \renewcommand{\subsectionautorefname}{Unterkapitel}
+  \renewcommand{\subsubsectionautorefname}{\subsectionautorefname}
+  \renewcommand{\appendixautorefname}{Anhang}
+  \renewcommand{\figureautorefname}{Abbildung}
+}
+
+% Rückreferenzentext zur Literatur
+\def\bibandname{und}%
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+\ifcase #1 %
+ (Nicht zitiert, also Ergänzungsliteratur.)%
+\or
+ (Zitiert auf Seite #2.)%
+\else
+ (Zitiert auf den Seiten #2.)%
+\fi
+}
+\renewcommand{\backreftwosep}{ und~} % seperate 2 pages
+\renewcommand{\backreflastsep}{ und~} % seperate last of longer 
+

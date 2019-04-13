@@ -1,0 +1,89 @@
+
+
+\DeclareMathOperator{\e}{ex}
+\DeclareMathOperator{\ma}{mate}
+\DeclareMathOperator{\Ex}{Ex}
+
+%-------------------------------------------------------------------------------
+%   Befehle für Nummerierung der Ergebnisse
+%   fortlaufend innerhalb eines Abschnittes
+%-------------------------------------------------------------------------------
+\theoremstyle{plain}            % normaler Stil
+\newtheorem{theorem}{Theorem}[section]
+% Lemma
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+% Satz
+\newaliascnt{satz}{theorem}
+\newtheorem{satz}[satz]{Satz}
+\aliascntresetthe{satz}
+% Korollar
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Korollar}
+\aliascntresetthe{corollary}
+% Proposition
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+%-------------------------------------------------------------------------------
+\theoremstyle{definition}	% Definitionsstil
+% Definition
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+% Beispiel
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Beispiel}
+\aliascntresetthe{example}
+% Problem
+\newaliascnt{problem}{theorem}
+\newtheorem{problem}[problem]{Problem}
+\aliascntresetthe{problem}
+% Algorithmus
+\newaliascnt{algorithmus}{theorem}
+\newtheorem{algorithmus}[algorithmus]{Algorithmus}
+\aliascntresetthe{algorithmus}
+%-------------------------------------------------------------------------------
+\theoremstyle{remark}		% Bemerkungsstil
+% Bemerkung
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Bemerkung}
+\aliascntresetthe{remark}
+% Vermutung
+\newaliascnt{conjecture}{theorem}
+\newtheorem{conjecture}[conjecture]{Vermutung}
+\aliascntresetthe{conjecture}
+% Notation
+\newaliascnt{notation}{theorem}
+\newtheorem{notation}[notation]{Notation}
+\aliascntresetthe{notation}
+
+%-------------------------------------------------------------------------------
+% automatische Referenzen mit interaktiven Text
+%-------------------------------------------------------------------------------
+
+% Texte
+\renewcommand{\theoremautorefname}{Theorem}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\satzautorefname}{Satz}
+\newcommand{\korollarautorefname}{Korollar}
+\newcommand{\propositionautorefname}{Proposition}
+
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\beispielautorefname}{Beispiel}
+\newcommand{\problemautorefname}{Problem}
+\newcommand{\algorithmusautorefname}{Algorithmus}
+
+\newcommand{\bemerkungautorefname}{Bemerkung}
+\newcommand{\vermutungautorefname}{Vermutung}
+\newcommand{\notationautorefname}{Notation}
+
+%-------------------------------------------------------------------------------
+% Nummerierung der Gleichungen innerhalb der obersten Ebene
+%-------------------------------------------------------------------------------
+\ifx\chapter\undefined 			% Kapitel sind definiert
+  \numberwithin{equation}{section}	% Gleichungsnummern in Section
+\else					% Kapitel sind nicht definiert
+  \numberwithin{equation}{chapter}	% Gleichungsnummern in Kapiteln
+\fi

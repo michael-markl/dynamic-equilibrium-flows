@@ -1,0 +1,39 @@
+%-------------------------------------------------------------------------------
+% Kopf-Zeilen
+%-------------------------------------------------------------------------------
+
+\pagestyle{scrheadings}		     % Kopfzeilen nach scr-Standard		
+\ifx\chapter\undefined 		     % falls Kapitel nicht definiert sind
+  \automark[subsection]{section} % Kopf- und Fusszeilen setzen
+\else				             % Kapitel sind definiert
+  \automark[section]{chapter}	 % Kopf- und Fusszeilen setzen
+\fi
+
+%-------------------------------------------------------------------------------
+%   Maske für Überschrift 
+%-------------------------------------------------------------------------------
+% Belegung der notwendigen Kommandos für die Titelseite
+\newcommand{\autor}{Markl, Michael} 		% bearbeitender Student
+\newcommand{\veranstaltung}{Seminar zur Optimierung und Spieltheorie} 	% Titel des ganzen Seminars
+\newcommand{\uni}{Institut für Mathematik der Universität Augsburg} % Universit\"at
+\newcommand{\lehrstuhl}{Diskrete Mathematik, Optimierung und Operations Research} % Lehrstuhl
+\newcommand{\semester}{Sommersemester 2019}	% Winter-/Sommersemester mit Jahr
+\newcommand{\datum}{27.06.2019} 			% Datumsangabe
+\newcommand{\thema}{TODO}  		% Titel der Seminararbeit
+
+\newcommand{\ownline}{\vspace{.7em}\hrule\vspace{.7em}} % horizontale Linie mit Abstand
+
+\newcommand{\seminarkopf}{	% Befehl zum Erzeugen der Titelseite 
+ \textsc{\autor}  \hfill{\datum} \\ 
+\textbf{\veranstaltung} \\ 
+\uni \\ 
+\lehrstuhl \\
+\semester
+\ownline 
+
+\begin{center}
+{\LARGE \textbf{\thema}}
+\end{center}
+
+\ownline
+}
