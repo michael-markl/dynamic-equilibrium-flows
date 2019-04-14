@@ -1,4 +1,9 @@
-\documentclass[paper=a4,fontsize=11pt,abstracton,headsepline,notitlepage]{scrartcl}
+\newcommand*{\DocType}{scrartcl}
+\renewcommand*\DocType{article} % Uncomment for screen optimization
+
+\newcommand*\ClassList{scrartcl,article}
+\documentclass[\DocType, paper=a4,fontsize=11pt,abstracton,headsepline,notitlepage]{generalclass}
+
 
 \usepackage[utf8]{inputenc}
 \usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
@@ -38,6 +43,11 @@
 \input{header/referenz}			% Befehle und Pakete für Referenzen
 
 \geometry{a4paper, top=30mm, bottom=30mm, left=30mm, right=30mm}
+
+\IfClass{article}{ % Optimize for screen
+	\geometry{papersize={150mm,190mm},margin=5mm} 
+}
+
 \addtolength{\footskip}{-0.5cm}          % Seitenzahlen höher setzen
 \renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
 
