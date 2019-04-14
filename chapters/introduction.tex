@@ -20,10 +20,32 @@ Man beachte, dass in dieser Definition eines strategischen Spiels die Spieler ei
 	Der Fluss $\mu$ heißt Nashfluss, falls $l_P(\mu)=min_{P'\in\mathcal{P}}l_{P'}(\mu)$ für alle $P\in\mathcal{P}$ mit $\mu_P > 0$ gilt.
 \end{definition}
 
-Static $\to$ dynamic:
+\section{Dynamische Flüsse mit Zeithorizont}
+
+
 Betrachte Zeitraum $[0,T]$ mit $T\in\R_+$.
 $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
-\begin{definition}
+\begin{definition}[Netzwerk]
+	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E\subseteq V\times V$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e\geq 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet.
+\end{definition}
+
+Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.
+
+\begin{definition}[Fluss über Zeit]
+	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien von Lebesgue-integrierbaren Funktionen $f^+_e,f^-_e: \R \to \R_{\geq 0}$ an $e$ für alle $e\in E$.
 	
+	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Einflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Ausflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
+	
+	Der (kumulative) \emph{Einfluss bzw. Ausfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_{[0,\theta)} f^+_e d\lambda$ bzw. $F^-_e(\theta):=\int_{[0,\theta)} f^-_e d\lambda$.
+\end{definition}
+
+\begin{definition}[Zulässiger Fluss über Zeit]
+	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
+	\begin{enumerate}
+		\item keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
+		\item Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\geq 0: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
+		\item TODO
+	\end{enumerate}
 \end{definition}
