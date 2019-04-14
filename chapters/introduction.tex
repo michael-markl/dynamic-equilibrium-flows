@@ -1,2 +1,29 @@
-\section{TODO}\label{introduction}
-TODO
+\section{Einführung}\label{introduction}
+
+\newcommand{\R}{\mathbb{R}}
+
+\begin{definition}[strategisches Spiel]
+	Ein \emph{strategisches Spiel} $\mathcal{G}$ ist ein Tupel $(P, X, \theta)$, wobei $P$ eine Menge von Spielern, $X$ die Menge der Strategien  und $\theta=(\theta_p)_{p_\in P}$ die Familie der Auszahlungsfunktionen der Spieler ist, wobei $\theta_p$ eine Funktion $X^P\to\R$ für jeden Spieler $p\in P$ ist.
+\end{definition}
+
+Man beachte, dass in dieser Definition eines strategischen Spiels die Spieler eine gemeinsame Strategiemenge haben.
+
+\begin{definition}[statisches Flussnetzwerk]
+	Ein \emph{statisches Flussnetzwerk} $\mathcal{N}:=(G,s,t,\mu)$ ist ein Graph $G:=(V,E)$ mit Knoten $V$ und Kanten $E$, einer \emph{Quelle} $s\in V$, einer \emph{Senke} $t\in V$ zusammen mit einem \emph{$d$-wertigen statischen Fluss} $\mu: \mathcal{P} \to \R$, wobei $\mathcal{P}$ die Menge aller einfachen $s$-$t$-Pfade in G ist und $d=\sum_{p\in\mathcal{P}}\mu(p)$ gilt.
+\end{definition}
+
+\begin{definition}[statisches Routenplanungsspiel]
+	Sei ein Graph $G:=(V,E)$ mit Knoten $V$ und Kanten $E$, einer Quelle $s\in V$, einer Senke $t\in V$ und einem Zufluss $d\in\R_+$ gegeben.
+	Ein \emph{statisches Routenplanungsspiel} ist ein strategisches Spiel mit  Spielermenge $[0,d]\subseteq\R$, wobei ein Spieler als \emph{Flusspartikel} bezeichnet wird, und mit Strategiemenge $\mathcal{P}$ aller $s$-$t$-Pfade in $G$.
+	Die Auszahlungsfunktion $\theta_x$ gibt die Kosten des Partikels $x$ in Abhängigkeit des Flusses an.
+	
+	Der Fluss $\mu$ heißt Nashfluss, falls für alle $P\in\mathcal{P}$
+\end{definition}
+
+Static $\to$ dynamic:
+Betrachte Zeitraum $[0,T]$ mit $T\in\R_+$.
+$d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
+
+\begin{definition}
+	
+\end{definition}
