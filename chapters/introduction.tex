@@ -17,7 +17,7 @@ Man beachte, dass in dieser Definition eines strategischen Spiels die Spieler ei
 	Ein \emph{statisches Routenplanungsspiel} ist ein strategisches Spiel mit  Spielermenge $[0,d]\subseteq\R$, wobei ein Spieler als \emph{Flusspartikel} bezeichnet wird, und mit Strategiemenge $\mathcal{P}$ aller $s$-$t$-Pfade in $G$.
 	Die Auszahlungsfunktion $\theta_x$ gibt die Kosten des Partikels $x$ in Abhängigkeit des Flusses an.
 	
-	Der Fluss $\mu$ heißt Nashfluss, falls für alle $P\in\mathcal{P}$
+	Der Fluss $\mu$ heißt Nashfluss, falls $l_P(\mu)=min_{P'\in\mathcal{P}}l_{P'}(\mu)$ für alle $P\in\mathcal{P}$ mit $\mu_P > 0$ gilt.
 \end{definition}
 
 Static $\to$ dynamic:
