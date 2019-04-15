@@ -39,13 +39,50 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Einflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Ausflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
 	Der (kumulative) \emph{Einfluss bzw. Ausfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_{[0,\theta)} f^+_e d\lambda$ bzw. $F^-_e(\theta):=\int_{[0,\theta)} f^-_e d\lambda$.
+	
+	Die \emph{(Länge der) Warteschlange an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und die \emph{Wartezeit an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $q_e(\theta) = z_e / u_e$.
 \end{definition}
 
 \begin{definition}[Zulässiger Fluss über Zeit]
 	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
-	\begin{enumerate}
+	\begin{enumerate}[(I)]
 		\item keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
-		\item Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\geq 0: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
-		\item TODO
+		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
+		\item Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
+		\item\label{queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
+		\todo{
+		 $F_e^+(\theta) = F_e^-(\theta + \tau_e + q_e(\theta))$ für alle $e\in E, \theta\in\R$, ist das das gleiche (f.ü.)?}
 	\end{enumerate}
 \end{definition}
+
+\todo{source and sink nodes: Kein Fluss verschwindet bei Quelle, kein Fluss kommt hinzu bei Sinke}
+
+\todo{FIFO Interpretation}
+
+\begin{proposition}
+	Sei $e\in E$ eine Kante und $f$ ein zulässiger Fluss. Dann gilt:
+	\begin{enumerate}[(i)]
+		\item\label{theta-plus-queue-mon-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
+		\item Für alle $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(\theta+\tau_e+q_e(\theta))$.
+		\item Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + z_e(\theta_2)$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Für die Monotonie in~(\ref{theta-plus-queue-mon-cont}) seien $\theta_1 \leq \theta_2$ gegeben.
+	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_1 + \tau_e) = F_e^-(\theta_2+\tau_e) - \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)dt\leq F_e^-(\theta_2 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
+	$$
+		\theta_1 + q_e(\theta_1)
+		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}\\
+		\leq \theta_2 + \frac{F_e^+(\theta_1) - F_e^-(\theta_2+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
+	$$
+	Die Stetigkeit folgt aus der Stetigkeit von $F_e^+$ und $F_e^-$.
+	
+	Zu Aussage (ii): Nach Voraussetzung~(\ref{queue-with-capacity}) ist $\int_{\theta + \tau_e}^{\theta + \tau_e + q_e(\theta)} f_e^-(t) dt = \int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) dt = q_e(\theta)  u_e = z_e(\theta)$ (\todo{für $\theta'$ ist $q_e(\theta')> 0$}). Damit ist $F_e^-(\theta + \tau_e + q_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)dt = F_e^+(\theta)$.
+	
+	Zu Aussage (iii): Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta_1) = F_e^+(\theta') = F_e^-(\theta_2)$.
+	Also ist $F_e^+(\theta') - F_e^-(\theta' + \tau_e) \geq F_e^+(\theta_2)-F_e^-(\theta_2 + \tau_e) = z_e(\theta_2) > 0$ und es gilt $f_e^-(\theta' + \tau_e)=u_e$.
+	Für die Warteschlangendifferenz gilt dann: 
+	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) dt = (\theta_2 - \theta_1)u_e$.
+	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
+\end{proof}
+
