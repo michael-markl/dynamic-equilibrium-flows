@@ -65,7 +65,7 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	Sei $e\in E$ eine Kante und $f$ ein zulässiger Fluss. Dann gilt:
 	\begin{enumerate}[(i)]
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
-		\item Für alle $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(\theta+\tau_e+q_e(\theta))$.\todo{use $T_e(\theta)$ here}
+		\item\label{prop-feasible-flow-det-outflow} Für alle $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(\theta+\tau_e+q_e(\theta))$.\todo{use $T_e(\theta)$ here}
 		\item Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + z_e(\theta_2)$.
 	\end{enumerate}
 \end{proposition}
@@ -105,7 +105,7 @@ Insbesondere ist also die Kantenaustrittszeit $T_e$ monoton wachsend und stetig.
 Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ als Minimum von Kompositionen stetiger und monoton wachsender Funktionen $T_e$ (Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-T-mon-inc-cont})) ebenfalls stetig und monoton wachsend.
 
 
-\begin{lemma}
+\begin{lemma}\label{lemma-dreicksungl}
 	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
 	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$.
 \end{lemma}
@@ -148,6 +148,15 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
+	$(i)\Rightarrow (ii)$: Seien $uv\in E$ und $\theta\in\R$ gegeben.
+	Die Beziehung $F_{uv}^-(T_{uv}(l_u(\theta))) \geq F_{uv}^-(l_v(\theta))$ gilt bereits wegen der Monotonie von $F_{uv}^-$ und Lemma~\ref{lemma-dreicksungl}.
+	Ist $uv$ aktiv zum Zeitpunkt $\theta$, so ist $T_{uv}(l_u(\theta))=l_v(\theta)$ und die Aussage gilt offensichtlich.
+	Sonst ist $l_v(\theta) < T_{uv}(l_u(\theta))$. \todo{nur für fast alle theta}
+	Sei $\tilde{\theta}:=\sup\{ \tilde{\theta}\in\R \mid l_v(\theta) \geq T_{uv}(l_u(\tilde{\theta})) \}$ der späteste Startzeitpunkt, sodass man spätestens zum Zeitpunkt $l_v(\theta)$ von $s$ über $uv$ zu $v$ gelangt.
+	Man beachte, dass $\tilde{\theta}=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
+	Es ist $\tilde{\theta} \leq \theta$, da $T_{uv}\circ l_u$ monoton wachsend ist und für $\tilde{\theta} > \theta$ wäre $T_{uv}(l_u(\tilde{\theta})) > l_v(\theta)$.
+	Wegen der Monotonie von $l_v$ und nach Definition von $\tilde{\theta}$ gilt $l_v(\theta')\leq l_v(\theta)< T_{uv}(l_u(\theta'))$ für $\theta'\in (\tilde{\theta}, \theta]$; insbesondere ist die Kante $uv$ in $\theta'$ nicht aktiv und nach Voraussetzung gilt $f_{uv}^+(l_u(\theta')) = 0$ für $\theta'\in (\tilde{\theta}, \theta]$. \todo{fast alle?}
+	Also ist $F_{uv}^+(l_u(\theta)) = F_{uv}^+(l_u(\tilde{\theta}))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{uv}^-(T_{uv}(l_u(\theta))) = F_{uv}^-(T_{uv}(l_u(\tilde{\theta}))\leq F_{uv}^-(l_v(\theta))$ wegen Montonie von $F_{uv}^-$ und der Definition von $\tilde{\theta}$.
 	
 \end{proof}
 
