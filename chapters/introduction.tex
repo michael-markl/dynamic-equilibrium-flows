@@ -136,8 +136,7 @@ Warum kann man das? Zykeln?
 Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 
 \begin{definition}
-	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für fast-alle $\theta\in\R$ und für alle zum Zeitpunkt $\theta$ nicht-aktiven Kanten $uv\in E$ die Bedingung
-	$f_{uv}^+(\l_v(\theta)) = 0$ erfüllt ist.
+	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für alle Kanten $uv\in E$ und für fast-alle Zeitpunkte $\theta\in\R$ Zeitpunkt gilt: $$ uv \text{ nicht aktiv zum Zeitpunkt } \theta \implies f_{uv}^+(\l_u(\theta)) = 0.$$
 \end{definition}
 
 \begin{lemma}
@@ -158,6 +157,24 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	Wegen der Monotonie von $l_v$ und nach Definition von $\tilde{\theta}$ gilt $l_v(\theta')\leq l_v(\theta)< T_{uv}(l_u(\theta'))$ für $\theta'\in (\tilde{\theta}, \theta]$; insbesondere ist die Kante $uv$ in $\theta'$ nicht aktiv und nach Voraussetzung gilt $f_{uv}^+(l_u(\theta')) = 0$ für $\theta'\in (\tilde{\theta}, \theta]$. \todo{fast alle?}
 	Also ist $F_{uv}^+(l_u(\theta)) = F_{uv}^+(l_u(\tilde{\theta}))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{uv}^-(T_{uv}(l_u(\theta))) = F_{uv}^-(T_{uv}(l_u(\tilde{\theta}))\leq F_{uv}^-(l_v(\theta))$ wegen Montonie von $F_{uv}^-$ und der Definition von $\tilde{\theta}$.
 	
+	$(ii) \Rightarrow (i)$: Sei eine Kante $uv\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
+	Es gilt also $l_v(\theta) < T_{uv}(l_u(\theta))$ und wegen der Stetigkeit von $l_v$ und von $T_{uv}\circ l_u$ existiert ein $\varepsilon\in\R_+$ sodass $l_v(\theta + \varepsilon) < T_{uv}(l_u(\theta - \varepsilon))$ gilt.
+	Dann ist 
+	$$
+	0
+	\leq
+	\int_{l_u(\theta-\varepsilon)}^{l_u(\theta + \varepsilon)}f_{uv}^+(t) dt
+	=
+	\int_{T_{uv}(l_u(\theta-\varepsilon))}^{T_{uv}(l_u(\theta+\varepsilon))} f_{uv}^-(t) dt
+	\leq
+	\int_{l_v(\theta + \varepsilon)}^{T_{uv}(l_u(\theta + \varepsilon))} f_{uv}^-(t) dt
+	=
+	0,
+	$$
+	wobei die letzte Gleichung aus der Voraussetzung $F_{uv}^-(l_v(\theta+\varepsilon)) = F_{uv}^-(T_{uv}(l_u(\theta + \varepsilon)))$ gefolgert wird.
+	Also ist $f_{uv}^+$ in einer Umgebung um $l_u(\theta)$ fast überall gleich $0$.
+	
+	Da die Menge aller Zeitpunkte, in denen $uv$ nicht aktiv ist, wegen der Stetigkeit von $l_v$ und $T_{uv}\circ l_u$ eine Vereinigung (abzählbarer) Intervalle ist, genügt es zu zeigen, dass die Bedingung lokal fast immer erfüllt ist.
 \end{proof}
 
 
