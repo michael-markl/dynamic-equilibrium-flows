@@ -28,7 +28,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E\subseteq V\times V$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$.
-	Jeder Kante $e\in E$ werden eine Kapazität $u_e\geq 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet.
 \end{definition}
 
 Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.
@@ -85,4 +85,9 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) dt = (\theta_2 - \theta_1)u_e$.
 	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
 \end{proof}
+
+\todo{Stetigkeit von irgendwas um die "Wohldefiniertheit" dieser komischen Definition  von Nash flows zu zeigen}
+
+\section{Charakterisierungen von Nash-Flüssen über Zeit}
+
 
