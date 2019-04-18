@@ -207,7 +207,7 @@ Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible
 
 \begin{definition}
 	Seien ein statischer Fluss, das heißt eine Kantenbewertung $f \in \R^E$, in einem Graphen $G=(V,E)$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ sowie ein Kapazitätsvektor $u\in\R_+^E$ gegeben.
-	Der Fluss $f$ heißt \emph{zulässiger $b$-Fluss}, falls er keine Kapazität überschreitet, d.h. $\forall e\in E: f_e \leq u_e$, und Flusserhaltung bzgl. $b$ gewährt, d.h. $\forall v\in V: \sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$.
+	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. $\forall v\in V: \sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$.
 \end{definition}
 
 \todo{blabla}
@@ -219,24 +219,29 @@ Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible
 	Für $\theta\in\R$ sei der statische Fluss $g^\theta$ auf $H$ definiert durch
 	$$g^\theta_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g^\theta_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
 	und der Balancevektor $b^\theta$ auf $H$ sei gegeben durch $b^\theta_v:= b_v(\theta)$ für $v\in V$ und $b^\theta_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
-	Dann sind die folgenden beiden Aussagen äquivalent:
+	Dann gelten die folgenden Aussagen:
 	
 	\begin{enumerate}[(i)]
-		\item Für alle Kanten $e\in E$ von G und zu jedem Zeitpunkt $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
-		\item Für alle $\theta\in\R$ ist $g^\theta$ ein statischer $b^\theta$-Fluss.
+		\item  Für alle $\theta\in\R$ ist $g^\theta$ ein statischer $b^\theta$-Fluss.
+		\item $\forall e\in E, \theta\in \R : x_e^+(\theta) = x_e^-(\theta)\iff \text{$f$ fließt ohne Überholungen}$.
 	\end{enumerate}
-\end{lemma}
+\end{lemma} 
 \begin{proof}
-	$(i)\Rightarrow(ii)$: Sei $\theta\in\R$ gegeben.
-		Nach Voraussetzung ist $b^\theta_{\newv_e} = 0$ für alle $e\in E$ und eine Kante $uv$ hat in $\sum_{v\in V} b_v^\theta$ nur bei den Summanden $b_u^\theta$ und $b_v^\theta$ einen Beitrag, die sich beide gegenseitig aufheben, und man erhält
-		$\sum_{v\in V}b^\theta_v + \sum_{e\in E} b^\theta_{\newv_e} = 0.$
-		
+	$(i)$: Sei $\theta\in\R$ gegeben. Dann ist
+		$$\sum_{v\in V}b^\theta_v + \sum_{e\in E} b^\theta_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
 		Es bleibt zu zeigen, dass $g^\theta$ bezüglich $b^\theta$ Flusserhaltung gewährt.
-		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g^\theta_{\newv_{uv}v} - g^\theta_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b^\theta_{\newv_e}$
+		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g^\theta_{\newv_{uv}v} - g^\theta_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b^\theta_{\newv_e}$.
 		Für $v\in V$ gilt nach Konstruktion $$b_v^\theta = b_v(\theta)=
 		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
 	\sum_{e\in\delta_H^+(v)} g_e^\theta - \sum_{e\in\delta^-_H(v)}g_e^\theta
 		.$$
-		
-		\todo{Jetzt hab ich noch nicht 'zulässig' gebraucht}
+	
+	$(ii)$: Sei $\theta\in\R$ gegeben und es gelte $x_e^+(\theta) = x_e^-(\theta) $ für alle $\theta\in\R$.
+	Dann sind auch alle $b_{\newv_e} = 0$ und nach Lemma~\ref{lemma-balance-0} gilt $b_s(\theta) + b_t(\theta) = 0$, da $g^\theta$ statischer $b^\theta$-Fluss ist.
+	Das bedeutet $f$ fließt ohne Überholungen.
+	
+	Angenommen, $f$ fließe ohne Überholungen.
+	Dann gilt $\sum_{e\in E} b_{\newv_e}^\theta = 0$ unter Verwendung von Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$.
+	Da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ und damit $b_{\newv_e}^\theta\leq 0$ für alle $e\in E$.
+	Also sind bereits alle $b_{\newv_e}^\theta = 0$, was die Behauptung zeigt.
 \end{proof}
