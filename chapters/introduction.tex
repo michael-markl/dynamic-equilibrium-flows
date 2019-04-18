@@ -214,34 +214,34 @@ Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible
 
 \newcommand{\newv}{\mathbf{v}}
 \begin{lemma}
-	Sei ein zulässiger Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ gegeben.
+	Seien ein zulässiger Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
-	Für $\theta\in\R$ sei der statische Fluss $g^\theta$ auf $H$ definiert durch
-	$$g^\theta_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g^\theta_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
-	und der Balancevektor $b^\theta$ auf $H$ sei gegeben durch $b^\theta_v:= b_v(\theta)$ für $v\in V$ und $b^\theta_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
+	Der statische Fluss $g$ auf $H$ sei definiert durch
+	$$g_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
+	und der Balancevektor $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
 	Dann gelten die folgenden Aussagen:
 	
 	\begin{enumerate}[(i)]
-		\item  Für alle $\theta\in\R$ ist $g^\theta$ ein statischer $b^\theta$-Fluss.
-		\item $\forall e\in E, \theta\in \R : x_e^+(\theta) = x_e^-(\theta)\iff \text{$f$ fließt ohne Überholungen}$.
+		\item  $g$ ist ein statischer $b$-Fluss.
+		\item $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
 	$(i)$: Sei $\theta\in\R$ gegeben. Dann ist
-		$$\sum_{v\in V}b^\theta_v + \sum_{e\in E} b^\theta_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
-		Es bleibt zu zeigen, dass $g^\theta$ bezüglich $b^\theta$ Flusserhaltung gewährt.
-		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g^\theta_{\newv_{uv}v} - g^\theta_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b^\theta_{\newv_e}$.
-		Für $v\in V$ gilt nach Konstruktion $$b_v^\theta = b_v(\theta)=
+		$$\sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
+		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
+		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g_{\newv_{uv}v} - g_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b_{\newv_e}$.
+		Für $v\in V$ gilt nach Konstruktion $$b_v = b_v(\theta)=
 		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
-	\sum_{e\in\delta_H^+(v)} g_e^\theta - \sum_{e\in\delta^-_H(v)}g_e^\theta
+	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
 		.$$
 	
 	$(ii)$: Sei $\theta\in\R$ gegeben und es gelte $x_e^+(\theta) = x_e^-(\theta) $ für alle $\theta\in\R$.
-	Dann sind auch alle $b_{\newv_e} = 0$ und nach Lemma~\ref{lemma-balance-0} gilt $b_s(\theta) + b_t(\theta) = 0$, da $g^\theta$ statischer $b^\theta$-Fluss ist.
+	Dann sind auch alle $b_{\newv_e} = 0$ und nach Lemma~\ref{lemma-balance-0} gilt $b_s(\theta) + b_t(\theta) = 0$, da $g$ statischer $b$-Fluss ist.
 	Das bedeutet $f$ fließt ohne Überholungen.
 	
 	Angenommen, $f$ fließe ohne Überholungen.
-	Dann gilt $\sum_{e\in E} b_{\newv_e}^\theta = 0$ unter Verwendung von Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$.
-	Da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ und damit $b_{\newv_e}^\theta\leq 0$ für alle $e\in E$.
-	Also sind bereits alle $b_{\newv_e}^\theta = 0$, was die Behauptung zeigt.
+	Dann gilt $\sum_{e\in E} b_{\newv_e} = 0$ unter Verwendung von Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$.
+	Da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
+	Also sind bereits alle $b_{\newv_e} = 0$, was die Behauptung zeigt.
 \end{proof}
