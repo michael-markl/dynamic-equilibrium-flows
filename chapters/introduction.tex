@@ -139,7 +139,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für alle Kanten $uv\in E$ und für fast-alle Zeitpunkte $\theta\in\R$ Zeitpunkt gilt: $$ uv \text{ nicht aktiv zum Zeitpunkt } \theta \implies f_{uv}^+(\l_u(\theta)) = 0.$$
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-only-active-edges}
 	Für einen zulässigen Fluss $f$ sind folgende Aussagen äquivalent:
 	\begin{enumerate}[(i)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
@@ -216,7 +216,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \todo{blabla}
 
 \newcommand{\newv}{\mathbf{v}}
-\begin{lemma}
+\begin{lemma}\label{lemma-b-graph}
 	Seien ein zulässiger Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
 	Der statische Fluss $g$ auf $H$ sei definiert durch
@@ -226,7 +226,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	
 	\begin{enumerate}[(i)]
 		\item  $g$ ist ein statischer $b$-Fluss.
-		\item $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
+		\item\label{lemma-b-graph-imp} $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
@@ -248,4 +248,24 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	Angenommen, es gelte $b_s(\theta) + b_t(\theta) = 0$.
 	Dann ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}   und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
 	Also sind bereits alle $b_{\newv_e} = 0$, was die Behauptung zeigt.
+\end{proof}
+
+
+\begin{theorem}
+	Für einen zulässigen Fluss über Zeit $f$ sind die folgenden Aussagen äquivalent:
+	\begin{enumerate}[(i)]
+		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
+		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
+		\item Der Fluss $f$ fließt ohne Überholungen.
+		\item \todo{Der Fluss über Zeit ist ein Nash-Fluss über Zeit}
+	\end{enumerate}
+	\todo{Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.}
+\end{theorem}
+\begin{proof}
+	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}):
+	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(\l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
+	Nach Lemma~\ref{lemma-only-active-edges} gilt also die gewünschte Äquivalenz.
+	
+	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
+	Lemma~\ref{lemma-b-graph}~(\ref{lemma-b-graph-imp}) liefert die gewünschte Biimplikation.
 \end{proof}
