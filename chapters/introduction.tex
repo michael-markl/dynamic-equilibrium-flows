@@ -50,7 +50,7 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	\begin{enumerate}[(I)]
 		\item keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
 		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
-		\item Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
+		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
 		\item\label{queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 		\todo{
 		 $F_e^+(\theta) = F_e^-(\theta + \tau_e + q_e(\theta))$ für alle $e\in E, \theta\in\R$, ist das das gleiche (f.ü.)?}
@@ -178,10 +178,65 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \end{proof}
 
 
-blablabla Definition FIFO bla
+\todo{blablabla Definition FIFO bla}
 
 \begin{definition}
 	Für eine Kante $uv\in E$ bezeichne $x_{uv}^+(\theta):= F_{uv}^+(l_u(\theta))$ die Flussmenge, die die Kante $uv$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $u$ erreichen können.
 	
 	Mit $x_{uv}^-(\theta):= F^-_{uv}(l_v(\theta))$ bezeichne man die Flussmenge, die die Kante $uv$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
+	
+	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
 \end{definition}
+
+
+Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) gilt $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
+
+\begin{lemma}\label{lemma-balance-0}
+	Für einen zulässigen Fluss über Zeit $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
+\end{lemma}
+\begin{proof}
+	Unter Benutzung der Voraussetzung~(\ref{def-feasible-flow-no-flow-at-node}) folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
+	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) dt = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) dt = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
+\end{proof}
+
+\begin{definition}
+	Man sage, ein Fluss über Zeit $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
+\end{definition}
+
+\todo{blabla definition blabla}
+
+\begin{definition}
+	Seien ein statischer Fluss, das heißt eine Kantenbewertung $f \in \R^E$, in einem Graphen $G=(V,E)$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ sowie ein Kapazitätsvektor $u\in\R_+^E$ gegeben.
+	Der Fluss $f$ heißt \emph{zulässiger $b$-Fluss}, falls er keine Kapazität überschreitet, d.h. $\forall e\in E: f_e \leq u_e$, und Flusserhaltung bzgl. $b$ gewährt, d.h. $\forall v\in V: \sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$.
+\end{definition}
+
+\todo{blabla}
+
+\newcommand{\newv}{\mathbf{v}}
+\begin{lemma}
+	Sei ein zulässiger Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ gegeben.
+	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
+	Für $\theta\in\R$ sei der statische Fluss $g^\theta$ auf $H$ definiert durch
+	$$g^\theta_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g^\theta_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
+	und der Balancevektor $b^\theta$ auf $H$ sei gegeben durch $b^\theta_v:= b_v(\theta)$ für $v\in V$ und $b^\theta_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
+	Dann sind die folgenden beiden Aussagen äquivalent:
+	
+	\begin{enumerate}[(i)]
+		\item Für alle Kanten $e\in E$ von G und zu jedem Zeitpunkt $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
+		\item Für alle $\theta\in\R$ ist $g^\theta$ ein statischer $b^\theta$-Fluss.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	$(i)\Rightarrow(ii)$: Sei $\theta\in\R$ gegeben.
+		Nach Voraussetzung ist $b^\theta_{\newv_e} = 0$ für alle $e\in E$ und eine Kante $uv$ hat in $\sum_{v\in V} b_v^\theta$ nur bei den Summanden $b_u^\theta$ und $b_v^\theta$ einen Beitrag, die sich beide gegenseitig aufheben, und man erhält
+		$\sum_{v\in V}b^\theta_v + \sum_{e\in E} b^\theta_{\newv_e} = 0.$
+		
+		Es bleibt zu zeigen, dass $g^\theta$ bezüglich $b^\theta$ Flusserhaltung gewährt.
+		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g^\theta_{\newv_{uv}v} - g^\theta_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b^\theta_{\newv_e}$
+		Für $v\in V$ gilt nach Konstruktion $$b_v^\theta = b_v(\theta)=
+		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
+	\sum_{e\in\delta_H^+(v)} g_e^\theta - \sum_{e\in\delta^-_H(v)}g_e^\theta
+		.$$
+		
+		\todo{Jetzt hab ich noch nicht 'zulässig' gebraucht}
+\end{proof}
