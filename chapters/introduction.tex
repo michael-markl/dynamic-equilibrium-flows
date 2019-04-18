@@ -189,7 +189,10 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \end{definition}
 
 
-Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) gilt $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
+\begin{remark}\label{remark-x^-leqx^+}
+	In einem zulässigen Fluss ist $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
+	 nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) und mit der Monotonie von $F_{uv}^+$.
+\end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
 	Für einen zulässigen Fluss über Zeit $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
@@ -236,12 +239,13 @@ Man bemerke, dass in einem zulässigen Fluss nach Proposition~\ref{prop-feasible
 	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
 		.$$
 	
-	$(ii)$: Sei $\theta\in\R$ gegeben und es gelte $x_e^+(\theta) = x_e^-(\theta) $ für alle $\theta\in\R$.
-	Dann sind auch alle $b_{\newv_e} = 0$ und nach Lemma~\ref{lemma-balance-0} gilt $b_s(\theta) + b_t(\theta) = 0$, da $g$ statischer $b$-Fluss ist.
-	Das bedeutet $f$ fließt ohne Überholungen.
+	$(ii)$: Tatsächlich benötigt man aus $(i)$ nur die Eigenschaft, dass die Summe über die Einträge des Balancevektors verschwindet.
+	Mit Lemma~\ref{lemma-balance-0} gilt wegen der Zulässigkeit von $f$ sogar $b_s(\theta)+b_t(\theta) + \sum_{e\in E} b_{\newv_e} = 0$.
 	
-	Angenommen, $f$ fließe ohne Überholungen.
-	Dann gilt $\sum_{e\in E} b_{\newv_e} = 0$ unter Verwendung von Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$.
-	Da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
+	Angenommen, es gelte $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$.
+	Dann sind auch alle $b_{\newv_e} = 0$ und es gilt $b_s(\theta) + b_t(\theta) = 0$.
+	
+	Angenommen, es gelte $b_s(\theta) + b_t(\theta) = 0$.
+	Dann ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}   und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
 	Also sind bereits alle $b_{\newv_e} = 0$, was die Behauptung zeigt.
 \end{proof}
