@@ -57,6 +57,8 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	\end{enumerate}
 \end{definition}
 
+\todo{$\theta < 0 \implies f(\theta) = 0$}
+
 \todo{source and sink nodes: Kein Fluss verschwindet bei Quelle, kein Fluss kommt hinzu bei Sinke}
 
 \todo{FIFO Interpretation}
@@ -66,7 +68,7 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 	\begin{enumerate}[(i)]
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
 		\item\label{prop-feasible-flow-det-outflow} Für alle $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(\theta+\tau_e+q_e(\theta))$.\todo{use $T_e(\theta)$ here}
-		\item Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + z_e(\theta_2)$.
+		\item\label{prop-feasible-flow-queue-delay} Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -102,6 +104,8 @@ Insbesondere ist also die Kantenaustrittszeit $T_e$ monoton wachsend und stetig.
 	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zum Zeitpunkt $\theta$},  falls $l_w(\theta)=l^P(\theta)$.
 \end{definition}
 
+\todo{$l_v$ wohldefiniert, d.h. minimum existiert, da Pfade mit Kreisen nie das Minimum sind $\implies$ endlich viele}
+
 Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ als Minimum von Kompositionen stetiger und monoton wachsender Funktionen $T_e$ (Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-T-mon-inc-cont})) ebenfalls stetig und monoton wachsend.
 
 
@@ -116,7 +120,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \end{proof}
 
 \begin{definition}
-	Man bezeichne eine Kante $uv\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$, d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt.
+	Man bezeichne eine Kante $uv\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{uv}(l_u(\theta)) = l_v(\theta)$ \todo{, d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
 \end{definition}
 
 \begin{lemma}
@@ -251,7 +255,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \end{proof}
 
 
-\begin{theorem}
+\begin{theorem}\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen Fluss über Zeit $f$ sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[(i)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
@@ -268,4 +272,31 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	
 	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
 	Lemma~\ref{lemma-b-graph}~(\ref{lemma-b-graph-imp}) liefert die gewünschte Biimplikation.
+\end{proof}
+
+\section{A special class of static flows}
+
+\begin{lemma}\label{lemma-no-inflow-until-l}
+	Sei $f$ ein zulässiger Fluss über Zeit.
+	Dann gilt $F_{vw}^+(l_v(0)) = 0$ für jede Kante $vw\in E$.
+\end{lemma}
+\begin{proof}
+	Für alle $\theta\in [0, l_v(0)]$ gilt nach Bedingung~(\ref{def-feasible-flow-no-flow-at-node}), dass $f_{vw}^+(\theta) \leq \sum_{e\in\delta^-(v)} f_e^-(\theta)$.
+	Also ist $F_{vw}^+(l_v(0)) \leq \sum_{uv\in\delta^-(v)} F_{uv}^-(l_v(0))\leq \sum_{uv\in\delta^-(v)} F_{uv}^+(l_u(0))$ nach Bemerkung~\ref{remark-x^-leqx^+}.
+	\todo{TODO this doesn't work yet}
+\end{proof}
+
+\begin{lemma}
+	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben, sodass $q_{uv}(l_v(\theta)) > 0$.
+	Dann ist die Kante $e$ aktiv zum Zeitpunkt $\theta$.
+\end{lemma}
+\begin{proof}
+	Es ist zu zeigen, dass $T_{uv}(l_u(\theta)) \leq l_v(\theta)$.
+	Da $q_{uv}(l_u(\theta)) > 0$, ist auch $F^+_{uv}(l_u(\theta)) > 0$.
+	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{uv}(l_u(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{uv}^+\circ l_u$ existiert
+	ein frühester Zeitpunkt $\theta_1\in (0, \theta]$ mit $F_{uv}^+(l_u(\theta_1)) = F_{uv}^+(l_u(\theta))$.
+	Für ein beliebiges $\varepsilon>0$ ist also $F_{uv}^+(l_u(\theta_1-\varepsilon)) < F_{uv}(l_u(\theta_1))$ und es gibt eine Teilmenge $Q_\varepsilon \subseteq [\theta_1 - \varepsilon, \theta_1]$ mit Maß größer 0 und $f_{uv}^+\circ l_u\big|_{Q_\varepsilon} > 0$.
+	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten, d.h. für fast-alle $\theta_\varepsilon\in Q_\varepsilon$ ist $T_{uv}(l_u(\theta_\varepsilon))=l_v(\theta_\varepsilon)$.
+	Für $\varepsilon\rightarrow0$ gilt wegen der Stetigkeit $T_{uv}(l_u(\theta_1))=l_v(\theta_1)$.
+	Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-queue-delay}) ist $T_{uv}(l_u(\theta_1)) = T_{uv}(l_u(\theta))$ und mit der Monotonie von $l_u$ folgt $T_{uv}(l_u(\theta))\leq l_v(\theta)$.
 \end{proof}
