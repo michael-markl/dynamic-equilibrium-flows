@@ -295,7 +295,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \end{proof}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
-	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben, sodass $q_{uv}(l_v(\theta)) > 0$.
+	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben, sodass $q_{uv}(l_u(\theta)) > 0$.
 	Dann ist die Kante $e$ aktiv zum Zeitpunkt $\theta$.
 \end{lemma}
 \begin{proof}
@@ -357,6 +357,17 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{uv}(l_u(\theta'))>l_v(\theta')$.
+		
+		Die Kante ${uv}$ ist also im Intervall $(\theta, \theta + \varepsilon]$ nicht aktiv.
+		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{uv} \circ l_u\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{uv}(l_u(\theta))=0$, was $uv\notin E_1$ impliziert.
+		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{uv}^+ \circ l_u \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta)=0$.
+		Wird durch $\varepsilon$ geteilt, so erhält man $\frac{dx_{uv}}{d\theta}(\theta) = 0$ für $\varepsilon\rightarrow0$.
+		Es muss also nur Bedingung (2) geprüft werden:
+		
+		
+		Da $uv$ zum Zeitpunkt $l_u(\theta)$ noch aktiv ist, folgt $l_v(\theta + \varepsilon) - l_v(\theta) < l_u(\theta+\varepsilon) - l_v(\theta) + \tau_{uv} = l_u(\theta + \varepsilon) - l_u(\theta)$.
+		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $\frac{dl_v}{d\theta}(\theta)\leq\frac{dl_u}{d\theta}(\theta)$.
+		
 	\end{description}
 	
 \end{proof}
