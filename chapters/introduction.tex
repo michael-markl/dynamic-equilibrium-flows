@@ -334,7 +334,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	Dabei ist $\frac{dl_s}{d\theta}(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
 	Der Wert von $g$ ist $\frac{d}{d\theta}\sum_{e\in\delta^+(s)}x_e(\theta) = \frac{d}{d\theta} d\cdot\theta = d$. \todo{Geht auch mit variablen Einfluss}.
 	
-	Sei nun eine Kante $uv\in E_\theta$ gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
+	Sei nun eine Kante $uv\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
 	
 	\begin{description}
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{uv}(l_u(\theta')) > 0$.
@@ -343,7 +343,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Also ist $q_{uv}$ positiv auf dem Intervall $( l_u(\theta) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon) )
 		\subseteq ( l_u(\theta) + q_{uv}(l_u(\theta)) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta) + \varepsilon ) )$.
 		
-		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} für $\theta'\in (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = \l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
+		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = \l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
 		Mit Bedingung~(\ref{def-feasible-flow-queue-with-capacity}) folgere man $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta) = F_{uv}^-(l_v(\theta + \varepsilon)) - F_{uv}^-(l_v(\theta))
 		= \int_{l_v(\theta)}^{l_v(\theta + \varepsilon)} f_{uv}^-(t) dt
 		= \int_{l_u(\theta) + q_{uv}(\theta)}^{l_u(\theta + \varepsilon) + q_{uv}(\theta + \varepsilon)} f_{uv}^-(t + \tau_{uv}) dt
@@ -351,9 +351,12 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{uv} = \frac{dx_{uv}}{d\theta}(\theta) = u_{uv} \frac{dl_v}{d\theta}(\theta)$.
 		Ist $uv\in E_1$, so ist also Bedingung (4) erfüllt.
 
-		\todo{Bedingung (2) wie?}
+		Ist $uv\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_u(\theta)$ leer, so gilt: $l_v(\theta+\varepsilon) - l_v(\theta) = l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon)) - l_u(\theta) \geq l_u(\theta + \varepsilon) - l_u(\theta)$.
+		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $\frac{dl_v}{d\theta}(\theta) \leq \frac{dl_u}{d\theta}(\theta)$ und dem Resultat des letzten Absatzes.
+		\todo{FRAGEN: Es ist sogar $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}$, da $\frac{dq_{uv}\circ l_u}{d\theta}(\theta) = 0$. Damit gilt auch Bedingung (2). Aber $q_{uv}\circ l_u$ ist nicht unbedingt f.ü. diff'bar. Oder doch?}
 		
-		Für die Bedingungen (3) zeige man $\frac{dl_u}{d\theta}(\theta)\leq \frac{dl_v}{d\theta}(\theta)$ für den Fall $g_{uv}=0$:
+		
+		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{uv}(l_u(\theta'))>l_v(\theta')$.
 	\end{description}
 	
 \end{proof}
