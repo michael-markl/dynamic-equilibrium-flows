@@ -48,7 +48,7 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 \begin{definition}[Zulässiger Fluss über Zeit]
 	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
 	\begin{enumerate}[(I)]
-		\item keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
+		\item\label{def-feasible-flow-capacity} keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
 		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
 		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
 		\item\label{def-feasible-flow-queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
@@ -323,7 +323,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 
 \begin{theorem}
 	Seien ein Nash-Fluss über Zeit $f$ auf einem Graphen $G=(V,E)$ gegeben sowie ein Zeitpunkt $\theta$ gegeben.
-	Der zum Fluss $f$ und dem Zeitpunkt $\theta$ zugeordnete statische Fluss sei $x(\theta)$ mit $x_{uv}(\theta) := F^+_{uv}(l_u(\theta)) = F^-_{uv}(l_v(\theta))$.\todo{(muss vlt noch gezeigt werden)}
+	Der zum Fluss $f$ und dem Zeitpunkt $\theta$ zugeordnete statische Fluss sei $x(\theta)$ mit $x_{uv}(\theta) := x^+_{uv}(\theta) = x^-_{uv}(\theta)$.\todo{(muss vlt noch gezeigt werden)}
 	Man betrachte den Teilgraph $G_\theta = (V, E_\theta)$, der nur zum Zeitpunkt $\theta$ aktive Kanten enthält, d.h. $E_\theta := \{ uv\in E \mid T_{uv}(l_u(\theta)) = l_v(\theta) \}$.
 	
 	Existieren die Ableitungen $\frac{dx_e}{d\theta}(\theta)$ und $\frac{dl_v}{d\theta}(\theta)$ für alle $e\in E$ und $v\in V$, so ist der statische Fluss $g\in\R^{E_\theta}$ mit $g_e:=\frac{dx_e}{d\theta}(\theta)$ ein schmaler $d$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{uv\in E \mid q_{uv}(l_u(\theta))>0 \}$ im Graphen $G_\theta$.
@@ -368,6 +368,18 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Da $uv$ zum Zeitpunkt $l_u(\theta)$ noch aktiv ist, folgt $l_v(\theta + \varepsilon) - l_v(\theta) < l_u(\theta+\varepsilon) - l_v(\theta) + \tau_{uv} = l_u(\theta + \varepsilon) - l_u(\theta)$.
 		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $\frac{dl_v}{d\theta}(\theta)\leq\frac{dl_u}{d\theta}(\theta)$.
 		
-	\end{description}
-	
+		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{uv}(l_u(\theta_\varepsilon)) = l_v(\theta_\varepsilon)$.
+		
+		Dies ist die exakte Umkehrung der Bedingung von Fall 2.
+		Zusätzlich betrachte man diesen Fall nur, falls Fall 1 nicht eintritt.
+		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{uv}(l_u(\theta')) = 0$; insbesondere ist $q_{uv}(l_u(\theta))= 0$, wodurch $uv$ nicht in $E_1$ enthalten ist.
+		Man wähle $\theta'_\varepsilon:=\max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{uv}(l_u(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte $\theta'$, welches aufgrund der Stetigkeit von $q_{uv}\circ l_u$ existiert.
+		Nach Konstruktion ist $q_{uv}\circ l_u$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $uv$ in diesem Intervall aktiv.
+		Ist dieses Intervall nicht-leer, so ist $uv$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{uv}\circ l_u$ und $l_v$ aktiv. Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $uv$ aktiv ist. Also gilt: $l_v(\theta_\varepsilon') - l_v(\theta) = l_u(\theta_\varepsilon') - l_u(\theta)$.
+		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}(\theta)$ für $\varepsilon\rightarrow0$ erhält.
+		
+		Für Bedingung~(3) bleibt zu zeigen, dass $\frac{dx_{uv}}{d\theta}(\theta) /u_{uv}\leq \frac{dl_v}{d\theta}(\theta)$ gilt.
+		Wegen Bedingung~(\ref{def-feasible-flow-capacity}) ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon > 0$.
+		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon \rightarrow 0$.
+	\end{description}	
 \end{proof}
