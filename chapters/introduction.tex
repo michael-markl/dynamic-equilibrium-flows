@@ -229,7 +229,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 
 \newcommand{\newv}{\mathbf{v}}
 \begin{lemma}\label{lemma-b-graph}
-	Seien ein zulässiger Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
+	Seien ein Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
 	Der statische Fluss $g$ auf $H$ sei definiert durch
 	$$g_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
@@ -237,8 +237,8 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	Dann gelten die folgenden Aussagen:
 	
 	\begin{enumerate}[(i)]
-		\item  $g$ ist ein statischer $b$-Fluss.
-		\item\label{lemma-b-graph-imp} $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
+		\item Der Fluss $g$ ist ein statischer $b$-Fluss und heißt der von $f$ induzierte statische $b$-Fluss zur Zeit $\theta$.
+		\item\label{lemma-b-graph-imp} Ist $f$ zulässig, so gilt $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
