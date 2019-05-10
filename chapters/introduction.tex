@@ -285,7 +285,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \section{A special class of static flows}
 
 \begin{lemma}\label{lemma-no-inflow-until-l}
-	Sei $f$ ein zulässiger Fluss über Zeit.
+	Sei $f$ ein Nash-Fluss über Zeit.
 	Dann gilt $F_{vw}^+(l_v(0)) = 0$ für jede Kante $vw\in E$.
 \end{lemma}
 \begin{proof}
@@ -383,3 +383,26 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon \rightarrow 0$.
 	\end{description}	
 \end{proof}
+
+\begin{definition}
+	Ein \emph{Fluss über Zeit $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Einfluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
+\end{definition}
+
+\begin{definition}
+	Seien ein Nash-Fluss über Zeit $f$ mit Zeithorizont $T$ sowie dessen induzierter schmaler Fluss mit Zurücksetzen im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
+	
+	\todo{Brauche vermutlich sowas wie $f_vw^+(\geq l_v(\theta))=0$}
+	
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ und $\theta\in [l_v(T), l_v(T)+(\theta-T)l_v']$ den Ein- bzw Ausfluss setze auf
+	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{, falls $x_{vw}'>0$.}$$
+\end{definition}
+
+\begin{lemma}
+	Jede $\alpha$-Erweiterung $\tilde{f}$ eines Nash-Flusses über Zeit $f$ mit Zeithorizont $T$ ist ein zulässiger Fluss über Zeit mit Zeithorizont $T+\alpha$, falls für alle Kanten $vw\in E_1$ gilt:
+	$$\tilde{l}_w(T) - \tilde{l}_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
+	Die zugehörigen früheste Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
+	$$\tilde{l}_v(\theta) = \begin{cases}
+	l_v(\theta) & \text{ für $\theta < T$} \\
+	l_v(T) + (\theta - T) l_v' & \text{ für $\theta \in [T, T+\alpha]$}
+	\end{cases}$$
+\end{lemma}
