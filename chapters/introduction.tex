@@ -48,7 +48,7 @@ Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-
 \begin{definition}[Zulässiger Fluss über Zeit]
 	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
 	\begin{enumerate}[(I)]
-		\item\label{def-feasible-flow-capacity} keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-\leq u_e$, und
+		\item\label{def-feasible-flow-capacity} keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
 		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
 		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
 		\item\label{def-feasible-flow-queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
@@ -147,7 +147,7 @@ Warum kann man das? Zykeln?
 Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 
 \begin{definition}
-	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für alle Kanten $uv\in E$ und für fast-alle Zeitpunkte $\theta\in\R$ Zeitpunkt gilt: $$ uv \text{ nicht aktiv zum Zeitpunkt } \theta \implies f_{uv}^+(\l_u(\theta)) = 0.$$
+	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für alle Kanten $uv\in E$ und für fast-alle Zeitpunkte $\theta\in\R$ Zeitpunkt gilt: $$ uv \text{ nicht aktiv zum Zeitpunkt } \theta \implies f_{uv}^+(l_u(\theta)) = 0.$$
 \end{definition}
 
 \begin{lemma}\label{lemma-only-active-edges}
@@ -161,15 +161,17 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	$(i)\Rightarrow (ii)$: Seien $uv\in E$ und $\theta\in\R$ gegeben.
 	Die Beziehung $F_{uv}^-(T_{uv}(l_u(\theta))) \geq F_{uv}^-(l_v(\theta))$ gilt bereits wegen der Monotonie von $F_{uv}^-$ und Lemma~\ref{lemma-dreicksungl}.
 	Ist $uv$ aktiv zum Zeitpunkt $\theta$, so ist $T_{uv}(l_u(\theta))=l_v(\theta)$ und die Aussage gilt offensichtlich.
-	Sonst ist $l_v(\theta) < T_{uv}(l_u(\theta))$. \todo{nur für fast alle theta}
-	Sei $\tilde{\theta}:=\sup\{ \tilde{\theta}\in\R \mid l_v(\theta) \geq T_{uv}(l_u(\tilde{\theta})) \}$ der späteste Startzeitpunkt, sodass man spätestens zum Zeitpunkt $l_v(\theta)$ von $s$ über $uv$ zu $v$ gelangt.
-	Man beachte, dass $\tilde{\theta}=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
-	Es ist $\tilde{\theta} \leq \theta$, da $T_{uv}\circ l_u$ monoton wachsend ist und für $\tilde{\theta} > \theta$ wäre $T_{uv}(l_u(\tilde{\theta})) > l_v(\theta)$.
-	Wegen der Monotonie von $l_v$ und nach Definition von $\tilde{\theta}$ gilt $l_v(\theta')\leq l_v(\theta)< T_{uv}(l_u(\theta'))$ für $\theta'\in (\tilde{\theta}, \theta]$; insbesondere ist die Kante $uv$ in $\theta'$ nicht aktiv und nach Voraussetzung gilt $f_{uv}^+(l_u(\theta')) = 0$ für $\theta'\in (\tilde{\theta}, \theta]$. \todo{fast alle?}
-	Also ist $F_{uv}^+(l_u(\theta)) = F_{uv}^+(l_u(\tilde{\theta}))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{uv}^-(T_{uv}(l_u(\theta))) = F_{uv}^-(T_{uv}(l_u(\tilde{\theta}))\leq F_{uv}^-(l_v(\theta))$ wegen Montonie von $F_{uv}^-$ und der Definition von $\tilde{\theta}$.
+	
+	Sonst ist $l_v(\theta) < T_{uv}(l_u(\theta))$.
+	Sei $\omega:=\sup\{ \omega\in\R \mid l_v(\theta) \geq T_{uv}(l_u(\omega)) \}$ der späteste Startzeitpunkt in $s$, sodass man unter Benutzung von $uv$ spätestens zum Zeitpunkt $l_v(\theta)$ zu $v$ gelangt.
+	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
+	Es ist $\omega \leq \theta$, da $T_{uv}\circ l_u$ monoton wachsend ist und für $\omega > \theta$ wäre $T_{uv}(l_u(\omega)) > l_v(\theta)$.
+	Wegen der Monotonie von $l_v$ und nach Definition von $\omega$ gilt $l_v(\theta')\leq l_v(\theta)< T_{uv}(l_u(\theta'))$ für $\theta'\in (\omega, \theta]$;
+	insbesondere ist die Kante $uv$ im Intervall $(\omega, \theta]$ nicht aktiv und nach Voraussetzung gilt $f_{uv}^+(l_u(\theta')) = 0$ für fast alle $\theta'\in (\omega, \theta]$.
+	Daher gilt $F_{uv}^+(l_u(\theta)) = F_{uv}^+(l_u(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{uv}^-(T_{uv}(l_u(\theta))) = F_{uv}^-(T_{uv}(l_u(\omega))\leq F_{uv}^-(l_v(\theta))$ wegen Monotonie von $F_{uv}^-$ und der Definition von $\omega$.
 	
 	$(ii) \Rightarrow (i)$: Sei eine Kante $uv\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
-	Es gilt also $l_v(\theta) < T_{uv}(l_u(\theta))$ und wegen der Stetigkeit von $l_v$ und von $T_{uv}\circ l_u$ existiert ein $\varepsilon\in\R_+$ sodass $l_v(\theta + \varepsilon) < T_{uv}(l_u(\theta - \varepsilon))$ gilt.
+	Es gilt also $l_v(\theta) < T_{uv}(l_u(\theta))$ und wegen der Stetigkeit von $l_v$ und von $T_{uv}\circ l_u$ existiert ein $\varepsilon\in\R_+$, sodass $l_v(\theta + \varepsilon) < T_{uv}(l_u(\theta - \varepsilon))$ gilt.
 	Dann ist 
 	$$
 	0
@@ -274,7 +276,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 \end{theorem}
 \begin{proof}
 	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}):
-	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(\l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
+	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
 	Nach Lemma~\ref{lemma-only-active-edges} gilt also die gewünschte Äquivalenz.
 	
 	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
@@ -342,7 +344,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Also ist $q_{uv}$ positiv auf dem Intervall $( l_u(\theta) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon) )
 		\subseteq ( l_u(\theta) + q_{uv}(l_u(\theta)) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta) + \varepsilon ) )$.
 		
-		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = \l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
+		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
 		Mit Bedingung~(\ref{def-feasible-flow-queue-with-capacity}) folgere man $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta) = F_{uv}^-(l_v(\theta + \varepsilon)) - F_{uv}^-(l_v(\theta))
 		= \int_{l_v(\theta)}^{l_v(\theta + \varepsilon)} f_{uv}^-(t) dt
 		= \int_{l_u(\theta) + q_{uv}(\theta)}^{l_u(\theta + \varepsilon) + q_{uv}(\theta + \varepsilon)} f_{uv}^-(t + \tau_{uv}) dt
@@ -374,13 +376,15 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{uv}(l_u(\theta')) = 0$; insbesondere ist $q_{uv}(l_u(\theta))= 0$, wodurch $uv$ nicht in $E_1$ enthalten ist.
 		Man wähle $\theta'_\varepsilon:=\max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{uv}(l_u(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte $\theta'$, welches aufgrund der Stetigkeit von $q_{uv}\circ l_u$ existiert.
 		Nach Konstruktion ist $q_{uv}\circ l_u$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $uv$ in diesem Intervall aktiv.
-		Ist dieses Intervall nicht-leer, so ist $uv$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{uv}\circ l_u$ und $l_v$ aktiv. Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $uv$ aktiv ist. Also gilt: $l_v(\theta_\varepsilon') - l_v(\theta) = l_u(\theta_\varepsilon') - l_u(\theta)$.
+		Ist dieses Intervall nicht-leer, so ist $uv$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{uv}\circ l_u$ und $l_v$ aktiv.
+		Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $uv$ aktiv ist.
+		Also gilt: $l_v(\theta_\varepsilon') - l_v(\theta) = l_u(\theta_\varepsilon') - l_u(\theta)$.
 		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
 		Für Bedingung~(3) bleibt zu zeigen, dass $\frac{dx_{uv}}{d\theta}(\theta) /u_{uv}\leq \frac{dl_v}{d\theta}(\theta)$ gilt.
 		Wegen Bedingung~(\ref{def-feasible-flow-capacity}) ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon > 0$.
 		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon \rightarrow 0$.
-	\end{description}	
+	\end{description}
 \end{proof}
 
 \begin{definition}
@@ -392,22 +396,26 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ und $\theta\in [l_v(T), l_v(T)+\alpha l_v']$ den Ein- bzw Ausfluss setze auf
-	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{, falls $x_{vw}'>0$.}$$
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Ein- bzw Ausfluss setze auf
+	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
 \begin{lemma}
 	Jede $\alpha$-Erweiterung $\tilde{f}$ eines Nash-Flusses über Zeit $f$ mit Zeithorizont $T$ ist ein zulässiger Fluss über Zeit mit Zeithorizont $T+\alpha$, falls für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ gilt:
-	$$\tilde{l}_w(T) - \tilde{l}_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
-	Die zugehörigen früheste Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
-	$$\tilde{l}_v(\theta) = \begin{cases}
-	l_v(\theta) & \text{ für $\theta < T$} \\
-	l_v(T) + (\theta - T) l_v' & \text{ für $\theta \in [T, T+\alpha]$}
-	\end{cases}$$
-	Zusätzliche Voraussetzung $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \leq t_{vw}$, falls $vw$ nicht aktiv zum Zeitpunkt $T$.
+	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
+	Dann gelten die folgenden Aussagen:
+	\begin{enumerate}[(i)]
+		\item Gilt $x_{vw}'(T) > 0$ für eine Kante $vw\in E$, so ist $l_w(T) + (\theta - T)l_v' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
+		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
+		\item Die zu $\tilde{f}$ gehörigen frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
+		$$\tilde{l}_v(\theta) = \begin{cases}
+		l_v(\theta) & \text{ für $\theta < T$} \\
+		l_v(T) + (\theta - T) l_v' & \text{ für $\theta \in [T, T+\alpha]$}
+		\end{cases}$$
+		\item Der Fluss $\tilde{f}$ ist Nash-Fluss über Zeit.
+	\end{enumerate}
+	\todo{ Zusätzliche Voraussetzung $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \leq t_{vw}$, falls $vw$ nicht aktiv zum Zeitpunkt $T$. }
 \end{lemma}
 \begin{proof}
-	\todo{Zeige die Ankunftszeiten}
 	
-	Damit gilt nun mit der Voraussetzung, dass $\tilde{l}_w(T) - \tilde{l}_v(T) + \alpha(l'_w - l'_v) = l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$.
 \end{proof}
