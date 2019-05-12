@@ -157,12 +157,20 @@ Warum kann man das? Zykeln?
 \todo{$l_v$ ist absolut stetig}
 
 \begin{remark}
-	Diese Definition weicht ab von Koch und Skutella und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
+	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls für alle Kanten $vw$ und fast alle $\theta\in\Theta^c_{vw}$ die Bedingung $f_{vw}^+(l_v(\theta))=0$ gilt.
+	
 	Dies ist eine stärkere Forderung an $f$:
 	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, wodurch $l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}$ also eine Nullmenge ist.
-	Daher wird die Bedingung in Definition~\ref{def-flow-along-active-edges} bereits impliziert.
-	In~\cite[Example 2]{Cominetti2015} wird außerdem ein Beispielfluss angegeben, der zeigt, dass die Forderung sogar echt stärker ist.
+	Daher impliziert dies bereits die Bedingung in Definition~\ref{def-flow-along-active-edges}.
+	
+	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
+	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
+	Dies reicht aber nicht aus, um zu zeigen, dass $f_{vw}^+(l_v(\theta))=0$ für fast alle $\theta\in\Theta_{vw}^c$ gilt:
+	So kann $f_{vw}^+(l_v(\theta))$ für ein $\theta\in\Theta_{vw}^c$ positiv sein und $l_v$ konstant in einer Umgebung um $\theta$.
+	Dann ist $f_{vw}^+ \circ l_v$ in einer Umgebung um $\theta$ positiv, was im Widerspruch zur Forderung ist.
+	
+	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um ein Beispielfluss anzugeben, der zeigt, dass die Forderung sogar echt stärker ist.
 \end{remark}
 
 \begin{lemma}\label{lemma-only-active-edges}
@@ -174,7 +182,11 @@ Warum kann man das? Zykeln?
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
-	$(i)\Rightarrow (ii)$: Seien $uv\in E$ und $\theta\in\R$ gegeben.
+	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+(\xi)$ für fast alle $\xi\in l_v(\Theta_{vw})^c$ verschwindet.
+	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ sich nur um eine Nullmenge voneinander unterscheiden.
+	Es ist $l_v(\Theta_{vw}^c)\subseteq l_v(\Theta_{vw})^c$
+	
+	$(ii)\Rightarrow (iii)$: Seien $uv\in E$ und $\theta\in\R$ gegeben.
 	Die Beziehung $F_{uv}^-(T_{uv}(l_u(\theta))) \geq F_{uv}^-(l_v(\theta))$ gilt bereits wegen der Monotonie von $F_{uv}^-$ und Lemma~\ref{lemma-dreicksungl}.
 	Ist $uv$ aktiv zum Zeitpunkt $\theta$, so ist $T_{uv}(l_u(\theta))=l_v(\theta)$ und die Aussage gilt offensichtlich.
 	
@@ -191,14 +203,10 @@ Warum kann man das? Zykeln?
 	Dann ist 
 	$$
 	0
-	\leq
-	\int_{l_u(\theta-\varepsilon)}^{l_u(\theta + \varepsilon)}f_{uv}^+(t) dt
-	=
-	\int_{T_{uv}(l_u(\theta-\varepsilon))}^{T_{uv}(l_u(\theta+\varepsilon))} f_{uv}^-(t) dt
-	\leq
-	\int_{l_v(\theta + \varepsilon)}^{T_{uv}(l_u(\theta + \varepsilon))} f_{uv}^-(t) dt
-	=
-	0,
+	\leq \int_{l_u(\theta-\varepsilon)}^{l_u(\theta + \varepsilon)}f_{uv}^+(t) dt
+	= \int_{T_{uv}(l_u(\theta-\varepsilon))}^{T_{uv}(l_u(\theta+\varepsilon))} f_{uv}^-(t) dt
+	\leq \int_{l_v(\theta + \varepsilon)}^{T_{uv}(l_u(\theta + \varepsilon))} f_{uv}^-(t) dt
+	= 0,
 	$$
 	wobei die letzte Gleichung aus der Voraussetzung $F_{uv}^-(l_v(\theta+\varepsilon)) = F_{uv}^-(T_{uv}(l_u(\theta + \varepsilon)))$ gefolgert wird.
 	\todo{Falsch:} Also ist $f_{uv}^+$ in einer Umgebung um $l_u(\theta)$ fast überall gleich $0$.
