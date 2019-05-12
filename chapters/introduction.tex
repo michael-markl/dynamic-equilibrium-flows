@@ -181,7 +181,7 @@ Warum kann man das? Zykeln?
 	\begin{enumerate}[(i)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
-		\item Für jede Kante $uv\in E$ und für alle $\theta\in\R$ gilt $F_{uv}^-(T_{uv}(l_u(\theta)) = F_{uv}^-(l_v(\theta))$.
+		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^-(T_{vw}(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -190,38 +190,38 @@ Warum kann man das? Zykeln?
 	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität (\todo{ref}) von $l_v$ ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
 	Also ist $\xi\in l_v(\Theta_{vw}^c)$ und es gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
-	Desweiteren ist $l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
+	Des Weiteren ist $l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
 	Für ein $\xi$ aus der linken Menge existieren $\theta\in\Theta_{vw}^c$ und $\theta'\in\Theta_{vw}$ mit $l_v(\theta)=\xi=l_v(\theta')$.
 	Da $\theta\neq\theta'$ ist, existiert ein $\theta_q\in\Q$ zwischen $\theta$ und $\theta'$.
 	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$ und $\xi\in l_v(\Q)$.
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
-	$(ii)\Rightarrow (iii)$: Seien $uv\in E$ und $\theta\in\R$ gegeben.
-	Die Beziehung $F_{uv}^-(T_{uv}(l_u(\theta))) \geq F_{uv}^-(l_v(\theta))$ gilt bereits wegen der Monotonie von $F_{uv}^-$ und Lemma~\ref{lemma-dreicksungl}.
-	Ist $uv$ aktiv zum Zeitpunkt $\theta$, so ist $T_{uv}(l_u(\theta))=l_v(\theta)$ und die Aussage gilt offensichtlich.
+	$(ii)\Rightarrow (iii)$: Seien $vw\in E$ und $\theta\in\R$ gegeben.
+	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl}.
+	Ist $vw$ aktiv zum Zeitpunkt $\theta$, so ist $T_{vw}(l_v(\theta))=l_w(\theta)$ und die Aussage gilt offensichtlich.
 	
-	Sonst ist $l_v(\theta) < T_{uv}(l_u(\theta))$.
-	Sei $\omega:=\sup\{ \omega\in\R \mid l_v(\theta) \geq T_{uv}(l_u(\omega)) \}$ der späteste Startzeitpunkt in $s$, sodass man unter Benutzung von $uv$ spätestens zum Zeitpunkt $l_v(\theta)$ zu $v$ gelangt.
+	Sonst ist $l_w(\theta) < T_{vw}(l_v(\theta))$.
+	Sei $\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}$ der späteste Startzeitpunkt in $s$, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt.
 	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
-	Es ist $\omega \leq \theta$, da $T_{uv}\circ l_u$ monoton wachsend ist und für $\omega > \theta$ wäre $T_{uv}(l_u(\omega)) > l_v(\theta)$.
-	Wegen der Monotonie von $l_v$ und nach Definition von $\omega$ gilt $l_v(\theta')\leq l_v(\theta)< T_{uv}(l_u(\theta'))$ für $\theta'\in (\omega, \theta]$;
-	insbesondere ist die Kante $uv$ im Intervall $(\omega, \theta]$ nicht aktiv und nach Voraussetzung gilt $f_{uv}^+(l_u(\theta')) = 0$ für fast alle $\theta'\in (\omega, \theta]$.
-	Daher gilt $F_{uv}^+(l_u(\theta)) = F_{uv}^+(l_u(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{uv}^-(T_{uv}(l_u(\theta))) = F_{uv}^-(T_{uv}(l_u(\omega))\leq F_{uv}^-(l_v(\theta))$ wegen Monotonie von $F_{uv}^-$ und der Definition von $\omega$.
+	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ wäre $T_{vw}(l_v(\omega)) > l_w(\theta)$.
+	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
+	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach Voraussetzung gilt $f_{vw}^+(l_v(\theta')) = 0$ für fast alle $\theta'\in (\omega, \theta]$.
+	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
 	
-	$(ii) \Rightarrow (i)$: Sei eine Kante $uv\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
-	Es gilt also $l_v(\theta) < T_{uv}(l_u(\theta))$ und wegen der Stetigkeit von $l_v$ und von $T_{uv}\circ l_u$ existiert ein $\varepsilon\in\R_+$, sodass $l_v(\theta + \varepsilon) < T_{uv}(l_u(\theta - \varepsilon))$ gilt.
+	$(ii) \Rightarrow (i)$: Sei eine Kante $vw\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
+	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$ und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
 	Dann ist 
 	$$
 	0
-	\leq \int_{l_u(\theta-\varepsilon)}^{l_u(\theta + \varepsilon)}f_{uv}^+(t) dt
-	= \int_{T_{uv}(l_u(\theta-\varepsilon))}^{T_{uv}(l_u(\theta+\varepsilon))} f_{uv}^-(t) dt
-	\leq \int_{l_v(\theta + \varepsilon)}^{T_{uv}(l_u(\theta + \varepsilon))} f_{uv}^-(t) dt
+	\leq \int_{l_v(\theta-\varepsilon)}^{l_v(\theta + \varepsilon)}f_{vw}^+(t) dt
+	= \int_{T_{vw}(l_v(\theta-\varepsilon))}^{T_{vw}(l_v(\theta+\varepsilon))} f_{vw}^-(t) dt
+	\leq \int_{l_w(\theta + \varepsilon)}^{T_{vw}(l_v(\theta + \varepsilon))} f_{vw}^-(t) dt
 	= 0,
 	$$
-	wobei die letzte Gleichung aus der Voraussetzung $F_{uv}^-(l_v(\theta+\varepsilon)) = F_{uv}^-(T_{uv}(l_u(\theta + \varepsilon)))$ gefolgert wird.
-	\todo{Falsch:} Also ist $f_{uv}^+$ in einer Umgebung um $l_u(\theta)$ fast überall gleich $0$.
+	wobei die letzte Gleichung aus der Voraussetzung $F_{vw}^-(l_w(\theta+\varepsilon)) = F_{vw}^-(T_{vw}(l_v(\theta + \varepsilon)))$ gefolgert wird.
+	\todo{Falsch:} Also ist $f_{vw}^+$ in einer Umgebung um $l_v(\theta)$ fast überall gleich $0$.
 	
-	\todo{Da die Menge aller Zeitpunkte, in denen $uv$ nicht aktiv ist, wegen der Stetigkeit von $l_v$ und $T_{uv}\circ l_u$ eine Vereinigung (abzählbarer) Intervalle ist, genügt es zu zeigen, dass die Bedingung lokal fast immer erfüllt ist.}
+	\todo{Da die Menge aller Zeitpunkte, in denen $vw$ nicht aktiv ist, wegen der Stetigkeit von $l_w$ und $T_{vw}\circ l_v$ eine Vereinigung (abzählbarer) Intervalle ist, genügt es zu zeigen, dass die Bedingung lokal fast immer erfüllt ist.}
 \end{proof}
 
 
