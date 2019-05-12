@@ -201,9 +201,10 @@ Warum kann man das? Zykeln?
 	Ist $vw$ aktiv zum Zeitpunkt $\theta$, so ist $T_{vw}(l_v(\theta))=l_w(\theta)$ und die Aussage gilt offensichtlich.
 	
 	Sonst ist $l_w(\theta) < T_{vw}(l_v(\theta))$.
-	Sei $\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}$ der späteste Startzeitpunkt in $s$, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt.
+	Man bezeichne den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt, als
+	$$\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}.$$ 
 	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
-	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ wäre $T_{vw}(l_v(\omega)) > l_w(\theta)$.
+	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) > l_w(\theta)$ ein Widerspruch.
 	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
 	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach Voraussetzung gilt $f_{vw}^+(l_v(\theta')) = 0$ für fast alle $\theta'\in (\omega, \theta]$.
 	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
