@@ -127,8 +127,14 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \end{proof}
 
 \begin{definition}
-	Man bezeichne eine Kante $uv\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{uv}(l_u(\theta)) = l_v(\theta)$ \todo{, d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
+	Man bezeichne eine Kante $vw\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt.
+	Die Menge $\Theta_{vw}$ bezeichne alle Zeitpunkte, zu denen die Kante $vw$ aktiv ist.
 \end{definition}
+\begin{notation}
+	Das Komplement einer Menge $M$ notiere man als $M^c:= \R\setminus M$.
+\end{notation}
+
+\todo{Bla: d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
 
 \begin{lemma}
 	Für alle Knoten $v\in V$ ist in einem zulässigen Fluss die Funktion $l_v$ monoton wachsend und stetig.
@@ -144,16 +150,26 @@ $$ l_w(\theta) = \begin{cases}
 Warum kann man das? Zykeln?
 }
 
-Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
-
-\begin{definition}
-	Man sage, der \emph{Fluss $f$ fließe nur entlang aktiver Kanten}, falls für alle Kanten $uv\in E$ und für fast-alle Zeitpunkte $\theta\in\R$ Zeitpunkt gilt: $$ uv \text{ nicht aktiv zum Zeitpunkt } \theta \implies f_{uv}^+(l_u(\theta)) = 0.$$
+\begin{definition}\label{def-flow-along-active-edges}
+	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+(\xi)=0$ für alle Kanten $vw\in E$ und für fast alle $\xi\in l_v(\Theta_{vw}^c)$ gilt.
 \end{definition}
+
+\todo{$l_v$ ist absolut stetig}
+
+\begin{remark}
+	Diese Definition weicht ab von Koch und Skutella und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
+	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls für alle Kanten $vw$ und fast alle $\theta\in\Theta^c_{vw}$ die Bedingung $f_{vw}^+(l_v(\theta))=0$ gilt.
+	Dies ist eine stärkere Forderung an $f$:
+	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, wodurch $l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}$ also eine Nullmenge ist.
+	Daher wird die Bedingung in Definition~\ref{def-flow-along-active-edges} bereits impliziert.
+	In~\cite[Example 2]{Cominetti2015} wird außerdem ein Beispielfluss angegeben, der zeigt, dass die Forderung sogar echt stärker ist.
+\end{remark}
 
 \begin{lemma}\label{lemma-only-active-edges}
 	Für einen zulässigen Fluss $f$ sind folgende Aussagen äquivalent:
 	\begin{enumerate}[(i)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
+		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
 		\item Für jede Kante $uv\in E$ und für alle $\theta\in\R$ gilt $F_{uv}^-(T_{uv}(l_u(\theta)) = F_{uv}^-(l_v(\theta))$.
 	\end{enumerate}
 \end{lemma}
@@ -185,7 +201,7 @@ Die folgende Definition entspricht der Definition~2 aus~\cite{Koch2011}.
 	0,
 	$$
 	wobei die letzte Gleichung aus der Voraussetzung $F_{uv}^-(l_v(\theta+\varepsilon)) = F_{uv}^-(T_{uv}(l_u(\theta + \varepsilon)))$ gefolgert wird.
-	Also ist $f_{uv}^+$ in einer Umgebung um $l_u(\theta)$ fast überall gleich $0$.
+	\todo{Falsch:} Also ist $f_{uv}^+$ in einer Umgebung um $l_u(\theta)$ fast überall gleich $0$.
 	
 	\todo{Da die Menge aller Zeitpunkte, in denen $uv$ nicht aktiv ist, wegen der Stetigkeit von $l_v$ und $T_{uv}\circ l_u$ eine Vereinigung (abzählbarer) Intervalle ist, genügt es zu zeigen, dass die Bedingung lokal fast immer erfüllt ist.}
 \end{proof}
