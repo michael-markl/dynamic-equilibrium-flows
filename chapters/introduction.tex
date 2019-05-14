@@ -152,7 +152,7 @@ Warum kann man das? Zykeln?
 }
 
 \begin{definition}\label{def-flow-along-active-edges}
-	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+(\xi)=0$ für alle Kanten $vw\in E$ und für fast alle $\xi\in l_v(\Theta_{vw}^c)$ gilt.
+	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
 \end{definition}
 
 \todo{$l_v$ ist absolut stetig und surjektiv}
@@ -185,8 +185,8 @@ Warum kann man das? Zykeln?
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
-	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+(\xi)$ für fast alle $\xi\in l_v(\Theta_{vw})^c$ verschwindet.
-	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ sich nur um eine Nullmenge voneinander unterscheiden.
+	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
+	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
 	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität (\todo{ref}) von $l_v$ ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
 	Also ist $\xi\in l_v(\Theta_{vw}^c)$ und es gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
@@ -206,8 +206,8 @@ Warum kann man das? Zykeln?
 	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
 	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) > l_w(\theta)$ ein Widerspruch.
 	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
-	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach Voraussetzung gilt $f_{vw}^+(l_v(\theta')) = 0$ für fast alle $\theta'\in (\omega, \theta]$.
-	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
+	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach (i) verschwindet $f_{vw}^+$ fast überall auf $l_v((\omega, \theta])$.
+	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen der Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
 	
 	$(ii) \Rightarrow (i)$: Sei eine Kante $vw\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
 	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$ und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
