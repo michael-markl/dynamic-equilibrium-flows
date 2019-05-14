@@ -161,12 +161,11 @@ Warum kann man das? Zykeln?
 
 \begin{remark}
 	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
-	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls für alle Kanten $vw$ und fast alle $\theta\in\Theta^c_{vw}$ die Bedingung $f_{vw}^+(l_v(\theta))=0$ gilt.
+	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 	
-	Dies ist eine stärkere Forderung an $f$:
-	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, wodurch $l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}$ also eine Nullmenge ist.
-	Daher impliziert dies bereits die Bedingung in Definition~\ref{def-flow-along-active-edges}.
-	
+	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
+	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
 	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
 	Dies reicht aber nicht aus, um zu zeigen, dass $f_{vw}^+(l_v(\theta))=0$ für fast alle $\theta\in\Theta_{vw}^c$ gilt:
@@ -196,7 +195,7 @@ Warum kann man das? Zykeln?
 	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$ und $\xi\in l_v(\Q)$.
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
-	$(ii)\Rightarrow (iii)$: Seien $vw\in E$ und $\theta\in\R$ gegeben.
+	$(i)\Rightarrow (iii)$: Seien $vw\in E$ und $\theta\in\R$ gegeben.
 	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl}.
 	Ist $vw$ aktiv zum Zeitpunkt $\theta$, so ist $T_{vw}(l_v(\theta))=l_w(\theta)$ und die Aussage gilt offensichtlich.
 	
@@ -209,20 +208,19 @@ Warum kann man das? Zykeln?
 	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach (i) verschwindet $f_{vw}^+$ fast überall auf $l_v((\omega, \theta])$.
 	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen der Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
 	
-	$(ii) \Rightarrow (i)$: Sei eine Kante $vw\in E$, die zu einem Zeitpunkt $\theta\in\R$ nicht aktiv ist, gegeben.
-	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$ und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
+	$(iii) \Rightarrow (i)$: Da für eine Kante $vw\in E$ die Menge $\Theta_{vw}^c$ aller Zeitpunkte, zu denen $vw$ inaktiv ist, wegen der Stetigkeit von $l_w$ und $T_{vw}\circ l_v$ eine Vereinigung abzählbarer, offener Intervalle ist, genügt es zu zeigen, dass $f_{vw}^+$ fast überall auf $l_v((\theta_1, \theta_2))$ für ein Intervall $(\theta_1, \theta_2)\subseteq \Theta_{vw}^c$ verschwindet.
+	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$  und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
 	Dann ist 
 	$$
 	0
-	\leq \int_{l_v(\theta-\varepsilon)}^{l_v(\theta + \varepsilon)}f_{vw}^+(t) dt
-	= \int_{T_{vw}(l_v(\theta-\varepsilon))}^{T_{vw}(l_v(\theta+\varepsilon))} f_{vw}^-(t) dt
+	\leq \int_{l_v(\theta_1)}^{l_v(\theta_2)}f_{vw}^+(t) dt
+	= \int_{T_{vw}(l_v(\theta_1))}^{T_{vw}(l_v(\theta_2))} f_{vw}^-(t) dt
 	\leq \int_{l_w(\theta + \varepsilon)}^{T_{vw}(l_v(\theta + \varepsilon))} f_{vw}^-(t) dt
 	= 0,
 	$$
 	wobei die letzte Gleichung aus der Voraussetzung $F_{vw}^-(l_w(\theta+\varepsilon)) = F_{vw}^-(T_{vw}(l_v(\theta + \varepsilon)))$ gefolgert wird.
 	\todo{Falsch:} Also ist $f_{vw}^+$ in einer Umgebung um $l_v(\theta)$ fast überall gleich $0$.
 	
-	\todo{Da die Menge aller Zeitpunkte, in denen $vw$ nicht aktiv ist, wegen der Stetigkeit von $l_w$ und $T_{vw}\circ l_v$ eine Vereinigung (abzählbarer) Intervalle ist, genügt es zu zeigen, dass die Bedingung lokal fast immer erfüllt ist.}
 \end{proof}
 
 
