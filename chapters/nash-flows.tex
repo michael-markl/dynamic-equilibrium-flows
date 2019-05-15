@@ -71,7 +71,7 @@ Warum kann man das? Zykeln?
 	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um ein Beispielfluss anzugeben, der zeigt, dass die Forderung sogar echt stärker ist.
 \end{remark}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-vanishes-intervals}
 	Seien $g: \R \to \R_{\geq 0}$ eine Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
 	Dann verschwindet $g$ fast überall auf $\Theta:=\bigcup_{i\in I} (a_i, b_i)$ genau dann, wenn es für alle $i\in I$ fast überall auf $(a_i, b_i)$ verschwindet.
 \end{lemma}
@@ -89,7 +89,7 @@ Warum kann man das? Zykeln?
 	\begin{enumerate}[(i)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
-		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^-(T_{vw}(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
+		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -104,32 +104,25 @@ Warum kann man das? Zykeln?
 	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$ und $\xi\in l_v(\Q)$.
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
-	$(i)\Rightarrow (iii)$: Seien $vw\in E$ und $\theta\in\R$ gegeben.
-	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl}.
-	Ist $vw$ aktiv zum Zeitpunkt $\theta$, so ist $T_{vw}(l_v(\theta))=l_w(\theta)$ und die Aussage gilt offensichtlich.
+	$(i)\Leftrightarrow (iii)$: Sei eine Kante $vw\in E$ gegeben.
+	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl} für alle $\theta\in\R$.
+
+	Für ein $\theta\in\R$ bezeichne man den spätesten Startzeitpunkt kleiner oder gleich $\theta$, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt, als
+	$$\omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}.$$
+	Dieses Maximum existiert, da die Menge nach oben beschränkt, abgeschlossen und wegen des Zwischenwertsatzes mit $T_{vw}(l_v(\theta))\geq l_w(\theta)$ und $\lim_{t\to -\infty}T_{vw}(l_v(t))=-\infty$ (\todo{ref}) nicht-leer ist.
 	
-	Sonst ist $l_w(\theta) < T_{vw}(l_v(\theta))$.
-	Man bezeichne den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt, als
-	$$\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}.$$ 
-	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
-	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) \geq T_{vw}(l_v(\theta)) > l_w(\theta)$ ein Widerspruch.
-	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
-	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach (i) verschwindet $f_{vw}^+$ fast überall auf $l_v((\omega, \theta])$.
-	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen der Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
+	Es ist $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
+	Für $\theta\in\Theta_{vw}^c$ gilt $T_{vw}(l_v(\theta)) > l_w(\theta)$.
+	Aufgrund der Stetigkeit von $T_{vw}\circ l_v$ und von $l_w$ existiert ein $\varepsilon>0$, sodass $T_{vw}(l_v(\theta')) > l_w(\theta+\varepsilon)$ für $\theta'\in[\theta,\theta+\varepsilon]$ gilt.
+	Also ist $\theta\in(\omega_{\theta+\varepsilon}, \theta+\varepsilon)$.
+	Ist umgekehrt $\theta'\in (\omega_\theta,\theta)$, so ist aufgrund der Monotonie $T_{vw}(l_v(\theta'))\geq T_{vw}(l_v(\omega_\theta)) = l_w(\theta)\geq l_w(\theta')$.
+	Dies kann nicht mit Gleichheit erfüllt sein, da $w_\theta$ maximal mit der Eigenschaft $T_{vw}(l_v(\omega)) = l_w(\theta)$ ist.
+	Also ist $vw$ zum Zeitpunkt $\theta'$ inaktiv.
 	
-	$(iii) \Rightarrow (i)$: Da für eine Kante $vw\in E$ die Menge $\Theta_{vw}^c$ aller Zeitpunkte, zu denen $vw$ inaktiv ist, wegen der Stetigkeit von $l_w$ und $T_{vw}\circ l_v$ eine Vereinigung abzählbarer, offener Intervalle ist, genügt es zu zeigen, dass $f_{vw}^+$ fast überall auf $l_v((\theta_1, \theta_2))$ für ein Intervall $(\theta_1, \theta_2)\subseteq \Theta_{vw}^c$ verschwindet.
-	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$  und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
-	Dann ist 
-	$$
-	0
-	\leq \int_{l_v(\theta_1)}^{l_v(\theta_2)}f_{vw}^+(t) dt
-	= \int_{T_{vw}(l_v(\theta_1))}^{T_{vw}(l_v(\theta_2))} f_{vw}^-(t) dt
-	\leq \int_{l_w(\theta + \varepsilon)}^{T_{vw}(l_v(\theta + \varepsilon))} f_{vw}^-(t) dt
-	= 0,
-	$$
-	wobei die letzte Gleichung aus der Voraussetzung $F_{vw}^-(l_w(\theta+\varepsilon)) = F_{vw}^-(T_{vw}(l_v(\theta + \varepsilon)))$ gefolgert wird.
-	\todo{Falsch:} Also ist $f_{vw}^+$ in einer Umgebung um $l_v(\theta)$ fast überall gleich $0$.
-	
+	Insbesondere gilt $l_v(\Theta_{vw}^c) = \bigcup_{\theta\in\R}(l_v(\omega_\theta),l_v(\theta))$ wegen der Monotonie von $l_v$.
+	Nach Lemma~\ref{lemma-vanishes-intervals} verschwindet $f_{vw}^+$ genau dann fast überall auf $l_v(\Theta_{vw})^c$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
+	Dies ist nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) wiederum äquivalent zu
+	$$F_{vw}^+(l_v(\theta))-F_{vw}^+(l_v(\omega_\theta)) = F_{vw}^+(l_v(\theta))-F_{vw}^-(l_w(\theta))=0~~\text{für alle $\theta\in\R$}.$$
 \end{proof}
 
 
