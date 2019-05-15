@@ -1,4 +1,3 @@
-
 \section{Charakterisierung von Nash-Flüssen über Zeit}
 
 \begin{definition}
@@ -52,7 +51,7 @@ Warum kann man das? Zykeln?
 	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
 \end{definition}
 
-\todo{$l_v$ ist absolut stetig und surjektiv}
+\todo{$l_v, T_e$ ist absolut stetig und surjektiv}
 
 \todo{PROBLEM: Queues waren irgendwann leer}
 
@@ -71,6 +70,19 @@ Warum kann man das? Zykeln?
 	
 	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um ein Beispielfluss anzugeben, der zeigt, dass die Forderung sogar echt stärker ist.
 \end{remark}
+
+\begin{lemma}
+	Seien $g: \R \to \R_{\geq 0}$ eine Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
+	Dann verschwindet $g$ fast überall auf $\Theta:=\bigcup_{i\in I} (a_i, b_i)$ genau dann, wenn es für alle $i\in I$ fast überall auf $(a_i, b_i)$ verschwindet.
+\end{lemma}
+\begin{proof}
+	Verschwindet $g$ fast überall auf $\Theta$, so erst recht auf jedem Intervall $(a_i, b_i)$.
+	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein endliches Maß auf den Borelmengen $\mathfrak{B}$.
+	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, das heißt eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist $\mu$ nach~\cite[1.6 Korollar]{Elstrodt2011} reguläres, insbesondere innen reguläres Maß.
+	Dies heißt, dass $$\mu(B)=\sup\{ \mu(K) \mid K\subseteq B \text{ kompakt} \}$$ für alle $B\in\mathfrak{B}$ gilt.
+	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die gilt $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) dt = 0$.
+	Also ist auch $\mu(\Theta)=0$.
+\end{proof}
 
 \begin{lemma}\label{lemma-only-active-edges}
 	Für einen zulässigen Fluss $f$ sind folgende Aussagen äquivalent:
@@ -100,7 +112,7 @@ Warum kann man das? Zykeln?
 	Man bezeichne den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt, als
 	$$\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}.$$ 
 	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
-	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) > l_w(\theta)$ ein Widerspruch.
+	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) \geq T_{vw}(l_v(\theta)) > l_w(\theta)$ ein Widerspruch.
 	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
 	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach (i) verschwindet $f_{vw}^+$ fast überall auf $l_v((\omega, \theta])$.
 	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen der Monotonie von $F_{vw}^-$ und der Definition von $\omega$.

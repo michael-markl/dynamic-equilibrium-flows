@@ -1,5 +1,5 @@
 \newcommand*{\DocType}{scrartcl}
-\renewcommand*\DocType{article} % Uncomment for screen optimization
+%\renewcommand*\DocType{article} % Uncomment for screen optimization
 
 \newcommand*\ClassList{scrartcl,article}
 \documentclass[\DocType, paper=a4,fontsize=11pt,abstracton,headsepline,notitlepage]{generalclass}
@@ -45,7 +45,7 @@
 \geometry{a4paper, top=30mm, bottom=30mm, left=30mm, right=30mm}
 
 \IfClass{article}{ % Optimize for screen
-	\geometry{papersize={170mm,161.5mm},margin=5mm} 
+	\geometry{papersize={160mm,161.5mm},margin=5mm} 
 }
 
 \addtolength{\footskip}{-0.5cm}          % Seitenzahlen höher setzen
@@ -56,6 +56,11 @@
 
 \numberwithin{figure}{section}	% Abbildungsnummern in Section
 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments
@@ -84,6 +89,9 @@
 % Eigentlicher Inhalt der Seminararbeit; die einzelnen Teile werden hier (aus Gründen der Übersichtlichkeit) über \input{file} eingebunden
 
 \input{chapters/introduction}
+\input{chapters/dynamic-flows}
+\input{chapters/nash-flows}
+\input{chapters/thin-flows}
 
 \clearpage          % neue Seite für Literaturverzeichnis
 
