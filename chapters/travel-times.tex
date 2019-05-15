@@ -1,0 +1,48 @@
+\section{Durchlaufzeiten}
+
+\begin{definition}
+	Für einen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
+	
+	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
+	Dann ist die früheste Ankunft eines Partikels, das zum Zeitpunkt $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
+	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zum Zeitpunkt $\theta$},  falls $l_w(\theta)=l^P(\theta)$.
+\end{definition}
+
+\todo{$l_v$ wohldefiniert, d.h. minimum existiert, da Pfade mit Kreisen nie das Minimum sind $\implies$ endlich viele}
+
+Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ als Minimum von Kompositionen stetiger und monoton wachsender Funktionen $T_e$ (Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-T-mon-inc-cont})) ebenfalls stetig und monoton wachsend.
+
+
+\begin{lemma}\label{lemma-dreicksungl}
+	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
+	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$.
+\end{lemma}
+\begin{proof}
+	Sei ein kürzester $s$-$v$-Pfad $P$ zum Zeitpunkt $\theta$ gegeben.
+	Hängt man an $P$ die Kante $vw$ an, erhält man einen $s$-$w$-Pfad, der zur Eintrittszeit $\theta$ die Ankunftszeit $T_{vw}(l_v(\theta))$ liefert.
+	Da $l_w(\theta)$ das Minimum über die Ankunftszeit aller $s$-$w$-Pfade ist, gilt die Behauptung.
+\end{proof}
+
+\begin{definition}
+	Man bezeichne eine Kante $vw\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt.
+	Die Menge $\Theta_{vw}$ bezeichne alle Zeitpunkte, zu denen die Kante $vw$ aktiv ist.
+\end{definition}
+\begin{notation}
+	Das Komplement einer Menge $M$ notiere man als $M^c:= \R\setminus M$.
+\end{notation}
+
+\todo{Bla: d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
+
+\begin{lemma}
+	Für alle Knoten $v\in V$ ist in einem zulässigen Fluss die Funktion $l_v$ monoton wachsend und stetig.
+\end{lemma}
+\todo{
+	Mittels Belman-Ford-Algorithmus kann man $l_w$ auch berechnen, indem man die Lösung des folgenden Gleichungssystem löst:
+	
+	$$ l_w(\theta) = \begin{cases}
+	\theta & \text{falls } w=s \\
+	\min_{vw\in E} T_{vw}(l_v(\theta)) & \text{sonst}
+	\end{cases} $$
+	
+	Warum kann man das? Zykeln?
+}
