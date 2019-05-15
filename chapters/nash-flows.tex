@@ -1,0 +1,214 @@
+
+\section{Charakterisierung von Nash-Flüssen über Zeit}
+
+\begin{definition}
+	Für einen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
+	
+	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
+	Dann ist die früheste Ankunft eines Partikels, das zum Zeitpunkt $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
+	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zum Zeitpunkt $\theta$},  falls $l_w(\theta)=l^P(\theta)$.
+\end{definition}
+
+\todo{$l_v$ wohldefiniert, d.h. minimum existiert, da Pfade mit Kreisen nie das Minimum sind $\implies$ endlich viele}
+
+Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ als Minimum von Kompositionen stetiger und monoton wachsender Funktionen $T_e$ (Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-T-mon-inc-cont})) ebenfalls stetig und monoton wachsend.
+
+
+\begin{lemma}\label{lemma-dreicksungl}
+	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
+	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$.
+\end{lemma}
+\begin{proof}
+	Sei ein kürzester $s$-$v$-Pfad $P$ zum Zeitpunkt $\theta$ gegeben.
+	Hängt man an $P$ die Kante $vw$ an, erhält man einen $s$-$w$-Pfad, der zur Eintrittszeit $\theta$ die Ankunftszeit $T_{vw}(l_v(\theta))$ liefert.
+	Da $l_w(\theta)$ das Minimum über die Ankunftszeit aller $s$-$w$-Pfade ist, gilt die Behauptung.
+\end{proof}
+
+\begin{definition}
+	Man bezeichne eine Kante $vw\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt.
+	Die Menge $\Theta_{vw}$ bezeichne alle Zeitpunkte, zu denen die Kante $vw$ aktiv ist.
+\end{definition}
+\begin{notation}
+	Das Komplement einer Menge $M$ notiere man als $M^c:= \R\setminus M$.
+\end{notation}
+
+\todo{Bla: d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
+
+\begin{lemma}
+	Für alle Knoten $v\in V$ ist in einem zulässigen Fluss die Funktion $l_v$ monoton wachsend und stetig.
+\end{lemma}
+\todo{
+Mittels Belman-Ford-Algorithmus kann man $l_w$ auch berechnen, indem man die Lösung des folgenden Gleichungssystem löst:
+
+$$ l_w(\theta) = \begin{cases}
+	\theta & \text{falls } w=s \\
+	\min_{vw\in E} T_{vw}(l_v(\theta)) & \text{sonst}
+\end{cases} $$
+
+Warum kann man das? Zykeln?
+}
+
+\begin{definition}\label{def-flow-along-active-edges}
+	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
+\end{definition}
+
+\todo{$l_v$ ist absolut stetig und surjektiv}
+
+\todo{PROBLEM: Queues waren irgendwann leer}
+
+\begin{remark}
+	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
+	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
+	
+	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
+	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	 
+	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
+	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
+	Dies reicht aber nicht aus, um zu zeigen, dass $f_{vw}^+(l_v(\theta))=0$ für fast alle $\theta\in\Theta_{vw}^c$ gilt:
+	So kann $f_{vw}^+(l_v(\theta))$ für ein $\theta\in\Theta_{vw}^c$ positiv sein und $l_v$ konstant in einer Umgebung um $\theta$.
+	Dann ist $f_{vw}^+ \circ l_v$ in einer Umgebung um $\theta$ positiv, was im Widerspruch zur Forderung ist.
+	
+	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um ein Beispielfluss anzugeben, der zeigt, dass die Forderung sogar echt stärker ist.
+\end{remark}
+
+\begin{lemma}\label{lemma-only-active-edges}
+	Für einen zulässigen Fluss $f$ sind folgende Aussagen äquivalent:
+	\begin{enumerate}[(i)]
+		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
+		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
+		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^-(T_{vw}(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
+	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
+	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität (\todo{ref}) von $l_v$ ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
+	Also ist $\xi\in l_v(\Theta_{vw}^c)$ und es gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
+	
+	Des Weiteren ist $l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
+	Für ein $\xi$ aus der linken Menge existieren $\theta\in\Theta_{vw}^c$ und $\theta'\in\Theta_{vw}$ mit $l_v(\theta)=\xi=l_v(\theta')$.
+	Da $\theta\neq\theta'$ ist, existiert ein $\theta_q\in\Q$ zwischen $\theta$ und $\theta'$.
+	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$ und $\xi\in l_v(\Q)$.
+	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
+	
+	$(i)\Rightarrow (iii)$: Seien $vw\in E$ und $\theta\in\R$ gegeben.
+	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl}.
+	Ist $vw$ aktiv zum Zeitpunkt $\theta$, so ist $T_{vw}(l_v(\theta))=l_w(\theta)$ und die Aussage gilt offensichtlich.
+	
+	Sonst ist $l_w(\theta) < T_{vw}(l_v(\theta))$.
+	Man bezeichne den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ spätestens zum Zeitpunkt $l_w(\theta)$ zu $v$ gelangt, als
+	$$\omega:=\sup\{ \omega\in\R \mid l_w(\theta) \geq T_{vw}(l_v(\omega)) \}.$$ 
+	Man beachte, dass $\omega=-\infty$ gilt, falls solch ein Startzeitpunkt nicht existiert.
+	Es ist $\omega \leq \theta$, da $T_{vw}\circ l_v$ monoton wachsend ist und für $\omega > \theta$ ist $T_{vw}(l_v(\omega)) > l_w(\theta)$ ein Widerspruch.
+	Wegen der Monotonie von $l_w$ und nach Definition von $\omega$ gilt $l_w(\theta')\leq l_w(\theta)< T_{vw}(l_v(\theta'))$ für $\theta'\in (\omega, \theta]$;
+	insbesondere ist die Kante $vw$ im Intervall $(\omega, \theta]$ nicht aktiv und nach (i) verschwindet $f_{vw}^+$ fast überall auf $l_v((\omega, \theta])$.
+	Daher gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(\omega))$. Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) ist dann $F_{vw}^-(T_{vw}(l_v(\theta))) = F_{vw}^-(T_{vw}(l_v(\omega))\leq F_{vw}^-(l_w(\theta))$ wegen der Monotonie von $F_{vw}^-$ und der Definition von $\omega$.
+	
+	$(iii) \Rightarrow (i)$: Da für eine Kante $vw\in E$ die Menge $\Theta_{vw}^c$ aller Zeitpunkte, zu denen $vw$ inaktiv ist, wegen der Stetigkeit von $l_w$ und $T_{vw}\circ l_v$ eine Vereinigung abzählbarer, offener Intervalle ist, genügt es zu zeigen, dass $f_{vw}^+$ fast überall auf $l_v((\theta_1, \theta_2))$ für ein Intervall $(\theta_1, \theta_2)\subseteq \Theta_{vw}^c$ verschwindet.
+	Es gilt also $l_w(\theta) < T_{vw}(l_v(\theta))$ und wegen der Stetigkeit von $l_w$  und von $T_{vw}\circ l_v$ existiert ein $\varepsilon\in\R_+$, sodass $l_w(\theta + \varepsilon) < T_{vw}(l_v(\theta - \varepsilon))$ gilt.
+	Dann ist 
+	$$
+	0
+	\leq \int_{l_v(\theta_1)}^{l_v(\theta_2)}f_{vw}^+(t) dt
+	= \int_{T_{vw}(l_v(\theta_1))}^{T_{vw}(l_v(\theta_2))} f_{vw}^-(t) dt
+	\leq \int_{l_w(\theta + \varepsilon)}^{T_{vw}(l_v(\theta + \varepsilon))} f_{vw}^-(t) dt
+	= 0,
+	$$
+	wobei die letzte Gleichung aus der Voraussetzung $F_{vw}^-(l_w(\theta+\varepsilon)) = F_{vw}^-(T_{vw}(l_v(\theta + \varepsilon)))$ gefolgert wird.
+	\todo{Falsch:} Also ist $f_{vw}^+$ in einer Umgebung um $l_v(\theta)$ fast überall gleich $0$.
+	
+\end{proof}
+
+
+\todo{blablabla Definition FIFO bla}
+
+\begin{definition}
+	Für eine Kante $uv\in E$ bezeichne $x_{uv}^+(\theta):= F_{uv}^+(l_u(\theta))$ die Flussmenge, die die Kante $uv$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $u$ erreichen können.
+	
+	Mit $x_{uv}^-(\theta):= F^-_{uv}(l_v(\theta))$ bezeichne man die Flussmenge, die die Kante $uv$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
+	
+	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
+\end{definition}
+
+
+\begin{remark}\label{remark-x^-leqx^+}
+	In einem zulässigen Fluss ist $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
+	 nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) und mit der Monotonie von $F_{uv}^+$.
+\end{remark}
+
+\begin{lemma}\label{lemma-balance-0}
+	Für einen zulässigen Fluss über Zeit $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
+\end{lemma}
+\begin{proof}
+	Unter Benutzung der Voraussetzung~(\ref{def-feasible-flow-no-flow-at-node}) folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
+	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) dt = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) dt = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
+\end{proof}
+
+\begin{definition}
+	Man sage, ein Fluss über Zeit $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
+\end{definition}
+
+\todo{blabla definition blabla}
+
+\begin{definition}
+	Seien ein statischer Fluss, das heißt eine Kantenbewertung $f \in \R^E$, in einem Graphen $G=(V,E)$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ sowie ein Kapazitätsvektor $u\in\R_+^E$ gegeben.
+	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. $\forall v\in V: \sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$.
+\end{definition}
+
+\todo{blabla}
+
+\newcommand{\newv}{\mathbf{v}}
+\begin{lemma}\label{lemma-b-graph}
+	Seien ein Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
+	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
+	Der statische Fluss $g$ auf $H$ sei definiert durch
+	$$g_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
+	und der Balancevektor $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
+	Dann gelten die folgenden Aussagen:
+	
+	\begin{enumerate}[(i)]
+		\item Der Fluss $g$ ist ein statischer $b$-Fluss und heißt der von $f$ induzierte statische $b$-Fluss zur Zeit $\theta$.
+		\item\label{lemma-b-graph-imp} Ist $f$ zulässig, so gilt $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
+	\end{enumerate}
+\end{lemma} 
+\begin{proof}
+	$(i)$: Um zu zeigen, dass die Summe über die Balancevektoreinträge verschwindet, betrachte man den Einfluss einer Kante $e\in E$ auf $\sum_{v_\in V} b_v$, der gerade $x_e^+(\theta) - x_e^-(\theta)$ ist, und es ergibt sich:
+		$$\sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
+		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
+		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g_{\newv_{uv}v} - g_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b_{\newv_e}$.
+		Für $v\in V$ gilt nach Konstruktion $$b_v = b_v(\theta)=
+		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
+	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
+		.$$
+	
+	$(ii)$: Tatsächlich benötigt man aus $(i)$ nur die Eigenschaft, dass die Summe über die Einträge des Balancevektors verschwindet.
+	Mit Lemma~\ref{lemma-balance-0} gilt wegen der Zulässigkeit von $f$ sogar $b_s(\theta)+b_t(\theta) + \sum_{e\in E} b_{\newv_e} = 0$.
+	
+	Angenommen, es gelte $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$.
+	Dann sind auch alle $b_{\newv_e} = 0$ und es gilt $b_s(\theta) + b_t(\theta) = 0$.
+	
+	Angenommen, es gelte $b_s(\theta) + b_t(\theta) = 0$.
+	Dann ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}   und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
+	Also sind bereits alle $b_{\newv_e} = 0$, was die Behauptung zeigt.
+\end{proof}
+
+
+\begin{theorem}\label{thm-equivalencies-nash-flow}
+	Für einen zulässigen Fluss über Zeit $f$ sind die folgenden Aussagen äquivalent:
+	\begin{enumerate}[(i)]
+		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
+		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
+		\item Der Fluss $f$ fließt ohne Überholungen.
+		\item \todo{Der Fluss über Zeit ist ein Nash-Fluss über Zeit}
+	\end{enumerate}
+	\todo{Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.}
+\end{theorem}
+\begin{proof}
+	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}):
+	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
+	Nach Lemma~\ref{lemma-only-active-edges} gilt also die gewünschte Äquivalenz.
+	
+	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
+	Lemma~\ref{lemma-b-graph}~(\ref{lemma-b-graph-imp}) liefert die gewünschte Biimplikation.
+\end{proof}

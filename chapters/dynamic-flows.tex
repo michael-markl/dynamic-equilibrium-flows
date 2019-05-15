@@ -1,0 +1,82 @@
+
+\section{Dynamische Flüsse}
+
+
+Betrachte Zeitraum $[0,T]$ mit $T\in\R_+$.
+$d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
+
+\begin{definition}[Netzwerk]
+	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E\subseteq V\times V$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $T$ eine positive Gesamtverzögerung $\sum_{e\in T}\tau_e > 0$ haben.
+\end{definition}
+
+Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.
+
+\begin{definition}[Fluss über Zeit]
+	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien von Lebesgue-integrierbaren Funktionen $f^+_e,f^-_e: \R \to \R_{\geq 0}$ an $e$ für alle $e\in E$.
+	
+	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Einflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Ausflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
+	
+	Der (kumulative) \emph{Einfluss bzw. Ausfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_{[0,\theta)} f^+_e d\lambda$ bzw. $F^-_e(\theta):=\int_{[0,\theta)} f^-_e d\lambda$.
+	
+	Die \emph{(Länge der) Warteschlange an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und die \emph{Wartezeit an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $q_e(\theta) = z_e / u_e$.
+	
+	Man beschreibe den \emph{Austrittszeitpunkt einer Kante $e$ bei Eintrittszeitpunkt $\theta$}, in dem ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
+\end{definition}
+
+\begin{definition}[Zulässiger Fluss über Zeit]
+	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
+	\begin{enumerate}[(I)]
+		\item\label{def-feasible-flow-capacity} keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
+		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
+		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
+		\item\label{def-feasible-flow-queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
+		\todo{
+		 $F_e^+(\theta) = F_e^-(\theta + \tau_e + q_e(\theta))$ für alle $e\in E, \theta\in\R$, ist das das gleiche (f.ü.)? Vermutlich nein; da fehlt irgendwie noch was: $q_e(\theta) = 0 \implies f_e^-(\theta + \tau_e) = f_e^+(\theta)$ o. Ä.}
+	\end{enumerate}
+\end{definition}
+
+\todo{$\theta < 0 \implies f(\theta) = 0$}
+
+\todo{source and sink nodes: Kein Fluss verschwindet bei Quelle, kein Fluss kommt hinzu bei Sinke}
+
+\todo{FIFO Interpretation}
+
+\begin{proposition}\label{prop-feasible-flow}
+	Sei $e\in E$ eine Kante und $f$ ein zulässiger Fluss. Dann gilt:
+	\begin{enumerate}[(i)]
+		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
+		\item\label{prop-feasible-flow-positive-queue} Für alle $e\in E$ und $\theta\in\R$ ist die Länge der Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
+		\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(T_e(\theta))$.
+		\item\label{prop-feasible-flow-queue-delay} Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Für die Monotonie in~(\ref{prop-feasible-flow-T-mon-inc-cont}) seien $\theta_1 \leq \theta_2$ gegeben.
+	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_1 + \tau_e) = F_e^-(\theta_2+\tau_e) - \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)dt\leq F_e^-(\theta_2 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
+	$$
+		\theta_1 + q_e(\theta_1)
+		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}\\
+		\leq \theta_2 + \frac{F_e^+(\theta_1) - F_e^-(\theta_2+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
+	$$
+	Die Stetigkeit folgt aus der Stetigkeit von $F_e^+$ und $F_e^-$.
+	
+	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$ nach~(\ref{prop-feasible-flow-T-mon-inc-cont}).
+	Also ist $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)\geq 0$, was Aussage (ii) beweist.	
+	
+	Zu Aussage (iii): Nach Voraussetzung~(\ref{def-feasible-flow-queue-with-capacity}) und Aussage (ii) ist
+	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) dt = q_e(\theta)  u_e = z_e(\theta)$.
+	Damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)dt = F_e^+(\theta)$.
+	
+	Es bleibt noch Aussage (iv) zu zeigen:
+	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta_1) = F_e^+(\theta') = F_e^-(\theta_2)$.
+	Also ist $F_e^+(\theta') - F_e^-(\theta' + \tau_e) \geq F_e^+(\theta_2)-F_e^-(\theta_2 + \tau_e) = z_e(\theta_2) > 0$ und es gilt $f_e^-(\theta' + \tau_e)=u_e$.
+	Für die Warteschlangendifferenz gilt dann: 
+	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) dt = (\theta_2 - \theta_1)u_e$.
+	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
+\end{proof}
+
+\todo{Insbesondere ist also die Kantenaustrittszeit $T_e$ monoton wachsend und stetig.}
+
+\todo{Stetigkeit von irgendwas um die "Wohldefiniertheit" dieser komischen Definition  von Nash flows zu zeigen}
+
