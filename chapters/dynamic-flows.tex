@@ -5,13 +5,18 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E\subseteq V\times V$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$.
-	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $T$ eine positive Gesamtverzögerung $\sum_{e\in T}\tau_e > 0$ haben.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e > 0$ haben.
 \end{definition}
 
-Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.
+\todo{Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.}
+
+\begin{definition}
+	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, das heißt $\int_a^b g(t) dt< \infty$ für beliebige beschränkte Intervalle $(a,b)$, und auf der negativen Achse verschwinden, also $g(t)=0$ für $t<0$.
+	Der Funktionenraum $AC_{loc}$
+\end{definition}
 
 \begin{definition}[Fluss über Zeit]
-	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien von Lebesgue-integrierbaren Funktionen $f^+_e,f^-_e: \R \to \R_{\geq 0}$ an $e$ für alle $e\in E$.
+	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
 	
 	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Einflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Ausflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
