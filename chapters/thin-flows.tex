@@ -111,7 +111,7 @@
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Zu- bzw Abfluss setze auf
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Zu- bzw. Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
@@ -120,7 +120,7 @@
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
 	Dann gelten die folgenden Aussagen:
 	\begin{enumerate}[(i)]
-		\item Gilt $x_{vw}'(T) > 0$ für eine Kante $vw\in E$, so ist $l_w(T) + (\theta - T)l_v' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
+		\item Gilt $x_{vw}'(T) > 0$ für eine Kante $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
 		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
 		\item Die zu $\tilde{f}$ gehörigen frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
 		$$\tilde{l}_v(\theta) = \begin{cases}
@@ -132,5 +132,9 @@
 	\todo{ Zusätzliche Voraussetzung $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \leq t_{vw}$, falls $vw$ nicht aktiv zum Zeitpunkt $T$. }
 \end{lemma}
 \begin{proof}
+	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
+	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der zusätzlichen Voraussetzung an $\alpha$.
+	Sonst gilt $l_w' \geq l_v'$ nach $(3)$ und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
 	
+	Zu $(ii)$: 
 \end{proof}
