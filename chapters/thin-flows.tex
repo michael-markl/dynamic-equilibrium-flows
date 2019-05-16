@@ -5,7 +5,7 @@
 	Dann gilt $F_{vw}^+(l_v(0)) = 0$ für jede Kante $vw\in E$.
 \end{lemma}
 \begin{proof}
-	Für alle $\theta\in [0, l_v(0)]$ gilt nach Bedingung~(\ref{def-feasible-flow-no-flow-at-node}), dass $f_{vw}^+(\theta) \leq \sum_{e\in\delta^-(v)} f_e^-(\theta)$.
+	Für alle $\theta\in [0, l_v(0)]$ gilt nach Bedingung~\ref{def-feasible-flow-no-flow-at-node}, dass $f_{vw}^+(\theta) \leq \sum_{e\in\delta^-(v)} f_e^-(\theta)$.
 	Also ist $F_{vw}^+(l_v(0)) \leq \sum_{uv\in\delta^-(v)} F_{uv}^-(l_v(0))\leq \sum_{uv\in\delta^-(v)} F_{uv}^+(l_u(0))$ nach Bemerkung~\ref{remark-x^-leqx^+}.
 	\todo{TODO this doesn't work yet}
 \end{proof}
@@ -19,10 +19,10 @@
 	Da $q_{uv}(l_u(\theta)) > 0$, ist auch $F^+_{uv}(l_u(\theta)) > 0$.
 	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{uv}(l_u(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{uv}^+\circ l_u$ existiert
 	ein frühester Zeitpunkt $\theta_1\in (0, \theta]$ mit $F_{uv}^+(l_u(\theta_1)) = F_{uv}^+(l_u(\theta))$.
-	Für ein beliebiges $\varepsilon>0$ ist also $F_{uv}^+(l_u(\theta_1-\varepsilon)) < F_{uv}(l_u(\theta_1))$ und es gibt eine Teilmenge $Q_\varepsilon \subseteq [\theta_1 - \varepsilon, \theta_1]$ mit Maß größer 0 und $f_{uv}^+\circ l_u\big|_{Q_\varepsilon} > 0$.
-	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten, d.h. für fast-alle $\theta_\varepsilon\in Q_\varepsilon$ ist $dT_{uv}(l_u(\theta_\varepsilon))=l_v(\theta_\varepsilon)$.
+	Für ein beliebiges $\varepsilon>0$ ist also $F_{uv}^+(l_u(\theta_1-\varepsilon)) < F_{uv}^+(l_u(\theta_1))$ und es gibt eine Teilmenge $Q_\varepsilon \subseteq [\theta_1 - \varepsilon, \theta_1]$ mit Maß größer 0 und $f_{uv}^+\circ l_u\big|_{Q_\varepsilon} > 0$.
+	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten, d.h. für fast alle $\theta_\varepsilon\in Q_\varepsilon$ ist $T_{uv}(l_u(\theta_\varepsilon))=l_v(\theta_\varepsilon)$.
 	Für $\varepsilon\rightarrow0$ gilt wegen der Stetigkeit $T_{uv}(l_u(\theta_1))=l_v(\theta_1)$.
-	Nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-queue-delay}) ist $T_{uv}(l_u(\theta_1)) = T_{uv}(l_u(\theta))$ und mit der Monotonie von $l_u$ folgt $T_{uv}(l_u(\theta))\leq l_v(\theta)$.
+	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{uv}(l_u(\theta_1)) = T_{uv}(l_u(\theta))$ und mit der Monotonie von $l_u$ folgt $T_{uv}(l_u(\theta))\leq l_v(\theta)$.
 \end{proof}
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
@@ -55,12 +55,12 @@
 	\begin{description}
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{uv}(l_u(\theta')) > 0$.
 		
-		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{uv}(l_u(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-positive-queue}) ist $q_{uv}$ positiv auf dem Intervall $[ l_u(\theta')  , l_u(\theta')+q_{uv}(l_u(\theta')) )$.
+		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{uv}(l_u(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{uv}$ positiv auf dem Intervall $[ l_u(\theta')  , l_u(\theta')+q_{uv}(l_u(\theta')) )$.
 		Also ist $q_{uv}$ positiv auf dem Intervall $( l_u(\theta) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon) )
 		\subseteq ( l_u(\theta) + q_{uv}(l_u(\theta)) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta) + \varepsilon ) )$.
 		
 		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
-		Mit Bedingung~(\ref{def-feasible-flow-queue-with-capacity}) folgere man $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta) = F_{uv}^-(l_v(\theta + \varepsilon)) - F_{uv}^-(l_v(\theta))
+		Mit Bedingung~\ref{def-feasible-flow-queue-with-capacity} folgere man $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta) = F_{uv}^-(l_v(\theta + \varepsilon)) - F_{uv}^-(l_v(\theta))
 		= \int_{l_v(\theta)}^{l_v(\theta + \varepsilon)} f_{uv}^-(t) dt
 		= \int_{l_u(\theta) + q_{uv}(\theta)}^{l_u(\theta + \varepsilon) + q_{uv}(\theta + \varepsilon)} f_{uv}^-(t + \tau_{uv}) dt
 		= u_{uv} (l_v(\theta + \varepsilon) - l_v(\theta))$.
@@ -97,7 +97,7 @@
 		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
 		Für Bedingung~(3) bleibt zu zeigen, dass $\frac{dx_{uv}}{d\theta}(\theta) /u_{uv}\leq \frac{dl_v}{d\theta}(\theta)$ gilt.
-		Wegen Bedingung~(\ref{def-feasible-flow-capacity}) ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon > 0$.
+		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon > 0$.
 		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon \rightarrow 0$.
 	\end{description}
 \end{proof}
@@ -119,8 +119,8 @@
 	Jede $\alpha$-Erweiterung $\tilde{f}$ eines Nash-Flusses über Zeit $f$ mit Zeithorizont $T$ ist ein zulässiger Fluss über Zeit mit Zeithorizont $T+\alpha$, falls für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ gilt:
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
 	Dann gelten die folgenden Aussagen:
-	\begin{enumerate}[(i)]
-		\item Gilt $x_{vw}'(T) > 0$ für eine Kante $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
+	\begin{enumerate}[label=(\roman*)]
+		\item Gilt $x_{vw}'(T) > 0$ für $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
 		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
 		\item Die zu $\tilde{f}$ gehörigen frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
 		$$\tilde{l}_v(\theta) = \begin{cases}

@@ -39,7 +39,7 @@
 
 \begin{lemma}\label{lemma-only-active-edges}
 	Für einen zulässigen Fluss $f$ sind folgende Aussagen äquivalent:
-	\begin{enumerate}[(i)]
+	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
 		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
@@ -74,7 +74,7 @@
 	
 	Insbesondere gilt $l_v(\Theta_{vw}^c) = \bigcup_{\theta\in\R}(l_v(\omega_\theta),l_v(\theta))$ wegen der Monotonie von $l_v$.
 	Nach Lemma~\ref{lemma-vanishes-intervals} verschwindet $f_{vw}^+$ genau dann fast überall auf $l_v(\Theta_{vw})^c$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
-	Dies ist nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) wiederum äquivalent zu
+	Dies ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} wiederum äquivalent zu
 	$$F_{vw}^+(l_v(\theta))-F_{vw}^+(l_v(\omega_\theta)) = F_{vw}^+(l_v(\theta))-F_{vw}^-(l_w(\theta))=0~~\text{für alle $\theta\in\R$}.$$
 \end{proof}
 
@@ -92,14 +92,14 @@
 
 \begin{remark}\label{remark-x^-leqx^+}
 	In einem zulässigen Fluss ist $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
-	 nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}) und mit der Monotonie von $F_{uv}^+$.
+	 nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{uv}^+$.
 \end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
 	Für einen zulässigen Fluss über Zeit $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
 \end{lemma}
 \begin{proof}
-	Unter Benutzung der Voraussetzung~(\ref{def-feasible-flow-no-flow-at-node}) folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
+	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
 	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) dt = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) dt = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
 \end{proof}
 
@@ -125,7 +125,7 @@
 	und der Balancevektor $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
 	Dann gelten die folgenden Aussagen:
 	
-	\begin{enumerate}[(i)]
+	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $g$ ist ein statischer $b$-Fluss und heißt der von $f$ induzierte statische $b$-Fluss zur Zeit $\theta$.
 		\item\label{lemma-b-graph-imp} Ist $f$ zulässig, so gilt $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
 	\end{enumerate}
@@ -154,7 +154,7 @@
 
 \begin{theorem}\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen Fluss über Zeit $f$ sind die folgenden Aussagen äquivalent:
-	\begin{enumerate}[(i)]
+	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
 		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
 		\item Der Fluss $f$ fließt ohne Überholungen.
@@ -163,10 +163,10 @@
 	\todo{Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.}
 \end{theorem}
 \begin{proof}
-	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~(\ref{prop-feasible-flow-det-outflow}):
+	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow}:
 	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
 	Nach Lemma~\ref{lemma-only-active-edges} gilt also die gewünschte Äquivalenz.
 	
 	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
-	Lemma~\ref{lemma-b-graph}~(\ref{lemma-b-graph-imp}) liefert die gewünschte Biimplikation.
+	Lemma~\ref{lemma-b-graph}~\ref{lemma-b-graph-imp} liefert die gewünschte Biimplikation.
 \end{proof}

@@ -29,7 +29,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
 \begin{definition}[Zulässiger Fluss über Zeit]
 	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
-	\begin{enumerate}[(I)]
+	\begin{enumerate}[label=(F\arabic*)]
 		\item\label{def-feasible-flow-capacity} keine Abflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
 		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
 		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
@@ -47,7 +47,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
 \begin{proposition}\label{prop-feasible-flow}
 	Sei $e\in E$ eine Kante und $f$ ein zulässiger Fluss. Dann gilt:
-	\begin{enumerate}[(i)]
+	\begin{enumerate}[label=(i)]
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
 		\item\label{prop-feasible-flow-positive-queue} Für alle $e\in E$ und $\theta\in\R$ ist die Länge der Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
 		\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(T_e(\theta))$.
@@ -55,7 +55,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
-	Für die Monotonie in~(\ref{prop-feasible-flow-T-mon-inc-cont}) seien $\theta_1 \leq \theta_2$ gegeben.
+	Für die Monotonie in~\ref{prop-feasible-flow-T-mon-inc-cont} seien $\theta_1 \leq \theta_2$ gegeben.
 	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_1 + \tau_e) = F_e^-(\theta_2+\tau_e) - \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)dt\leq F_e^-(\theta_2 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
 	$$
 		\theta_1 + q_e(\theta_1)
@@ -64,10 +64,10 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	$$
 	Die Stetigkeit folgt aus der Stetigkeit von $F_e^+$ und $F_e^-$.
 	
-	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$ nach~(\ref{prop-feasible-flow-T-mon-inc-cont}).
+	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$ nach~\ref{prop-feasible-flow-T-mon-inc-cont}.
 	Also ist $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)\geq 0$, was Aussage (ii) beweist.	
 	
-	Zu Aussage (iii): Nach Voraussetzung~(\ref{def-feasible-flow-queue-with-capacity}) und Aussage (ii) ist
+	Zu Aussage (iii): Nach Voraussetzung~\ref{def-feasible-flow-queue-with-capacity} und Aussage (ii) ist
 	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) dt = q_e(\theta)  u_e = z_e(\theta)$.
 	Damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)dt = F_e^+(\theta)$.
 	
