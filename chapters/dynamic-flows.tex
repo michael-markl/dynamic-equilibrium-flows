@@ -11,16 +11,16 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 \todo{Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.}
 
 \begin{definition}
-	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, das heißt $\int_a^b g(t) dt< \infty$ für beliebige beschränkte Intervalle $(a,b)$, und auf der negativen Achse verschwinden, also $g(t)=0$ für $t<0$.
-	Der Funktionenraum $AC_{loc}$
+	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, das heißt $\int_a^b |g(t)| dt< \infty$ für beliebige beschränkte Intervalle $(a,b)$, und auf der negativen Achse verschwinden, also $g(t)=0$ für $t<0$.
+	\todo{Der Funktionenraum} %$\C_{\loc}$
 \end{definition}
 
 \begin{definition}[Fluss über Zeit]
 	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
 	
-	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Einflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Ausflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
+	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Zuflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Abflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
-	Der (kumulative) \emph{Einfluss bzw. Ausfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_0^\theta f^+_e(t) dt<\infty$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t) dt<\infty$.
+	Der (kumulative) \emph{Zufluss bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_0^\theta f^+_e(t) dt<\infty$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t) dt<\infty$.
 	
 	Die \emph{(Länge der) Warteschlange an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und die \emph{Wartezeit an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $q_e(\theta) = z_e / u_e$.
 	
@@ -30,7 +30,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 \begin{definition}[Zulässiger Fluss über Zeit]
 	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
 	\begin{enumerate}[(I)]
-		\item\label{def-feasible-flow-capacity} keine Ausflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
+		\item\label{def-feasible-flow-capacity} keine Abflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
 		\item\label{weak} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
 		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
 		\item\label{def-feasible-flow-queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.

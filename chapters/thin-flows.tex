@@ -1,4 +1,3 @@
-
 \section{A special class of static flows}
 
 \begin{lemma}\label{lemma-no-inflow-until-l}
@@ -28,7 +27,7 @@
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]
-	Seien ein statischer $F$-wertiger Fluss $f$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Einflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ von Kanten gegeben.
+	Seien ein statischer $F$-wertiger Fluss $f$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ von Kanten gegeben.
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l\in\R^V$ existiert mit:
 	$$\begin{array}{ll}
 	(1)~~~	l_s = F/d& \\
@@ -49,7 +48,7 @@
 \begin{proof}
 	zu zeigen: $\frac{dl_s}{d\theta}(\theta) = F/d$.
 	Dabei ist $\frac{dl_s}{d\theta}(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
-	Der Wert von $g$ ist $\frac{d}{d\theta}\sum_{e\in\delta^+(s)}x_e(\theta) = \frac{d}{d\theta} d\cdot\theta = d$. \todo{Geht auch mit variablen Einfluss}.
+	Der Wert von $g$ ist $\frac{d}{d\theta}\sum_{e\in\delta^+(s)}x_e(\theta) = \frac{d}{d\theta} d\cdot\theta = d$. \todo{Geht auch mit variablen Zufluss}.
 	
 	Sei nun eine Kante $uv\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
 	
@@ -104,7 +103,7 @@
 \end{proof}
 
 \begin{definition}
-	Ein \emph{Fluss über Zeit $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Einfluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
+	Ein \emph{Fluss über Zeit $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
 \end{definition}
 
 \begin{definition}
@@ -112,7 +111,7 @@
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Ein- bzw Ausfluss setze auf
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Zu- bzw Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
