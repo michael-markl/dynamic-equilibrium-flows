@@ -11,19 +11,28 @@
 \end{proof}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
-	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben, sodass $q_{uv}(l_u(\theta)) > 0$.
-	Dann ist die Kante $e$ aktiv zum Zeitpunkt $\theta$.
+	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben.
+	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
+	\begin{enumerate}[label=(\roman*)]
+		\item Es existiert ein $\varepsilon>0$ mit $x_{vw}(\theta')<x_{vw}(\theta)$ für alle $\theta'\in(\theta-\varepsilon, \theta)$.
+		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
+		\item Die Wartezeit $q_{vw}(\theta)$ an der Kante $vw$ ist zur Zeit $\theta$ positiv.
+	\end{enumerate}
 \end{lemma}
-\begin{proof}\todo{don't argue with 0}
-	Es ist zu zeigen, dass $T_{uv}(l_u(\theta)) \leq l_v(\theta)$.
-	Da $q_{uv}(l_u(\theta)) > 0$, ist auch $F^+_{uv}(l_u(\theta)) > 0$.
-	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{uv}(l_u(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{uv}^+\circ l_u$ existiert
-	ein frühester Zeitpunkt $\theta_1\in (0, \theta]$ mit $F_{uv}^+(l_u(\theta_1)) = F_{uv}^+(l_u(\theta))$.
-	Für ein beliebiges $\varepsilon>0$ ist also $F_{uv}^+(l_u(\theta_1-\varepsilon)) < F_{uv}^+(l_u(\theta_1))$ und es gibt eine Teilmenge $Q_\varepsilon \subseteq l_u((\theta_1 - \varepsilon, \theta_1])$ mit Maß größer 0 und $f_{uv}^+\big|_{Q_\varepsilon} > 0$.
+\begin{proof}
+	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
+	Also existiert eine Teilmenge $Q_\varepsilon \subseteq (l_v(\theta-\varepsilon), l_v(\theta))=l_v((\theta - \varepsilon, \theta))$ mit positivem Maß und $f_{vw}^+\big|_{Q_\varepsilon} > 0$.
 	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten.
-	Daher ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta_1-\varepsilon, \theta_1)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
-	Für $\varepsilon\rightarrow0$ gilt $T_{uv}(l_u(\theta_1))=l_v(\theta_1)$  wegen der Abgeschlossenheit von $\Theta_{vw}$.
-	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{uv}(l_u(\theta_1)) = T_{uv}(l_u(\theta))$ und mit der Monotonie von $l_u$ folgt $T_{uv}(l_u(\theta))\leq l_v(\theta)$.
+	Daher ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
+	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
+	
+	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
+	\todo{don't argue with 0}Für Aussage (iii) ist wieder $T_{vw}(l_v(\theta)) \leq l_w(\theta)$ zu zeigen.
+	Da $q_{vw}(l_v(\theta))$ positiv ist, gilt auch $F^+_{vw}(l_v(\theta)) > 0$.
+	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{vw}(l_v(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{vw}^+\circ l_v$ existiert
+	ein frühester Zeitpunkt $\theta_1\in (0, \theta]$ mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
+	Nach Aussage (i) gilt also $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
+	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.	
 \end{proof}
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 

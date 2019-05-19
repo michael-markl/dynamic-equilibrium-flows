@@ -51,7 +51,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
 		\item\label{prop-feasible-flow-positive-queue} Für alle $e\in E$ und $\theta\in\R$ ist die Länge der Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
 		\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(T_e(\theta))$.
-		\item\label{prop-feasible-flow-queue-delay} Für zwei Zeitpunkte $0\leq \theta_1 < \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
+		\item\label{prop-feasible-flow-queue-delay} Für zwei Zeitpunkte $\theta_1 \leq \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -72,10 +72,10 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	Damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)dt = F_e^+(\theta)$.
 	
 	Es bleibt noch Aussage (iv) zu zeigen:
-	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta_1) = F_e^+(\theta') = F_e^-(\theta_2)$.
+	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta_1) = F_e^+(\theta') = F_e^+(\theta_2)$.
 	Also ist $F_e^+(\theta') - F_e^-(\theta' + \tau_e) \geq F_e^+(\theta_2)-F_e^-(\theta_2 + \tau_e) = z_e(\theta_2) > 0$ und es gilt $f_e^-(\theta' + \tau_e)=u_e$.
 	Für die Warteschlangendifferenz gilt dann: 
-	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) dt = (\theta_2 - \theta_1)u_e$.
+	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) dt = (\theta_2 - \theta_1)u_e$ nach Bedingung~\ref{def-feasible-flow-queue-with-capacity}.
 	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
 \end{proof}
 
