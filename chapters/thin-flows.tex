@@ -36,7 +36,7 @@
 \end{proof}
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
-\begin{definition}[Schmaler Fluss mit Zurücksetzen]
+\begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
 	Seien ein statischer $F$-wertiger Fluss $f$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ von Kanten gegeben.
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l\in\R^V$ existiert mit:
 	$$\begin{array}{ll}
@@ -107,8 +107,8 @@
 		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
 		Für Bedingung~(3) bleibt zu zeigen, dass $\frac{dx_{uv}}{d\theta}(\theta) /u_{uv}\leq \frac{dl_v}{d\theta}(\theta)$ gilt.
-		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon > 0$.
-		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon \rightarrow 0$.
+		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon>0$.
+		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
 \end{proof}
 
@@ -121,8 +121,8 @@
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ mit $x_{vw}'>0$ den Zu- bzw. Abfluss setze auf
-	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w']$.}$$
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ den Zu- bzw. Abfluss setze auf
+	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in (l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in (l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
 \begin{lemma}
@@ -130,7 +130,7 @@
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
 	Dann gelten die folgenden Aussagen:
 	\begin{enumerate}[label=(\roman*)]
-		\item Gilt $x_{vw}'(T) > 0$ für $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$
+		\item Gilt $x_{vw}' > 0$ für $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$
 		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
 		\item Die zu $\tilde{f}$ gehörigen frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch:
 		$$\tilde{l}_v(\theta) = \begin{cases}
@@ -146,5 +146,17 @@
 	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der zusätzlichen Voraussetzung an $\alpha$.
 	Sonst gilt $l_w' \geq l_v'$ nach $(3)$ und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
 	
-	Zu $(ii)$: 
+	Zu $(ii)$: Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
+	
+	Die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity} ist erfüllt, da für $x_{vw}'>0$ gilt $l_w'\geq x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} und damit ist $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$.
+	
+	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $vw\in E, \theta\in\R$.
+	Ist $x_{vw}'=0$, so ist $\tilde{F}_{vw}^+(\theta) = F_{vw}^+(\min\{ l_v(T), \theta \} )$ und $\tilde{F}_{vw}^+(\theta + \tau_{vw}) = F_{vw}^+(\min\{ l_w(T), \theta +\tau_{vw}\})$.
+	Mit $F_{vw}^+(l_v(T)) = F_{vw}^-(l_w(T))$ und $F_{vw}^+(\theta)\geq F_{vw}^-(\theta+\tau_{vw})$ folgt die Behauptung.
+	Für $x_{vw}'>0$ und $\theta\in(T, T+\alpha l_v')$ 
+	
+	
+	
+	 bemerke man zunächst, dass für $vw\in E$ mit $x_{vw}'=0$ die Kapazitätsbedingung \ref{def-feasible-flow-capacity} und \ref{def-feasible-flow-no-flow-at-node} erfüllt sind.
+	
 \end{proof}
