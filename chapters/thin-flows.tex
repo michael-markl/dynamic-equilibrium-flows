@@ -121,7 +121,7 @@
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$} aus $f$, wobei man für alle $vw\in E$ den Zu- bzw. Abfluss setze auf
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle $vw\in E$ den Zu- bzw. Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in (l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in (l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
@@ -150,13 +150,15 @@
 	
 	Die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity} ist erfüllt, da für $x_{vw}'>0$ gilt $l_w'\geq x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} und damit ist $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$.
 	
-	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $vw\in E, \theta\in\R$.
+	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $vw\in E$ und $\theta\in\R$.
 	Ist $x_{vw}'=0$, so ist $\tilde{F}_{vw}^+(\theta) = F_{vw}^+(\min\{ l_v(T), \theta \} )$ und $\tilde{F}_{vw}^+(\theta + \tau_{vw}) = F_{vw}^+(\min\{ l_w(T), \theta +\tau_{vw}\})$.
 	Mit $F_{vw}^+(l_v(T)) = F_{vw}^-(l_w(T))$ und $F_{vw}^+(\theta)\geq F_{vw}^-(\theta+\tau_{vw})$ folgt die Behauptung.
-	Für $x_{vw}'>0$ und $\theta\in(T, T+\alpha l_v')$ 
+	Man betrachte also $x_{vw}'>0$ und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} gilt $T\in\Theta_{vw}$.
+	Für $\theta\leq l_v(T)$ ist $\tilde{F}_{vw}^+(\theta)=F_{vw}^+(\theta)\geq F_{vw}^-(\theta + \tau_{vw}) = \tilde{F}_{vw}^-(\theta + \tau_{vw})$, da $\theta+\tau_{vw} \leq l_v(T)+\tau_{vw}\leq l_w(T)$ gilt.
+	Existiert ein $\gamma\leq\alpha$ mit $\theta=l_v(T) + \gamma l_v'$, so gilt:
+	$$\tilde{F}_{vw}^+(\theta)=\tilde{F}_{vw}^+(l_v(T) + \gamma l_v')=F_{vw}^+(l_v(T))+\gamma x_{vw}' = F_{vw}^-(l_w(T))+ \gamma x_{vw}'= \tilde{F}_{vw}^-(l_w(T)+\gamma l_w').$$
+	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) gilt.
+	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	
-	
-	
-	 bemerke man zunächst, dass für $vw\in E$ mit $x_{vw}'=0$ die Kapazitätsbedingung \ref{def-feasible-flow-capacity} und \ref{def-feasible-flow-no-flow-at-node} erfüllt sind.
-	
+	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} folgt, da $x'(T)$ nach Bemerkung~\ref{remark-s-t-flow} ein $s$-$t$-Fluss ist und Flusserhaltung erfüllt.
 \end{proof}
