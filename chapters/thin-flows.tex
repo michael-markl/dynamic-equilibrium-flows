@@ -18,6 +18,8 @@
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}(\theta)$ an der Kante $vw$ ist zur Zeit $\theta$ positiv.
 	\end{enumerate}
+\todo{Ich glaube das stimmt auch gar nicht: 
+	Existiert zusätzlich zu (iii) die Ableitung $x'_{vw}(\theta)$, so ist diese positiv.}
 \end{lemma}
 \begin{proof}
 	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
@@ -30,7 +32,7 @@
 	\todo{don't argue with 0}Für Aussage (iii) ist wieder $T_{vw}(l_v(\theta)) \leq l_w(\theta)$ zu zeigen.
 	Da $q_{vw}(l_v(\theta))$ positiv ist, gilt auch $F^+_{vw}(l_v(\theta)) > 0$.
 	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{vw}(l_v(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{vw}^+\circ l_v$ existiert
-	ein frühester Zeitpunkt $\theta_1\in (0, \theta]$ mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
+	ein frühester Zeitpunkt $\theta_1\leq\theta$ mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
 	Nach Aussage (i) gilt also $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.	
 \end{proof}
@@ -161,5 +163,9 @@
 	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	
 	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} folgt, da $x'(T)$ nach Bemerkung~\ref{remark-s-t-flow} ein statischer $s$-$t$-Fluss ist und Flusserhaltung erfüllt.
+	\todo{TODO: \ref{def-feasible-flow-queue-with-capacity}}
+
+	Um Aussage (iii) zu zeigen, genügt es zu beweisen, dass $\tilde{l}_v(\theta) = l_v(T) + (\theta - T) l_v'$ für $\theta\in [T, T+\alpha]$, da für $\theta < T$ und $w\neq s$ ist $\tilde{l}_w(\theta) = \min_{vw\in\delta^-(w)} \tilde{T}_{vw}(\tilde{l}_v(\theta))$
 	
+	Ist $vw\in E$ und $T\in\Theta_{vw}$ mit 
 \end{proof}

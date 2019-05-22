@@ -4,8 +4,8 @@ Betrachte Zeitraum $[0,T]$ mit $T\in\R_+$.
 $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 
 \begin{definition}[Netzwerk]
-	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E\subseteq V\times V$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$.
-	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e > 0$ haben.
+	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e$ haben.
 \end{definition}
 
 \todo{Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.}
@@ -16,7 +16,7 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 \end{definition}
 
 \begin{definition}[Fluss über Zeit]
-	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
+	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
 	
 	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Zuflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Abflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
