@@ -36,7 +36,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \end{definition}
 
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Zu jeder Zeit $\theta$ ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ azyklisch und jeder Knoten ist von $s$ erreichbar.
+	Für einen zulässigen Fluss ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit $\theta$ azyklisch und jeder Knoten ist von $s$ erreichbar.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
@@ -45,13 +45,6 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 	
 	Für jeden Knoten $w\neq s$ existiert zumindest eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher existiert, da $w$ von $s$ aus erreichbar ist.
 	Folgt man diesen aktiven Rückwärtskanten, so erreicht man schließlich $s$, da keine Zykeln auftreten.
-%	Man induziere über die maximale Kantenzahl $k$ kürzester $s$-$w$-Pfade -- diese existiert, da für alle Zykeln eine positive Gesamtverzögerung vorausgesetzt wird.
-%	Für $k>0$ seien ein kürzester $s$-$w$-Pfad $P$ mit maximaler Kantenzahl $k$ und seine letzte Kante $vw$ gegeben.
-%	Wegen der Monotonie von $T_{vw}$ gilt $T_{vw}(l_v(\theta)) \leq T_{vw}(l^{P-vw}(\theta)) = l_w(\theta)$, wobei $P-vw$ der Pfad $P$ ohne die letzte Kante $vw$ ist.
-%	Also ist $vw$ zur Zeit $\theta$ aktiv.
-%	Die Erweiterung eines kürzesten $s$-$v$-Pfades $Q$ um $vw$ ist ein kürzester $s$-$w$-Pfad, weshalb die maximale Kantenzahl eines kürzesten $s$-$v$-Pfades kleiner als $k$ ist.
-%	Nach Induktionsannahme existiert ein kürzester $s$-$v$-Pfad, der nur aktive Kanten verwendet.
-%	Hängt man an diesen Pfad $vw$ an, so erhält man einen kürzesten $s$-$w$-Pfad mit ausschließlich aktiven Kanten.
 \end{proof}
 
 \todo{Move notation to first occurrence}
@@ -67,7 +60,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \todo{Wo ist der Beweis hin?}
 
 \begin{proposition}
-	Der Vektor $(l_v(\theta))_{v\in V}$ ist die eindeutige Lösung des Gleichungssystems
+	Für einen zulässigen Fluss $f$ ist der Vektor $(l_v(\theta))_{v\in V}$ die eindeutige Lösung des Gleichungssystems
 	$$ \tilde{l}_w = \begin{cases}
 	\theta, & \text{falls } w=s, \\
 	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
