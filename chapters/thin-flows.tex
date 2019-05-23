@@ -129,24 +129,27 @@
 
 \begin{lemma}
 	Für jede $\alpha$-Erweiterung $\tilde{f}$ eines Nash-Flusses über Zeit $f$ mit Zeithorizont $T$, die für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ die Bedingung
-	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}.$$
+	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$$
 	erfüllt, gelten die folgenden Aussagen:
 	\begin{enumerate}[label=(\roman*)]
-		\item Gilt $x_{vw}' > 0$ für $vw\in E$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$
+		\item Gilt $x_{vw}' > 0$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$.
 		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
-		\item Die zu $\tilde{f}$ gehörigen frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ sind für $\theta \leq T+\alpha$ gegeben durch
+		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung $$
+		l_w(T) - l_v(T) + \alpha(l_w' -l_v') \leq \tau_{vw},
+		$$
+		so sind die $\tilde{f}$ zugeordneten frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ für $\theta \leq T+\alpha$ durch
 		$$\tilde{l}_v(\theta) = \begin{cases}
 		l_v(\theta), & \text{ falls $\theta < T$,} \\
 		l_v(T) + (\theta - T) l_v', & \text{ falls $\theta \in [T, T+\alpha]$.}
 		\end{cases}$$
-		\item Der Fluss $\tilde{f}$ ist Nash-Fluss über Zeit.
+		gegeben und der Fluss $\tilde{f}$ ist Nash-Fluss über Zeit.
 	\end{enumerate}
 	\todo{ Zusätzliche Voraussetzung $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \leq t_{vw}$, falls $vw$ nicht aktiv zum Zeitpunkt $T$. }
 \end{lemma}
 \begin{proof}
 	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
 	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der zusätzlichen Voraussetzung an $\alpha$.
-	Sonst gilt $l_w' \geq l_v'$ nach $(3)$ und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
+	Sonst gilt $l_w' \geq l_v'$ nach Definition~\ref{def-thin-flow}~(3) und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
 	
 	Daraus folgt mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch sofort $\tilde{F}_{vw}^-(\theta + \tau_{vw}) = F_{vw}^-(\theta + \tau_{vw})$ für $\theta\leq l_v(T)$.
 	Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
@@ -159,29 +162,21 @@
 	Für $x_{vw}'>0$ gilt $T\in\Theta_{vw}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge}.
 	Für $\theta\leq l_v(T)$ gilt dies bereits, wie wir im Beweis von (i) gesehen haben.
 	Existiert ein $\gamma\leq\alpha$ mit $\theta=l_v(T) + \gamma l_v'$, so gilt:
-	$$\tilde{F}_{vw}^+(\theta)=\tilde{F}_{vw}^+(l_v(T) + \gamma l_v')=F_{vw}^+(l_v(T))+\gamma x_{vw}' = F_{vw}^-(l_w(T))+ \gamma x_{vw}'= \tilde{F}_{vw}^-(l_w(T)+\gamma l_w').$$
+	\begin{equation}\label{eq-extension-nash-flow}
+	\tilde{F}_{vw}^+(l_v(T) + \gamma l_v')=F_{vw}^+(l_v(T))+\gamma x_{vw}' = F_{vw}^-(l_w(T))+ \gamma x_{vw}'= \tilde{F}_{vw}^-(l_w(T)+\gamma l_w').
+	\end{equation}
 	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) gilt.
 	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	
 	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} folgt, da $x'(T)$ nach Bemerkung~\ref{remark-s-t-flow} ein statischer $s$-$t$-Fluss ist und Flusserhaltung erfüllt.
 	\todo{TODO: \ref{def-feasible-flow-queue-with-capacity}}
 
-	Um Aussage (iii) zu zeigen, zeige man zunächst $T_{vw}(\theta) = \tilde{T}_{vw}(\theta)$  für $\theta \leq l_v(T)$:
-	Dies gilt genau dann, wenn $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$.
-	Ist $x_{vw}' = 0$, so stimmt der Zu- bzw. Abfluss von $f$ und $\tilde{f}$ an $vw$ und damit auch die Wartezeiten zur Zeit $\theta$ überein.
-	Ist $x_{vw}'$ positiv, so gilt $\theta + \tau_{vw} \leq l_v(T)+\tau_{vw} \leq l_w(T)$ nach (i).
-	Demnach ist $\tilde{F}_{vw}^-(\theta + \tau_{vw}) = F_{vw}^-(\theta + \tau_{vw})$ und, da auch $\tilde{F}_{vw}^+(\theta)$ mit  $F_{vw}^+(\theta)$ übereinstimmt, sind die Wartezeiten identisch. 
-	
-	Nun sieht man leicht, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt.
-	Für $\theta \in (T, T+\alpha]$ gilt:
-	
-%	Für einen bzgl. $\tilde{f}$ zum Zeitpunkt $\theta\leq l_w(T)$ kürzesten $s$-$w$-Pfad $P$, der ausschließlich aktive Kanten benutzt, gilt
-%	$\tilde{l}_w(\theta) = \tilde{l}^P(\theta)$.
-%	Induktiv zeige man $\tilde{l}_v(\theta) = l_v(\theta)$ für alle Knoten $v$ in $P$.
-%	Für $s$ gilt dies offenbar und für eine Kante $uv$ in $P$, für die nach Induktionsannahme $\tilde{l}_u(\theta) = l_u(\theta)$ gilt, ist $\tilde{l}_v(\theta) = \tilde{T}_{uv}(\tilde{l}_u(\theta)) = \tilde{T}_{uv}(l_u(\theta)) = T_{uv}(l_u(\theta))$.
-	
-%	genügt es zu beweisen, dass $(l_v(T) + (\theta - T) l_v')_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta\in (T, T+\alpha)$ erfüllt,
-%	da für $\theta < T$ und $w\neq s$ ist $\tilde{l}_w(\theta) = \min_{vw\in\delta^-(w)} \tilde{T}_{vw}(\tilde{l}_v(\theta)) = \min$
-%	
-%	Ist $vw\in E$ und $T\in\Theta_{vw}$ mit 
+	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da wie bereits bemerkt $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ gilt.
+	Für $\theta \in (T, T+\alpha)$ erfüllt auch $(l_v(T) + (\theta - T)l_v')_{v\in V}$ das System:
+	Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_v' = \theta$.
+	Für $w\neq s$ impliziert die Gleichung~\ref{eq-extension-nash-flow} für positive $x_{vw}'$ gerade $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
+	Es bleibt also zu zeigen, dass dies für Kanten mit $x_{vw}' = 0$ eine untere Schranke ist.
+	\todo{Ist $x_{vw}' = 0$, so ist $q_{vw}(T) = 0$.}
+	Für zur Zeit $T$ aktive Kanten $vw$ folgt daher $l_w'\leq l_v'$ nach Definition~\ref{def-thin-flow}~(2), wodurch man $\tilde{T}(l_v(T) + (\theta - T)l_v')\geq l_v(T) + (\theta - T)l_v' + \tau_{vw}\geq l_v(T) + (\theta - T)l_w' + \tau_{vw} = l_w(T) + (\theta-T)l_w'$ erhält.
+	\todo{Ist $vw$ zur Zeit $T$ inaktiv, so ist $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') \geq l_v(T) + (\theta - T)l_v' + \tau_{vw} \geq l_w(T) + $}
 \end{proof}
