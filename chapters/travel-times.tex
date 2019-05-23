@@ -35,18 +35,23 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 	Die Menge $\Theta_{vw}$ bezeichne alle Zeitpunkte, zu denen die Kante $vw$ aktiv ist.
 \end{definition}
 
-\begin{lemma}
-	Zu jedem Knoten $w$ existiert immer ein kürzester $s$-$w$-Pfad, der nur aktive Kanten benutzt.
-	Insbesondere spannt der durch die aktiven Kanten induzierte Teilgraph den gesamten Graphen auf.
+\begin{lemma}\label{lemma-shortest-path-using-active-edges}
+	Zu jeder Zeit $\theta$ ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ azyklisch jeder Knoten ist von $s$ erreichbar.
 \end{lemma}
 \begin{proof}
-	Man induziere über die maximale Kantenzahl $k$ kürzester $s$-$w$-Pfade -- diese existiert, da für alle Zykeln eine positive Gesamtverzögerung vorausgesetzt wird.
-	Für $k>0$ seien ein kürzester $s$-$w$-Pfad $P$ mit maximaler Kantenzahl $k$ und seine letzte Kante $vw$ gegeben.
-	Wegen der Monotonie von $T_{vw}$ gilt $T_{vw}(l_v(\theta)) \leq T_{vw}(l^{P-vw}(\theta)) = l_w(\theta)$, wobei $P-vw$ der Pfad $P$ ohne die letzte Kante $vw$ ist.
-	Also ist $vw$ zur Zeit $\theta$ aktiv.
-	Die Erweiterung eines kürzesten $s$-$v$-Pfades $Q$ um $vw$ ist ein kürzester $s$-$w$-Pfad, weshalb die maximale Kantenzahl eines kürzesten $s$-$v$-Pfades kleiner als $k$ ist.
-	Nach Induktionsannahme existiert ein kürzester $s$-$v$-Pfad, der nur aktive Kanten verwendet.
-	Hängt man an diesen Pfad $vw$ an, so erhält man einen kürzesten $s$-$w$-Pfad mit ausschließlich aktiven Kanten.
+	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
+	Es ist $l^C(\theta) > \theta$, da für Zykeln eine positive Gesamtverzögerung vorausgesetzt ist.
+	Augrund der Aktivität von $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
+	
+	Für jeden Knoten $w\neq s$ existiert zumindest eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher existiert, da $w$ von $s$ aus erreichbar ist.
+	Folgt man diesen aktiven Rückwärtskanten, so erreicht man schließlich $s$, da keine Zykeln auftreten.
+%	Man induziere über die maximale Kantenzahl $k$ kürzester $s$-$w$-Pfade -- diese existiert, da für alle Zykeln eine positive Gesamtverzögerung vorausgesetzt wird.
+%	Für $k>0$ seien ein kürzester $s$-$w$-Pfad $P$ mit maximaler Kantenzahl $k$ und seine letzte Kante $vw$ gegeben.
+%	Wegen der Monotonie von $T_{vw}$ gilt $T_{vw}(l_v(\theta)) \leq T_{vw}(l^{P-vw}(\theta)) = l_w(\theta)$, wobei $P-vw$ der Pfad $P$ ohne die letzte Kante $vw$ ist.
+%	Also ist $vw$ zur Zeit $\theta$ aktiv.
+%	Die Erweiterung eines kürzesten $s$-$v$-Pfades $Q$ um $vw$ ist ein kürzester $s$-$w$-Pfad, weshalb die maximale Kantenzahl eines kürzesten $s$-$v$-Pfades kleiner als $k$ ist.
+%	Nach Induktionsannahme existiert ein kürzester $s$-$v$-Pfad, der nur aktive Kanten verwendet.
+%	Hängt man an diesen Pfad $vw$ an, so erhält man einen kürzesten $s$-$w$-Pfad mit ausschließlich aktiven Kanten.
 \end{proof}
 
 \todo{Move notation to first occurrence}
@@ -69,11 +74,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 	\end{cases}.$$
 \end{proposition}
 \begin{proof}
-	Offenbar löst $l_v(\theta)$ dieses System:
-	Für $w\neq s$ ist $l_w(\theta)$ eine untere Schranke an $T_{uv}(l_v(\theta))$ für $vw\in\delta^-(w)$.
-	Es seien ein kürzester $s$-$w$-Pfad $P$ zur Zeit $\theta$, seine letzte Kante $vw$ sowie ein kürzester $s$-$v$-Pfad $Q$ gegeben.
-	Dann ist $T_{vw}(l_v(\theta)) = T_{vw}(l^Q(\theta)) \leq T_{vw}(l^{P-vw}) = l_w(\theta)$.
-	Daher wird das Minimum auch angenommen.
+	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
 	
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
