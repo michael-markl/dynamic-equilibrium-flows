@@ -36,7 +36,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \end{definition}
 
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Zu jeder Zeit $\theta$ ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ azyklisch jeder Knoten ist von $s$ erreichbar.
+	Zu jeder Zeit $\theta$ ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ azyklisch und jeder Knoten ist von $s$ erreichbar.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
@@ -67,26 +67,18 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \todo{Wo ist der Beweis hin?}
 
 \begin{proposition}
-	Der Vektor $(l_v(\theta))_{v\in V}$ lässt sich ermitteln, indem man folgendes Gleichungssystem eindeutig löst:
+	Der Vektor $(l_v(\theta))_{v\in V}$ ist die eindeutige Lösung des Gleichungssystems
 	$$ \tilde{l}_w = \begin{cases}
-	\theta & \text{falls } w=s \\
-	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v) & \text{sonst}
-	\end{cases}.$$
+	\theta, & \text{falls } w=s, \\
+	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
+	\end{cases}$$
 \end{proposition}
 \begin{proof}
 	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
-	
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
-	Dazu führe man eine Induktion über die maximale Kantenzahl $k$ kürzester $s$-$w$-Pfade durch.
-	Solch ein Maximum existiert für jeden Knoten $w$, da für Zyklen eine positive Gesamtverzögerung vorausgesetzt ist.
-	Für $k=0$ gilt $l_s(\theta)=\theta = \tilde{l}_s$ für die Quelle $s$.
-	Sei für $w\neq s$ ein kürzester $s$-$w$-Pfad $P$ zum Zeitpunkt $\theta$ mit maximaler Kantenzahl $k$ gegeben und sei $vw$ die letzte Kante von $P$.
-	Offenbar ist $vw$ aktiv zur Zeit $\theta$.
-	Der Pfad $P-vw$, also der Pfad $P$ ohne die letzte Kante $vw$, ist ein kürzester $s$-$v$-Pfad mit maximaler Kantenzahl zur Zeit $\theta$:
-	Für einen kürzesten $s$-$v$-Pfad $Q$ ist $l^Q(\theta)\leq l^{P-vw}(\theta)$ und mit der Monotonie von $T_{vw}$ gilt $l^{Q+vw}(\theta)\leq l^P(\theta)$.
-	Wegen der Maximalität der Kantenzahl von $P$ ist also auch die Kantenzahl von $P-vw$ maximal.
-	Damit gilt nach Induktionsvoraussetzung $l_v(\theta) = \tilde{l}_v$
-	und damit gelten $l_w(\theta) = T_{vw}(\tilde{l}_v)$ und $\tilde{l}_w \leq l_w(\theta)$.
+	Folgt man ausgehend von einem Knoten $w\neq s$ den Rückwärtskanten $uv$, bei denen das Minimum über $T_{uv}(\tilde{l}_u)$ angenommen wird, so erhält man einen $s$-$w$-Pfad $P$, da Zykeln eine positive Gesamtverzögerung besitzen und somit nicht entstehen können.
+	Also gilt $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$.
+	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(l_s(\theta)) = l_w(\theta)$.
 \end{proof}
-\todo{Belmann-Ford? Warum kann man das? Zykeln?}
+\todo{Belmann-Ford? Warum kann man das?}
