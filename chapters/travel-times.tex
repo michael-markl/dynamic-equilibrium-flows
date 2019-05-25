@@ -36,7 +36,7 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 \end{definition}
 
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Für einen zulässigen Fluss ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit $\theta$ azyklisch und jeder Knoten ist von $s$ erreichbar.
+	Für einen zulässigen Fluss ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit $\theta$ azyklisch und jeder Knoten ist von $s$ in $G_\theta$ erreichbar.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
@@ -67,11 +67,13 @@ Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ a
 	\end{cases}$$
 \end{proposition}
 \begin{proof}
-	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
+	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}, da jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
-	Folgt man ausgehend von einem Knoten $w\neq s$ den Rückwärtskanten $uv$, bei denen das Minimum über $T_{uv}(\tilde{l}_u)$ angenommen wird, so erhält man einen $s$-$w$-Pfad $P$, da Zykeln eine positive Gesamtverzögerung besitzen und somit nicht entstehen können.
-	Also gilt $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$.
+	Der durch die Kanten $uv\in E$, die unter allen eingehenden Kanten von $v$ die Zeit $T_{uv}(\tilde{l_v})$ minimiert, induzierte Teilgraph ist azyklisch,
+	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zykeln erzeugen würde.
+	Folgt man ausgehend von einem Knoten $w\neq s$ solange wie möglich Rückwärtskanten $uv$ in diesem Teilgraphen, so erhält man also einen $s$-$w$-Pfad $P$, für den $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$ gilt.
 	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(l_s(\theta)) = l_w(\theta)$.
+	Solch ein Pfad existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
 \end{proof}
 \todo{Belmann-Ford? Warum kann man das?}

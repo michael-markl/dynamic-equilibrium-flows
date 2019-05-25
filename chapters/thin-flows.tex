@@ -144,11 +144,10 @@
 		\end{cases}$$
 		gegeben und der Fluss $\tilde{f}$ ist Nash-Fluss über Zeit.
 	\end{enumerate}
-	\todo{ Zusätzliche Voraussetzung $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \leq t_{vw}$, falls $vw$ nicht aktiv zum Zeitpunkt $T$. }
 \end{lemma}
 \begin{proof}
 	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
-	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der zusätzlichen Voraussetzung an $\alpha$.
+	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der Voraussetzung an $\alpha$.
 	Sonst gilt $l_w' \geq l_v'$ nach Definition~\ref{def-thin-flow}~(3) und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
 	
 	Daraus folgt mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch sofort $\tilde{F}_{vw}^-(\theta + \tau_{vw}) = F_{vw}^-(\theta + \tau_{vw})$ für $\theta\leq l_v(T)$.
@@ -178,5 +177,9 @@
 	Es bleibt also zu zeigen, dass dies für Kanten mit $x_{vw}' = 0$ eine untere Schranke ist.
 	\todo{Ist $x_{vw}' = 0$, so ist $q_{vw}(T) = 0$.}
 	Für zur Zeit $T$ aktive Kanten $vw$ folgt daher $l_w'\leq l_v'$ nach Definition~\ref{def-thin-flow}~(2), wodurch man $\tilde{T}(l_v(T) + (\theta - T)l_v')\geq l_v(T) + (\theta - T)l_v' + \tau_{vw}\geq l_v(T) + (\theta - T)l_w' + \tau_{vw} = l_w(T) + (\theta-T)l_w'$ erhält.
-	\todo{Ist $vw$ zur Zeit $T$ inaktiv, so ist $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') \geq l_v(T) + (\theta - T)l_v' + \tau_{vw} \geq l_w(T) + $}
+	Sei also $vw$ zur Zeit $T$ inaktiv.
+	Zeigt man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{wv}$, folgt mit $l_v(T) + (\theta - T)l_v' \leq \tilde{T}(l_v(T) + (\theta - T)l_v')$ die Behauptung
+	$\tilde{T}(l_v(T) + (\theta - T) l_v') \geq l_w(T) + (\theta - T)l_w'$.
+	Ist $l_w' \leq l_v'$, so gilt $l_w(T) +(\theta - T)l_w' \leq l_w(T) + (\theta - T)l_v' \leq l_v(T) + \tau_{vw} + (\theta - T)l_v'$, da $vw$ zur Zeit $T$ keine Warteschlange hat.
+	Für $l_w' \geq l_v'$ gilt $l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}$ mit der zusätzlichen Voraussetzung an $\alpha$.
 \end{proof}
