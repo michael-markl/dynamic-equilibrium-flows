@@ -35,6 +35,7 @@
 	ein frühester Zeitpunkt $\theta_1\leq\theta$ mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
 	Nach Aussage (i) gilt also $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.	
+	tmptmptmptmpt
 \end{proof}
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
@@ -50,21 +51,21 @@
 \end{definition}
 
 \begin{theorem}
-	Seien ein Nash-Fluss über Zeit $f$ auf einem Graphen $G=(V,E)$ gegeben sowie ein Zeitpunkt $\theta$ gegeben.
-	Der zum Fluss $f$ und dem Zeitpunkt $\theta$ zugeordnete statische Fluss sei $x(\theta)$ mit $x_{uv}(\theta) := x^+_{uv}(\theta) = x^-_{uv}(\theta)$.\todo{(muss vlt noch gezeigt werden)}
-	Man betrachte den Teilgraph $G_\theta = (V, E_\theta)$, der nur zum Zeitpunkt $\theta$ aktive Kanten enthält, d.h. $E_\theta := \{ uv\in E \mid T_{uv}(l_u(\theta)) = l_v(\theta) \}$.
+	Seien ein Nash-Fluss über Zeit $f$ auf einem Graphen $G=(V,E)$ sowie ein Zeitpunkt $\theta$ gegeben.
+	Der dem Fluss $f$ und dem Zeitpunkt $\theta$ zugeordnete statische Fluss sei $x(\theta)$ mit $x_{uv}(\theta) := x^+_{uv}(\theta) = x^-_{uv}(\theta)$.
+	Man betrachte den Teilgraph $G_\theta = (V, E_\theta)$ aktiver Kanten zum Zeitpunkt $\theta$.
 	
-	Existieren die Ableitungen $\frac{dx_e}{d\theta}(\theta)$ und $\frac{dl_v}{d\theta}(\theta)$ für alle $e\in E$ und $v\in V$, so ist der statische Fluss $g\in\R^{E_\theta}$ mit $g_e:=\frac{dx_e}{d\theta}(\theta)$ ein schmaler $d$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{uv\in E \mid q_{uv}(l_u(\theta))>0 \}$ im Graphen $G_\theta$.
-	Als Knotenbewertung dienen dazu die Ableitungen $(\frac{dl_v}{d\theta}(\theta))_{v\in V}$.
+	Existieren die Ableitungen $x_e'(\theta)$ und $l_v'(\theta)$ für alle $e\in E$ und $v\in V$, so ist der statische Fluss $g\in\R^{E_\theta}$ mit $g_e:=x_e'(\theta)$ ein schmaler $d$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{uv\in E \mid q_{uv}(l_u(\theta))>0 \}$ im Graphen $G_\theta$.
+	Als Knotenbewertung dienen dazu die Ableitungen $l_v'(\theta)$ für $v\in V$.
 \end{theorem}
 \begin{proof}
-	zu zeigen: $\frac{dl_s}{d\theta}(\theta) = F/d$.
-	Dabei ist $\frac{dl_s}{d\theta}(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
-	Der Wert von $g$ ist $\frac{d}{d\theta}\sum_{e\in\delta^+(s)}x_e(\theta) = \frac{d}{d\theta} d\cdot\theta = d$. \todo{Geht auch mit variablen Zufluss}.
+	zu zeigen: $l_s'(\theta) = F/d$.
+	Dabei ist $l_s'(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
+	Der Wert von $g$ ist $\sum_{e\in\delta^+(s)}x_e'(\theta) =  \left.\frac{d}{dt}\sum_{e\in\delta^+(s)}F_e(l_s(t))\right|_{t=\theta}$. \todo{Geht auch mit variablen Zufluss}.
 	
 	Sei nun eine Kante $uv\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
 	
-	\begin{description}
+	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=\parindent]
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{uv}(l_u(\theta')) > 0$.
 		
 		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{uv}(l_u(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{uv}$ positiv auf dem Intervall $[ l_u(\theta')  , l_u(\theta')+q_{uv}(l_u(\theta')) )$.
@@ -76,25 +77,25 @@
 		= \int_{l_v(\theta)}^{l_v(\theta + \varepsilon)} f_{uv}^-(t) dt
 		= \int_{l_u(\theta) + q_{uv}(\theta)}^{l_u(\theta + \varepsilon) + q_{uv}(\theta + \varepsilon)} f_{uv}^-(t + \tau_{uv}) dt
 		= u_{uv} (l_v(\theta + \varepsilon) - l_v(\theta))$.
-		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{uv} = \frac{dx_{uv}}{d\theta}(\theta) = u_{uv} \frac{dl_v}{d\theta}(\theta)$.
+		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{uv} = x_{uv}'(\theta) = u_{uv} l_v'(\theta)$.
 		Ist $uv\in E_1$, so ist also Bedingung (4) erfüllt.
-		Für Bedingung (2) setze man $g_{uv}=\frac{dx_{uv}}{d\theta}(\theta)=0$ voraus.
-		Also ist auch $\frac{dl_v}{d\theta}(\theta)=0$ und, da $l_u$ monoton wachsend ist, gilt $0 \leq \frac{dl_u}{d\theta}$.
+		Für Bedingung (2) setze man $g_{uv}=x_{uv}'(\theta)=0$ voraus.
+		Also ist auch $l_v(\theta)=0$ und, da $l_u$ monoton wachsend ist, gilt $0 \leq l_u'(\theta)$.
 
 		Ist $uv\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_u(\theta)$ leer, so gilt: $l_v(\theta+\varepsilon) - l_v(\theta) = l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon)) - l_u(\theta) \geq l_u(\theta + \varepsilon) - l_u(\theta)$.
-		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $\frac{dl_v}{d\theta}(\theta) \leq \frac{dl_u}{d\theta}(\theta)$ und dem Resultat des letzten Absatzes.
+		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $l_v'(\theta) \leq l_u'(\theta)$ und dem Resultat des letzten Absatzes.
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{uv}(l_u(\theta'))>l_v(\theta')$.
 		
 		Die Kante ${uv}$ ist also im Intervall $(\theta, \theta + \varepsilon]$ nicht aktiv.
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{uv} \circ l_u\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{uv}(l_u(\theta))=0$, was $uv\notin E_1$ impliziert.
 		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{uv}^+ \circ l_u \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta)=0$.
-		Wird durch $\varepsilon$ geteilt, so erhält man $\frac{dx_{uv}}{d\theta}(\theta) = 0$ für $\varepsilon\rightarrow0$.
+		Wird durch $\varepsilon$ geteilt, so erhält man $x_{uv}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
 		Es muss also nur Bedingung (2) geprüft werden:
 		
 		
 		Da $uv$ zum Zeitpunkt $l_u(\theta)$ noch aktiv ist, folgt $l_v(\theta + \varepsilon) - l_v(\theta) < l_u(\theta+\varepsilon) - l_v(\theta) + \tau_{uv} = l_u(\theta + \varepsilon) - l_u(\theta)$.
-		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $\frac{dl_v}{d\theta}(\theta)\leq\frac{dl_u}{d\theta}(\theta)$.
+		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_v'(\theta)\leq l_u'(\theta)$.
 		
 		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{uv}(l_u(\theta_\varepsilon)) = l_v(\theta_\varepsilon)$.
 		
@@ -106,13 +107,13 @@
 		Ist dieses Intervall nicht-leer, so ist $uv$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{uv}\circ l_u$ und $l_v$ aktiv.
 		Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $uv$ aktiv ist.
 		Also gilt: $l_v(\theta_\varepsilon') - l_v(\theta) = l_u(\theta_\varepsilon') - l_u(\theta)$.
-		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $\frac{dl_v}{d\theta}(\theta) = \frac{dl_u}{d\theta}(\theta)$ für $\varepsilon\rightarrow0$ erhält.
+		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $l_v'(\theta) = l_u'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
-		Für Bedingung~(3) bleibt zu zeigen, dass $\frac{dx_{uv}}{d\theta}(\theta) /u_{uv}\leq \frac{dl_v}{d\theta}(\theta)$ gilt.
+		Für Bedingung~(3) bleibt zu zeigen, dass $x_{uv}'(\theta) /u_{uv}\leq l_v'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
-\end{proof}
+\vspace{-1.2 \baselineskip}\end{proof}
 
 \begin{definition}
 	Ein \emph{Fluss über Zeit $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
