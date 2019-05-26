@@ -1,5 +1,5 @@
 \newcommand*{\DocType}{scrartcl}
-\renewcommand*\DocType{article} % Uncomment for screen optimization
+%\renewcommand*\DocType{article} % Uncomment for screen optimization
 
 \newcommand*\ClassList{scrartcl,article}
 \documentclass[\DocType, paper=a4,fontsize=11pt,abstracton,headsepline,notitlepage]{generalclass}
@@ -25,7 +25,7 @@
 % Tabellen und Listen
 \usepackage{float}		                % Gleitobjekte 
 \usepackage[flushright]{paralist}       % Bessere Behandlung der Auflistungen
-
+\usepackage[dd.mm.yyyy,h:mm]{datetime}
 % Bilder
 \usepackage[final]{graphicx}            % Graphiken einbinden
 
@@ -81,6 +81,9 @@
 \begin{titlepage}
 \seminarkopf            % Titelblatt (wie in kopf.tex definiert)
 \input{abstract}
+
+Stand: \today, \currenttime\ Uhr
+
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
