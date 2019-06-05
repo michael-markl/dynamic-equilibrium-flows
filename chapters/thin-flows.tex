@@ -40,7 +40,7 @@
 \todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
-	Seien ein statischer $F$-wertiger Fluss $x'$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ von Kanten gegeben.
+	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ von Kanten gegeben.
 	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert mit:
 	$$\begin{array}{ll}
 	(1)~~~	l_s' = F/d& \\
@@ -121,7 +121,7 @@
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle aktiven Kanten $vw\in E_\theta$ den Zu- bzw. Abfluss setze auf
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in (l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in (l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
@@ -130,8 +130,9 @@
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$$
 	erfüllt, gelten die folgenden Aussagen:
 	\begin{enumerate}[label=(\roman*)]
-		\item Gilt $x_{vw}' > 0$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$.
-		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit.
+		\item Gilt $x_{vw}' > 0$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$, und für alle $vw\in E $ und $\theta \leq l_v(T)$ gilt  $\tilde{f}^-_{vw}(\theta + \tau_{vw})=f^-_{vw}(\theta + \tau_{vw})$.
+		Insbesondere ist $\tilde{q}_e(\theta) = q_e(\theta)$ und $\tilde{T}_e(\theta) = T_e(\theta)$ für $\theta \leq l_v(T)$.
+		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit mit Zeithorizont $T+\alpha$.
 		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung $$
 		l_w(T) - l_v(T) + \alpha(l_w' -l_v') \leq \tau_{vw},
 		$$
@@ -147,28 +148,36 @@
 	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
 	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der Voraussetzung an $\alpha$.
 	Sonst gilt $l_w' \geq l_v'$ nach Definition~\ref{def-thin-flow}~(3) und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
-	
-	Daraus folgt mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch sofort $\tilde{F}_{vw}^-(\theta + \tau_{vw}) = F_{vw}^-(\theta + \tau_{vw})$ für $\theta\leq l_v(T)$.
+	Daraus folgt mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch sofort $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw})$ für $\theta\leq l_v(T)$.
 	Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
 	
 	Zu $(ii)$: Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
-	Die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity} ist erfüllt, da $l_w'\geq x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} für positive $x_{vw}'$ gilt und damit ist $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$.
+	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ nach Definition ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $v\in V\setminus \{ v, t \}$ erfüllt.
+	Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da $f$ bereits zulässig ist und sonst $\tilde{f}_{e}^+$ und  $f_{e}^+$ sowie $\tilde{f}_{e}^-$ und $f_{e}^-$ übereinstimmen.
+	Man nehme also $x_{vw}' > 0$ und $vw\in E_T$ an.
+	Es gilt die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity}, da $l_w'\geq x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} für positive $x_{vw}'$ gilt und damit ist $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$.
 	
-	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $vw\in E$ und $\theta\in\R$.
-	Ist $x_{vw}'=0$, so stimmen $\tilde{f}_{vw}^+$ und  $f_{vw}^+$ sowie $\tilde{f}_{vw}^-$ und $f_{vw}^-$ bereits überein, wodurch die Behauptung bereits wegen der Zulässigkeit von $f$ erfüllt ist.
-	Für $x_{vw}'>0$ gilt $T\in\Theta_{vw}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge}.
-	Für $\theta\leq l_v(T)$ gilt dies bereits, wie wir im Beweis von (i) gesehen haben.
+	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $\theta\in\R$.
+	Für $\theta\leq l_v(T)$ gilt dies bereits nach (i).
 	Existiert ein $\gamma\leq\alpha$ mit $\theta=l_v(T) + \gamma l_v'$, so gilt:
 	\begin{equation}\label{eq-extension-nash-flow}
 	\tilde{F}_{vw}^+(l_v(T) + \gamma l_v')=F_{vw}^+(l_v(T))+\gamma x_{vw}' = F_{vw}^-(l_w(T))+ \gamma x_{vw}'= \tilde{F}_{vw}^-(l_w(T)+\gamma l_w').
 	\end{equation}
-	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) gilt.
+	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) erfüllt ist.
 	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	
-	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} folgt, da $x'(T)$ nach Bemerkung~\ref{remark-s-t-flow} ein statischer $s$-$t$-Fluss ist und Flusserhaltung erfüllt.
-	\todo{TODO: \ref{def-feasible-flow-queue-with-capacity}}
+	Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. dass Warteschlangen mit der Kapazität der Kante abgebaut werden.
+	Sei also $\tilde{q}_{vw}(\theta)$ positiv.
+	Für $\theta\leq l_v(T)$ gilt $\tilde{f}^-(\theta + \tau_{vw}) = f^-(\theta + \tau_{vw}) = u_{vw}$, da auch $q_{vw}(\theta)=\tilde{q}_{vw}(\theta)>0$ nach (i).
+	Ist $\theta > l_v(T)$, so unterscheide man, ob die Warteschlange von $vw$ zur Zeit $T$ positiv ist:
+	Ist dies der Fall, so \todo{:(}
+	
+	
+	
+	
+	
 
-	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da wie bereits bemerkt $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ gilt.
+	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
 	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
 	Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_v' = \theta$.
 	Für $w\neq s$ impliziert die Gleichung~\ref{eq-extension-nash-flow} für positive $x_{vw}'$ gerade $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
