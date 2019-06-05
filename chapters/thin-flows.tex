@@ -168,12 +168,15 @@
 	
 	Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. dass Warteschlangen mit der Kapazität der Kante abgebaut werden.
 	Sei also $\tilde{q}_{vw}(\theta)$ positiv.
-	Für $\theta\leq l_v(T)$ gilt $\tilde{f}^-(\theta + \tau_{vw}) = f^-(\theta + \tau_{vw}) = u_{vw}$, da auch $q_{vw}(\theta)=\tilde{q}_{vw}(\theta)>0$ nach (i).
+	Für $\theta\leq l_v(T)$ gilt $\tilde{f}^-(\theta + \tau_{vw}) = f^-(\theta + \tau_{vw}) = u_{vw}$, da nach (i) auch $q_{vw}(\theta)=\tilde{q}_{vw}(\theta)>0$ gilt.
 	Ist $\theta > l_v(T)$, so unterscheide man, ob die Warteschlange von $vw$ zur Zeit $T$ positiv ist:
-	Ist dies der Fall, so \todo{:(}
+	Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} und ohne Einschränkung sei $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ und $\tilde{f}_{vw}^-$ sind nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue}  Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} von $f$ konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
+	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt $\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'$ nach (i).
+	Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
+	Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
+	Weiterhin gilt $l_w' = x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
 	
-	
-	
+	\todo{$vw \notin E_1$}
 	
 	
 
