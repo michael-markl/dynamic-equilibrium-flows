@@ -175,10 +175,16 @@
 	Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
 	Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
 	Weiterhin gilt $l_w' = x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
-	
-	\todo{$vw \notin E_1$}
-	
-	
+	Nun betrachte man Kanten $vw$, die zum Zeitpunkt $T$ keine Warteschlange haben.
+	Nach Definition~\ref{def-thin-flow} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
+	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, dann ist $\theta+\tau_{vw}\in [l_w(T), l_w(T) + \alpha l_w']$.
+	Außerdem gilt $0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'$.
+	Daher ist $l_w' > l_v'$ und es gilt $l_w' = x_{vw}'/u_{vw}$.
+	Man folgere $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$.
+	Für $\theta > l_v(T) + \alpha l_v'$ gilt $\theta + \tau_{vw} > l_w(T) + \alpha l_v'$ und $0 < \tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta - l_v(T) \}x_{vw}'/l_w'$.
+	Insbesondere ist $\theta - l_v(T) < \alpha l_w'$, was äquivalent zu $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ ist.
+	Nun kann man $l_v' < l_w'$ folgern, was $l_w' = x_{vw}'/u_{vw}$ impliziert.
+	Damit gilt $\tilde{f}^-(\theta + \tau_{vw}) = u_{vw}$.
 
 	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
 	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
