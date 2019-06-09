@@ -44,9 +44,9 @@
 	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 	\item $l_s' = F/d$,
-	\item $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
-	\item $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
-	\item $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$.
+	\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
+	\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
+	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$.
 	\end{enumerate}
 \end{definition}
 
@@ -75,12 +75,12 @@
 		= \int_{l_v(\theta) + q_{vw}(\theta)}^{l_v(\theta + \varepsilon) + q_{vw}(\theta + \varepsilon)} f_{vw}^-(t + \tau_{vw}) dt
 		= u_{vw} (l_w(\theta + \varepsilon) - l_w(\theta))$.
 		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{vw} = x_{vw}'(\theta) = u_{vw} l_w'(\theta)$.
-		Ist $vw\in E_1$, so ist also Bedingung (4) erfüllt.
-		Für Bedingung (2) setze man $g_{vw}=x_{vw}'(\theta)=0$ voraus.
+		Ist $vw\in E_1$, so ist also Bedingung~\ref{def-thin-flow-resetting-edge} erfüllt.
+		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $g_{vw}=x_{vw}'(\theta)=0$ voraus.
 		Also ist auch $l_w(\theta)=0$ und, da $l_v$ monoton wachsend ist, gilt $0 \leq l_v'(\theta)$.
 
 		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
-		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
+		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{vw}(l_v(\theta'))>l_w(\theta')$.
 		
@@ -88,8 +88,7 @@
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{vw} \circ l_v\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{vw}(l_v(\theta))=0$, was $vw\notin E_1$ impliziert.
 		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{vw}^+ \circ l_v \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta)=0$.
 		Wird durch $\varepsilon$ geteilt, so erhält man $x_{vw}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
-		Es muss also nur Bedingung (2) geprüft werden:
-		
+		Es muss also nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
 		
 		Da $uv$ zum Zeitpunkt $l_v(\theta)$ noch aktiv ist, folgt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta+\varepsilon) - l_w(\theta) + \tau_{vw} = l_v(\theta + \varepsilon) - l_v(\theta)$.
 		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
@@ -103,10 +102,10 @@
 		Nach Konstruktion ist $q_{vw}\circ l_v$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $vw$ in diesem Intervall aktiv.
 		Ist dieses Intervall nicht-leer, so ist $vw$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{vw}\circ l_v$ und $l_w$ aktiv.
 		Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $vw$ aktiv ist.
-		Also gilt: $l_w(\theta_\varepsilon') - l_w(\theta) = l_v(\theta_\varepsilon') - l_v(\theta)$.
-		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $l_w'(\theta) = l_v'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
+		Also gilt $l_w(\theta_\varepsilon') - l_w(\theta) = l_v(\theta_\varepsilon') - l_v(\theta)$.
+		Bedingung~\ref{def-thin-flow-x-zero} wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $l_w'(\theta) = l_v'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
-		Für Bedingung~(3) bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
+		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta+\varepsilon)}^{l_w(\theta)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
@@ -147,15 +146,15 @@
 \begin{proof}
 	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
 	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der Voraussetzung an $\alpha$.
-	Sonst gilt $l_w' \geq l_v'$ nach Definition~\ref{def-thin-flow}~(3) und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
+	Sonst gilt $l_w' \geq l_v'$ nach Bedingung~\ref{def-thin-flow-x-positive} und mit $T\in \Theta_{vw}$ folgt $l_w(T)+(\theta-T)l_w'=l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w' \geq l_v(T) + (\theta-T)l_v'+\tau_{vw}$.
 	Daraus folgt mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch sofort $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw})$ für $\theta\leq l_v(T)$.
 	Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
 	
-	Zu $(ii)$: Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
-	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ nach Definition ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $v\in V\setminus \{ v, t \}$ erfüllt.
-	Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da $f$ bereits zulässig ist und sonst $\tilde{f}_{e}^+$ und  $f_{e}^+$ sowie $\tilde{f}_{e}^-$ und $f_{e}^-$ übereinstimmen.
+	Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
+	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $V\setminus \{ v, t \}$ erfüllt.
+	Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da sonst $\tilde{f}$ mit $f$ übereinstimmt und $f$ bereits zulässig ist.
 	Man nehme also $x_{vw}' > 0$ und $vw\in E_T$ an.
-	Es gilt die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity}, da $l_w'\geq x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} für positive $x_{vw}'$ gilt und damit ist $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$.
+	Es gilt die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity}, da $l_w'\geq x_{vw}' / u_{vw}$ wegen~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} gilt, wodurch $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$ folgt.
 	
 	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $\theta\in\R$.
 	Für $\theta\leq l_v(T)$ gilt dies bereits nach (i).
