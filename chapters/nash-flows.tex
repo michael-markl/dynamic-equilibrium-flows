@@ -25,15 +25,15 @@
 \end{remark}
 
 \begin{lemma}\label{lemma-vanishes-intervals}
-	Seien $g: \R \to \R_{\geq 0}$ eine Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
+	Seien $g: \R \to \R_{\geq 0}$ eine lokal Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
 	Dann verschwindet $g$ fast überall auf $\Theta:=\bigcup_{i\in I} (a_i, b_i)$ genau dann, wenn es für alle $i\in I$ fast überall auf $(a_i, b_i)$ verschwindet.
 \end{lemma}
 \begin{proof}
 	Verschwindet $g$ fast überall auf $\Theta$, so erst recht auf jedem Intervall $(a_i, b_i)$.
-	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein endliches Maß auf den Borelmengen $\mathfrak{B}$.
-	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, das heißt eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist $\mu$ nach~\cite[1.6 Korollar]{Elstrodt2011} reguläres, insbesondere innen reguläres Maß.
-	Dies heißt, dass $$\mu(B)=\sup\{ \mu(K) \mid K\subseteq B \text{ kompakt} \}$$ für alle $B\in\mathfrak{B}$ gilt.
-	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die gilt $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) dt = 0$.
+	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
+	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011} innen regulär.
+	Dies heißt, dass für offene Mengen $O\subseteq\R$ $$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$ gilt.
+	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) dt = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
 \end{proof}
 
