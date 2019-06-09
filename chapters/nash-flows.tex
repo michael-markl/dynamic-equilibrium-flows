@@ -82,17 +82,17 @@
 \todo{blablabla Definition FIFO bla}
 
 \begin{definition}
-	Für eine Kante $uv\in E$ bezeichne $x_{uv}^+(\theta):= F_{uv}^+(l_u(\theta))$ die Flussmenge, die die Kante $uv$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $u$ erreichen können.
+	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ die Flussmenge, die die Kante $vw$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
 	
-	Mit $x_{uv}^-(\theta):= F^-_{uv}(l_v(\theta))$ bezeichne man die Flussmenge, die die Kante $uv$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
+	Mit $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ bezeichne man die Flussmenge, die die Kante $vw$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $w$ erreichen können.
 	
 	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
 \end{definition}
 
 
 \begin{remark}\label{remark-x^-leqx^+}
-	In einem zulässigen Fluss ist $x_{uv}^-(\theta) = F_{uv}^-(l_v(\theta)) \leq F_{uv}^-(T_{uv}(l_u(\theta)))=F_{uv}^+(l_u(\theta)) = x_{uv}^+(\theta)$
-	 nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{uv}^+$.
+	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
+	 nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^+$.
 \end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
@@ -110,8 +110,8 @@
 \todo{blabla definition blabla}
 
 \begin{definition}
-	Seien ein statischer Fluss, das heißt eine Kantenbewertung $f \in \R^E$, in einem Graphen $G=(V,E)$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ sowie ein Kapazitätsvektor $u\in\R_+^E$ gegeben.
-	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. $\forall v\in V: \sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$.
+	Seien ein statischer Fluss $f \in \R^E$ in einem Graphen $G=(V,E)$ mit Kapazitäten $u\in \R_+^E$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben.
+	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. falls er für alle $v\in V$ die Bedingung $\sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$ erfüllt.
 \end{definition}
 
 \todo{blabla}
@@ -119,23 +119,24 @@
 \newcommand{\newv}{\mathbf{v}}
 \begin{lemma}\label{lemma-b-graph}
 	Seien ein Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
-	Der Graph $H$ entstehe aus $G$, indem man jede Kante $uv\in E$ aus $G$ durch einen neuen Knoten $\newv_{uv}$ und zwei Kanten $u\newv_{uv}$ und $\newv_{uv}v$ ersetze.
+	Der Graph $H$ entstehe aus $G$, indem man jede Kante $vw\in E$ aus $G$ durch einen neuen Knoten $\newv_{vw}$ und zwei Kanten $v\newv_{vw}$ und $\newv_{vw}w$ ersetze.
 	Der statische Fluss $g$ auf $H$ sei definiert durch
-	$$g_{u\newv_{uv}} := x_{uv}^+(\theta) \text{ und } g_{\newv_{uv}v} := x_{uv}^-(\theta) \text{ für alle $uv\in E$}$$
-	und der Balancevektor $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
+	$$g_{v\newv_{vw}} := x_{vw}^+(\theta) \text{ und } g_{\newv_{vw}w} := x_{vw}^-(\theta) \text{ für alle $vw\in E$}$$
+	und die Balance $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
 	Dann gelten die folgenden Aussagen:
 	
 	\begin{enumerate}[label=(\roman*)]
-		\item Der Fluss $g$ ist ein statischer $b$-Fluss und heißt der von $f$ induzierte statische $b$-Fluss zur Zeit $\theta$.
+		\item Der Fluss $g$ ist ein statischer $b$-Fluss.
 		\item\label{lemma-b-graph-imp} Ist $f$ zulässig, so gilt $\forall e\in E : x_e^+(\theta) = x_e^-(\theta)\iff b_s(\theta) + b_t(\theta) = 0$.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
-	$(i)$: Um zu zeigen, dass die Summe über die Balancevektoreinträge verschwindet, betrachte man den Zufluss einer Kante $e\in E$ auf $\sum_{v_\in V} b_v$, der gerade $x_e^+(\theta) - x_e^-(\theta)$ ist, und es ergibt sich:
+	$(i)$: Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $\sum_{v_\in V} b_v$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
+	Damit gilt:
 		$$\sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
 		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
-		Für die Knoten der Form $\newv_{uv}$ gilt dies, da $g_{\newv_{uv}v} - g_{u\newv_{uv}} = x_{uv}^-(\theta) - x_{uv}^+(\theta) = b_{\newv_e}$.
-		Für $v\in V$ gilt nach Konstruktion $$b_v = b_v(\theta)=
+		Für die Knoten der Form $\newv_{vw}$ gilt dies, da $g_{\newv_{vw}w} - g_{v\newv_{vw}} = x_{vw}^-(\theta) - x_{vw}^+(\theta) = b_{\newv_{vw}}$.
+		Für $v\in V$ gilt nach Konstruktion $$b_v =
 		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
 	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
 		.$$
@@ -145,10 +146,8 @@
 	
 	Angenommen, es gelte $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$.
 	Dann sind auch alle $b_{\newv_e} = 0$ und es gilt $b_s(\theta) + b_t(\theta) = 0$.
-	
-	Angenommen, es gelte $b_s(\theta) + b_t(\theta) = 0$.
-	Dann ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}   und damit $b_{\newv_e}\leq 0$ für alle $e\in E$.
-	Also sind bereits alle $b_{\newv_e} = 0$, was die Behauptung zeigt.
+	Setzt man $b_s(\theta) + b_t(\theta) = 0$ voraus, so ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}.
+	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb bereits alle $b_{\newv_e} = 0$ sein müssen.
 \end{proof}
 
 
@@ -158,17 +157,15 @@
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
 		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
 		\item Der Fluss $f$ fließt ohne Überholungen.
-		\item \todo{Der Fluss über Zeit ist ein Nash-Fluss über Zeit}
 	\end{enumerate}
-	\todo{Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.}
+	Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.
 \end{theorem}
 \begin{proof}
-	$(i) \Leftrightarrow (ii):$ Für eine Kante $uv\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow}:
-	$$x_{uv}^+(\theta) - x_{uv}^-(\theta) = F_{uv}^+(l_u(\theta)) - F_{uv}^-(l_v(\theta)) = F_{uv}^-(T_{uv}(l_u(\theta))) - F_{uv}^-(l_v(\theta)).$$
-	Nach Lemma~\ref{lemma-only-active-edges} gilt also die gewünschte Äquivalenz.
+	$(i) \Leftrightarrow (ii):$ Für eine Kante $vw\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow}:
+	$$x_{vw}^+(\theta) - x_{vw}^-(\theta) = F_{vw}^+(l_v(\theta)) - F_{vw}^-(l_w(\theta)) = F_{vw}^-(T_{vw}(l_v(\theta))) - F_{vw}^-(l_w(\theta)).$$
+	Lemma~\ref{lemma-only-active-edges} schafft also die gewünschte Äquivalenz.
 	
-	$(ii) \Leftrightarrow (iii):$ Die Bedingung, $f$ fließe ohne Überholungen, bedeutet gerade, dass für alle $\theta\in\R: b_s(\theta) + b_t(\theta) = 0$ ist.
-	Lemma~\ref{lemma-b-graph}~\ref{lemma-b-graph-imp} liefert die gewünschte Biimplikation.
+	$(ii) \Leftrightarrow (iii)$ ist eine direkte Folgerung von Lemma~\ref{lemma-b-graph}~\ref{lemma-b-graph-imp}.
 \end{proof}
 
 \begin{remark}\label{remark-s-t-flow}
