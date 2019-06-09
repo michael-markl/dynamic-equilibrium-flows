@@ -60,55 +60,55 @@
 	Dabei ist $l_s'(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
 	Der Wert von $g$ ist $\sum_{e\in\delta^+(s)}x_e'(\theta) =  \left.\frac{d}{dt}\sum_{e\in\delta^+(s)}F_e^+(l_s(t))\right|_{t=\theta} = \sum_{e\in\delta^+(s)} f_e^+(t)$. \todo{Geht auch mit variablen Zufluss; Problem: Warum ist Ableitung von $F_e^+$ gerade $f$? Doch nur f.ü.!}.
 		
-	Sei nun eine Kante $uv\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
+	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
 	
 	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=\parindent]
-		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{uv}(l_u(\theta')) > 0$.
+		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{vw}(l_v(\theta')) > 0$.
 		
-		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{uv}(l_u(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{uv}$ positiv auf dem Intervall $[ l_u(\theta')  , l_u(\theta')+q_{uv}(l_u(\theta')) )$.
-		Also ist $q_{uv}$ positiv auf dem Intervall $( l_u(\theta) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon) )
-		\subseteq ( l_u(\theta) + q_{uv}(l_u(\theta)) , l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta) + \varepsilon ) )$.
+		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{vw}(l_v(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{vw}$ positiv auf dem Intervall $[ l_v(\theta')  , l_v(\theta')+q_{vw}(l_v(\theta')) )$.
+		Also ist $q_{vw}$ positiv auf dem Intervall $( l_v(\theta) , l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon) )
+		\subseteq ( l_v(\theta) + q_{vw}(l_v(\theta)) , l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta) + \varepsilon ) )$.
 		
-		Nach Voraussetzung ist die Kante ${uv}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_v(\theta') = T_{uv}(l_u(\theta')) = l_u(\theta') + q_{uv}(\theta') + \tau_{uv}$.
-		Mit Bedingung~\ref{def-feasible-flow-queue-with-capacity} folgere man $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta) = F_{uv}^-(l_v(\theta + \varepsilon)) - F_{uv}^-(l_v(\theta))
-		= \int_{l_v(\theta)}^{l_v(\theta + \varepsilon)} f_{uv}^-(t) dt
-		= \int_{l_u(\theta) + q_{uv}(\theta)}^{l_u(\theta + \varepsilon) + q_{uv}(\theta + \varepsilon)} f_{uv}^-(t + \tau_{uv}) dt
-		= u_{uv} (l_v(\theta + \varepsilon) - l_v(\theta))$.
-		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{uv} = x_{uv}'(\theta) = u_{uv} l_v'(\theta)$.
-		Ist $uv\in E_1$, so ist also Bedingung (4) erfüllt.
-		Für Bedingung (2) setze man $g_{uv}=x_{uv}'(\theta)=0$ voraus.
-		Also ist auch $l_v(\theta)=0$ und, da $l_u$ monoton wachsend ist, gilt $0 \leq l_u'(\theta)$.
+		Nach Voraussetzung ist die Kante ${vw}$ nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} auch für $\theta'\in  (\theta, \theta + \varepsilon ]$ aktiv und es gilt $l_w(\theta') = T_{vw}(l_v(\theta')) = l_v(\theta') + q_{vw}(\theta') + \tau_{vw}$.
+		Mit Bedingung~\ref{def-feasible-flow-queue-with-capacity} folgere man $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta) = F_{vw}^-(l_w(\theta + \varepsilon)) - F_{vw}^-(l_w(\theta))
+		= \int_{l_w(\theta)}^{l_w(\theta + \varepsilon)} f_{vw}^-(t) dt
+		= \int_{l_v(\theta) + q_{vw}(\theta)}^{l_v(\theta + \varepsilon) + q_{vw}(\theta + \varepsilon)} f_{vw}^-(t + \tau_{vw}) dt
+		= u_{vw} (l_w(\theta + \varepsilon) - l_w(\theta))$.
+		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $g_{vw} = x_{vw}'(\theta) = u_{vw} l_w'(\theta)$.
+		Ist $vw\in E_1$, so ist also Bedingung (4) erfüllt.
+		Für Bedingung (2) setze man $g_{vw}=x_{vw}'(\theta)=0$ voraus.
+		Also ist auch $l_w(\theta)=0$ und, da $l_v$ monoton wachsend ist, gilt $0 \leq l_v'(\theta)$.
 
-		Ist $uv\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_u(\theta)$ leer, so gilt: $l_v(\theta+\varepsilon) - l_v(\theta) = l_u(\theta + \varepsilon) + q_{uv}(l_u(\theta + \varepsilon)) - l_u(\theta) \geq l_u(\theta + \varepsilon) - l_u(\theta)$.
-		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $l_v'(\theta) \leq l_u'(\theta)$ und dem Resultat des letzten Absatzes.
+		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
+		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung (3) mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
-		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{uv}(l_u(\theta'))>l_v(\theta')$.
+		\item[2. Fall:] $\exists \varepsilon > 0: \forall \theta'\in(\theta, \theta + \varepsilon]: T_{vw}(l_v(\theta'))>l_w(\theta')$.
 		
-		Die Kante ${uv}$ ist also im Intervall $(\theta, \theta + \varepsilon]$ nicht aktiv.
-		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{uv} \circ l_u\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{uv}(l_u(\theta))=0$, was $uv\notin E_1$ impliziert.
-		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{uv}^+ \circ l_u \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{uv}(\theta + \varepsilon) - x_{uv}(\theta)=0$.
-		Wird durch $\varepsilon$ geteilt, so erhält man $x_{uv}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
+		Die Kante ${vw}$ ist also im Intervall $(\theta, \theta + \varepsilon]$ nicht aktiv.
+		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{vw} \circ l_v\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{vw}(l_v(\theta))=0$, was $vw\notin E_1$ impliziert.
+		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{vw}^+ \circ l_v \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta)=0$.
+		Wird durch $\varepsilon$ geteilt, so erhält man $x_{vw}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
 		Es muss also nur Bedingung (2) geprüft werden:
 		
 		
-		Da $uv$ zum Zeitpunkt $l_u(\theta)$ noch aktiv ist, folgt $l_v(\theta + \varepsilon) - l_v(\theta) < l_u(\theta+\varepsilon) - l_v(\theta) + \tau_{uv} = l_u(\theta + \varepsilon) - l_u(\theta)$.
-		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_v'(\theta)\leq l_u'(\theta)$.
+		Da $uv$ zum Zeitpunkt $l_v(\theta)$ noch aktiv ist, folgt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta+\varepsilon) - l_w(\theta) + \tau_{vw} = l_v(\theta + \varepsilon) - l_v(\theta)$.
+		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
 		
-		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{uv}(l_u(\theta_\varepsilon)) = l_v(\theta_\varepsilon)$.
+		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{vw}(l_v(\theta_\varepsilon)) = l_w(\theta_\varepsilon)$.
 		
 		Dies ist die exakte Umkehrung der Bedingung von Fall 2.
 		Zusätzlich betrachte man diesen Fall nur, falls Fall 1 nicht eintritt.
-		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{uv}(l_u(\theta')) = 0$; insbesondere ist $q_{uv}(l_u(\theta))= 0$, wodurch $uv$ nicht in $E_1$ enthalten ist.
-		Man wähle $\theta'_\varepsilon:=\max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{uv}(l_u(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte $\theta'$, welches aufgrund der Stetigkeit von $q_{uv}\circ l_u$ existiert.
-		Nach Konstruktion ist $q_{uv}\circ l_u$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $uv$ in diesem Intervall aktiv.
-		Ist dieses Intervall nicht-leer, so ist $uv$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{uv}\circ l_u$ und $l_v$ aktiv.
-		Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $uv$ aktiv ist.
-		Also gilt: $l_v(\theta_\varepsilon') - l_v(\theta) = l_u(\theta_\varepsilon') - l_u(\theta)$.
-		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $l_v'(\theta) = l_u'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
+		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{vw}(l_v(\theta')) = 0$; insbesondere ist $q_{vw}(l_v(\theta))= 0$, wodurch $vw$ nicht in $E_1$ enthalten ist.
+		Man wähle $\theta'_\varepsilon:=\max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{vw}(l_v(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte $\theta'$, welches aufgrund der Stetigkeit von $q_{vw}\circ l_u$ existiert.
+		Nach Konstruktion ist $q_{vw}\circ l_v$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $vw$ in diesem Intervall aktiv.
+		Ist dieses Intervall nicht-leer, so ist $vw$ auch zum Zeitpunkt $\theta_\varepsilon'$ wegen der Stetigkeit von $T_{vw}\circ l_v$ und $l_w$ aktiv.
+		Ansonsten ist $\theta_\varepsilon'=\theta_\varepsilon$ trotzdem eine Zeit, zu der $vw$ aktiv ist.
+		Also gilt: $l_w(\theta_\varepsilon') - l_w(\theta) = l_v(\theta_\varepsilon') - l_v(\theta)$.
+		Bedingung~(2) wird erfüllt, indem man durch $\theta_\varepsilon'-\theta$ teil und $l_w'(\theta) = l_v'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
-		Für Bedingung~(3) bleibt zu zeigen, dass $x_{uv}'(\theta) /u_{uv}\leq l_v'(\theta)$ gilt.
-		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{uv}(\theta + \varepsilon)-x_{uv}(\theta) = \int_{l_v(\theta+\varepsilon)}^{l_v(\theta)} f_{uv}^-(t) dt\leq (l_v(\theta + \varepsilon) - l_v(\theta)) u_{uv}$ für beliebiges $\varepsilon>0$.
-		Durch Teilen mit $\varepsilon u_{uv}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
+		Für Bedingung~(3) bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
+		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta+\varepsilon)}^{l_w(\theta)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
+		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
 \vspace{-1.2 \baselineskip}\end{proof}
 
