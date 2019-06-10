@@ -8,18 +8,21 @@
 	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zum Zeitpunkt $\theta$},  falls $l_w(\theta)=l^P(\theta)$.
 \end{definition}
 
-\begin{proposition}
-	Die Funktionen $T_e$, $l^P$ und $l_v$ sind für alle Kanten $e\in E$, Pfade $P$ in G und Knoten $v\in V$ monoton wachsend, lokal absolut stetig und surjektiv.
+\begin{proposition}\label{prop-abs-cont-sur}
+	Für einen zulässigen Fluss $f$ sind die Funktionen $F_e^+$ und $F_e^-$ für alle $e\in E$ lokal absolut stetig.
+	Die Funktionen $T_e$, $l^P$ sowie $l_v$ sind für alle Kanten $e\in E$, Pfade $P$ in G und Knoten $v\in V$ monoton wachsend, lokal absolut stetig und surjektiv.
 \end{proposition}
 \begin{proof}
-	\todo{Maß und Integrationstheorie. S. 305, 410}
-	\todo{TODO. Auch: Warum brauch ich nochmal absolute Stetigkeit? Kettenregel, Ableitung fast überall}
+	Nach dem Hauptsatz der Differential- und Integralrechnung für das Lebesgue-Integral (siehe dazu \cite[4.14]{Elstrodt2011}) ist $G(x):= \int_a^x g(t) \diff t$ für eine Lebesgue integrierbare Funktion $g: [a,b] \to \R$ absolut stetig.
+	Insbesondere sind also $F_e^+$ sowie $F_e^-$ und damit auch $q_e$, $T_e$ lokal absolut stetig.
+	Als Komposition bzw. punktweises Minimum endlich vieler lokal absolut stetiger Funktionen ist auch $l^P$ bzw. $l_v$ für alle Pfade $P$ und Knoten $v$ lokal absolut stetig.
+	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-T-mon-inc-cont} ist die Monotonie von $T_e$ bereits gegeben, welche auch die Monotonie von $l^P$ und $l_v$ impliziert.
+	Wegen $f_e^+, f_e^-\in\mathfrak{F_0}$ gilt $q_e(\theta)=0$ für $\theta\leq 0$, wodurch auch $\lim_{\theta\to-\infty} T_e(\theta) = - \infty$ folgt.
+	Mit $T_e(\theta)\geq \theta$ ergibt sich die Surjektivität von $T_e$.
+	Daher sind auch $l^P$ und $l_v$ surjektiv.
 \end{proof}
-
-\todo{$l_v$ wohldefiniert, d.h. minimum existiert, da Pfade mit Kreisen nie das Minimum sind $\implies$ endlich viele}
-
-Für einen Knoten $v \in V$ und einen zulässigen Fluss ist die Funktion $l_v$ als Minimum von Kompositionen stetiger und monoton wachsender Funktionen $T_e$ (Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-T-mon-inc-cont}) ebenfalls stetig und monoton wachsend.
-
+\todo{TODO. Auch: Warum brauch ich nochmal absolute Stetigkeit? Kettenregel, Ableitung fast überall, Nullmengen auf Nullmengen}
+\todo{$l_v$ wohldefiniert, d.h. minimum existiert, da Pfade mit Kreisen nie das Minimum sind $\implies$ endlich viele} 
 
 \begin{lemma}\label{lemma-dreicksungl}
 	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 

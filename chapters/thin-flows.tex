@@ -1,15 +1,5 @@
 \section{A special class of static flows}
 
-\begin{lemma}\label{lemma-no-inflow-until-l}
-	Sei $f$ ein Nash-Fluss über Zeit.
-	Dann gilt $F_{vw}^+(l_v(0)) = 0$ für jede Kante $vw\in E$.
-\end{lemma}
-\begin{proof}
-	Für alle $\theta\in [0, l_v(0)]$ gilt nach Bedingung~\ref{def-feasible-flow-no-flow-at-node}, dass $f_{vw}^+(\theta) \leq \sum_{e\in\delta^-(v)} f_e^-(\theta)$.
-	Also ist $F_{vw}^+(l_v(0)) \leq \sum_{uv\in\delta^-(v)} F_{uv}^-(l_v(0))\leq \sum_{uv\in\delta^-(v)} F_{uv}^+(l_u(0))$ nach Bemerkung~\ref{remark-x^-leqx^+}.
-	\todo{TODO this doesn't work yet}
-\end{proof}
-
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
 	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben.
 	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
@@ -29,13 +19,12 @@
 	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
 	
 	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
-	\todo{don't argue with 0}Für Aussage (iii) ist wieder $T_{vw}(l_v(\theta)) \leq l_w(\theta)$ zu zeigen.
-	Da $q_{vw}(l_v(\theta))$ positiv ist, gilt auch $F^+_{vw}(l_v(\theta)) > 0$.
-	Nach Lemma~\ref{lemma-no-inflow-until-l} ist $F_{vw}(l_v(0))=0$ und wegen der Stetigkeit und Monotonie von $F_{vw}^+\circ l_v$ existiert
-	ein frühester Zeitpunkt $\theta_1\leq\theta$ mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
-	Nach Aussage (i) gilt also $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
-	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.	
-	tmptmptmptmpt
+	\todo{don't argue with 0} Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
+	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
+	Dieser existiert, da $F_{vw}^+(l_v(\theta))$ positiv und $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
+	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
+	Nach Aussage (i) gilt nun $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
+	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
 \end{proof}
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
