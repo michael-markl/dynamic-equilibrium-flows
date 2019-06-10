@@ -37,7 +37,6 @@
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.	
 	tmptmptmptmpt
 \end{proof}
-\todo{Das ist glaub ich die Definition von schwachem Nash-flow}
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
 	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
@@ -165,21 +164,18 @@
 	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) erfüllt ist.
 	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	
-	Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. dass Warteschlangen mit der Kapazität der Kante abgebaut werden.
+	Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. Warteschlangen sollen mit der Kantenkapazität abgebaut werden.
 	Sei also $\tilde{q}_{vw}(\theta)$ positiv.
-	Für $\theta\leq l_v(T)$ gilt $\tilde{f}^-(\theta + \tau_{vw}) = f^-(\theta + \tau_{vw}) = u_{vw}$, da nach (i) auch $q_{vw}(\theta)=\tilde{q}_{vw}(\theta)>0$ gilt.
+	Nach (i) ist $\tilde{f}^-(\theta + \tau_{vw}) = f^-(\theta + \tau_{vw}) = u_{vw}$ für $\theta\leq l_v(T)$.
 	Ist $\theta > l_v(T)$, so unterscheide man, ob die Warteschlange von $vw$ zur Zeit $T$ positiv ist:
-	Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} und ohne Einschränkung sei $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ und $\tilde{f}_{vw}^-$ sind nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue}  Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} von $f$ konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
+	Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}, und ohne Einschränkung gelte $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} und Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
 	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt $\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'$ nach (i).
 	Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
-	Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
-	Weiterhin gilt $l_w' = x_{vw}' / u_{vw}$ nach Definition~\ref{def-thin-flow} $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
+	Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
 	Nun betrachte man Kanten $vw$, die zum Zeitpunkt $T$ keine Warteschlange haben.
-	Nach Definition~\ref{def-thin-flow} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
-	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, dann ist $\theta+\tau_{vw}\in [l_w(T), l_w(T) + \alpha l_w']$.
-	Außerdem gilt $0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'$.
-	Daher ist $l_w' > l_v'$ und es gilt $l_w' = x_{vw}'/u_{vw}$.
-	Man folgere $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$.
+	Nach~\ref{def-thin-flow-x-positive} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
+	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so ist $\theta+\tau_{vw}$ in $[l_w(T), l_w(T) + \alpha l_w']$ enthalten und es gilt $0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'$.
+	Daher ist $l_w' > l_v'$ und es müssen $l_w' = x_{vw}'/u_{vw}$ und $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$ gelten.
 	Für $\theta > l_v(T) + \alpha l_v'$ gilt $\theta + \tau_{vw} > l_w(T) + \alpha l_v'$ und $0 < \tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta - l_v(T) \}x_{vw}'/l_w'$.
 	Insbesondere ist $\theta - l_v(T) < \alpha l_w'$, was äquivalent zu $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ ist.
 	Nun kann man $l_v' < l_w'$ folgern, was $l_w' = x_{vw}'/u_{vw}$ impliziert.
@@ -191,7 +187,7 @@
 	Für $w\neq s$ impliziert die Gleichung~\ref{eq-extension-nash-flow} für positive $x_{vw}'$ gerade $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
 	Es bleibt also zu zeigen, dass dies für Kanten mit $x_{vw}' = 0$ eine untere Schranke ist.
 	\todo{Ist $x_{vw}' = 0$, so ist $q_{vw}(T) = 0$.}
-	Für zur Zeit $T$ aktive Kanten $vw$ folgt daher $l_w'\leq l_v'$ nach Definition~\ref{def-thin-flow}~(2), wodurch man $\tilde{T}(l_v(T) + (\theta - T)l_v')\geq l_v(T) + (\theta - T)l_v' + \tau_{vw}\geq l_v(T) + (\theta - T)l_w' + \tau_{vw} = l_w(T) + (\theta-T)l_w'$ erhält.
+	Für zur Zeit $T$ aktive Kanten $vw$ folgt daher $l_w'\leq l_v'$ nach~\ref{def-thin-flow-x-zero}, wodurch man $\tilde{T}(l_v(T) + (\theta - T)l_v')\geq l_v(T) + (\theta - T)l_v' + \tau_{vw}\geq l_v(T) + (\theta - T)l_w' + \tau_{vw} = l_w(T) + (\theta-T)l_w'$ erhält.
 	Sei also $vw$ zur Zeit $T$ inaktiv.
 	Zeigt man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{wv}$, folgt mit $l_v(T) + (\theta - T)l_v' \leq \tilde{T}(l_v(T) + (\theta - T)l_v')$ die Behauptung
 	$\tilde{T}(l_v(T) + (\theta - T) l_v') \geq l_w(T) + (\theta - T)l_w'$.
