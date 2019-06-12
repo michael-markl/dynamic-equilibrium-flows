@@ -19,7 +19,7 @@
 	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
 	
 	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
-	\todo{don't argue with 0} Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
+	Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
 	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
 	Dieser existiert, da $F_{vw}^+(l_v(\theta))$ positiv und $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
 	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
@@ -34,9 +34,16 @@
 	\item $l_s' = F/d$,
 	\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
 	\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
-	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$.
+	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
+	
+	\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 \neq \emptyset$.
 	\end{enumerate}
 \end{definition}
+\begin{remark}
+	Hier ist, wie in~\cite[Definition 4]{Cominetti2011}, im Vergleich zu~\cite[Definition 6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
+	Diese ist nötig, um im Beweis von Theorem~\todo{asdf} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich den angegebenen übereinstimmen.
+	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\todo{afasdflja} erkennen kann.
+\end{remark}
 
 \begin{theorem}
 	Seien ein Nash-Fluss über Zeit $f$ auf einem Graphen $G=(V,E)$ sowie ein Zeitpunkt $\theta$ gegeben.	
@@ -96,6 +103,7 @@
 		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta+\varepsilon)}^{l_w(\theta)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
+		\todo{Add proof of (T5)}
 	\end{description}
 \vspace{-1.2 \baselineskip}\end{proof}
 
@@ -183,3 +191,7 @@
 	Ist $l_w' \leq l_v'$, so gilt $l_w(T) +(\theta - T)l_w' \leq l_w(T) + (\theta - T)l_v' \leq l_v(T) + \tau_{vw} + (\theta - T)l_v'$, da $vw$ zur Zeit $T$ keine Warteschlange hat.
 	Für $l_w' \geq l_v'$ gilt $l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}$ mit der zusätzlichen Voraussetzung an $\alpha$.
 \end{proof}
+
+\begin{example}
+	\todo{Add this example}
+\end{example}

@@ -13,7 +13,7 @@
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 	
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ absolut stetig ist, bildet es Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	Da $l_v$ absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
 	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -48,7 +48,7 @@
 \begin{proof}
 	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
 	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
-	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität (\todo{ref}) von $l_v$ ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
+	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität von $l_v$ nach Proposition~\ref{prop-abs-cont-sur} ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
 	Also ist $\xi\in l_v(\Theta_{vw}^c)$ und es gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
 	Des Weiteren ist $l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
