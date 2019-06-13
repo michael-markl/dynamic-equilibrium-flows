@@ -169,7 +169,7 @@
 	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt $\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'$ nach (i).
 	Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
 	Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
-	Nun betrachte man Kanten $vw$, die zum Zeitpunkt $T$ keine Warteschlange haben.
+	Nun betrachte man Kanten $vw$, die zum Zeitpunkt $l_v(T)$ keine Warteschlange haben.
 	Nach~\ref{def-thin-flow-x-positive} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
 	Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so ist $\theta+\tau_{vw}$ in $[l_w(T), l_w(T) + \alpha l_w']$ enthalten und es gilt $0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'$.
 	Daher ist $l_w' > l_v'$ und es müssen $l_w' = x_{vw}'/u_{vw}$ und $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$ gelten.
@@ -181,15 +181,29 @@
 	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
 	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
 	\todo{Wegen $l_s' = 1$ gilt} $l_s(T) + (\theta - T)l_v' = \theta$.
-	Für $w\neq s$ impliziert die Gleichung~\ref{eq-extension-nash-flow} für positive $x_{vw}'$ gerade $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
-	Es bleibt also zu zeigen, dass dies für Kanten mit $x_{vw}' = 0$ eine untere Schranke ist.
-	\todo{Ist $x_{vw}' = 0$, so ist $q_{vw}(T) = 0$.}
-	Für zur Zeit $T$ aktive Kanten $vw$ folgt daher $l_w'\leq l_v'$ nach~\ref{def-thin-flow-x-zero}, wodurch man $\tilde{T}(l_v(T) + (\theta - T)l_v')\geq l_v(T) + (\theta - T)l_v' + \tau_{vw}\geq l_v(T) + (\theta - T)l_w' + \tau_{vw} = l_w(T) + (\theta-T)l_w'$ erhält.
-	Sei also $vw$ zur Zeit $T$ inaktiv.
-	Zeigt man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{wv}$, folgt mit $l_v(T) + (\theta - T)l_v' \leq \tilde{T}(l_v(T) + (\theta - T)l_v')$ die Behauptung
-	$\tilde{T}(l_v(T) + (\theta - T) l_v') \geq l_w(T) + (\theta - T)l_w'$.
-	Ist $l_w' \leq l_v'$, so gilt $l_w(T) +(\theta - T)l_w' \leq l_w(T) + (\theta - T)l_v' \leq l_v(T) + \tau_{vw} + (\theta - T)l_v'$, da $vw$ zur Zeit $T$ keine Warteschlange hat.
-	Für $l_w' \geq l_v'$ gilt $l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}$ mit der zusätzlichen Voraussetzung an $\alpha$.
+	Für $w\neq s$ ist $l_w(T) + (\theta - T) l_w'$ eine untere Schranke für zur Zeit $T$ inaktive Kanten $vw$:
+	Zunächst zeige man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{wv}$:
+	Ist $l_w' \leq l_v'$, so gilt dies bereits, da $vw$ zur Zeit $l_v(T)$ keine Warteschlange hat.
+	Für $l_w' \geq l_v'$ gilt $l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}$ mit der zusätzlichen Voraussetzung an~$\alpha$.
+	Demnach ist also $l_w(T) + (\theta - T) l_w' \leq l_v(T) + (\theta - T) l_v' + \tau_{vw} \leq \tilde{T}(l_v(T) + (\theta - T) l_v')$.
+	
+	Im nächsten Schritt zeige man $\tilde{T}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_w'$ für Kanten $vw\in E_T$, für die $x_{vw}'$ positiv ist oder deren Warteschlange zur Zeit $l_v(T)$ positiv ist:
+	Für $x_{vw}' > 0$ impliziert die Gleichung~\ref{eq-extension-nash-flow} bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
+	Für $vw\in E_1$ gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}.
+	Entsprechend erfüllt die Warteschlange
+	\begin{align*}
+	\tilde{z}_{vw}(l_v(T) + (\theta - T)l_v') - z_{vw}(l_v(T)) &= (\theta - T) x_{vw}' - \int_{l_v(T) + \tau_{vw}}^{l_v(T) + (\theta - T) l_v' + \tau_{vw}} f_e^-(t) \diff t \\
+	&= (\theta - T) (x_{vw}' -l_v' u_{vw}),
+	\end{align*}
+	da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
+	Daher ist $\tilde{T}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) = l_w(T) + (\theta - T) l_w'$.
+	
+	Zuletzt betrachten wir aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
+	Hier gilt $l_w(T) = l_v(T) + \tau_{vw}$ und $l_w' \leq l_v'$ nach~\ref{def-thin-flow-x-zero}.
+	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \leq l_w(T) + (\theta - T) l_w'$ folgern kann.
+	Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
+	Daher ist $l_w(T)+(\theta - T) l_w'$ nicht nur eine untere Schranke, sondern tatsächlich das Minimum.
+	\todo{Why Nash-Flow}
 \end{proof}
 
 \begin{example}
