@@ -1,7 +1,7 @@
-\section{A special class of static flows}
+\section{Existenz dynamischer Nash-Flüsse}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
-	Seien $f$ ein Nash-Fluss über Zeit, $uv\in E$ eine Kante und $\theta\in\R$ ein Zeitpunkt gegeben.
+	Seien ein dynamischer Nash-Fluss $f$, eine Kante $uv\in E$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
 	\begin{enumerate}[label=(\roman*)]
 		\item Es existiert ein $\varepsilon>0$ mit $x_{vw}(\theta')<x_{vw}(\theta)$ für alle $\theta'\in(\theta-\varepsilon, \theta)$.
@@ -44,7 +44,7 @@
 \end{remark}
 
 \begin{theorem}
-	Seien ein Nash-Fluss über Zeit $f$ auf einem Graphen $G=(V,E)$ sowie ein Zeitpunkt $\theta$ gegeben.	
+	Seien ein dynamischer Nash-Fluss $f$ auf einem Graphen $G=(V,E)$ sowie ein Zeitpunkt $\theta$ gegeben.	
 	Existieren die Ableitungen $x_e'(\theta)$ und $l_v'(\theta)$ für alle $e\in E$ und $v\in V$, so ist der statische $s$-$t$-Fluss $g\in\R^{E_\theta}$ mit $g_e:=x_e'(\theta)$ ein schmaler $d$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ im Teilgraphen der aktiven Kanten $G_\theta$.
 	Als Knotenbewertung dienen dazu die Ableitungen $l_v'(\theta)$ für $v\in V$.
 \end{theorem}
@@ -106,11 +106,11 @@
 \vspace{-1.2 \baselineskip}\end{proof}
 
 \begin{definition}
-	Ein \emph{Fluss über Zeit $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
+	Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
 \end{definition}
 
 \begin{definition}
-	Seien ein Nash-Fluss über Zeit $f$ mit Zeithorizont $T$ sowie dessen induzierter schmaler Fluss mit Zurücksetzen im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ sowie dessen induzierter schmaler Fluss mit Zurücksetzen im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
 	
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
@@ -119,13 +119,13 @@
 \end{definition}
 
 \begin{lemma}
-	Für jede $\alpha$-Erweiterung $\tilde{f}$ eines Nash-Flusses über Zeit $f$ mit Zeithorizont $T$, die für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ die Bedingung
+	Für jede $\alpha$-Erweiterung $\tilde{f}$ eines dynamischen Nash-Flusses $f$ mit Zeithorizont $T$, die für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ die Bedingung
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$$
 	erfüllt, gelten die folgenden Aussagen:
 	\begin{enumerate}[label=(\roman*)]
 		\item Gilt $x_{vw}' > 0$, so ist $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$ für $\theta\in[T, T+\alpha]$, und für alle $vw\in E $ und $\theta \leq l_v(T)$ gilt  $\tilde{f}^-_{vw}(\theta + \tau_{vw})=f^-_{vw}(\theta + \tau_{vw})$.
 		Insbesondere ist $\tilde{q}_e(\theta) = q_e(\theta)$ und $\tilde{T}_e(\theta) = T_e(\theta)$ für $\theta \leq l_v(T)$.
-		\item Der Fluss $\tilde{f}$ ist zulässiger Fluss über Zeit mit Zeithorizont $T+\alpha$.
+		\item Der Fluss $\tilde{f}$ ist zulässiger dynamischer Fluss mit Zeithorizont $T+\alpha$. \todo{Inflow at s}
 		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung $$
 		l_w(T) - l_v(T) + \alpha(l_w' -l_v') \leq \tau_{vw},
 		$$
@@ -134,7 +134,7 @@
 		l_v(\theta), & \text{ falls $\theta < T$,} \\
 		l_v(T) + (\theta - T) l_v', & \text{ falls $\theta \in [T, T+\alpha]$.}
 		\end{cases}$$
-		gegeben und der Fluss $\tilde{f}$ ist Nash-Fluss über Zeit.
+		gegeben und der Fluss $\tilde{f}$ ist dynamischer Nash-Fluss.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}

@@ -15,8 +15,8 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	\todo{Der Funktionenraum} %$\C_{\loc}$
 \end{definition}
 
-\begin{definition}[Fluss über Zeit]
-	Ein Fluss über Zeit $f=(f^+, f^-)$ ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
+\begin{definition}[Dynamischer Fluss]
+	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
 	
 	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Zuflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Abflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
@@ -27,8 +27,8 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	Man beschreibe den \emph{Austrittszeitpunkt einer Kante $e$ bei Eintrittszeitpunkt $\theta$}, in dem ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
 \end{definition}
 
-\begin{definition}[Zulässiger Fluss über Zeit]
-	Sei ein Fluss über Zeit $f=(f^+, f^-)$ gegeben. $f$ heißt zulässig, falls
+\begin{definition}[Zulässiger dynamischer Fluss]
+	Ein dynamischer Fluss $f=(f^+, f^-)$ heißt \emph{zulässig}, falls
 	\begin{enumerate}[label=(F\arabic*)]
 		\item\label{def-feasible-flow-capacity} keine Abflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
 		\item\label{def-feasible-flow-no-negative-flow} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und

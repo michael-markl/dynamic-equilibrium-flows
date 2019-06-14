@@ -1,4 +1,4 @@
-\section{Charakterisierung von Nash-Flüssen über Zeit}
+\section{Charakterisierung dynamischer Nash-Flüsse}
 
 \begin{definition}\label{def-flow-along-active-edges}
 	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
@@ -96,7 +96,7 @@
 \end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
-	Für einen zulässigen Fluss über Zeit $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
+	Für einen zulässigen dynamischen Fluss $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
 \end{lemma}
 \begin{proof}
 	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
@@ -104,7 +104,7 @@
 \end{proof}
 
 \begin{definition}
-	Man sage, ein Fluss über Zeit $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
+	Man sage, ein zulässiger dynamischer Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
 \end{definition}
 
 \todo{blabla definition blabla}
@@ -118,7 +118,7 @@
 
 \newcommand{\newv}{\mathbf{v}}
 \begin{lemma}\label{lemma-b-graph}
-	Seien ein Fluss über Zeit $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
+	Seien ein dynamischer Fluss $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Der Graph $H$ entstehe aus $G$, indem man jede Kante $vw\in E$ aus $G$ durch einen neuen Knoten $\newv_{vw}$ und zwei Kanten $v\newv_{vw}$ und $\newv_{vw}w$ ersetze.
 	Der statische Fluss $g$ auf $H$ sei definiert durch
 	$$g_{v\newv_{vw}} := x_{vw}^+(\theta) \text{ und } g_{\newv_{vw}w} := x_{vw}^-(\theta) \text{ für alle $vw\in E$}$$
@@ -152,13 +152,13 @@
 
 
 \begin{theorem}\label{thm-equivalencies-nash-flow}
-	Für einen zulässigen Fluss über Zeit $f$ sind die folgenden Aussagen äquivalent:
+	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
 		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
 		\item Der Fluss $f$ fließt ohne Überholungen.
 	\end{enumerate}
-	Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{Nash-Fluss über Zeit}.
+	Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{dynamischen Nash-Fluss}.
 \end{theorem}
 \begin{proof}
 	$(i) \Leftrightarrow (ii):$ Für eine Kante $vw\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow}:
