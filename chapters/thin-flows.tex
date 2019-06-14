@@ -8,8 +8,6 @@
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
 	\end{enumerate}
-\todo{Ich glaube das stimmt auch gar nicht: 
-	Existiert zusätzlich zu (iii) die Ableitung $x'_{vw}(\theta)$, so ist diese positiv.}
 \end{lemma}
 \begin{proof}
 	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
@@ -41,7 +39,7 @@
 \end{definition}
 \begin{remark}
 	Hier ist, wie in~\cite[Definition 4]{Cominetti2011}, im Vergleich zu~\cite[Definition 6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-	Diese ist nötig, um im Beweis von Theorem~\todo{asdf} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich den angegebenen übereinstimmen.
+	Diese ist nötig, um im Beweis von Theorem~\todo{asdf} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\todo{afasdflja} erkennen kann.
 \end{remark}
 
@@ -203,7 +201,12 @@
 	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \leq l_w(T) + (\theta - T) l_w'$ folgern kann.
 	Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
 	Daher ist $l_w(T)+(\theta - T) l_w'$ nicht nur eine untere Schranke, sondern tatsächlich das Minimum.
-	\todo{Why Nash-Flow}
+	
+	Um nun zu erkennen, dass $\tilde{f}$ ein Nash-Fluss ist, zeige man Bedingung~(ii) aus Theorem~\ref{thm-equivalencies-nash-flow}, d.h. $\forall e\in E, \theta\in\R: \tilde{x}_e^+(\theta) = \tilde{x}_e^-(\theta)$.
+	Für $\theta \leq T$ gilt $\tilde{x}_e^+(\theta) = x_e^+(\theta) = x_e^-(\theta) = \tilde{x}_e^-(\theta)$ für alle Kanten $e\in E$.
+	Des Weiteren gilt $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T) = \tilde{x}_e^-(T) = \tilde{x}_e^-(\theta)$ für Kanten mit $x_{e}' = 0$ und $\theta > T$.
+	Für Kanten mit $x_e'>0$ liefert Gleichung~\ref{eq-extension-nash-flow} die Behauptung für $\theta$ zwischen $T$ und $T+\alpha$.
+	Für $\theta > T+\alpha$ ist schließlich $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T + \alpha) = \tilde{x}_e^-(T+\alpha) = \tilde{x}_e^-(\theta)$.
 \end{proof}
 
 \begin{example}
