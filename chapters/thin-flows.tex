@@ -79,11 +79,11 @@
 		
 		Die Kante ${vw}$ ist also im Intervall $(\theta, \theta + \varepsilon]$ nicht aktiv.
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $q_{vw} \circ l_v\big|_{(\theta, \theta+\varepsilon]}=0$ und wegen Stetigkeit ist auch $q_{vw}(l_v(\theta))=0$, was $vw\notin E_1$ impliziert.
-		Da $f$ nur entlang aktiver Kanten fließt, ist außerdem $f_{vw}^+ \circ l_v \big|_{(\theta, \theta+\varepsilon)} = 0$, und es gilt $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta)=0$.
-		Wird durch $\varepsilon$ geteilt, so erhält man $x_{vw}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
+		Da $f$ nur entlang aktiver Kanten fließt, verschwindet $f_{vw}^+$ fast überall auf dem Intervall $l_v((\theta, \theta+\varepsilon))$, und es gilt $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta)=0$.
+		Wird dies durch $\varepsilon$ geteilt, so erhält man $x_{vw}'(\theta) = 0$ für $\varepsilon\rightarrow0$.
 		Es muss also nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
 		
-		Da $uv$ zum Zeitpunkt $l_v(\theta)$ noch aktiv ist, folgt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta+\varepsilon) - l_w(\theta) + \tau_{vw} = l_v(\theta + \varepsilon) - l_v(\theta)$.
+		Da $vw$ zum Zeitpunkt $l_v(\theta)$ noch aktiv ist, folgt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta+\varepsilon) - l_w(\theta) + \tau_{vw} = l_v(\theta + \varepsilon) - l_v(\theta)$.
 		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
 		
 		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{vw}(l_v(\theta_\varepsilon)) = l_w(\theta_\varepsilon)$.

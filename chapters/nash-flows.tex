@@ -4,16 +4,12 @@
 	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
 \end{definition}
 
-\todo{$l_v, T_e$ ist absolut stetig und surjektiv}
-
-\todo{PROBLEM: Queues waren irgendwann leer}
-
 \begin{remark}
 	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 	
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
 	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -21,7 +17,7 @@
 	So kann $f_{vw}^+(l_v(\theta))$ für ein $\theta\in\Theta_{vw}^c$ positiv sein und $l_v$ konstant in einer Umgebung um $\theta$.
 	Dann ist $f_{vw}^+ \circ l_v$ in einer Umgebung um $\theta$ positiv, was im Widerspruch zur Forderung ist.
 	
-	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um ein Beispielfluss anzugeben, der zeigt, dass die Forderung sogar echt stärker ist.
+	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung sogar echt stärker ist.
 \end{remark}
 
 \begin{lemma}\label{lemma-vanishes-intervals}
@@ -170,5 +166,23 @@
 
 \begin{remark}\label{remark-s-t-flow}
 	In einem Nash-Fluss ist der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} ein statischer $s$-$t$-Fluss für jedes $\theta\in\R$.
-	Ist $x_e$ für alle $e\in E$ differenzierbar in $\theta$, so ist auch $x'(\theta)$ ein statischer $s$-$t$-Fluss, da Differenzieren die Flusserhaltung beibehält.
+	Ist $x_e$ für alle $e\in E$ differenzierbar in $\theta$, so ist auch $x'(\theta)$ ein statischer $s$-$t$-Fluss, da Differenzieren die Flusserhaltung erhält.
 \end{remark}
+
+\begin{proposition}
+	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit $\theta\in\R$ eine Komposition von $s$-$t$-Wegen.
+\end{proposition}
+\begin{proof}
+	\todo{Das funktioniert hier noch gar; vlt mal mit x' probieren und dann integrieren}
+	
+	Für jede Kante $e\in E$ ist $\Theta_{e}^c$ offen in $\R$, insbesondere also eine abzählbare Vereinigung offener und paarweise disjunkter Intervalle.
+	Daher verändert sich die Aktivität einer Kante und damit auch der Graph $G_\theta$ nur auf einer abzählbaren Menge $M$ von Zeitpunkten.
+	
+	
+	Des Weiteren existiert nach Proposition~\ref{prop-abs-cont-sur} ein Zeitpunkt $\xi_0$ mit $l_v(\xi_0) \leq 0$ für alle Knoten $v\in V$.
+	
+	Also existiert eine streng monoton wachsende Folge $(\xi_n)_{n\in\N_0}$ reeller Zahlen mit $\xi_0 = 0$ und $\lim_{n\to\infty} \xi_n = \infty$ und der Eigenschaft, dass $E_\theta$ für alle $\theta\in(\xi_n, \xi_{n+1})$ identisch ist.
+	Außerdem kann sich die Aktivität von Kanten im Intervall $(-\infty, 0)$ nicht verändern, womit $E_\theta$ auch auf $(-\infty, 0)$ konstant ist.
+	
+	Für $\theta \leq 0$ ist $x(\theta)$ der Nullfluss, da die Funktionen $f_e^+$ und $f_e^-$ 
+\end{proof}
