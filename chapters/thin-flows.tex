@@ -39,7 +39,7 @@
 \end{definition}
 \begin{remark}
 	Hier ist, wie in~\cite[Definition 4]{Cominetti2011}, im Vergleich zu~\cite[Definition 6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-	Diese ist nötig, um im Beweis von Theorem~\todo{asdf} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
+	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\todo{afasdflja} erkennen kann.
 \end{remark}
 
@@ -118,7 +118,7 @@
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in (l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in (l_w(T), l_w(T)+\alpha l_w']$.}$$
 \end{definition}
 
-\begin{lemma}
+\begin{theorem}\label{thm-alpha-extension-is-nash-flow}
 	Für jede $\alpha$-Erweiterung $\tilde{f}$ eines dynamischen Nash-Flusses $f$ mit Zeithorizont $T$, die für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ die Bedingung
 	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$$
 	erfüllt, gelten die folgenden Aussagen:
@@ -136,7 +136,7 @@
 		\end{cases}$$
 		gegeben und der Fluss $\tilde{f}$ ist dynamischer Nash-Fluss.
 	\end{enumerate}
-\end{lemma}
+\end{theorem}
 \begin{proof}
 	Zu $(i)$: Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt
 	$l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}$  mit der Voraussetzung an $\alpha$.

@@ -33,7 +33,7 @@
 	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
 	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011} innen regulär.
 	Dies heißt, dass für offene Mengen $O\subseteq\R$ $$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$ gilt.
-	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) dt = 0$ gilt.
+	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
 \end{proof}
 
@@ -100,7 +100,7 @@
 \end{lemma}
 \begin{proof}
 	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
-	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) dt = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) dt = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
+	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
 \end{proof}
 
 \begin{definition}
