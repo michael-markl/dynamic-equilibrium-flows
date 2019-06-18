@@ -55,10 +55,10 @@
 		
 	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
 	
-	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=\parindent]
+	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=0.5cm]
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{vw}(l_v(\theta')) > 0$.
 		
-		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{vw}(l_v(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{vw}$ positiv auf dem Intervall $[ l_v(\theta')  , l_v(\theta')+q_{vw}(l_v(\theta')) )$.
+		Für $\theta'\in(\theta,\theta+\varepsilon]$ ist die Wartezeit $q_{vw}(l_v(\theta'))$ positiv und nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} ist $q_{vw}$ positiv auf dem Intervall $[ l_v(\theta') , l_v(\theta')+q_{vw}(l_v(\theta')) )$.
 		Also ist $q_{vw}$ positiv auf dem Intervall $( l_v(\theta) , l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon) )
 		\subseteq ( l_v(\theta) + q_{vw}(l_v(\theta)) , l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta) + \varepsilon ) )$.
 		
@@ -101,7 +101,13 @@
 		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta+\varepsilon)}^{l_w(\theta)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
-		\todo{Add proof of (T5)}
+		
+		Es bleibt Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
+		Man nehme also an, dass die Warteschlange jeder eingehenden Kante zur Zeit $l_v(\theta)$ leer ist.
+		Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
+		Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
+		$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{\theta_{n_k}} \geq l_v'(\theta).$$
+	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
 	\end{description}
 \vspace{-1.2 \baselineskip}\end{proof}
 
