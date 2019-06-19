@@ -117,10 +117,16 @@
 
 \begin{proposition}
 Für einen dynamischen Nash-Fluss mit Zeithorizont $T$ gelten die Gleichheiten
-$F_{vw}^+(\theta) = F_{vw}^+(l_v(T))$ für $\theta \geq l_v(T)$ und $F_{vw}^-(\theta) = F_{vw}^-(l_w(T))$ für $\theta \geq l_w(T)$.
+$F_{vw}^+(\xi) = F_{vw}^+(l_v(T))$ für $\xi \geq l_v(T)$ und $F_{vw}^-(\xi) = F_{vw}^-(l_w(T))$ für $\xi \geq l_w(T)$.
 \end{proposition}
 \begin{proof}
-	Es gelten 
+	\todo{Das funktioniert hier noch ned}
+	Für $\xi \geq l_v(T)$ bzw. für $\xi \geq l_w(T)$ existiert nach Proposition~\ref{prop-abs-cont-sur} ein $\theta\geq T$ mit $l_v(\theta) = \xi$ bzw. $l_w(\theta) = \xi$.
+	Die statischen $s$-$t$-Flüsse $x(T)$ und $x(\theta)$ sind nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
+	Der Fluss $x_e(T)$ hat den gleichen Flusswert wie $x_e(\theta)$, da $\sum_{e\in \delta^-(s)} x_e(T) - \sum_{e\in\delta^+(s)} x_e(T) = \sum_{e\in \delta^-(s)} x_e(\theta) - \sum_{e\in\delta^+(s)} x_e(\theta)$ wegen $d(\xi) = 0$ für $\xi \geq T $ gilt.
+	Außerdem ist $x_e(T) \leq x_e(\theta)$ für jede Kante $e\in E$ und die $s$-$t$-Wegezerlegung von $x_e(T)$ ist eine Teilzerlegung von $x_e(\theta)$.
+	
+	Insbesondere müssen $x(T)$ und $x(\theta)$ bereits auf allen Kanten übereinstimmen, wodurch $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(T)) = F_{vw}^-(l_w(T)) = F_{vw}^-(l_v(T))$ folgt.
 \end{proof}
 
 \begin{definition}
