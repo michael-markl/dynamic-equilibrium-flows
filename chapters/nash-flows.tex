@@ -170,19 +170,28 @@
 \end{remark}
 
 \begin{proposition}\label{prop-nash-flow-s-t-path-decomposable}
-	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit $\theta\in\R$ eine Komposition von $s$-$t$-Wegen.
+	Für einen dynamischen Nash-Fluss $f$ und zwei Zeitpunkte $\theta_1 \leq \theta_2$ ist der statische $s$-$t$-Fluss $x(\theta_2) - x(\theta_1)$ eine Komposition von $s$-$t$-Wegen.
 \end{proposition}
 \begin{proof}
-	Nach Proposition~\ref{prop-abs-cont-sur} existiert ein Zeitpunkt $\xi_0$ mit $l_v(\xi_0) \leq 0$ für alle Knoten $v\in V$.
-	Für $\theta \leq \xi_0$ ist $x(\theta)$ der Nullfluss und offenbar $s$-$t$-Wege zerlegbar, da die Funktionen $f_e^+$ und $f_e^-$ links der $y$-Achse verschwinden.
-	Sei nun $\theta$ das Infimum aller Zeitpunkte $\xi$, zu denen $x(\xi)$ nicht $s$-$t$-Wege zerlegbar ist.
-	Offenbar gilt $-\infty < \xi_0 \leq \theta$ und man nehme $\theta < \infty$ an.	
-	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor $\theta$ und noch kurz nach $\theta$ inaktiv sind, existiert eine Umgebung mit Radius $\varepsilon$ von $\theta$, in der keine inaktive Kante aktiv wird.
+	Sei $\theta$ das Infimum aller Zeitpunkte $\xi\geq\theta_1$, zu denen $x(\xi) - x(\theta_1)$ nicht $s$-$t$-Wege zerlegbar ist.
+	Man nehme $\theta \leq \theta_2$ an.
+	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor $\theta$ und noch kurz nach $\theta$ inaktiv sind, existiert ein Intervall $[\theta - \varepsilon, \theta + \varepsilon]$, in der keine inaktive Kante aktiv wird.
+	Außerdem existiert für $\xi_0 := \max \{ \theta_1, \theta - \varepsilon \}$ eine $s$-$t$-Wegezerlegung von $x(\theta_1) - x(\xi_0)$.
 	
 	Für einen Pfad $P$ und einen statischen Fluss $g$ sei $g^P := \max_{e\in P} g_e$ der Fluss, der auf dem Pfad $P$ fließt.
 	Sei $C$ ein Zyklus.
-	Dann ist $x_C(\theta - \varepsilon) = x_C(\xi)$ für $\xi\in [\theta - \varepsilon, \theta+\varepsilon]$, da aufgrund der Azyklizität von $G_{\theta - \varepsilon}$ eine Kante $vw\in C$ des Zyklus existiert, die zur Zeit $\theta - \varepsilon$ und damit in ganz $[\theta - \varepsilon, \theta+\varepsilon]$ inaktiv ist, wodurch $$F_{vw}^+(l_v(\theta + \varepsilon)) - F_{vw}^+(l_v(\theta - \varepsilon)) = \int_{l_v(\theta - \varepsilon)}^{l_v(\theta + \varepsilon)} f_{vw}^+(t) \diff t = 0$$ folgt, da $f$ nur entlang aktiver Kanten fließt.
+	Dann ist $x_C(\xi_0) = x_C(\xi)$ für $\xi\in [\xi_0, \theta+\varepsilon]$, da aufgrund der Azyklizität von $G_{\xi_0}$ eine Kante $vw\in C$ des Zyklus existiert, die zur Zeit $\xi_0$ und damit in ganz $[\xi_0, \theta+\varepsilon]$ inaktiv ist, wodurch
+	$$F_{vw}^+(l_v(\theta + \varepsilon)) - F_{vw}^+(l_v(\xi_0)) = \int_{l_v(\xi_0)}^{l_v(\theta + \varepsilon)} f_{vw}^+(t) \diff t = 0$$
+	folgt, da $f$ nur entlang aktiver Kanten fließt.
 	
-	Also hat der $s$-$t$-Fluss $x(\xi) - x(\theta-\varepsilon)$ für $\xi\in [\theta - \varepsilon, \theta + \varepsilon]$ keinen Zyklus mit positivem Fluss und besitzt daher eine $s$-$t$-Wegezerlegung.
-	Addiert man diese zur $s$-$t$-Wegezerlegung von $x(\theta-\varepsilon)$, erhält man eine $s$-$t$-Wegezerlegung von $x(\xi)$, was für $\xi > \theta$ ein Widerspruch zur Annahme $\theta < \infty$ ist.
+	Also hat der $s$-$t$-Fluss $x(\xi) - x(\xi_0)$ für $\xi\in [\xi_0, \theta + \varepsilon]$ keinen Zyklus mit positivem Fluss und besitzt daher eine $s$-$t$-Wegezerlegung.
+	Addiert man diese zur $s$-$t$-Wegezerlegung von $x(\xi_0) - x(\theta_1)$, so erhält man eine $s$-$t$-Wegezerlegung von $x(\xi) - x(\theta_1)$, was für $\xi > \theta$ ein Widerspruch zur Definition von $\theta$ darstellt.
+\end{proof}
+\begin{corollary}
+	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit eine Komposition von $s$-$t$-Wegen.
+\end{corollary}
+\begin{proof}
+	Nach Proposition~\ref{prop-abs-cont-sur} existiert ein Zeitpunkt $\xi_0$ mit $l_v(\xi_0) \leq 0$ für alle Knoten $v\in V$.
+	Für $\theta \leq \xi_0$ ist $x(\theta)$ der Nullfluss und offenbar $s$-$t$-Wege zerlegbar, da die Funktionen $f_e^+$ und $f_e^-$ links der $y$-Achse verschwinden.
+	Sonst ist $x(\theta)=  x(\theta) - x(\xi_0)$ nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
 \end{proof}
