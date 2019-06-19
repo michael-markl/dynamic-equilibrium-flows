@@ -173,16 +173,19 @@
 	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit $\theta\in\R$ eine Komposition von $s$-$t$-Wegen.
 \end{proposition}
 \begin{proof}
-	\todo{Das funktioniert hier noch gar; vlt mal mit x' probieren und dann integrieren}
-	
 	Für jede Kante $e\in E$ ist $\Theta_{e}^c$ offen in $\R$, insbesondere also eine abzählbare Vereinigung offener und paarweise disjunkter Intervalle.
 	Daher verändert sich die Aktivität einer Kante und damit auch der Graph $G_\theta$ nur auf einer abzählbaren Menge $M$ von Zeitpunkten.
-	
-	
 	Des Weiteren existiert nach Proposition~\ref{prop-abs-cont-sur} ein Zeitpunkt $\xi_0$ mit $l_v(\xi_0) \leq 0$ für alle Knoten $v\in V$.
+	Für $\theta \leq \xi_0$ ist $x(\theta)$ der Nullfluss und offenbar $s$-$t$-Wege zerlegbar, da die Funktionen $f_e^+$ und $f_e^-$ links der $y$-Achse verschwinden.
 	
-	Also existiert eine streng monoton wachsende Folge $(\xi_n)_{n\in\N_0}$ reeller Zahlen mit $\xi_0 = 0$ und $\lim_{n\to\infty} \xi_n = \infty$ und der Eigenschaft, dass $E_\theta$ für alle $\theta\in(\xi_n, \xi_{n+1})$ identisch ist.
-	Außerdem kann sich die Aktivität von Kanten im Intervall $(-\infty, 0)$ nicht verändern, womit $E_\theta$ auch auf $(-\infty, 0)$ konstant ist.
+	Sei nun $\theta$ das Infimum aller Zeitpunkte $\xi$, zu denen $x(\xi)$ nicht $s$-$t$-Wege zerlegbar ist.
+	Offenbar gilt $-\infty < \xi_0 \leq \theta$ und man nehme $\theta < \infty$ an.	
+	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor $\theta$ und noch kurz nach $\theta$ inaktiv sind, existiert eine Umgebung mit Radius $\varepsilon$ von $\theta$, in der keine inaktive Kante aktiv wird.
+	Insbesondere kommen beim azyklischen Graph $G_t$ zwischen $t\in[\theta-\varepsilon, \theta+\varepsilon]$ keine neuen Kanten hinzu.
 	
-	Für $\theta \leq 0$ ist $x(\theta)$ der Nullfluss, da die Funktionen $f_e^+$ und $f_e^-$ 
+	Sei $C$ ein Zyklus.
+	Dann ist $x_C(\theta - \varepsilon) = x_C(\xi)$ für $\xi\in [\theta - \varepsilon, \theta+\varepsilon]$, da eine Kante $vw\in C$ des Zyklus existiert, die zur Zeit $\theta - \varepsilon$ und damit in ganz $[\theta - \varepsilon, \theta+\varepsilon]$ inaktiv ist, wodurch $$F_{vw}^+(l_v(\theta + \varepsilon)) - F_{vw}^+(l_v(\theta - \varepsilon)) = \int_{l_v(\theta - \varepsilon)}^{l_v(\theta + \varepsilon)} f_{vw}^+(t) \diff t = 0$$ folgt, da $f$ nur entlang aktiver Kanten fließt.
+	
+	Also ist der $s$-$t$-Fluss $x(\xi) - x(\theta-\varepsilon)$ für $\xi\in [\theta - \varepsilon, \theta + \varepsilon]$ azyklisch und besitzt eine $s$-$t$-Wegezerlegung.
+	Addiert man diese zur $s$-$t$-Wegezerlegung von $x(\theta-\varepsilon)$, erhält man eine $s$-$t$-Wegezerlegung von $x(\xi)$, was ein Widerspruch zur Annahme ist.
 \end{proof}

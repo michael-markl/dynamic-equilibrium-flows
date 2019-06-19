@@ -103,10 +103,10 @@
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 		
 		Es bleibt Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
-		Man nehme also an, dass die Warteschlange jeder eingehenden Kante zur Zeit $l_v(\theta)$ leer ist.
+		Man nehme also an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
 		Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
 		Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
-		$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{\theta_{n_k}} \geq l_v'(\theta).$$
+		$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).$$
 	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
 	\end{description}
 \vspace{-1.2 \baselineskip}\end{proof}
@@ -121,7 +121,7 @@
 	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
 	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
-	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in (l_v(T), l_v(T)+\alpha l_v']$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in (l_w(T), l_w(T)+\alpha l_w']$.}$$
+	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$.}$$
 \end{definition}
 
 \begin{theorem}\label{thm-alpha-extension-is-nash-flow}
@@ -152,7 +152,7 @@
 	
 	Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
 	Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $V\setminus \{ v, t \}$ erfüllt.
-	Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da sonst $\tilde{f}$ mit $f$ übereinstimmt und $f$ bereits zulässig ist.
+	Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da sonst $\tilde{f}_e$ mit $f_e$ übereinstimmt und $f$ bereits zulässig ist.
 	Man nehme also $x_{vw}' > 0$ und $vw\in E_T$ an.
 	Es gilt die Kapazitätsbeschränkung \ref{def-feasible-flow-capacity}, da $l_w'\geq x_{vw}' / u_{vw}$ wegen~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} gilt, wodurch $\tilde{f}^-_{vw}(\theta)=x_{vw}'/l_w'\leq u_{vw}$ für $\theta\in(l_w(T), l_w(T)+\alpha l_w']$ folgt.
 	
