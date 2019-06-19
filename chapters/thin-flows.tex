@@ -115,10 +115,16 @@
 	Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
 \end{definition}
 
+\begin{proposition}
+Für einen dynamischen Nash-Fluss mit Zeithorizont $T$ gelten die Gleichheiten
+$F_{vw}^+(\theta) = F_{vw}^+(l_v(T))$ für $\theta \geq l_v(T)$ und $F_{vw}^-(\theta) = F_{vw}^-(l_w(T))$ für $\theta \geq l_w(T)$.
+\end{proposition}
+\begin{proof}
+	Es gelten 
+\end{proof}
+
 \begin{definition}
 	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ sowie dessen induzierter schmaler Fluss mit Zurücksetzen im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
-	
-	\todo{Brauche vermutlich sowas wie $f_{vw}^+(\geq l_v(\theta))=0$}
 	
 	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$.}$$
