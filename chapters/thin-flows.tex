@@ -116,23 +116,19 @@
 \end{definition}
 
 \begin{proposition}
-Für einen dynamischen Nash-Fluss mit Zeithorizont $T$ gelten die Gleichheiten
-$F_{vw}^+(\xi) = F_{vw}^+(l_v(T))$ für $\xi \geq l_v(T)$ und $F_{vw}^-(\xi) = F_{vw}^-(l_w(T))$ für $\xi \geq l_w(T)$.
+Für einen dynamischen Nash-Fluss $f$ mit Zeithorizont $T$ und eine Kante $e\in E$ gilt $x_{e}(\theta) = x_{e}(T)$ für alle $\theta \geq T$.
+Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^-$ ab dem Zeitpunkt $l_w(\theta)$ fast überall für alle Kanten $vw\in E$.
 \end{proposition}
 \begin{proof}
-	\todo{Das funktioniert hier noch ned}
-	Für $\xi \geq l_v(T)$ bzw. für $\xi \geq l_w(T)$ existiert nach Proposition~\ref{prop-abs-cont-sur} ein $\theta\geq T$ mit $l_v(\theta) = \xi$ bzw. $l_w(\theta) = \xi$.
-	Die statischen $s$-$t$-Flüsse $x(T)$ und $x(\theta)$ sind nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
-	Der Fluss $x_e(T)$ hat den gleichen Flusswert wie $x_e(\theta)$, da $\sum_{e\in \delta^-(s)} x_e(T) - \sum_{e\in\delta^+(s)} x_e(T) = \sum_{e\in \delta^-(s)} x_e(\theta) - \sum_{e\in\delta^+(s)} x_e(\theta)$ wegen $d(\xi) = 0$ für $\xi \geq T $ gilt.
-	Außerdem ist $x_e(T) \leq x_e(\theta)$ für jede Kante $e\in E$ und die $s$-$t$-Wegezerlegung von $x_e(T)$ ist eine Teilzerlegung von $x_e(\theta)$.
-	
-	Insbesondere müssen $x(T)$ und $x(\theta)$ bereits auf allen Kanten übereinstimmen, wodurch $F_{vw}^+(l_v(\theta)) = F_{vw}^+(l_v(T)) = F_{vw}^-(l_w(T)) = F_{vw}^-(l_v(T))$ folgt.
+	Der statische $s$-$t$-Fluss $x(\theta) -x(T)$ ist nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
+	Zudem hat der Fluss $x(T)$ den gleichen Flusswert wie $x(\theta)$, da $$\sum_{e\in \delta^-(s)} x_e(T) - \sum_{e\in\delta^+(s)} x_e(T) = \sum_{e\in \delta^-(s)} x_e(\theta) - \sum_{e\in\delta^+(s)} x_e(\theta)$$ wegen $d(\xi) = 0$ für $\xi \geq T $ gilt.
+	Daher ist $x(\theta)- x(T)$ bereits der Nullfluss, sodass $x(T)$ und $x(\theta)$ bereits auf allen Kanten übereinstimmen, wodurch die Behauptung folgt.
 \end{proof}
 
 \begin{definition}
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ sowie dessen induzierter schmaler Fluss mit Zurücksetzen im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \} $ im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ übernehme und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
+	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ ergänze und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
 	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$.}$$
 \end{definition}
 
