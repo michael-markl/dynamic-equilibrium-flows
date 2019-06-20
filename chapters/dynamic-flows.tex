@@ -11,12 +11,11 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 \todo{Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.}
 
 \begin{definition}
-	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, das heißt $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$, und auf der negativen Achse verschwinden, also $g(t)=0$ für $t<0$.
-	\todo{Der Funktionenraum} %$\C_{\loc}$
+	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt es gilt $g(t)=0$ für alle $t<0$.
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
-	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0(\R)$ für alle $e\in E$.
+	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
 	
 	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Zuflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Abflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
 	
@@ -78,8 +77,3 @@ $d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
 	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) \diff t = (\theta_2 - \theta_1)u_e$ nach Bedingung~\ref{def-feasible-flow-queue-with-capacity}.
 	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
 \end{proof}
-
-\todo{Insbesondere ist also die Kantenaustrittszeit $T_e$ monoton wachsend und stetig.}
-
-\todo{Stetigkeit von irgendwas um die "Wohldefiniertheit" dieser komischen Definition  von Nash flows zu zeigen}
-
