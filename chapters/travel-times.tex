@@ -48,7 +48,7 @@
 	Augrund der Aktivität von $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
 	
 	Für jeden Knoten $w\neq s$ existiert zumindest eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher existiert, da $w$ von $s$ aus erreichbar ist.
-	Folgt man diesen aktiven Rückwärtskanten, so erreicht man schließlich $s$, da keine Zykeln auftreten.
+	Folgt man diesen aktiven eingehenden Kanten, so erreicht man schließlich $s$, da keine Zykeln auftreten können.
 \end{proof}
 
 \todo{Move notation to first occurrence}
@@ -69,9 +69,9 @@
 	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}, da jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
-	Der durch solche Kanten $uv\in E$, die unter allen eingehenden Kanten von $v$ die Zeit $T_{uv}(\tilde{l_u})$ minimiert, induzierte Teilgraph ist azyklisch,
-	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zykeln erzeugen würde.
-	Folgt man ausgehend von einem Knoten $w\neq s$ solange wie möglich Rückwärtskanten $uv$ in diesem Teilgraphen, so erhält man also einen $s$-$w$-Pfad $P$, für den $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$ gilt.
+	Der durch solche Kanten $uv\in E$, welche unter allen eingehenden Kanten von $v$ die Zeit $T_{uv}(\tilde{l_u})$ minimiert, induzierte Teilgraph ist azyklisch,
+	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zyklen erzeugen würde.
+	Folgt man ausgehend von einem Knoten $w\neq s$ solange wie möglich eingehenden Kanten $uv$ in diesem Teilgraphen, so erhält man also einen $s$-$w$-Pfad $P$, für den $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$ gilt.
 	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(l_s(\theta)) = l_w(\theta)$.
 	Solch ein Pfad existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
 \end{proof}

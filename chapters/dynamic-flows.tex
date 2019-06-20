@@ -1,14 +1,9 @@
 \section{Dynamische Flüsse}
 
-Betrachte Zeitraum $[0,T]$ mit $T\in\R_+$.
-$d$ Spieler erscheinen an Quelle $s$ über Zeitraum von $0$ bis $T$
-
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
 	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e$ haben.
 \end{definition}
-
-\todo{Für ein Netzwerk $\mathcal{N}$ bezeichne $\mathcal{P}$ die Menge aller $s$-$t$-Pfade.}
 
 \begin{definition}
 	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt es gilt $g(t)=0$ für alle $t<0$.
