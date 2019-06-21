@@ -22,25 +22,20 @@
 \end{definition}
 
 \begin{definition}[Zulässiger dynamischer Fluss]
-	Ein dynamischer Fluss $f=(f^+, f^-)$ heißt \emph{zulässig}, falls
+	Ein dynamischer Fluss $f=(f^+, f^-)$ heißt \emph{zulässig}, falls er die folgenden Eigenschaften erfüllt:
 	\begin{enumerate}[label=(F\arabic*)]
-		\item\label{def-feasible-flow-capacity} keine Abflussrate die Kapazität übersteigt, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$, und
-		\item\label{def-feasible-flow-no-negative-flow} Fluss eine Kante nur verlässt, falls er die Kante zuvor betreten hat, d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e)$, und
-		\item\label{def-feasible-flow-no-flow-at-node} Fluss direkt nach der Ankunft an einem Knoten der nächsten Kante zugeordnet wird, d.h. $\forall v\in V\setminus \{ s, t \}, \theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$, und
-		\item\label{def-feasible-flow-queue-with-capacity} nicht-leere Warteschlangen mit der Kapazität der Kante abgebaut werden, d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
-		\todo{
-		 $F_e^+(\theta) = F_e^-(\theta + \tau_e + q_e(\theta))$ für alle $e\in E, \theta\in\R$, ist das das gleiche (f.ü.)? Vermutlich nein; da fehlt irgendwie noch was: $q_e(\theta) = 0 \implies f_e^-(\theta + \tau_e) = f_e^+(\theta)$ o. Ä.}
+		\item\label{def-feasible-flow-capacity} Keine Abflussrate übersteigt die Kapazität, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
+		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$
+		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\ d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$.\\
+		Für die Quelle $s$ bzw. die Senke $t$ muss hier $\geq$ bzw. $\leq$ gelten.
+		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
 \end{definition}
-
-\todo{$\theta < 0 \implies f(\theta) = 0$}
-
-\todo{source and sink nodes: Kein Fluss verschwindet bei Quelle, kein Fluss kommt hinzu bei Sinke}
 
 \todo{FIFO Interpretation}
 
 \begin{proposition}\label{prop-feasible-flow}
-	Sei $e\in E$ eine Kante und $f$ ein zulässiger Fluss. Dann gilt:
+	Für eine Kante $e\in E$ und einen zulässigen dynamischen Fluss $f$ gilt:
 	\begin{enumerate}[label=(\roman*)]
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
 		\item\label{prop-feasible-flow-positive-queue} Für alle $e\in E$ und $\theta\in\R$ ist die Länge der Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
@@ -49,26 +44,23 @@
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
-	Für die Monotonie in~\ref{prop-feasible-flow-T-mon-inc-cont} seien $\theta_1 \leq \theta_2$ gegeben.
-	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_1 + \tau_e) = F_e^-(\theta_2+\tau_e) - \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)\diff t\leq F_e^-(\theta_2 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
+	In~\ref{prop-feasible-flow-T-mon-inc-cont} folgt die Stetigkeit bereits aus der Stetigkeit von $F_e^+$ und $F_e^-$.
+	Für die Monotonie seien $\theta_1 \leq \theta_2$ gegeben.
+	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
 	$$
 		\theta_1 + q_e(\theta_1)
-		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}\\
-		\leq \theta_2 + \frac{F_e^+(\theta_1) - F_e^-(\theta_2+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
+		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}
+		\leq \theta_1 + \frac{F_e^+(\theta_2) - F_e^-(\theta_1+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
 	$$
-	Die Stetigkeit folgt aus der Stetigkeit von $F_e^+$ und $F_e^-$.
 	
-	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$ nach~\ref{prop-feasible-flow-T-mon-inc-cont}.
-	Also ist $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)\geq 0$, was Aussage (ii) beweist.	
+	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)$ gerade Aussage (ii) beweist.
 	
-	Zu Aussage (iii): Nach Voraussetzung~\ref{def-feasible-flow-queue-with-capacity} und Aussage (ii) ist
-	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$.
-	Damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.
+	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), denn es gilt 
+	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$ und damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.
 	
-	Es bleibt noch Aussage (iv) zu zeigen:
-	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta_1) = F_e^+(\theta') = F_e^+(\theta_2)$.
-	Also ist $F_e^+(\theta') - F_e^-(\theta' + \tau_e) \geq F_e^+(\theta_2)-F_e^-(\theta_2 + \tau_e) = z_e(\theta_2) > 0$ und es gilt $f_e^-(\theta' + \tau_e)=u_e$.
-	Für die Warteschlangendifferenz gilt dann: 
-	$z_e(\theta_1)-z_e(\theta_2)=-F^-(\theta_1 + \tau_e) + F^-(\theta_2 + \tau_e) = \int_{\theta_1 + \tau_e}^{\theta_2 + \tau_e} f^-_e(t) \diff t = (\theta_2 - \theta_1)u_e$ nach Bedingung~\ref{def-feasible-flow-queue-with-capacity}.
-	Man folgere $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$.
+	Es bleibt Aussage (iv) zu zeigen:
+	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta') = F_e^+(\theta_2)$.
+	Also ist die Warteschlange $z_e(\theta') = F_e^+(\theta_2) - F_e^-(\theta' + \tau_e) \geq z_e(\theta_2) > 0$ positiv und nach~\ref{def-feasible-flow-queue-with-capacity} gilt $f_e^-(\theta' + \tau_e)=u_e$.
+	Die Differenz der Warteschlangen ist somit nach Bedingung~\ref{def-feasible-flow-queue-with-capacity} 
+	$z_e(\theta_1)-z_e(\theta_2)=-F^-_e(\theta_1 + \tau_e) + F^-_e(\theta_2 + \tau_e) = (\theta_2 - \theta_1)u_e$, was $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$ impliziert.
 \end{proof}
