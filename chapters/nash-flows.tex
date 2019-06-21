@@ -76,9 +76,9 @@
 	Nach Lemma~\ref{lemma-vanishes-intervals} verschwindet $f_{vw}^+$ genau dann fast überall auf $l_v(\Theta_{vw})^c$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
 	Dies ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} wiederum äquivalent zu
 	$$F_{vw}^+(l_v(\theta))-F_{vw}^+(l_v(\omega_\theta)) = F_{vw}^+(l_v(\theta))-F_{vw}^-(l_w(\theta))=0~~\text{für alle $\theta\in\R$}.$$
+	\vspace{-2.8 \baselineskip}
+	
 \end{proof}
-
-
 \todo{blablabla Definition FIFO bla}
 
 \begin{definition}
@@ -101,6 +101,7 @@
 \begin{proof}
 	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
 	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
+	
 \end{proof}
 
 \begin{definition}
@@ -191,6 +192,7 @@
 	Also hat der $s$-$t$-Fluss $x(\xi) - x(\xi_0)$ für $\xi\in [\xi_0, \theta + \varepsilon]$ keinen Zyklus mit positivem Fluss und besitzt daher eine $s$-$t$-Wegezerlegung.
 	Addiert man diese zur $s$-$t$-Wegezerlegung von $x(\xi_0) - x(\theta_1)$, so erhält man eine $s$-$t$-Wegezerlegung von $x(\xi) - x(\theta_1)$, was für $\xi > \theta$ ein Widerspruch zur Definition von $\theta$ darstellt.
 \end{proof}
+
 \begin{corollary}
 	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit eine Komposition von $s$-$t$-Wegen.
 \end{corollary}
