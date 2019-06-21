@@ -26,8 +26,8 @@
 	\begin{enumerate}[label=(F\arabic*)]
 		\item\label{def-feasible-flow-capacity} Keine Abflussrate übersteigt die Kapazität, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
 		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$
-		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\ d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) = \sum_{e\in\delta^+(v)} f_e^+(\theta)$.\\
-		Für die Quelle $s$ bzw. die Senke $t$ muss hier $\geq$ bzw. $\leq$ gelten.
+		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\ d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) = 0$.\\
+		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein und heißt für $s$ \emph{der Zufluss $d(\theta)$ in das Netzwerk}.
 		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
 \end{definition}

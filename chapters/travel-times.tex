@@ -51,11 +51,6 @@
 	Folgt man diesen aktiven eingehenden Kanten, so erreicht man schließlich $s$, da keine Zykeln auftreten können.
 \end{proof}
 
-\todo{Move notation to first occurrence}
-\begin{notation}
-	Das Komplement einer Menge $M$ notiere man als $M^c:= \R\setminus M$.
-\end{notation}
-
 \todo{Bla: d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
 
 \begin{proposition}\label{prop-arrival-times-vector}
@@ -69,10 +64,13 @@
 	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}, da jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
-	Der durch solche Kanten $uv\in E$, welche unter allen eingehenden Kanten von $v$ die Zeit $T_{uv}(\tilde{l_u})$ minimiert, induzierte Teilgraph ist azyklisch,
+	Der Teilgraph $G'=(V, E')$ mit
+	$$E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \}$$
+	ist azyklisch,
 	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zyklen erzeugen würde.
-	Folgt man ausgehend von einem Knoten $w\neq s$ solange wie möglich eingehenden Kanten $uv$ in diesem Teilgraphen, so erhält man also einen $s$-$w$-Pfad $P$, für den $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$ gilt.
-	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(l_s(\theta)) = l_w(\theta)$.
+	Da jeder Knoten $w\neq s$ eine eingehende Kante besitzt, ist jeder Knoten auch von $s$ aus in $G'$ erreichbar.
+	Für einen $s$-$w$-Pfad $P$ in $G'$ gilt dann $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$.
+	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(\theta) = l_w(\theta)$.
 	Solch ein Pfad existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
 \end{proof}
 \todo{Belmann-Ford? Warum kann man das?}
