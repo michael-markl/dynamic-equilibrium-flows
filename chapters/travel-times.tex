@@ -61,16 +61,15 @@
 	\end{cases}$$
 \end{proposition}
 \begin{proof}
-	Offenbar löst $l_v(\theta)$ dieses System nach Lemma~\ref{lemma-shortest-path-using-active-edges}, da jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
+	Offenbar löst $l_v(\theta)$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
 	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
 	Der Teilgraph $G'=(V, E')$ mit
 	$$E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \}$$
 	ist azyklisch,
 	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zyklen erzeugen würde.
-	Da jeder Knoten $w\neq s$ eine eingehende Kante besitzt, ist jeder Knoten auch von $s$ aus in $G'$ erreichbar.
+	Da jeder Knoten $w\neq s$ eine eingehende Kante in $G'$ besitzt, ist jeder Knoten auch von $s$ aus in $G'$ erreichbar.
 	Für einen $s$-$w$-Pfad $P$ in $G'$ gilt dann $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$.
-	Außerdem gilt für einen $s$-$w$-Pfad $P$ mit ausschließlich aktiven Kanten $\tilde{l}_w \leq T^P(\tilde{l}_s) = T^P(\theta) = l_w(\theta)$.
-	Solch ein Pfad existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges}.
+	Außerdem existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges} ein $s$-$w$-Pfad $Q$ mit ausschließlich aktiven Kanten, für den $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$ gilt.
 \end{proof}
 \todo{Belmann-Ford? Warum kann man das?}
