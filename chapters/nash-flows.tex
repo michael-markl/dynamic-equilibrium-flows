@@ -178,14 +178,13 @@
 	Für einen dynamischen Nash-Fluss $f$ und zwei Zeitpunkte $\theta_1 \leq \theta_2$ ist der statische $s$-$t$-Fluss $x(\theta_2) - x(\theta_1)$ eine Komposition von $s$-$t$-Wegen.
 \end{proposition}
 \begin{proof}
-	Sei $\theta$ das Infimum aller Zeitpunkte $\xi\geq\theta_1$, zu denen $x(\xi) - x(\theta_1)$ nicht $s$-$t$-Wege zerlegbar ist.
+	Sei $\theta$ das Infimum aller Zeitpunkte $\xi\geq\theta_1$, zu denen $x(\xi) - x(\theta_1)$ nicht in $s$-$t$-Wege zerlegbar ist.
 	Man nehme $\theta \leq \theta_2$ an.
 	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor $\theta$ und noch kurz nach $\theta$ inaktiv sind, existiert ein Intervall $[\theta - \varepsilon, \theta + \varepsilon]$, in der keine inaktive Kante aktiv wird.
 	Außerdem existiert für $\xi_0 := \max \{ \theta_1, \theta - \varepsilon \}$ eine $s$-$t$-Wegezerlegung von $x(\xi_0) - x(\theta_1)$.
 	
 	Für einen Pfad $P$ und einen statischen Fluss $g$ sei $g^P := \max_{e\in P} g_e$ der Fluss, der auf dem Pfad $P$ fließt.
-	Sei $C$ ein Zyklus.
-	Dann ist $x_C(\xi_0) = x_C(\xi)$ für $\xi\in [\xi_0, \theta+\varepsilon]$, da aufgrund der Azyklizität von $G_{\xi_0}$ eine Kante $vw\in C$ des Zyklus existiert, die zur Zeit $\xi_0$ und damit in ganz $[\xi_0, \theta+\varepsilon]$ inaktiv ist, wodurch
+	Für einen Zyklus $C$ ist $x^C(\xi_0) = x^C(\xi)$ für $\xi\in [\xi_0, \theta+\varepsilon]$, da aufgrund der Azyklizität von $G_{\xi_0}$ eine Kante $vw\in C$ des Zyklus existiert, die zur Zeit $\xi_0$ und damit in ganz $[\xi_0, \theta+\varepsilon]$ inaktiv ist, wodurch
 	$$F_{vw}^+(l_v(\theta + \varepsilon)) - F_{vw}^+(l_v(\xi_0)) = \int_{l_v(\xi_0)}^{l_v(\theta + \varepsilon)} f_{vw}^+(t) \diff t = 0$$
 	folgt, da $f$ nur entlang aktiver Kanten fließt.
 	

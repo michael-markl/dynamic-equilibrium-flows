@@ -1,24 +1,25 @@
 \section{Dynamische Flüsse}
 
+In 
+
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} ist ein gerichteter Graph $G=(V,E)$ mit endlicher Knotenmenge $V$ und Kantenmenge $E$, einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
 	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e$ haben.
 \end{definition}
 
 \begin{definition}
-	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt es gilt $g(t)=0$ für alle $t<0$.
+	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt, es gilt $g(t)=0$ für alle $t<0$.
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
 	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
+	Dabei bezeichnen $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$}.
 	
-	Dabei bezeichnen $f_e^+(\theta)$ die \emph{Zuflussrate an $e$ zum Zeitpunkt $\theta\in\R$} und $f_e^-(\theta)$ die \emph{Abflussrate aus $e$ zum Zeitpunkt $\theta\in\R$} für $e\in E$.
+	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t) \diff t<\infty$.
 	
-	Der (kumulative) \emph{Zufluss bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t) \diff t<\infty$.
+	Die \emph{(Länge der) Warteschlange $z_e(\theta)$ und die Wartezeit $q_e(\theta)$ an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$} seien gegeben durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und $q_e(\theta) := z_e(\theta) / u_e$.
 	
-	Die \emph{(Länge der) Warteschlange an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und die \emph{Wartezeit an Kante $e$ zum Zeitpunkt $\theta\in\R$} sei definiert durch $q_e(\theta) = z_e / u_e$.
-	
-	Man beschreibe den \emph{Austrittszeitpunkt einer Kante $e$ bei Eintrittszeitpunkt $\theta$}, in dem ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
+	Man beschreibe die \emph{Austrittszeit $T_e(\theta)$ aus einer Kante $e\in E$ bei Eintrittszeit $\theta$}, zu der ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
 \end{definition}
 
 \begin{definition}[Zulässiger dynamischer Fluss]
@@ -26,7 +27,8 @@
 	\begin{enumerate}[label=(F\arabic*)]
 		\item\label{def-feasible-flow-capacity} Keine Abflussrate übersteigt die Kapazität, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
 		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$
-		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\ d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) = 0$.\\
+		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\
+		d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) = 0$.\\
 		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein und heißt für $s$ \emph{der Zufluss $d(\theta)$ in das Netzwerk}.
 		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
