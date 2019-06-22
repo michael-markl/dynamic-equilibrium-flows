@@ -178,6 +178,31 @@
 	Ist $x_e$ für alle $e\in E$ differenzierbar in $\theta$, so ist auch $x'(\theta)$ ein statischer $s$-$t$-Fluss, da Differenzieren die Flusserhaltung erhält.
 \end{remark}
 
+\begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
+	Seien ein dynamischer Nash-Fluss $f$, eine Kante $vw\in E$ und ein Zeitpunkt $\theta\in\R$ gegeben.
+	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
+	\begin{enumerate}[label=(\roman*)]
+		\item Es existiert ein $\varepsilon>0$ mit $x_{vw}(\theta')<x_{vw}(\theta)$ für alle $\theta'\in(\theta-\varepsilon, \theta)$.
+		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
+		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
+	Also existiert eine Teilmenge $Q_\varepsilon \subseteq (l_v(\theta-\varepsilon), l_v(\theta))=l_v((\theta - \varepsilon, \theta))$ mit positivem Maß und $f_{vw}^+\big|_{Q_\varepsilon} > 0$.
+	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten.
+	Daher ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
+	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
+	
+	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
+	Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
+	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
+	Dieser existiert, da $F_{vw}^+(l_v(\theta))$ positiv und $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
+	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
+	Nach Aussage (i) gilt nun $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
+	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
+\end{proof}
+
 \begin{proposition}\label{prop-nash-flow-s-t-path-decomposable}
 	Für einen dynamischen Nash-Fluss $f$ und zwei Zeitpunkte $\theta_1 \leq \theta_2$ ist der statische $s$-$t$-Fluss $x(\theta_2) - x(\theta_1)$ eine Komposition von $s$-$t$-Wegen.
 \end{proposition}

@@ -1,30 +1,5 @@
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-thin-flows}
 
-\begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
-	Seien ein dynamischer Nash-Fluss $f$, eine Kante $vw\in E$ und ein Zeitpunkt $\theta\in\R$ gegeben.
-	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
-	\begin{enumerate}[label=(\roman*)]
-		\item Es existiert ein $\varepsilon>0$ mit $x_{vw}(\theta')<x_{vw}(\theta)$ für alle $\theta'\in(\theta-\varepsilon, \theta)$.
-		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
-		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
-	\end{enumerate}
-\end{lemma}
-\begin{proof}
-	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
-	Also existiert eine Teilmenge $Q_\varepsilon \subseteq (l_v(\theta-\varepsilon), l_v(\theta))=l_v((\theta - \varepsilon, \theta))$ mit positivem Maß und $f_{vw}^+\big|_{Q_\varepsilon} > 0$.
-	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten.
-	Daher ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
-	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
-	
-	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
-	Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
-	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
-	Dieser existiert, da $F_{vw}^+(l_v(\theta))$ positiv und $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
-	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
-	Nach Aussage (i) gilt nun $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
-	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
-\end{proof}
-
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
 	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
 	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert, die die folgenden Bedingungen erfüllt:
@@ -38,7 +13,7 @@
 	\end{enumerate}
 \end{definition}
 \begin{remark}
-	Hier ist, wie in~\cite[Definition 4]{Cominetti2011}, im Vergleich zu~\cite[Definition 6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
+	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
 	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\todo{afasdflja} erkennen kann.
 \end{remark}
@@ -53,7 +28,7 @@
 	Dabei ist $l_s'(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
 	Der Wert von $g$ ist $\sum_{e\in\delta^+(s)}x_e'(\theta) =  \left.\frac{d}{dt}\sum_{e\in\delta^+(s)}F_e^+(l_s(t))\right|_{t=\theta} = \sum_{e\in\delta^+(s)} f_e^+(t)$. \todo{Geht auch mit variablen Zufluss; Problem: Warum ist Ableitung von $F_e^+$ gerade $f$? Doch nur f.ü.!}.
 		
-	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Wir prüfen die restlichen drei Bedingungen jeweils in den folgenden drei Fällen:
+	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Man prüfe die Bedingungen~\ref{def-thin-flow-x-zero}, \ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge} jeweils in den folgenden drei Fällen:
 	
 	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=0.5cm]
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{vw}(l_v(\theta')) > 0$.
@@ -101,15 +76,15 @@
 		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta+\varepsilon)}^{l_w(\theta)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
-		
-		Es fehlt noch Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
-		Man nehme also an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
-		Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
-		Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
-		$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).$$
-	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
 	\end{description}
-\vspace{-1.2 \baselineskip}\end{proof}
+
+Es fehlt noch Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
+Man nehme also an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
+Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
+Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
+$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).$$
+Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
+\end{proof}
 
 \begin{definition}
 	Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
@@ -216,7 +191,7 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 	da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
 	Daher ist $\tilde{T}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) = l_w(T) + (\theta - T) l_w'$.
 	
-	Zuletzt betrachten wir aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
+	Zuletzt betrachte man aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
 	Hier gilt $l_w(T) = l_v(T) + \tau_{vw}$ und $l_w' \leq l_v'$ nach~\ref{def-thin-flow-x-zero}.
 	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \leq l_w(T) + (\theta - T) l_w'$ folgern kann.
 	Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
