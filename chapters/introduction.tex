@@ -1,20 +1,12 @@
 \section{Einführung}\label{introduction}
 
+Routenplanungsspiele spielen in der Analyse und Optimierung von Verkehrs- und Kommunikationsnetzwerken eine große Rolle.
+Bei der Modellierung solcher Netzwerke wurden dabei in der Vergangenheit häufig statische Flüsse zu Rate gezogen, welche jedoch nicht abbilden können, wie sich Veränderungen des Flusses im Laufe der Zeit innerhalb des Netzwerks, wie sie beispielsweise in Straßenverkehrsnetzwerken, Kommunikations- oder Produktionsnetzwerken auftritt, auf das System auswirken.
 
-\begin{definition}[strategisches Spiel]
-	Ein \emph{strategisches Spiel} $\mathcal{G}$ ist ein Tupel $(P, X, \theta)$, wobei $P$ eine Menge von Spielern, $X$ die Menge der Strategien  und $\theta=(\theta_p)_{p_\in P}$ die Familie der Auszahlungsfunktionen der Spieler ist, wobei $\theta_p$ eine Funktion $X^P\to\R$ für jeden Spieler $p\in P$ ist.
-\end{definition}
+Im Artikel \glqq Nash Equilibria and the Price of Anarchy for Flow over Time\grqq\ \cite{Koch2011} der Autoren Ronald Koch und Martin Skutella werden daher Routenplanungsspiele auf dynamischen Flüssen (engl. flow over time) betrachtet, die hier dem deterministischen Warte\-schlangen-Modell (engl. deterministic queuing model) entsprechen.
+Jedes Partikel im Fluss entspricht dabei einem Spieler, der seine Entscheidungen selbst egoistisch trifft und versucht seine eigene Ankunftszeit zu minimieren.
+Dies wird auch Selfish Routing genannt.
+Zudem schreibt man den Spielern hier zu, während ihrer Entscheidungsfindung der zu wählenden Route bereits den Flussverlauf in der Zukunft zu kennen.
 
-Man beachte, dass in dieser Definition eines strategischen Spiels die Spieler eine gemeinsame Strategiemenge haben.
-
-\begin{definition}[statisches Flussnetzwerk]
-	Ein \emph{statisches Flussnetzwerk} $\mathcal{N}:=(G,s,t,\mu)$ ist ein Graph $G:=(V,E)$ mit Knoten $V$ und Kanten $E$, einer \emph{Quelle} $s\in V$, einer \emph{Senke} $t\in V$ zusammen mit einem \emph{$d$-wertigen statischen Fluss} $\mu: \mathcal{P} \to \R$, wobei $\mathcal{P}$ die Menge aller einfachen $s$-$t$-Pfade in G ist und $d=\sum_{p\in\mathcal{P}}\mu(p)$ gilt.
-\end{definition}
-
-\begin{definition}[statisches Routenplanungsspiel]
-	Sei ein Graph $G:=(V,E)$ mit Knoten $V$ und Kanten $E$, einer Quelle $s\in V$, einer Senke $t\in V$ und einem Zufluss $d\in\R_+$ gegeben.
-	Ein \emph{statisches Routenplanungsspiel} ist ein strategisches Spiel mit  Spielermenge $[0,d]\subseteq\R$, wobei ein Spieler als \emph{Flusspartikel} bezeichnet wird, und mit Strategiemenge $\mathcal{P}$ aller $s$-$t$-Pfade in $G$.
-	Die Auszahlungsfunktion $\theta_x$ gibt die Kosten des Partikels $x$ in Abhängigkeit des Flusses an.
-	
-	Der Fluss $\mu$ heißt Nashfluss, falls $l_P(\mu)=min_{P'\in\mathcal{P}}l_{P'}(\mu)$ für alle $P\in\mathcal{P}$ mit $\mu_P > 0$ gilt.
-\end{definition}
+Diese Arbeit gibt in den Abschnitten 2 und 3 eine formale Definition dynamischer Flüsse und des Warteschlangenmodells in diesem Szenario und formuliert eine Charakterisierung von Nash Gleichgewichten im Kontext dynamischen Flüsse in Abschnitt 4.
+In Abschnitt 5 wird schließlich eine Klasse von statischen Flüssen eingeführt, die verwendet wird, um bereits bestehende dynamische Nash-Flüsse mit Zeithorizont zu erweitern.
