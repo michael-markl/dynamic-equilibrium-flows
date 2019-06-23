@@ -1,11 +1,13 @@
 \section{Durchlaufzeiten}\label{sec-travel-times}
 
+In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten eingeführt und erörtert, wann eine Kante $vw$ in einem kürzesten $v$-$w$-Pfad liegt.
+
 \begin{definition}
 	Für einen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
 	
 	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
-	Dann ist die früheste Ankunft eines Partikels, das zum Zeitpunkt $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
-	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zum Zeitpunkt $\theta$}, falls $l_w(\theta)=l^P(\theta)$.
+	Dann ist die früheste Ankunft eines Partikels, das zur Zeit $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
+	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zur Zeit $\theta$}, falls $l_w(\theta)=l^P(\theta)$.
 \end{definition}
 
 \begin{proposition}\label{prop-abs-cont-sur}
@@ -22,6 +24,8 @@
 	Daher sind auch $l^P$ und $l_v$ surjektiv.
 \end{proof}
 
+Wie im statischen Szenario von kürzesten Pfade, gilt auch hier die Dreiecksungleichung: 
+
 \begin{lemma}\label{lemma-dreicksungl}
 	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
 	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$.
@@ -37,19 +41,19 @@
 	Die Menge $\Theta_e$ ist die abgeschlossene Menge aller Zeitpunkte, zu denen die Kante $e$ aktiv ist.
 \end{definition}
 
+Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzeste Pfade sind; im dynamischen Sinne gilt dies nicht unbedingt, jedoch aber in folgendem Teilgraph:
+
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Für einen zulässigen Fluss ist der durch die aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit $\theta$ azyklisch und jeder Knoten ist von $s$ in $G_\theta$ erreichbar.
+	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit ein Spannbaum mit Wurzel $s$.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
 	Es ist $l^C(\theta) > \theta$, da für Zykeln eine positive Gesamtverzögerung vorausgesetzt ist.
 	Augrund der Aktivität von $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
 	
-	Für jeden Knoten $w\neq s$ existiert zumindest eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher existiert, da $w$ von $s$ aus erreichbar ist.
-	Folgt man diesen aktiven eingehenden Kanten, so erreicht man schließlich $s$, da keine Zykeln auftreten können.
+	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
+	Daher ist $w$ von $s$ aus in $G_\theta$ erreichbar.
 \end{proof}
-
-\todo{Bla: d.h. falls die Kante in einem kürzesten $s$-$w$-Pfad liegt}.
 
 \begin{proposition}\label{prop-arrival-times-vector}
 	Für einen zulässigen Fluss $f$ ist der Vektor $(l_v(\theta))_{v\in V}$ die eindeutige Lösung des Gleichungssystems
@@ -58,16 +62,14 @@
 	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
 	\end{cases}$$
 \end{proposition}
-\begin{proof}
+\begin{proof}	
 	Offenbar löst $l_v(\theta)$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
-	Sei $(\tilde{l}_v)_{v\in V}$ eine Lösung dieses Gleichungssystems.
-	Man zeige für jeden Knoten $w\in V$ gilt $l_w(\theta) = \tilde{l}_w$.
-	Der Teilgraph $G'=(V, E')$ mit
+	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
+	Dabei ist der Teilgraph $G'=(V, E')$ mit
 	$$E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \}$$
-	ist azyklisch,
-	da ein Knoten $v$ in einem Zyklus $C$ den Widerspruch $\tilde{l}_v = T^C(\tilde{l}_v) > \tilde{l}_v$ wegen der positiven Gesamtverzögerung von Zyklen erzeugen würde.
-	Da jeder Knoten $w\neq s$ eine eingehende Kante in $G'$ besitzt, ist jeder Knoten auch von $s$ aus in $G'$ erreichbar.
-	Für einen $s$-$w$-Pfad $P$ in $G'$ gilt dann $\tilde{l}_w = T^P(\theta) \geq l_w(\theta)$.
+	ein Spannbaum mit Wurzel $s$:
+	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
+	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch den eindeutigen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
 	Außerdem existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges} ein $s$-$w$-Pfad $Q$ mit ausschließlich aktiven Kanten, für den $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$ gilt.
 \end{proof}
 \todo{Belmann-Ford? Warum kann man das?}
