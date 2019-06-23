@@ -1,10 +1,10 @@
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-thin-flows}
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
-	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Graph $G=(V,E)$ mit Kantenkapazitäten $u\in\R^E$, eine Quelle $s\in V$ mit Zuflusskapazität $d\in\R$ und eine Senke $t\in V$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
+	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Netzwerk $(G, u, s, t)$ mit Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
 	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
-	\item $l_s' = F/d$,
+	\item\label{def-thin-flow-source} $l_s' = F/d$,
 	\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
 	\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
 	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
@@ -18,16 +18,19 @@
 	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\todo{afasdflja} erkennen kann.
 \end{remark}
 
+\begin{remark}
+	Differentiability almost everywhere
+\end{remark}
+
 \begin{theorem}
-	Seien ein dynamischer Nash-Fluss $f$ auf einem Graphen $G=(V,E)$ sowie ein Zeitpunkt $\theta$ gegeben.	
-	Existieren die Ableitungen $x_e'(\theta)$ und $l_v'(\theta)$ für alle $e\in E$ und $v\in V$, so ist der statische $s$-$t$-Fluss $g\in\R^{E_\theta}$ mit $g_e:=x_e'(\theta)$ ein schmaler $d$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ im Teilgraphen der aktiven Kanten $G_\theta$.
-	Als Knotenbewertung dienen dazu die Ableitungen $l_v'(\theta)$ für $v\in V$.
+	Seien ein dynamischer Nash-Fluss $f$ in $(V,E)$ sowie $\theta\in\R$ gegeben.
+	Existieren für alle Kanten $vw$ und Knoten $v$ die Ableitungen $x_{vw}'(\theta)$ und $l_v'(\theta)$ mit $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)$, so ist der statische Fluss $x'(\theta) \in \R^E_\theta$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein schmaler $d(\theta)$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ bei Versorgungsrate~$d(\theta)$.
+	Als Knotenbewertung dienen dazu die Ableitungen $(l_v'(\theta))_{v\in V}$.
 \end{theorem}
 \begin{proof}
-	zu zeigen: $l_s'(\theta) = F/d$.
-	Dabei ist $l_s'(\theta) = 1$, da $l_s(\theta) = \theta$. Bleibt zu zeigen $F= d$.
-	Der Wert von $g$ ist $\sum_{e\in\delta^+(s)}x_e'(\theta) =  \left.\frac{d}{dt}\sum_{e\in\delta^+(s)}F_e^+(l_s(t))\right|_{t=\theta} = \sum_{e\in\delta^+(s)} f_e^+(t)$. \todo{Geht auch mit variablen Zufluss; Problem: Warum ist Ableitung von $F_e^+$ gerade $f$? Doch nur f.ü.!}.
-		
+	Man bemerke zunächst $l_s'(\theta) = 1$.
+	Da außerdem der Einfluss in das Netzwerk $d(\theta)=  \sum_{e\in \delta^+(s)} f_e^+(\theta) - \sum_{e\in\delta^-(s)} f_e^-(\theta) = \sum_{e\in \delta^+(s)} x_e'(\theta) - \sum_{e\in\delta^-(s)} x_e'(\theta)$ erfüllt, folgt~\ref{def-thin-flow-source}, weil $x_e'(\theta)$ nach Lemma~\ref{lemma-x-locally-constant} für inaktive Kanten $e$ verschwindet.
+	
 	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Man prüfe die Bedingungen~\ref{def-thin-flow-x-zero}, \ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge} jeweils in den folgenden drei Fällen:
 	
 	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=0.5cm]
