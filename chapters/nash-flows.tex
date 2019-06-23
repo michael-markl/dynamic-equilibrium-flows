@@ -15,7 +15,7 @@
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 	
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
 	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -33,7 +33,7 @@
 \begin{proof}
 	Verschwindet $g$ fast überall auf $\Theta$, so erst recht auf jedem Intervall $(a_i, b_i)$.
 	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
-	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011} innen regulär.
+	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011Top} innen regulär.
 	Dies heißt, dass für offene Mengen $O\subseteq\R$ $$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$ gilt.
 	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
@@ -175,7 +175,7 @@
 
 \begin{remark}\label{remark-s-t-flow}
 	In einem Nash-Fluss ist für alle $\theta\in\R$ der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} ein statischer $s$-$t$-Fluss.
-	Ist $x_e$ für alle $e\in E$ differenzierbar in $\theta$, so ist auch $x'(\theta)$ ein statischer $s$-$t$-Fluss, da Differenzieren die Flusserhaltung erhält.
+	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$, da Differenzieren die Flusserhaltung erhält.
 \end{remark}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
@@ -227,7 +227,7 @@
 \end{proof}
 
 \begin{corollary}
-	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit eine Komposition von $s$-$t$-Wegen.
+	Für einen dynamischen Nash-Fluss $f$ ist der statische $s$-$t$-Fluss $x(\theta)$ zu jeder Zeit $\theta$ eine Komposition von $s$-$t$-Wegen.
 \end{corollary}
 \begin{proof}
 	Nach Proposition~\ref{prop-abs-cont-sur} existiert ein Zeitpunkt $\xi_0$ mit $l_v(\xi_0) \leq 0$ für alle Knoten $v\in V$.
