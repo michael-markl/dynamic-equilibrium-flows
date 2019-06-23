@@ -1,9 +1,8 @@
 \section{Dynamische Nash-Flüsse}\label{sec-nash-flows}
 
 \begin{definition}
-	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ den Fluss, der die Kante $vw$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
-	
-	Mit $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ bezeichne man den Fluss, der die Kante $vw$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $w$ erreichen können.
+	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ den Zufluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $v$, die zur Zeit $\theta$ in $s$ starten.\\
+	Dagegen bezeichne $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ den Abfluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $w$, die zur Zeit $\theta$ in $s$ starten.
 	
 	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
 \end{definition}
@@ -13,6 +12,16 @@
 	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
 	nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^+$.
 \end{remark}
+
+\begin{lemma}\label{lemma-balance-0}
+	Für einen zulässigen dynamischen Fluss $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
+\end{lemma}
+\begin{proof}
+	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
+	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta).$$
+\vspace{-1.4 \baselineskip}
+
+\end{proof}
 
 \subsection{Charakterisierung dynamischer Nash-Flüsse}
 
@@ -79,7 +88,7 @@
 
 	Für ein $\theta\in\R$ bezeichne man den spätesten Startzeitpunkt kleiner oder gleich $\theta$, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt, als
 	$$\omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}.$$
-	Dieses Maximum existiert, da die Menge nach oben beschränkt, abgeschlossen und wegen des Zwischenwertsatzes mit $T_{vw}(l_v(\theta))\geq l_w(\theta)$ und $\lim_{t\to -\infty}T_{vw}(l_v(t))=-\infty$ (\todo{ref}) nicht-leer ist.
+	Dieses Maximum existiert, da die Menge nach oben beschränkt, abgeschlossen und nach Proposition~\ref{prop-abs-cont-sur} nicht-leer ist.
 	
 	Es ist $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
 	Für $\theta\in\Theta_{vw}^c$ gilt $T_{vw}(l_v(\theta)) > l_w(\theta)$.
@@ -97,15 +106,6 @@
 	
 \end{proof}
 \todo{blablabla Definition FIFO bla}
-
-\begin{lemma}\label{lemma-balance-0}
-	Für einen zulässigen dynamischen Fluss $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
-\end{lemma}
-\begin{proof}
-	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
-	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta)$$
-	
-\end{proof}
 
 \begin{definition}
 	Man sage, ein zulässiger dynamischer Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
