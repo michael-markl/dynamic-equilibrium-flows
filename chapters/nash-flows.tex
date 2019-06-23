@@ -1,5 +1,19 @@
 \section{Dynamische Nash-Flüsse}\label{sec-nash-flows}
 
+\begin{definition}
+	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ den Fluss, der die Kante $vw$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
+	
+	Mit $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ bezeichne man den Fluss, der die Kante $vw$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $w$ erreichen können.
+	
+	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
+\end{definition}
+
+
+\begin{remark}\label{remark-x^-leqx^+}
+	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
+	nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^+$.
+\end{remark}
+
 \subsection{Charakterisierung dynamischer Nash-Flüsse}
 
 \begin{notation}
@@ -26,6 +40,7 @@
 	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung sogar echt stärker ist.
 \end{remark}
 
+
 \begin{lemma}\label{lemma-vanishes-intervals}
 	Seien $g: \R \to \R_{\geq 0}$ eine lokal Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
 	Dann verschwindet $g$ fast überall auf $\Theta:=\bigcup_{i\in I} (a_i, b_i)$ genau dann, wenn es für alle $i\in I$ fast überall auf $(a_i, b_i)$ verschwindet.
@@ -44,7 +59,7 @@
 	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für jede Kante $vw\in E$ und für fast alle $\xi\in\R$ mit	$f_{vw}^+(\xi)>0$ gilt $\xi \in l_v(\Theta_{vw})$.
-		\item Für jede Kante $vw\in E$ und für alle $\theta\in\R$ gilt $F_{vw}^+(l_v(\theta)) = F_{vw}^-(l_w(\theta))$.
+		\item Für jede Kante $e\in E$ und für alle $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -82,20 +97,6 @@
 	
 \end{proof}
 \todo{blablabla Definition FIFO bla}
-
-\begin{definition}
-	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ die Flussmenge, die die Kante $vw$ betreten hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $v$ erreichen können.
-	
-	Mit $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ bezeichne man die Flussmenge, die die Kante $vw$ verlassen hat, bevor Partikel, die zur Zeit $\theta$ in $s$ starten, $w$ erreichen können.
-	
-	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
-\end{definition}
-
-
-\begin{remark}\label{remark-x^-leqx^+}
-	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
-	 nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^+$.
-\end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
 	Für einen zulässigen dynamischen Fluss $f$ gilt $b_v(\theta)=0$ für alle Knoten $v\in V\setminus\{ s,t \}$ und alle $\theta\in\R$.
@@ -153,25 +154,19 @@
 	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb bereits alle $b_{\newv_e} = 0$ sein müssen.
 \end{proof}
 
+Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt:
 
-\begin{theorem}\label{thm-equivalencies-nash-flow}
+\begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
-		\item Für alle Kanten $e\in E$ und zu allen Zeitpunkten $\theta\in\R$ ist $x_e^+(\theta) = x_e^-(\theta)$.
+		\item Für alle Kanten $e\in E$ und zu jeder Zeit $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
 		\item Der Fluss $f$ fließt ohne Überholungen.
 	\end{enumerate}
 	Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{dynamischen Nash-Fluss}.
 \end{theorem}
-\begin{proof}
-	$(i) \Leftrightarrow (ii):$ Für eine Kante $vw\in E$ und einen Zeitpunkt $\theta\in\R$ gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow}:
-	$$x_{vw}^+(\theta) - x_{vw}^-(\theta) = F_{vw}^+(l_v(\theta)) - F_{vw}^-(l_w(\theta)) = F_{vw}^-(T_{vw}(l_v(\theta))) - F_{vw}^-(l_w(\theta)).$$
-	Lemma~\ref{lemma-only-active-edges} schafft also die gewünschte Äquivalenz.
-	
-	$(ii) \Leftrightarrow (iii)$ ist eine direkte Folgerung von Lemma~\ref{lemma-b-graph}~\ref{lemma-b-graph-imp}.
-\end{proof}
 
-\subsection{Eigenschaften dynamischer Nash-Flows}
+\subsection{Eigenschaften dynamischer Nash-Flüsse}
 
 \begin{remark}\label{remark-s-t-flow}
 	In einem Nash-Fluss ist für alle $\theta\in\R$ der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} ein statischer $s$-$t$-Fluss.
