@@ -106,10 +106,12 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 \end{proof}
 
 \begin{definition}
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \} $ im Graphen $G_T$ zum Zeitpunkt $T$ und ein $\alpha > 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein $\tilde{d}$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \} $ im Graphen $G_T$ bei Versorgungsrate $\tilde{d}$ und ein $\alpha > 0$ gegeben.
 	
-	Man erhalte die \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}, indem man die Werte aus $f$ ergänze und für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$ den Zu- bzw. Abfluss setze auf
-	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$.}$$
+	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
+	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$}$$
+	gelten, so erhält man eine \emph{$\tilde{d}$-wertige $\alpha$-Erweiterung $\tilde{f}$ von $f$}.
+	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade $\tilde{d}$.
 \end{definition}
 
 \begin{notation}
@@ -178,7 +180,7 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 
 	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
 	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
-	\todo{Wegen $l_s' = 1$ gilt} $l_s(T) + (\theta - T)l_v' = \theta$.
+	Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_v' = \theta$.
 	Für $w\neq s$ ist $l_w(T) + (\theta - T) l_w'$ eine untere Schranke für zur Zeit $T$ inaktive Kanten $vw$:
 	Zunächst zeige man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{wv}$:
 	Ist $l_w' \leq l_v'$, so gilt dies bereits, da $vw$ zur Zeit $l_v(T)$ keine Warteschlange hat.
