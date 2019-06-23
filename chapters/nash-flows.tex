@@ -1,12 +1,15 @@
 \section{Dynamische Nash-Flüsse}\label{sec-nash-flows}
 
+Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
+Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_v(\theta)$ an der Senke ankommen.
+Für die formale Einführung benötigt man weitere Definitionen: 
+
 \begin{definition}
 	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ den Zufluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $v$, die zur Zeit $\theta$ in $s$ starten.\\
 	Dagegen bezeichne $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ den Abfluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $w$, die zur Zeit $\theta$ in $s$ starten.
 	
 	Für einen Knoten $v\in V$ sei $b_v(\theta):=\sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
 \end{definition}
-
 
 \begin{remark}\label{remark-x^-leqx^+}
 	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
@@ -49,6 +52,7 @@
 	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung sogar echt stärker ist.
 \end{remark}
 
+Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes Lemma der Mengentheorie:
 
 \begin{lemma}\label{lemma-vanishes-intervals}
 	Seien $g: \R \to \R_{\geq 0}$ eine lokal Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
@@ -58,8 +62,10 @@
 	Verschwindet $g$ fast überall auf $\Theta$, so erst recht auf jedem Intervall $(a_i, b_i)$.
 	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
 	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011Top} innen regulär.
-	Dies heißt, dass für offene Mengen $O\subseteq\R$ $$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$ gilt.
-	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teilüberdeckung $\bigcup_{i=1}^n (a_k, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
+	Das heißt,
+	$$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$
+	gilt für offene Mengen $O\subseteq\R$.
+	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teil\-über\-deckung $\bigcup_{i=1}^n (a_i, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
 \end{proof}
 
@@ -73,39 +79,31 @@
 \end{lemma}
 \begin{proof}
 	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
-	Um die Äquivalenz zu beweisen, reicht es also zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
-	Für ein $\xi\in l_v(\Theta_{vw})^c$ existiert wegen der Surjektivität von $l_v$ nach Proposition~\ref{prop-abs-cont-sur} ein $\theta\in\R$ mit $l_v(\theta)=\xi$ und $\theta\notin\Theta_{vw}$, da $\xi\notin l_v(\Theta_{vw})$. 
-	Also ist $\xi\in l_v(\Theta_{vw}^c)$ und es gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
+	Daher genügt es, zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
+	Mit der Surjektivität von $l_v$ gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
-	Des Weiteren ist $l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
-	Für ein $\xi$ aus der linken Menge existieren $\theta\in\Theta_{vw}^c$ und $\theta'\in\Theta_{vw}$ mit $l_v(\theta)=\xi=l_v(\theta')$.
-	Da $\theta\neq\theta'$ ist, existiert ein $\theta_q\in\Q$ zwischen $\theta$ und $\theta'$.
-	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$ und $\xi\in l_v(\Q)$.
+	Des Weiteren ist $S:=l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
+	Für ein $\xi\in S$ gibt es $\theta\in\Theta_{vw}^c$ und $\theta'\in\Theta_{vw}$ mit $l_v(\theta)=\xi=l_v(\theta')$.
+	Da $\theta\neq\theta'$ ist, existiert ein $\theta_q\in\Q\cap(\theta,\theta')$.
+	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$, womit $\xi\in l_v(\Q)$ folgt.
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
 	$(i)\Leftrightarrow (iii)$: Sei eine Kante $vw\in E$ gegeben.
-	Die Beziehung $F_{vw}^-(T_{vw}(l_v(\theta))) \geq F_{vw}^-(l_w(\theta))$ gilt bereits wegen der Monotonie von $F_{vw}^-$ und Lemma~\ref{lemma-dreicksungl} für alle $\theta\in\R$.
-
-	Für ein $\theta\in\R$ bezeichne man den spätesten Startzeitpunkt kleiner oder gleich $\theta$, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt, als
+	Die Beziehung $x_{vw}^+(\theta) \geq x_{vw}^-(\theta)$ gilt bereits nach Bemerkung~\ref{remark-x^-leqx^+}.
+	Für ein $\theta\in\R$ bezeichne $\omega_\theta\leq \theta$ den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt:
 	$$\omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}.$$
-	Dieses Maximum existiert, da die Menge nach oben beschränkt, abgeschlossen und nach Proposition~\ref{prop-abs-cont-sur} nicht-leer ist.
 	
-	Es ist $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
+	Es gilt $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
 	Für $\theta\in\Theta_{vw}^c$ gilt $T_{vw}(l_v(\theta)) > l_w(\theta)$.
 	Aufgrund der Stetigkeit von $T_{vw}\circ l_v$ und von $l_w$ existiert ein $\varepsilon>0$, sodass $T_{vw}(l_v(\theta')) > l_w(\theta+\varepsilon)$ für $\theta'\in[\theta,\theta+\varepsilon]$ gilt.
 	Also ist $\theta\in(\omega_{\theta+\varepsilon}, \theta+\varepsilon)$.
 	Ist umgekehrt $\theta'\in (\omega_\theta,\theta)$, so ist aufgrund der Monotonie $T_{vw}(l_v(\theta'))\geq T_{vw}(l_v(\omega_\theta)) = l_w(\theta)\geq l_w(\theta')$.
-	Dies kann nicht mit Gleichheit erfüllt sein, da $w_\theta$ maximal mit der Eigenschaft $T_{vw}(l_v(\omega)) = l_w(\theta)$ ist.
-	Also ist $vw$ zum Zeitpunkt $\theta'$ inaktiv.
+	Dies kann nicht mit Gleichheit erfüllt sein, da $\omega_\theta$ maximal mit der Eigenschaft $T_{vw}(l_v(\omega)) = l_w(\theta)$ ist, wodurch $\theta\in\Theta_{vw}^c$ folgt.
 	
-	Insbesondere gilt $l_v(\Theta_{vw}^c) = \bigcup_{\theta\in\R}(l_v(\omega_\theta),l_v(\theta))$ wegen der Monotonie von $l_v$.
-	Nach Lemma~\ref{lemma-vanishes-intervals} verschwindet $f_{vw}^+$ genau dann fast überall auf $l_v(\Theta_{vw})^c$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
+	Mit $l_v(\Theta_{vw}^c) = \bigcup_{\theta\in\R}(l_v(\omega_\theta),l_v(\theta))$ verschwindet $f_{vw}^+$ nach Lemma~\ref{lemma-vanishes-intervals} genau dann fast überall auf $l_v(\Theta_{vw}^c)$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
 	Dies ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} wiederum äquivalent zu
-	$$F_{vw}^+(l_v(\theta))-F_{vw}^+(l_v(\omega_\theta)) = F_{vw}^+(l_v(\theta))-F_{vw}^-(l_w(\theta))=0~~\text{für alle $\theta\in\R$}.$$
-	\vspace{-2.8 \baselineskip}
-	
+	$F_{vw}^+(l_v(\theta))-F_{vw}^-(l_w(\theta))=0$ für alle $\theta\in\R$.
 \end{proof}
-\todo{blablabla Definition FIFO bla}
 
 \begin{definition}
 	Man sage, ein zulässiger dynamischer Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.

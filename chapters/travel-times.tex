@@ -62,7 +62,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
 	\end{cases}$$
 \end{proposition}
-\begin{proof}	
+\begin{proof}
 	Offenbar löst $l_v(\theta)$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
 	Dabei ist der Teilgraph $G'=(V, E')$ mit
@@ -72,4 +72,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch den eindeutigen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
 	Außerdem existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges} ein $s$-$w$-Pfad $Q$ mit ausschließlich aktiven Kanten, für den $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$ gilt.
 \end{proof}
-\todo{Belmann-Ford? Warum kann man das?}
+
+Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Belman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
+Dazu wird in jeder der $n-1$ Iterationen für jede Kante das punktweise Minimum $l_w := \min\{ l_w, T_{vw}\circ l_v \}$ gebildet.
+Sind Operationen auf Funktionen nicht möglich oder zu teuer, so kann $(l_v(\theta))_{v\in V}$ für ein spezielles $\theta\in\R$ mittels Dijkstra-Algorithmus ermittelt werden, wobei man die Kosten einer Kante $vw$ erst bei Scanning von $v$ in der Form $q_{vw}(l_v(\theta)) + \tau_{vw}$ berechnet.
