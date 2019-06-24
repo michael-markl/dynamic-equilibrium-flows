@@ -10,6 +10,7 @@
 \usepackage{wrapfig} % for floating images to the right
 \usepackage{tikz}
 \usepackage{esvect}
+\usepackage{enumitem}
 
 \usetikzlibrary{arrows, shapes}
 
@@ -46,6 +47,7 @@
 \newtheorem{conjecture}[theorem]{Vermutung}
 \newtheorem{korollar}[theorem]{Korollar}
 \newtheorem{beispiel}[theorem]{Beispiel}
+\newtheorem{proposition}[theorem]{Proposition}
 
 \definecolor{darkblue}{HTML}{00446B}
 
@@ -116,6 +118,18 @@
 \date{08.11.2018}
 \institute{Insitut für Mathematik der Universität Augsburg\\Diskrete Mathematik, Optimierung und Operations Research}
 
+\renewcommand{\[}{
+	\setlength\abovedisplayskip{0.5ex}
+	\setlength{\belowdisplayskip}{0.5ex}
+	\setlength{\abovedisplayshortskip}{0.5ex}
+	\setlength{\belowdisplayshortskip}{0.5ex}\begin{equation*}}
+
+\renewcommand{\]}{\end{equation*}}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+%\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
+
+
 \beamertemplatenavigationsymbolsempty
 
 \begin{document}
@@ -125,6 +139,8 @@
 	\begin{nofootline}
 		\frame{\titlepage}
 	\end{nofootline}
+
+	\input{beamer/dynamic-flows}
 
 	\begin{noheadline}
 		\begin{frame}<presentation:0>[noframenumbering]
