@@ -58,8 +58,7 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 		= u_{vw} (l_w(\theta + \varepsilon) - l_w(\theta))$ mit~\ref{def-feasible-flow-queue-with-capacity}.
 		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $x_{vw}'(\theta) = u_{vw} l_w'(\theta)$.
 		Ist $vw\in E_1$, so ist also Bedingung~\ref{def-thin-flow-resetting-edge} erfüllt.
-		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $x_{vw}'(\theta)=0$ voraus.
-		Also ist auch $l_w(\theta)=0$ und mit der Monotonie von $l_v$ gilt $0 \leq l_v'(\theta)$.
+		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $x_{vw}'(\theta)=0$ voraus, wodurch $l_w'(\theta)=0$ folgt und mit der Monotonie von $l_v$ gilt $0 \leq l_v'(\theta)$.
 
 		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
 		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
