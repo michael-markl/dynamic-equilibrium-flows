@@ -29,7 +29,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 \subsection{Charakterisierung dynamischer Nash-Flüsse}
 
 \begin{notation}
-	Das Komplement einer Menge $M$ notiere man als $M^c:= \R\setminus M$.
+	 $M^c:= \R\setminus M$ bezeichne das Komplement von $M\subseteq\R$, $\overline{M}$ den Abschluss.
 \end{notation}
 
 \begin{definition}\label{def-flow-along-active-edges}
@@ -182,6 +182,7 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
 	\end{enumerate}
+	Insbesondere verschwindet für $\theta\in\overline{\Theta_{vw}^c}$ die Wartezeit $q_{vw}(l_v(\theta))$  nach (iii).
 \end{lemma}
 \begin{proof}
 	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
@@ -199,11 +200,12 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
 \end{proof}
 \begin{lemma}\label{lemma-x-locally-constant}
-	In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\Theta_e^c$, also den inaktiven Zeitpunkten, für jede Kante $e\in E$ lokal konstant.
+	In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\bar{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkten, für jede Kante $e\in E$ lokal konstant.
 \end{lemma}
 \begin{proof}
 	Da $\Theta_{vw}^c$ eine in $\R$ offene Menge ist, hat sie eine Darstellung als abzählbare Vereinigung paarweise disjunkter offener Intervalle.
 	Innerhalb eines solchen Intervalls $(\theta_1, \theta_2)$ gilt $x_{vw}(\theta_2) - x_{vw}(\theta_1) = \int_{l_v(\theta_1)}^{l_v(\theta_2)} f_{vw}^+(t) \diff t = 0$, da $f$ nur entlang aktiver Kanten fließt.
+	Der Rest folgt mit der Monotonie und Stetigkeit von $x_{vw}$.
 \end{proof}
 
 \begin{proposition}\label{prop-nash-flow-s-t-path-decomposable}
