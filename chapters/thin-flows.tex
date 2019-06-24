@@ -42,7 +42,9 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 	nehme man an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
 	Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
 	Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
-	$$l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).$$
+	\[
+	l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{n\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).
+	\]
 	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
 	
 	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Man prüfe die Bedingungen~\ref{def-thin-flow-x-zero}, \ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge} jeweils in den folgenden drei Fällen:
@@ -109,7 +111,9 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 \end{proposition}
 \begin{proof}
 	Der statische $s$-$t$-Fluss $x(\theta) -x(T)$ ist nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
-	Zudem hat der Fluss $x(T)$ den gleichen Flusswert wie $x(\theta)$, da $$\sum_{e\in \delta^-(s)} x_e(T) - \sum_{e\in\delta^+(s)} x_e(T) = \sum_{e\in \delta^-(s)} x_e(\theta) - \sum_{e\in\delta^+(s)} x_e(\theta)$$ wegen $d(\xi) = 0$ für $\xi \geq T $ gilt.
+	Zudem hat der Fluss $x(T)$ den gleichen Flusswert wie $x(\theta)$, da
+	\[ \sum_{e\in \delta^-(s)} x_e(T) - \sum_{e\in\delta^+(s)} x_e(T) = \sum_{e\in \delta^-(s)} x_e(\theta) - \sum_{e\in\delta^+(s)} x_e(\theta)\]
+	wegen $d(\xi) = 0$ für $\xi \geq T $ gilt.
 	Daher ist $x(\theta)- x(T)$ bereits der Nullfluss, sodass $x(T)$ und $x(\theta)$ bereits auf allen Kanten übereinstimmen, wodurch die Behauptung folgt.
 \end{proof}
 
@@ -117,7 +121,7 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein $\tilde{d}$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \} $ im Graphen $G_T$ bei Versorgungsrate $\tilde{d}$ und ein $\alpha > 0$ gegeben.
 	
 	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
-	$$\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$}$$
+	\[ \tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$} \]
 	gelten, so erhält man eine \emph{$\tilde{d}$-wertige $\alpha$-Erweiterung $\tilde{f}$ von $f$}.
 	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade $\tilde{d}$.
 \end{definition}
@@ -130,22 +134,22 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 
 \begin{theorem}\label{thm-alpha-extension-is-nash-flow}
 	Für jede $\alpha$-Erweiterung $\tilde{f}$ eines dynamischen Nash-Flusses $f$ mit Zeithorizont $T$, die für alle Kanten mit positiver Warteschlange zum Zeitpunkt $T$ die Bedingung
-	$$l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$$
+	\[ l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw} \]
 	erfüllt, gelten die folgenden Aussagen:
 	\begin{enumerate}[label=(\roman*)]
 		\item Für positive $x_{vw}'$ und $\theta\in[T, T+\alpha]$ gilt $l_w(T) + (\theta - T)l_w' \geq l_v(T) + (\theta - T)l_v' + \tau_{vw}$.
 		Für $\theta \leq l_v(T)$ gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw})=f^-_{vw}(\theta + \tau_{vw})$ für alle $vw\in E$.
 		Insbesondere ist $\tilde{q}_e(\theta) = q_e(\theta)$ und $\tilde{T}_e(\theta) = T_e(\theta)$ für $\theta \leq l_v(T)$.
 		\item $\tilde{f}$ ist zulässiger dynamischer Fluss mit Zeithorizont $T+\alpha$ und für $\gamma \in [0, \alpha]$ gilt
-		$$\tilde{F}_{vw}^+(l_v(T) + \gamma l_v') = \tilde{F}_{vw}^-(l_w(T) + \gamma l_w').$$ 
-		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung $$
+		\[ \tilde{F}_{vw}^+(l_v(T) + \gamma l_v') = \tilde{F}_{vw}^-(l_w(T) + \gamma l_w'). \]
+		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung \[
 		l_w(T) - l_v(T) + \alpha(l_w' -l_v') \leq \tau_{vw},
-		$$
+		\]
 		so sind die $\tilde{f}$ zugeordneten frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ für $\theta \leq T+\alpha$ durch
-		$$\tilde{l}_v(\theta) = \begin{cases}
+		\[ \tilde{l}_v(\theta) = \begin{cases}
 		l_v(\theta), & \text{ falls $\theta < T$,} \\
 		l_v(T) + (\theta - T) l_v', & \text{ falls $\theta \in [T, T+\alpha]$.}
-		\end{cases}$$
+		\end{cases}\]
 		gegeben und der Fluss $\tilde{f}$ ist dynamischer Nash-Fluss.
 	\end{enumerate}
 \end{theorem}
@@ -165,9 +169,9 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	Für \ref{def-feasible-flow-no-negative-flow} zeige man $\tilde{F}^+_{vw}(\theta)\geq \tilde{F}_{vw}^-(\theta+\tau_{vw})$ für alle $\theta\in\R$.
 	Für $\theta\leq l_v(T)$ gilt dies bereits nach (i).
 	Existiert ein $\gamma\leq\alpha$ mit $\theta=l_v(T) + \gamma l_v'$, so gilt
-	$$
+	\[
 	\tilde{F}_{vw}^+(l_v(T) + \gamma l_v')=F_{vw}^+(l_v(T))+\gamma x_{vw}' = F_{vw}^-(l_w(T))+ \gamma x_{vw}'= \tilde{F}_{vw}^-(l_w(T)+\gamma l_w').
-	$$
+	\]
 	Daraus folgt die Aussage, da $\theta + \tau_{vw}\geq l_w(T) + \gamma l_w'$ nach (i) erfüllt ist.
 	Für $\theta > l_v(T)+\alpha l_v'$ gilt $\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw})$.
 	

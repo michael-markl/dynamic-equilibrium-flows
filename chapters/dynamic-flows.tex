@@ -50,20 +50,20 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 	Für eine Kante $e\in E$ und einen zulässigen dynamischen Fluss $f$ gilt:
 	\begin{enumerate}[label=(\roman*)]
 		\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
-		\item\label{prop-feasible-flow-positive-queue} Für alle $e\in E$ und $\theta\in\R$ ist die Länge der Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
-		\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ ist $F_e^+(\theta) = F_e^-(T_e(\theta))$.
-		\item\label{prop-feasible-flow-queue-delay} Für zwei Zeitpunkte $\theta_1 \leq \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e d\lambda = 0$ und $q_e(\theta_2)>0$ ist $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
+		\item\label{prop-feasible-flow-positive-queue} Für alle $\theta\in\R$ ist die Warteschlange $z_e$ auf dem Intervall $(\theta, \theta + q_e(\theta))$ positiv.
+		\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ gilt $F_e^+(\theta) = F_e^-(T_e(\theta))$.
+		\item\label{prop-feasible-flow-queue-delay} Für alle $\theta_1 \leq \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e(t) \diff t = 0$ und $q_e(\theta_2)>0$ gilt $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
 	In~\ref{prop-feasible-flow-T-mon-inc-cont} folgt die Stetigkeit bereits aus der Stetigkeit von $F_e^+$ und $F_e^-$.
 	Für die Monotonie seien $\theta_1 \leq \theta_2$ gegeben.
 	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
-	$$
+	\[
 		\theta_1 + q_e(\theta_1)
 		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}
 		\leq \theta_1 + \frac{F_e^+(\theta_2) - F_e^-(\theta_1+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
-	$$
+	\]
 	
 	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)$ gerade Aussage (ii) beweist.
 	

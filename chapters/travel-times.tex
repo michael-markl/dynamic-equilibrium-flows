@@ -57,16 +57,16 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 
 \begin{proposition}\label{prop-arrival-times-vector}
 	Für einen zulässigen Fluss $f$ ist der Vektor $(l_v(\theta))_{v\in V}$ die eindeutige Lösung des Gleichungssystems
-	$$ \tilde{l}_w = \begin{cases}
+	\[ \tilde{l}_w = \begin{cases}
 	\theta, & \text{falls } w=s, \\
 	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
-	\end{cases}$$
+	\end{cases} \]
 \end{proposition}
 \begin{proof}
 	Offenbar löst $l_v(\theta)$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
 	Dabei ist der Teilgraph $G'=(V, E')$ mit
-	$$E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \}$$
+	\[ E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
 	ein Spannbaum mit Wurzel $s$:
 	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
 	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch den eindeutigen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.

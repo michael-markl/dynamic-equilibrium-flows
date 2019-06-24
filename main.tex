@@ -43,7 +43,7 @@
 \input{header/theorem}			% Mathematische Befehle und Pakete
 \input{header/referenz}			% Befehle und Pakete für Referenzen
 
-\geometry{a4paper, top=30mm, bottom=30mm, left=30mm, right=30mm}
+\geometry{a4paper, top=30mm, bottom=30mm, left=28mm, right=28mm}
 
 \IfClass{article}{ % Optimize for screen
 	\geometry{papersize={160mm,161.5mm},margin=5mm} 
@@ -69,6 +69,16 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
+\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
+
+
+\renewcommand{\[}{
+	\setlength\abovedisplayskip{1.1ex}
+	\setlength{\belowdisplayskip}{1.1ex}
+	\setlength{\abovedisplayshortskip}{1.1ex}
+	\setlength{\belowdisplayshortskip}{1.1ex}\begin{equation*}}
+
+\renewcommand{\]}{\end{equation*}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments

@@ -21,7 +21,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 \end{lemma}
 \begin{proof}
 	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
-	$$\sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta).$$
+	\[ \sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta). \]
 \vspace{-1.4 \baselineskip}
 
 \end{proof}
@@ -41,7 +41,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
+	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: \[ l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}. \]
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von Lemma~\ref{lemma-only-active-edges} (i) und (iii) -- jedoch in (i) unter Verwendung ihrer Definition -- und
 	verwenden bei der Implikation (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -63,7 +63,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
 	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011Top} innen regulär.
 	Das heißt,
-	$$\mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \}$$
+	\[ \mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \} \]
 	gilt für offene Mengen $O\subseteq\R$.
 	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teil\-über\-deckung $\bigcup_{i=1}^n (a_i, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
@@ -91,7 +91,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	$(i)\Leftrightarrow (iii)$: Sei eine Kante $vw\in E$ gegeben.
 	Die Beziehung $x_{vw}^+(\theta) \geq x_{vw}^-(\theta)$ gilt bereits nach Bemerkung~\ref{remark-x^-leqx^+}.
 	Für ein $\theta\in\R$ bezeichne $\omega_\theta\leq \theta$ den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt:
-	$$\omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}.$$
+	\[ \omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}. \]
 	
 	Es gilt $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
 	Für $\theta\in\Theta_{vw}^c$ gilt $T_{vw}(l_v(\theta)) > l_w(\theta)$.
@@ -123,7 +123,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft also erfüllen.
 	Seien ein dynamischer Fluss $f$ in einem Graphen $G=(V,E)$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Der Graph $H$ entstehe aus $G$, indem man jede Kante $vw\in E$ aus $G$ durch einen neuen Knoten $\newv_{vw}$ und zwei Kanten $v\newv_{vw}$ und $\newv_{vw}w$ ersetze.
 	Der statische Fluss $g$ auf $H$ sei definiert durch
-	$$g_{v\newv_{vw}} := x_{vw}^+(\theta) \text{ und } g_{\newv_{vw}w} := x_{vw}^-(\theta) \text{ für alle $vw\in E$}$$
+	\[ g_{v\newv_{vw}} := x_{vw}^+(\theta) \text{ und } g_{\newv_{vw}w} := x_{vw}^-(\theta) \text{ für alle $vw\in E$} \]
 	und die Balance $b$ auf $H$ sei gegeben durch $b_v:= b_v(\theta)$ für $v\in V$ und $b_{\newv_e}:= x_e^-(\theta) - x_e^+(\theta)$ für $e\in E$.
 	Dann gelten die folgenden Aussagen:
 	
@@ -135,13 +135,14 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft also erfüllen.
 \begin{proof}
 	$(i)$: Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $\sum_{v_\in V} b_v$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
 	Damit gilt:
-		$$\sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0.$$
+		\[ \sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0. \]
 		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
 		Für die Knoten der Form $\newv_{vw}$ gilt dies, da $g_{\newv_{vw}w} - g_{v\newv_{vw}} = x_{vw}^-(\theta) - x_{vw}^+(\theta) = b_{\newv_{vw}}$.
-		Für $v\in V$ gilt nach Konstruktion $$b_v =
+		Für $v\in V$ gilt nach Konstruktion
+		\[ b_v =
 		\sum_{e\in\delta^+_G(v)} x_{e}^+(\theta) - \sum_{e\in\delta^-_G(v)} x_{e}^-(\theta) =
 	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
-		.$$
+		. \]
 	
 	$(ii)$: Tatsächlich benötigt man aus $(i)$ nur die Eigenschaft, dass die Summe über die Einträge des Balancevektors verschwindet.
 	Mit Lemma~\ref{lemma-balance-0} gilt wegen der Zulässigkeit von $f$ sogar $b_s(\theta)+b_t(\theta) + \sum_{e\in E} b_{\newv_e} = 0$.
