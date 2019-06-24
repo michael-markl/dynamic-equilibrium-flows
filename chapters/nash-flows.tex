@@ -39,17 +39,17 @@ Für die formale Einführung benötigt man weitere Definitionen:
 \begin{remark}
 	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
-	
+
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
 	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: $$l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}.$$
 	 
-	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von \ref{lemma-only-active-edges} (i) und \ref{lemma-only-active-edges} (iii) und
-	verwenden im Teil (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
+	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von Lemma~\ref{lemma-only-active-edges} (i) und (iii) -- jedoch in (i) unter Verwendung ihrer Definition -- und
+	verwenden bei der Implikation (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
 	Dies reicht aber nicht aus, um zu zeigen, dass $f_{vw}^+(l_v(\theta))=0$ für fast alle $\theta\in\Theta_{vw}^c$ gilt:
 	So kann $f_{vw}^+(l_v(\theta))$ für ein $\theta\in\Theta_{vw}^c$ positiv sein und $l_v$ konstant in einer Umgebung um $\theta$.
 	Dann ist $f_{vw}^+ \circ l_v$ in einer Umgebung um $\theta$ positiv, was im Widerspruch zur Forderung ist.
 	
-	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung sogar echt stärker ist.
+	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung von Koch und Skutella sogar echt stärker ist.
 \end{remark}
 
 Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes Lemma der Mengentheorie:
@@ -109,14 +109,14 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Man sage, ein zulässiger dynamischer Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
 \end{definition}
 
-\todo{blabla definition blabla}
+Partikel, die in $\theta\in\R$ bei $s$ starten und sich auf einem kürzestem Weg zu $t$ bewegen, überholen andere Partikel, falls $b_s(\theta) > -b_t(\theta)$.
+Falls jedoch $b_s(\theta) < - b_t(\theta)$ gilt, wurde das Partikel bereits von anderen überholt.
+Ein Nash-Gleichgewicht sollte diese Eigenschaft also erfüllen.
 
 \begin{definition}
 	Seien ein statischer Fluss $f \in \R^E$ in einem Graphen $G=(V,E)$ mit Kapazitäten $u\in \R_+^E$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben.
-	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. falls er für alle $v\in V$ die Bedingung $\sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$ erfüllt.
+	Der Fluss $f$ heißt \emph{$b$-Fluss}, falls er Flusserhaltung bzgl. $b$ gewährt, d.h. falls alle $v\in V$ die Bedingung $\sum_{e\in\delta^+(v)}f_e - \sum_{e\in\delta^-(v)}f_e = b_v$ erfüllen.
 \end{definition}
-
-\todo{blabla}
 
 \newcommand{\newv}{\mathbf{v}}
 \begin{lemma}\label{lemma-b-graph}
@@ -152,7 +152,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb bereits alle $b_{\newv_e} = 0$ sein müssen.
 \end{proof}
 
-Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt:
+Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt, welches Nash-Gleichgewichte in dynamischen Flüssen charakterisieren soll:
 
 \begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
@@ -165,6 +165,8 @@ Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-gr
 \end{theorem}
 
 \subsection{Eigenschaften dynamischer Nash-Flüsse}
+
+In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die in Abschnitt~\ref{sec-thin-flows} gebraucht werden.
 
 \begin{remark}\label{remark-s-t-flow}
 	In einem Nash-Fluss ist für alle $\theta\in\R$ der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} ein statischer $s$-$t$-Fluss.
