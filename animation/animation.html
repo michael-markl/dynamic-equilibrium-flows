@@ -6,7 +6,7 @@
                 height: 100%;
                 display: flex;
                 align-items: center;
-                background-color: gray;
+                background-color: black;
             }
             
             body {
@@ -27,6 +27,7 @@
 
             .node {
                 r: 20px;
+                fill: black;
             }
 
             #theta {
@@ -61,6 +62,13 @@
                 stroke-width: 10px;
                 stroke: white;
                 fill: none;
+            }
+
+            .edge-direction {
+                transform: translate(-5px, 5px);
+                font-size: 15px;
+                font-weight: bold;
+                fill: gray;
             }
 
             .flow-thin {
@@ -299,7 +307,7 @@
             }
 
             update = () => {
-                theta.innerText = "θ=" + currentT.toFixed(2);
+                theta.innerText = "θ=" + currentT.toFixed(2) + "s";
                 range.value = currentT;
                 if (radio1.checked) {
                     displayFlow1(currentT)
@@ -447,21 +455,26 @@
         <!-- v to t long -->
         <path id="flow3" class="flow-thin" d="M 300 300 A 225, 225 0, 0, 0 750, 300" />
 
+        <!-- EDGE DIRECTIONS -->
+        <text class="edge-direction" x="175" y="300">⮞</text>
+        <text class="edge-direction" x="525" y="300">⮞</text>
+        <text class="edge-direction" x="525" y="525">⮞</text>
+
         <!-- NODES -->
-        <circle class="node" cx="50" cy="300" />
+        <circle class="node" cx="50" cy="300" r="20" />
         <text class="node-text" x="50" y="300">s</text>
 
-        <circle class="node" cx="300" cy="300" />
+        <circle class="node" cx="300" cy="300" r="20" />
         <text class="node-text" x="300" y="300">v</text>
         
-        <circle class="node" cx="750" cy="300" />
+        <circle class="node" cx="750" cy="300" r="20" />
         <text class="node-text" x="750" y="300">t</text>
     </svg>
     
     <div style="display: flex; justify-content: space-around; align-items: center;">
         <button id="last-step">🡄</button>
         <div style="display: flex; flex-direction: column;align-items: center;">
-            <span id="theta">θ=0</span>
+            <span id="theta">θ=0.00s</span>
             <input id="range" type="range" min="0" max="100" step="0.1" value="0" />
         </div>
         <button id="next-step">🡆</button>
