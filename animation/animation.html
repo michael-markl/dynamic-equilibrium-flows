@@ -1,0 +1,477 @@
+
+<html>
+    <head>
+        <style>
+            html {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                background-color: gray;
+            }
+            
+            body {
+                width: 800px;
+                height: 600px;
+                margin: 0 auto;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            #range {
+                width: 400px;
+                color: black;
+                margin: 10px;
+            }
+
+            .node {
+                r: 20px;
+            }
+
+            #theta {
+                font-size: 25px;
+                font-style: italic;
+            }
+
+            .node-text {
+                fill: white;
+                font-size: 20px;
+                transform: translate(-4px, 4px);
+                font-style: italic;
+            }
+
+            .edge-outline-1-thick {
+                stroke-width: 22px;
+                stroke: black;
+            }
+
+            .edge-outline-2-thick {
+                stroke-width: 20px;
+                stroke: white;
+            }
+
+            .edge-outline-1-thin {
+                stroke-width: 12px;
+                stroke: black;
+                fill: none;
+            }
+
+            .edge-outline-2-thin {
+                stroke-width: 10px;
+                stroke: white;
+                fill: none;
+            }
+
+            .flow-thin {
+                stroke-width: 10px;
+                stroke: darkblue;
+                fill: none;
+            }
+
+            .flow-thick {
+                stroke-width: 20px;
+                stroke: darkblue;
+                fill: none;
+            }
+
+            .edge-queue-1-thin {
+                stroke-width: 10px;
+                stroke: darkcyan;
+                fill: none;
+                stroke-dashoffset: 10px;
+                stroke-dasharray: 638.77px; 
+            }           
+            
+            .edge-queue-1-thick {
+                stroke-width: 20px;
+                stroke: black;
+                fill: none;
+                stroke-dashoffset: 10px;
+                stroke-dasharray: 638.77px; 
+            }
+
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const queue1 = document.getElementById("queue1");
+            const queue2 = document.getElementById("queue2");
+            const queue3 = document.getElementById("queue3");
+            const flow1 = document.getElementById("flow1");
+            const flow2 = document.getElementById("flow2");
+            const flow3 = document.getElementById("flow3");
+
+            const theta = document.getElementById('theta');
+            const range = document.getElementById("range");
+
+            const radio1 = document.getElementById("flow1radio")
+            const radio2 = document.getElementById("flow2radio")
+            
+
+            const edge1len = document.getElementById("edge1").getTotalLength();
+            const edge2len = document.getElementById("edge2").getTotalLength();
+            const edge3len = document.getElementById("edge3").getTotalLength();
+            
+            function setQueue1(queueval) {
+                queue1.style.strokeDashoffset = (queue1.getTotalLength() - queueval) + "px";
+                queue1.style.strokeDasharray = (queue1.getTotalLength()) + "px";
+            }
+            
+            function setQueue2(queueval) {
+                queue2.style.strokeDashoffset = (queue2.getTotalLength()- queueval) + "px";
+                queue2.style.strokeDasharray = (queue2.getTotalLength()) + "px";
+            }
+            
+            function setQueue3(queueval) {
+                queue3.style.strokeDashoffset = (queue3.getTotalLength() - queueval) + "px";
+                queue3.style.strokeDasharray = (queue3.getTotalLength()) + "px";
+            }
+
+            function setFlow1(from, to) {
+                const fromX = 50 + from
+                const toX = 50 + to
+                flow1.setAttribute('d', `M ${fromX} 300 L ${toX} 300`)
+            }
+
+            function setFlow2(from, to) {
+                const fromX = 300 + from
+                const toX = 300 + to
+                flow2.setAttribute('d', `M ${fromX} 300 L ${toX} 300`)
+            }
+
+            function setFlow3(from, to) {
+                const fromAngle = Math.PI + Math.PI * (from / edge3len)
+                const fromPoint = [
+                    300 + 225 + 225*Math.cos(fromAngle),
+                    300 - 225*Math.sin(fromAngle)
+                ]
+                const toAngle = Math.PI + Math.PI * (to / edge3len)
+                const toPoint = [
+                    300 + 225 + 225*Math.cos(toAngle),
+                    300 - 225*Math.sin(toAngle)
+                ]
+                flow3.setAttribute('d', `M ${fromPoint[0]} ${fromPoint[1]} A 225, 225 1, 0, 0 ${toPoint[0]} ${toPoint[1]}`)
+            }
+            
+            const velocity = edge1len / 10
+            
+            function displayFlow1 (t) {
+                const t1 = edge1len / velocity; // Since t1, a queue builds up at e1
+                const t2 = t1 + edge2len / velocity / 3 * 2; // Since t2, flow on e1 stops
+                const t3 = t2 + edge2len / velocity / 3 * 1; // Since t3, flow on e2 reaches t
+                const t4 = t2 + edge1len / velocity; // Since t4 the queue at e2 decreases
+                const t5 = t4 + (t4 - t1) // Since t5 the queue has decreased to 0
+                const t6 = t5 + edge2len / velocity; // since t6 theres no flow
+                if (0 <= t && t < t1) {
+                    setFlow2(0,0);
+                    setFlow3(0,0);
+                    setFlow1(0,t * velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t1 <= t && t < t2) {
+                    const diffT = t - t1
+                    setFlow1(0, edge1len)
+                    setFlow2(0, diffT * velocity)
+                    setFlow3(0, 0)
+                    setQueue1(0)
+                    setQueue2(diffT*velocity)
+                    setQueue3(0)
+                } else if (t2 <= t && t < t3) {
+                    setFlow1((t - t2) * velocity, edge1len)
+                    setFlow2(0, (t- t1) * velocity)
+                    setFlow3(0,0)
+                    setQueue1(0)
+                    setQueue2((t-t1)*velocity)
+                    setQueue3(0)
+                } else if (t3 <= t && t < t4) {
+                    setFlow1((t - t2) * velocity, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3(0,0)
+                    setQueue1(0)
+                    setQueue2((t-t1)*velocity)
+                    setQueue3(0)
+                } else if (t4 <= t && t < t5) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3(0,0)
+                    setQueue1(0)
+                    setQueue2((t4 - t1)*velocity - (t - t4) * velocity)
+                    setQueue3(0)
+                } else if (t5 <= t && t < t6) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t - t5) * velocity, edge2len)
+                    setFlow3(0,0)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(edge2len, edge2len)
+                    setFlow3(0,0)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                }
+            }
+            
+            function displayFlow2 (t) {
+                const t1 = edge1len / velocity; // Since t1, a queue builds up at e2
+                const t2 = t1 + (edge3len - edge2len) / velocity; // Since t2 flow starts to flow into e3
+                const t3 = t1 + edge2len / velocity / 3 * 2; // Since t3, flow on e1 stops
+                const t4 = t1 + edge2len / velocity; // Since t4, flow reaches t
+                const t5 = t3 + edge1len / velocity; // Since t5 no flow reaches v
+                const t6 = t5 + (t2-t1); // Since t6 the queue is empty
+                const t7 = t2 + edge3len / velocity; // since t7 flow reaches t over long edge
+                const t8 = t5 + edge3len / velocity; // since t8 no flow reaches t over long edge
+                const t9 = t6 + edge2len / velocity; // since t6 no flow reaches t over short edge
+                if (0 <= t && t < t1) {
+                    setFlow2(0,0);
+                    setFlow3(0,0);
+                    setFlow1(0,t * velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t1 <= t && t < t2) {
+                    setFlow1(0, edge1len)
+                    setFlow2(0, (t-t1) * velocity)
+                    setFlow3(0, 0)
+                    setQueue1(0)
+                    setQueue2((t-t1)*velocity)
+                    setQueue3(0)
+                } else if (t2 <= t && t < t3) {
+                    setFlow1(0, edge1len)
+                    setFlow2(0, (t- t1) * velocity)
+                    setFlow3(0,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2((t2-t1)*velocity)
+                    setQueue3(0)
+                } else if (t3 <= t && t < t4) {
+                    setFlow1((t - t3) * velocity, edge1len)
+                    setFlow2(0, (t- t1) * velocity)
+                    setFlow3(0,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2((t2-t1)*velocity)
+                    setQueue3(0) 
+                } else if (t4 <= t && t < t5) {
+                    setFlow1((t - t3) * velocity, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3(0,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2((t2-t1)*velocity)
+                    setQueue3(0) 
+                } else if (t5 <= t && t < t6) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3((t - t5)*velocity,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2((t2-t1)*velocity - (t - t5)*velocity)
+                    setQueue3(0)
+                } else if (t6 <= t && t < t7) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t-t6)*velocity, edge2len)
+                    setFlow3((t - t5)*velocity,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t7 <= t && t < t8) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t-t6)*velocity, edge2len)
+                    setFlow3((t - t5)*velocity, edge3len)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t8 <= t && t < t9) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t-t6)*velocity, edge2len)
+                    setFlow3((t - t5)*velocity,(t - t2)* velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(edge2len, edge2len)
+                    setFlow3(edge3len, edge3len)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                }
+            }
+
+            update = () => {
+                theta.innerText = "θ=" + currentT.toFixed(2);
+                range.value = currentT;
+                if (radio1.checked) {
+                    displayFlow1(currentT)
+                } else {
+                    displayFlow2(currentT)
+                }
+            }
+            
+            range.addEventListener('input', () => {
+                currentT = Number(range.value)
+                update()
+            });
+            range.addEventListener('change', () => {
+                currentT = Number(range.value)
+                update()
+            });
+            radio1.addEventListener('input', update);
+            radio2.addEventListener('change', update);
+            
+            let currentT = 0;
+            let targetT = 0;
+            let interval = null;
+            const speed = 1;
+
+            function getSteps () {
+                if (radio1.checked) {
+                    const t1 = edge1len / velocity; // Since t1, a queue builds up at e1
+                    const t2 = t1 + edge2len / velocity / 3 * 2; // Since t2, flow on e1 stops
+                    const t3 = t2 + edge2len / velocity / 3 * 1; // Since t3, flow on e2 reaches t
+                    const t4 = t2 + edge1len / velocity; // Since t4 the queue at e2 decreases
+                    const t5 = t4 + (t4 - t1) // Since t5 the queue has decreased to 0
+                    const t6 = t5 + edge2len / velocity; // since t6 theres no flow
+                    return [
+                        0,
+                        t1,
+                        t4,
+                        t6
+                    ]
+                } else {
+                    const t1 = edge1len / velocity; // Since t1, a queue builds up at e2
+                    const t2 = t1 + (edge3len - edge2len) / velocity; // Since t2 flow starts to flow into e3
+                    const t3 = t1 + edge2len / velocity / 3 * 2; // Since t3, flow on e1 stops
+                    const t4 = t1 + edge2len / velocity; // Since t4, flow reaches t
+                    const t5 = t3 + edge1len / velocity; // Since t5 no flow reaches v
+                    const t6 = t5 + (t2-t1); // Since t6 the queue is empty
+                    const t7 = t2 + edge3len / velocity; // since t7 flow reaches t over long edge
+                    const t8 = t5 + edge3len / velocity; // since t8 no flow reaches t over long edge
+                    const t9 = t6 + edge2len / velocity; // since t6 no flow reaches t over short edge
+                    return [
+                        0,
+                        t1,
+                        t2,
+                        t5,
+                        t9
+                    ]
+                }
+            }
+
+            document.getElementById('last-step').addEventListener('click', () => {
+                if (interval !== null) {
+                    clearInterval(interval)
+                }
+                targetT = null
+                const steps = getSteps()
+                for (const step of steps) {
+                    if (step < currentT) {
+                        targetT = step
+                    }
+                }
+                if (targetT === null) return;
+
+                interval = setInterval(() => {
+                    if (currentT > targetT) {
+                        currentT = Math.max(targetT, currentT - speed*3/ (1000 / 60))
+                    } else {
+                        clearInterval(interval)
+                    }
+                    update()
+                }, 1000 / 60)
+            });
+            document.getElementById('next-step').addEventListener('click', () => {
+                if (interval !== null) {
+                    clearInterval(interval)
+                }
+                targetT = null
+                const steps = getSteps()
+                for (const step of steps) {
+                    if (step > currentT) {
+                        targetT = step
+                        break
+                    }
+                }
+                if (targetT === null) return;
+
+                interval = setInterval(() => {
+                    if (currentT < targetT) {
+                        currentT = Math.min(targetT, currentT + speed / (1000 / 60))
+                    } else {
+                        clearInterval(interval)
+                    }
+                    update()
+                }, 1000 / 60)
+            });
+
+            update();
+        });
+        </script>
+    </head>
+<body>
+    <svg width="800" height="390" viewbox="0 130 800 420">
+
+        <!-- QUEUES -->
+        <!-- s to v -->
+        <path id="queue1" class="edge-queue-1-thick" d="m 76.354496,295.88187 c -9.62364,-10.20631 -6.62714,-30.8345 6.77232,-30.80296 13.39943,0.0315 39.159634,0.54125 64.044914,2.02678 27.05513,1.61508 43.74592,-26.964 -1.27367,-28.14199 -45.01962,-1.17802 -50.580384,-1.19881 -75.835214,-2.59054 -22.00972,-1.21287 -26.74205,-24.18211 0.86143,-24.38506 27.60351,-0.20298 55.276414,2.11676 80.922544,4.47843 28.04398,2.58244 49.82105,-26.09636 3.02174,-31.34776 -46.35013,-5.20098 -57.150074,-4.9307 -85.743804,-5.56179 -31.51317,-0.69554 -33.28121,-35.00518 1.15904,-36.97991 35.915544,-2.05934 82.005894,-0.34288 82.005894,-0.34288" />
+        
+        <!-- v to t short -->
+        <path id="queue2" class="edge-queue-1-thin" d="m 326.70516,297.59132 c -9.62364,-10.20631 -6.62714,-30.8345 6.77232,-30.80296 13.39943,0.0315 39.15964,0.54125 64.04491,2.02678 27.05513,1.61508 43.74592,-26.964 -1.27367,-28.14199 -45.01962,-1.17802 -50.58038,-1.19881 -75.83521,-2.59054 -22.00972,-1.21287 -26.74205,-24.18211 0.86143,-24.38506 27.60351,-0.20298 55.27642,2.11676 80.92254,4.47843 28.04398,2.58244 49.82105,-26.09636 3.02174,-31.34776 -46.35012,-5.20098 -57.15007,-4.9307 -85.7438,-5.56179 -31.51317,-0.69554 -33.28121,-35.00518 1.15904,-36.97991 35.91555,-2.05934 82.00589,-0.34288 82.00589,-0.34288" />
+       
+        <!-- v to t long -->
+        <path id="queue3" class="edge-queue-1-thin" d="m 300,325.42373 c -12.71186,-5.9322 -31.35593,3.38983 -27.11864,16.10169 4.23728,12.71187 12.80971,37.00925 22.03389,60.1695 10.02849,25.17971 -11.8644,50 -27.11864,7.62711 -15.25424,-42.37288 -17.02005,-47.64586 -26.27119,-71.18644 -8.06243,-20.51577 -31.35593,-17.7966 -22.88135,8.47458 8.47458,26.27119 19.36612,51.81617 29.66102,75.42373 11.25744,25.81479 -9.13312,55.49543 -28.81356,12.71186 C 200,392.37288 196.86555,382.03422 187.28814,355.08475 c -10.55526,-29.70099 -43.68487,-20.60666 -34.74576,12.71186 9.32203,34.74576 25.42372,77.9661 25.42372,77.9661" />
+
+ 
+        <!-- EDGES -->
+
+        <!-- s to v -->
+        <path id="edge1" class="edge-outline-1-thick" d="M 50 300 L 300 300" />
+        <path class="edge-outline-2-thick" d="M 50 300 L 300 300" />
+
+        <!-- v to t short -->
+        <path id="edge2" class="edge-outline-1-thin" d="M 300 300 L 750 300" />
+        <path class="edge-outline-2-thin" d="M 300 300 L 750 300" />
+
+        <!-- v to t long -->
+        <path id="edge3" class="edge-outline-1-thin" d="M 300 300 A 225, 225 0, 0, 0 750, 300" />
+        <path class="edge-outline-2-thin" d="M 300 300 A 225, 225 0, 0, 0 750, 300" />
+
+        <!-- FLOWS -->
+
+        <!-- s to v -->
+        <path id="flow1" class="flow-thick" d="M 50 300 L 300 300" />
+
+        <!-- v to t short -->
+        <path id="flow2" class="flow-thin" d="M 300 300 L 750 300" />
+
+        <!-- v to t long -->
+        <path id="flow3" class="flow-thin" d="M 300 300 A 225, 225 0, 0, 0 750, 300" />
+
+        <!-- NODES -->
+        <circle class="node" cx="50" cy="300" />
+        <text class="node-text" x="50" y="300">s</text>
+
+        <circle class="node" cx="300" cy="300" />
+        <text class="node-text" x="300" y="300">v</text>
+        
+        <circle class="node" cx="750" cy="300" />
+        <text class="node-text" x="750" y="300">t</text>
+    </svg>
+    
+    <div style="display: flex; justify-content: space-around; align-items: center;">
+        <button id="last-step">🡄</button>
+        <div style="display: flex; flex-direction: column;align-items: center;">
+            <span id="theta">θ=0</span>
+            <input id="range" type="range" min="0" max="100" step="0.1" value="0" />
+        </div>
+        <button id="next-step">🡆</button>
+        <div>
+                <input type="radio" id="flow1radio" name="flow" value="flow1" checked >
+                <label for="flow1radio">Fluss 1</label>
+                <input type="radio" id="flow2radio" name="flow" value="flow2" >
+                <label for="flow2radio">Fluss 2</label>
+        </div>
+    </div>
+    
+</body>
+</html>
