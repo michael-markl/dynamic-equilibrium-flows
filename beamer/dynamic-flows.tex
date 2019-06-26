@@ -3,10 +3,15 @@
 
 \begin{frame}{Grundlegende Definitionen}
 	\begin{definition}[Netzwerk]
-		Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter Graph mit einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
-		Dabei sind Kantenkapazitäten $u \in\R_+^E$ und Verzögerungszeiten $\tau\in\R_{\geq 0}^E$ gegeben, sodass Zykel in $G$ eine positive Verzögerung haben.
+		Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter Graph mit
+		\begin{itemize}[label=\color{darkblue}$\bullet$]
+			\item einer Quelle $s\in V$, sodass alle Knoten von $s$ aus erreichbar sind,
+			\item einer Senke $t\in V$,
+			\item Kantenkapazitäten $u\in\R_+^E$,
+			\item Verzögerungszeiten $\tau\in\R_{\geq 0}^E$, sodass Zyklen eine positive Gesamtverzögerung haben.
+		\end{itemize}
 	\end{definition}
-	
+	\pause
 	\begin{definition}[Funktionenraum $\mathfrak{F}_0$]
 		Der Funktionenraum $\mathfrak{F}_0$ sei die Menge
 		\[ \{ g: \R\to\R_{\geq 0} \mid \text{$g$ lokal Lebesgue-integrierbar, $g(t) = 0$ für $t<0$} \} \]
@@ -20,10 +25,10 @@
 		
 		Für eine Kante $e\in E$ und einen Zeitpunkt $\theta\in\R$ bezeichnet
 		\begin{itemize}[label=$\color{darkblue}\bullet$]
-			\item $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an $e$ zur Zeit $\theta$},
-			\item $F_e^+(\theta) \colonequals \int_0^\theta f^+_e(t) \diff t$ bzw. $F^-_e(\theta)\colonequals\int_0^\theta f^-_e(t)\diff t$ den Zu- bzw. Abfluss an $e$ bis zur Zeit $\theta$,
-			\item $z_e(\theta)\colonequals F_e^+(\theta) - F_e^-(\theta + \tau_e)$ bzw. $q_e(\theta)\colonequals z_e(\theta)/u_e$ die Warteschlange bzw. Wartezeit an $e$ zur Zeit $\theta$,
-			\item $T_e(\theta)\colonequals\theta + q_e(\theta) + \tau_e$ die Austrittszeit aus $e$ bei Eintrittszeit $\theta$.
+			\pause\item $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an $e$ zur Zeit $\theta$},
+			\pause\item $F_e^+(\theta) \colonequals \int_0^\theta f^+_e(t) \diff t$ bzw. $F^-_e(\theta)\colonequals\int_0^\theta f^-_e(t)\diff t$ den Zu- bzw. Abfluss an $e$ bis zur Zeit $\theta$,
+			\pause\item $z_e(\theta)\colonequals F_e^+(\theta) - F_e^-(\theta + \tau_e)$ bzw. $q_e(\theta)\colonequals z_e(\theta)/u_e$ die Warteschlange bzw. Wartezeit an $e$ zur Zeit $\theta$,
+			\pause\item $T_e(\theta)\colonequals\theta + q_e(\theta) + \tau_e$ die Austrittszeit aus $e$ bei Eintrittszeit $\theta$.
 		\end{itemize}	
 	\end{definition}
 \end{frame}
@@ -33,16 +38,16 @@
 	\begin{definition}[Zulässiger Dynamischer Fluss]
 		Ein zulässiger dynamischer Fluss erfüllt folgende Voraussetzungen:
 		\begin{enumerate}[label=(F\arabic*)]
-			\item\label{def-feasible-flow-capacity} Kapazitätsbedingung: $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
-			\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten:\\ $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
-			\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
+			\pause\item\label{def-feasible-flow-capacity} Kapazitätsbedingung: $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
+			\pause\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten:\\ $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
+			\pause\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
 			\[
 			\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) \begin{cases}
 				\geq 0, \text{ falls $v=s$,}\\
 				\leq 0, \text{ falls $v=t$,}\\
 				= 0, \text{ sonst.}
 			\end{cases}\]
-			\item\label{def-feasible-flow-queue-with-capacity} Warteschlangenabbau:\\
+			\pause\item\label{def-feasible-flow-queue-with-capacity} Warteschlangenabbau:\\
 			$\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 		\end{enumerate}
 	\end{definition}

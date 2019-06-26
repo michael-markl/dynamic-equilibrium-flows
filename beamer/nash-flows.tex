@@ -6,15 +6,15 @@
 		Für einen zulässigen Fluss $f$ und einen Zeitpunkt $\theta$ bezeichne
 		\begin{itemize}[label=\color{darkblue}$\bullet$]
 			\item $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ bzw. $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ für $vw\in E$,
-			\item $b_v(\theta) := \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ für $v\in V$.
+			\pause\item $b_v(\theta) := \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ für $v\in V$.
 		\end{itemize}
 	\end{definition}
 	
-	\begin{definition}\label{def-flow-along-active-edges}
+	\pause\begin{definition}\label{def-flow-along-active-edges}
 		Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
 	\end{definition}
 
-	\begin{definition}
+	\pause\begin{definition}
 	Man sage, der Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
 	\end{definition}
 \end{frame}
