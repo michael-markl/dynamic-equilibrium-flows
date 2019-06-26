@@ -42,6 +42,17 @@
                 font-style: italic;
             }
 
+            .edge-text {
+                fill: black;
+                font-size: 20px;
+                transform: translate(-6px, 0px);
+                font-style: italic;
+            }
+
+            .edge-text tspan {
+                font-size: 15px;
+            }
+
             .edge-outline-1-thick {
                 stroke-width: 22px;
                 stroke: black;
@@ -122,6 +133,7 @@
 
             const radio1 = document.getElementById("flow1radio")
             const radio2 = document.getElementById("flow2radio")
+            const radio3 = document.getElementById("flow3radio")
             
 
             const edge1len = document.getElementById("edge1").getTotalLength();
@@ -316,13 +328,91 @@
                 }
             }
 
+            function displayFlow3 (t) {
+                const t1 = edge1len / velocity; // Since t1, flow arrives at v
+                const t2 = t1 + edge2len / velocity / 3 *2; // Since t2, flow on e1 stops
+                const t21 = t2 + edge1len / velocity - (edge3len - edge2len) / velocity / 2; // Since t21 a queue builds up
+                const t3 = t1 + edge2len / velocity // Since t3 flow reaches t over short edge
+                const t4 = t2 + edge1len / velocity; // Since t4, no flow reaches v
+                const t5 = t4 + (t4 - t21); // Since t5 the queue is empty
+                const t6 = t1 + edge3len / velocity; // Since t6, flow reaches t over long edge
+                const t7 = t5 + edge2len / velocity; // Since t7, long edge out of flow
+
+                if (0 <= t && t < t1) {
+                    setFlow1(0,t * velocity);
+                    setFlow2(0,0);
+                    setFlow3(0,0);
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t1 <= t && t < t2) {
+                    setFlow1(0, edge1len)
+                    setFlow2(0, (t-t1) * velocity)
+                    setFlow3(0, (t-t1) * velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t2 <= t && t < t21) {
+                    setFlow1((t-t2)*velocity, edge1len)
+                    setFlow2(0, (t-t1) * velocity)
+                    setFlow3(0, (t-t1) * velocity)
+                    setQueue1(0)
+                    setQueue2((0))
+                    setQueue3(0)
+                } else if (t21 <= t && t < t3) {
+                    setFlow1((t-t2)*velocity, edge1len)
+                    setFlow2(0, (t-t1) * velocity)
+                    setFlow3((t-t21)*velocity,(t - t1)* velocity)
+                    setQueue1(0)
+                    setQueue2((t-t21)*velocity)
+                    setQueue3(0)
+                } else if (t3 <= t && t < t4) {
+                    setFlow1((t-t2)*velocity, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3((t-t21)*velocity,(t - t1)* velocity)
+                    setQueue1(0)
+                    setQueue2((t-t21)*velocity)
+                    setQueue3(0)
+                } else if (t4 <= t && t < t5) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(0, edge2len)
+                    setFlow3((t-t21)*velocity, (t - t1)* velocity)
+                    setQueue1(0)
+                    setQueue2((t4-t21)*velocity - (t-t4)*velocity)
+                    setQueue3(0)
+                } else if (t5 <= t && t < t6) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t-t5)*velocity, edge2len)
+                    setFlow3((t-t21)*velocity, (t - t1)* velocity)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else if (t6 <= t && t < t7) {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2((t-t5)*velocity, edge2len)
+                    setFlow3((t-t21)*velocity, edge3len)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                } else {
+                    setFlow1(edge1len, edge1len)
+                    setFlow2(edge2len, edge2len)
+                    setFlow3(edge3len, edge3len)
+                    setQueue1(0)
+                    setQueue2(0)
+                    setQueue3(0)
+                }
+            }
+
             update = () => {
                 theta.innerText = "θ=" + currentT.toFixed(2) + "s";
                 range.value = currentT;
                 if (radio1.checked) {
                     displayFlow1(currentT)
-                } else {
+                } else if (radio2.checked) {
                     displayFlow2(currentT)
+                } else {
+                    displayFlow3(currentT)
                 }
             }
             
@@ -335,7 +425,11 @@
                 update()
             });
             radio1.addEventListener('input', update);
+            radio1.addEventListener('change', update);
+            radio2.addEventListener('input', update);
             radio2.addEventListener('change', update);
+            radio3.addEventListener('input', update);
+            radio3.addEventListener('change', update);
             
             let currentT = 0;
             let targetT = 0;
@@ -356,7 +450,7 @@
                         t4,
                         t6
                     ]
-                } else {
+                } else if (radio2.checked) {
                     const t1 = edge1len / velocity; // Since t1, a queue builds up at e2
                     const t2 = t1 + (edge3len - edge2len) / velocity; // Since t2 flow starts to flow into e3
                     const t3 = t1 + edge2len / velocity / 3 * 2; // Since t3, flow on e1 stops
@@ -372,6 +466,18 @@
                         t2,
                         t5,
                         t9
+                    ]
+                } else {
+                    const t1 = edge1len / velocity; // Since t1, flow arrives at v
+                    const t2 = t1 + edge2len / velocity / 3 *2; // Since t2, flow on e1 stops
+                    const t21 = t2 + edge1len / velocity - (edge3len - edge2len) / velocity / 2; // Since t21 a queue builds up
+                    const t3 = t1 + edge2len / velocity // Since t3 flow reaches t over short edge
+                    const t4 = t2 + edge1len / velocity; // Since t4, no flow reaches v
+                    const t5 = t4 + (t4 - t21); // Since t5 the queue is empty
+                    const t6 = t1 + edge3len / velocity; // Since t6, flow reaches t over long edge
+                    const t7 = t5 + edge2len / velocity; // Since t7, long edge out of flow
+                    return [
+                        0, t1, t21, t7
                     ]
                 }
             }
@@ -488,6 +594,11 @@
         
         <circle class="node" cx="750" cy="300" r="20" />
         <text class="node-text" x="750" y="300">t</text>
+
+        <!-- EDGE LABELS -->
+        <text class="edge-text" x="175" y="275">e<tspan baseline-shift="sub">1</tspan></text>
+        <text class="edge-text" x="525" y="280">e<tspan baseline-shift="sub">2</tspan></text>
+        <text class="edge-text" x="525" y="505">e<tspan baseline-shift="sub">3</tspan></text>
     </svg>
     
     <div style="display: flex; justify-content: space-around; align-items: center;">
@@ -495,7 +606,7 @@
         <button id="last-step">🡄</button>
         <div style="display: flex; flex-direction: column;align-items: center;">
             <span id="theta">θ=0.00s</span>
-            <input id="range" type="range" min="0" max="100" step="0.1" value="0" />
+            <input id="range" type="range" min="0" max="75" step="0.1" value="0" />
         </div>
         <button id="next-step">🡆</button>
         <div>
@@ -503,6 +614,8 @@
                 <label for="flow1radio">Fluss 1</label>
                 <input type="radio" id="flow2radio" name="flow" value="flow2" >
                 <label for="flow2radio">Fluss 2</label>
+                <input type="radio" id="flow3radio" name="flow" value="flow3" >
+                <label for="flow3radio">Fluss 3</label>
         </div>
     </div>
     
