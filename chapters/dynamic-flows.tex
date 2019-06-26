@@ -40,7 +40,7 @@ Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
 		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\
 		d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) = 0$.\\
 		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein und heißt für $s$ \emph{der Zufluss $d(\theta)$ in das Netzwerk}.
-		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: q_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
+		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: z_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
 \end{definition}
 
@@ -65,7 +65,7 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 		\leq \theta_1 + \frac{F_e^+(\theta_2) - F_e^-(\theta_1+\tau_e)}{u_e} \leq \theta_2 + q_e(\theta_2).
 	\]
 	
-	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq (\theta - \theta') + q_e(\theta) > q_e(\theta)$ gerade Aussage (ii) beweist.
+	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq \theta + q_e(\theta) - \theta' > 0$ gerade Aussage (ii) beweist.
 	
 	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), denn es gilt 
 	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$ und damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.

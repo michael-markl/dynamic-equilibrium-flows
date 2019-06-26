@@ -70,7 +70,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	ein Spannbaum mit Wurzel $s$:
 	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
 	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch den eindeutigen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
-	Außerdem existiert nach Lemma~\ref{lemma-shortest-path-using-active-edges} ein $s$-$w$-Pfad $Q$ mit ausschließlich aktiven Kanten, für den $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$ gilt.
+	Für einen zur Zeit $\theta$ kürzesten $s$-$w$-Pfad $Q$ gilt außerdem $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$.
 \end{proof}
 
 Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Belman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:

@@ -10,7 +10,7 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-
 	\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
 	\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
 	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
-	\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 \neq \emptyset$.
+	\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 \end{definition}
 
@@ -88,7 +88,7 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 \end{proof}
 
 \begin{definition}
-	Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T>0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
+	Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T\geq0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
 \end{definition}
 
 Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizont der Zu- bzw. Abfluss ab dem frühestmöglichen Ankunftszeitpunkt bei Start $s$ zur Zeit $T$ am Start- bzw. Endknoten fast überall verschwinden.
@@ -105,8 +105,8 @@ Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(\theta)$ und $f_{vw}^
 	Daher ist $x(\theta)- x(T)$ bereits der Nullfluss, sodass $x(T)$ und $x(\theta)$ bereits auf allen Kanten übereinstimmen, wodurch die Behauptung folgt.
 \end{proof}
 
-\begin{definition}
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein $\tilde{d}$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \} $ im Graphen $G_T$ bei Versorgungsrate $\tilde{d}$ und ein $\alpha > 0$ gegeben.
+\begin{definition}[$\alpha$-Erweiterung]
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein $\tilde{d}$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ im Graphen $G_T$ bei Versorgungsrate $\tilde{d}$ und ein $\alpha > 0$ gegeben.
 	
 	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
 	\[ \tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$} \]
