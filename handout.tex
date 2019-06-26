@@ -1,0 +1,106 @@
+\documentclass[paper=a4, 	% Seitenformat
+fontsize=11pt, 		% Schriftgr\"o\ss{}e
+abstracton, 	% mit Abstrakt
+headsepline, 	% Trennlinie f\"ur die Kopfzeile
+notitlepage	% keine extra Titelseite
+]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
+% Mathematische Zeichensätze und Umgebungen
+\usepackage{amsfonts, amssymb}	        % Definition einer Liste mathematischer Fontbefehle und Symbole
+\usepackage[intlimits,sumlimits]{amsmath} % Integral-/Summationsgrenzen über/unter Zeichen
+\usepackage{tabto}
+\usepackage{mathabx}
+% mathematische Verbesserungen
+\usepackage{amsthm}	                    % spezielle theorem Stile
+\usepackage{aliascnt} 
+\usepackage{array}		                % erweiterte Tabellen
+% Schriftzeichen, Format
+\usepackage{latexsym}		            % Latex-Symbole
+\usepackage[english, german, ngerman]{babel} % Mehrsprachenumgebung
+% Layout
+\usepackage{geometry}                   % Seitenränder
+\usepackage{xcolor}                     % Farben
+\usepackage{bbm}
+% Tabellen und Listen
+\usepackage{float}		                % Gleitobjekte 
+\usepackage[flushright]{paralist}       % Bessere Behandlung der Auflistungen
+\usepackage{datetime}
+% Bilder
+\usepackage[final]{graphicx}            % Graphiken einbinden
+\usepackage{caption}                    % Beschriftungen
+\usepackage{subcaption}                 % Beschriftungen für Unterteilung
+
+% Interaktive Referenzen, und PDF-Keys
+\usepackage{xr-hyper}  
+\usepackage[pagebackref,pdftex, plainpages=false]{hyperref} % Rückreferenz im Literaturverzeichnis, Treiber für ps zu pdf ; für direkt nach pdf: pdftex
+\usepackage{enumitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zusammenfassung einiger nützlicher Pakete und Befehle
+\input{handout/header}			% Befehle und Pakete für Titelseite
+\input{header/theorem}			% Mathematische Befehle und Pakete
+\input{header/referenz}			% Befehle und Pakete für Referenzen
+
+\geometry{a4paper, top=30mm, bottom=30mm, left=28mm, right=28mm}
+
+\parindent0em
+
+\addtolength{\footskip}{-0.5cm}          % Seitenzahlen höher setzen
+\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
+
+\makeatletter
+\newcommand{\customlabel}[2]{%
+	\protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
+	\hypertarget{#1}{#2}
+}
+\makeatother
+\newcommand{\todo}[1]{{\color{red}#1}}
+
+\numberwithin{figure}{section}	% Abbildungsnummern in Section
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
+\setlist[itemize]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
+
+
+\renewcommand{\[}{
+	\setlength\abovedisplayskip{1.1ex}
+	\setlength{\belowdisplayskip}{1.1ex}
+	\setlength{\abovedisplayshortskip}{1.1ex}
+	\setlength{\belowdisplayshortskip}{1.1ex}\begin{equation*}}
+
+\renewcommand{\]}{\end{equation*}}
+
+% Start des Dokuments
+\begin{document}
+	\ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
+	\parindent0em 			% kein Einzug nach einer Leerzeile
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Titelseite
+	\thispagestyle{empty}		% leerer Seitenstil, also keine Seitennummer
+	\seminarkopf 			% Titelblatt (wie in kopf.tex definiert)
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Eigentlicher Inhalt des Handouts; die einzelnen Teile werden hier (aus Gründen der Übersichtlichkeit) über \input{file} eingebunden
+	
+	\input{handout/dynamic-equilibrium-flows}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Literaturverzeichnis
+	\nocite{Cominetti2015}
+	\nocite{Koch2011}  % Nicht zitierte Quellen werden auch ins Literaturverzeichnis aufgenommen
+	\thispagestyle{empty}
+	\scriptsize
+	\bibliography{literature}  % Literaturverzeichnis liegt in der Datei seminararbeit
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Ende des Dokuments
+\end{document}		

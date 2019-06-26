@@ -1,0 +1,105 @@
+\section{Dynamische Flüsse}
+	\begin{definition}[Netzwerk]
+		Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter Graph mit
+		einer Quelle $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind,
+			sowie mit Kantenkapazitäten $u\in\R_+^E$,
+			und Verzögerungszeiten $\tau\in\R_{\geq 0}^E$, sodass Zyklen eine positive Gesamtverzögerung haben.
+	\end{definition}
+
+	\begin{definition}
+		Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller lokal Lebesgue-integrierbaren Funktionen $g:\R \to \R_{\geq 0}$, die auf der negativen Achse verschwinden.
+	\end{definition}
+
+	\begin{definition}[Dynamischer Fluss]
+		Ein dynamischer Fluss ist ein Paar $f=(f^+, f^-)$ mit $f^+, f^-\in\mathfrak{F}_0^E$.		
+		Für eine Kante $e\in E$ und einen Zeitpunkt $\theta\in\R$ bezeichnet
+		\begin{itemize}[label=$\bullet$]
+			\item $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an $e$ zur Zeit $\theta$},
+			\item $F_e^+(\theta) := \int_0^\theta f^+_e(t) \diff t$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t)\diff t$ den kumulativen Zu- bzw. Abfluss an $e$ bis zur Zeit $\theta$,
+			\item $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ bzw. $q_e(\theta):= z_e(\theta)/u_e$ die Warteschlange bzw. Wartezeit an $e$ zur Zeit $\theta$,
+			\item $T_e(\theta):=\theta + q_e(\theta) + \tau_e$ die Austrittszeit aus $e$ bei Eintrittszeit $\theta$.
+		\end{itemize}	
+	\end{definition}
+
+	\begin{definition}[Zulässiger Dynamischer Fluss]
+		Ein zulässiger dynamischer Fluss erfüllt folgende Voraussetzungen:
+		\begin{enumerate}[label=(F\arabic*)]
+			\item\label{def-feasible-flow-capacity} Kapazitätsbedingung: $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
+			\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten: $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
+			\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
+			\[
+			\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) \begin{cases}
+				\geq 0, \text{ falls $v=s$,}\\
+				\leq 0, \text{ falls $v=t$,}\\
+				= 0, \text{ sonst.}
+			\end{cases}\]
+			\item\label{def-feasible-flow-queue-with-capacity} Warteschlangenabbau:
+			$\forall e\in E, \theta\in\R: z_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
+		\end{enumerate}
+	\end{definition}
+	\begin{proposition}\label{prop-feasible-flow}
+		Für eine Kante $e\in E$ gilt in einen zulässigen dynamischen Fluss $f$:
+		\begin{enumerate}[label=(\roman*)]
+			\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
+			\item\label{prop-feasible-flow-positive-queue} Für alle $\theta\in\R$ ist die Warteschlange $z_e$ auf $(\theta, \theta + q_e(\theta))$ positiv.
+			\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ gilt $F_e^+(\theta) = F_e^-(T_e(\theta))$.
+			\item\label{prop-feasible-flow-queue-delay} Für alle $\theta_1 \leq \theta_2$ mit $\int_{\theta_1}^{\theta_2} f^+_e(t) \diff t = 0$ und $q_e(\theta_2)>0$ gilt $\theta_1 + q_e(\theta_1) = \theta_2 + q_e(\theta_2)$.
+		\end{enumerate}
+	\end{proposition}
+
+\section{Kürzeste Wege}
+
+	\begin{definition}[Kürzeste Wege]
+		Für einen Fluss $f$ bezeichne:
+		\begin{itemize}[label=$\bullet$]
+			\item $l^P(\theta) := T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ die Ankunftszeit am Endknoten eines Pfades $P=(e_1,\dots,e_k)$ zur Startzeit $\theta$ am Startknoten,
+			\item $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade,
+			\item $l_w(\theta) := \min_{P\in\mathcal{P}_w} l^P(\theta)$ die früheste Ankunftszeit bei $w$ zur Startzeit $\theta$.
+		\end{itemize}
+	\end{definition}
+	\begin{lemma}[Dreiecksungl.]
+		In einem zulässigen Fluss gilt $T_{vw}(l_v(\theta))\geq l_w(\theta)$ für $vw\in E$.
+	\end{lemma}
+
+	\begin{definition}[Aktivität einer Kante]
+		Eine Kante $vw\in E$ ist \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt; sonst ist sie \emph{inaktiv zum Zeitpunkt $\theta$}.
+		
+		Die Menge $\Theta_e$ sei die abgeschlossene Menge aller Zeitpunkte, zu denen $e$ aktiv ist.
+	\end{definition}
+	\begin{lemma}
+		Für einen zulässigen Fluss und einem $\theta\in\R$ ist der Teilgraph der zur Zeit $\theta$ aktiven Kanten $G_\theta:=(V, E_\theta)$ ein Spannbaum mit Wurzel $s$.
+	\end{lemma}
+	\begin{proposition}
+		Für einen zulässigen Fluss $f$ ist $(l_v(\theta))_{v\in V}$ die eindeutige Lösung von
+		\[ \tilde{l}_w = \begin{cases}
+		\theta, & \text{falls } w=s, \\
+		\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
+		\end{cases} \]
+	\end{proposition}
+
+\section{Dynamische Nash-Flüsse}	
+	\begin{definition}
+		Für einen zulässigen Fluss $f$ und einen Zeitpunkt $\theta$ bezeichne
+		\begin{itemize}[label=$\bullet$]
+			\item $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ bzw. $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ für $vw\in E$,
+			\item $b_v(\theta) := \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ für $v\in V$.
+		\end{itemize}
+	\end{definition}
+	
+	\begin{definition}\label{def-flow-along-active-edges}
+		Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
+	\end{definition}
+	
+	\begin{definition}
+		Man sage, der Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
+	\end{definition}
+
+	\begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
+		Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
+		\begin{enumerate}[label=(\roman*)]
+			\item Der Fluss $f$ fließt nur entlang aktiver Kanten
+			\item Für alle Kanten $e\in E$ und zu jeder Zeit $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
+			\item Der Fluss $f$ fließt ohne Überholungen.
+		\end{enumerate}
+		Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{dynamischen Nash-Fluss}.
+	\end{theorem}
