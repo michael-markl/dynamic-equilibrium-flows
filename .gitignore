@@ -13,3 +13,7 @@
 *.fdb_latexmk
 *.nav
 *.snm
+
+!main.pdf
+!handout.pdf
+!beamer.pdf
