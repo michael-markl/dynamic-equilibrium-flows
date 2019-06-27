@@ -1,7 +1,7 @@
 \section{Dynamische Nash-Flüsse}\label{sec-nash-flows}
 
 Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
-Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_v(\theta)$ an der Senke ankommen.
+Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$ an der Senke ankommen.
 Für die formale Einführung benötigt man weitere Definitionen: 
 
 \begin{definition}
@@ -62,9 +62,9 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Verschwindet $g$ fast überall auf $\Theta$, so erst recht auf jedem Intervall $(a_i, b_i)$.
 	Für die andere Richtung definiert die Funktion $\mu(A):= \int_A g \diff \lambda$ ein Maß auf den Borelmengen~$\mathfrak{B}$.
 	Da jede offene Menge $O\subseteq\R$ $\sigma$-kompakt ist, also eine Darstellung als abzählbare Vereinigung kompakter Mengen -- hier $O=\bigcup_{n\in\N}(\{ x \in\R \mid d(x, O^c) \geq 1/n \} \cap [-n, n] )$ -- besitzt, ist jede offene Menge nach~\cite[1.2 Folgerungen (e)]{Elstrodt2011Top} innen regulär.
-	Das heißt,
+	Das heißt, es gilt
 	\[ \mu(O)=\sup\{ \mu(K) \mid K\subseteq O \text{ kompakt} \} \]
-	gilt für offene Mengen $O\subseteq\R$.
+	für offene Mengen $O\subseteq\R$.
 	Für ein kompaktes $K\subseteq \Theta$ existiert eine endliche Teil\-über\-deckung $\bigcup_{i=1}^n (a_i, b_i) \supseteq K$, für die $\mu(K) \leq \sum_{i=1}^{n} \mu((a_i, b_i)) = \sum_{k=1}^{n} \int_{a_i}^{b_i} g(t) \diff t = 0$ gilt.
 	Also ist auch $\mu(\Theta)=0$.
 \end{proof}
@@ -89,8 +89,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
 	$(i)\Leftrightarrow (iii)$: Sei eine Kante $vw\in E$ gegeben.
-	Die Beziehung $x_{vw}^+(\theta) \geq x_{vw}^-(\theta)$ gilt bereits nach Bemerkung~\ref{remark-x^-leqx^+}.
-	Für ein $\theta\in\R$ bezeichne $\omega_\theta\leq \theta$ den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ gerade zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt:
+	Für ein $\theta\in\R$ bezeichne $\omega_\theta\leq \theta$ den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt:
 	\[ \omega_\theta:=\max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}. \]
 	
 	Es gilt $\Theta_{vw}^c = \bigcup_{\theta\in\R} (\omega_\theta, \theta)$:
@@ -109,9 +108,10 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Man sage, ein zulässiger dynamischer Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
 \end{definition}
 
-Partikel, die in $\theta\in\R$ bei $s$ starten und sich auf einem kürzestem Weg zu $t$ bewegen, überholen andere Partikel, falls $b_s(\theta) > -b_t(\theta)$.
+Dabei betrachte man folgende Intuition:
+ Partikel, die zur Zeit $\theta\in\R$ bei $s$ starten und sich auf einem kürzestem Weg zu $t$ bewegen  -- also zur Zeit $l_t(\theta)$ in $t$ ankommen --, überholen andere Partikel, falls $b_s(\theta) > -b_t(\theta)$.
 Falls jedoch $b_s(\theta) < - b_t(\theta)$ gilt, wurde das Partikel bereits von anderen überholt.
-Ein Nash-Gleichgewicht sollte diese Eigenschaft also erfüllen.
+Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 
 \begin{definition}
 	Seien ein statischer Fluss $f \in \R^E$ in einem Graphen $G=(V,E)$ mit Kapazitäten $u\in \R_+^E$ und ein Balancevektor $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben.
@@ -153,7 +153,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft also erfüllen.
 	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb bereits alle $b_{\newv_e} = 0$ sein müssen.
 \end{proof}
 
-Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt, welches Nash-Gleichgewichte in dynamischen Flüssen charakterisieren soll:
+Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt, welches Nash-Gleichgewichte in dynamischen Flüssen charakterisiert:
 
 \begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
@@ -167,11 +167,11 @@ Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-gr
 
 \subsection{Eigenschaften dynamischer Nash-Flüsse}
 
-In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die in Abschnitt~\ref{sec-thin-flows} gebraucht werden.
+In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die in Abschnitt~\ref{sec-thin-flows} benötigt werden.
 
 \begin{remark}\label{remark-s-t-flow}
-	In einem Nash-Fluss ist für alle $\theta\in\R$ der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} ein statischer $s$-$t$-Fluss.
-	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$, da Differenzieren die Flusserhaltung erhält.
+	In einem Nash-Fluss ist der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$  ein statischer $s$-$t$-Fluss.
+	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$ ist, da Differenzieren die Flusserhaltung erhält und $x_e$ monoton wachsend ist für alle $e\in E$.
 \end{remark}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
@@ -182,25 +182,25 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
 	\end{enumerate}
-	Insbesondere verschwindet für $\theta\in\overline{\Theta_{vw}^c}$ die Wartezeit $q_{vw}(l_v(\theta))$  nach (iii).
+	Insbesondere verschwindet nach (iii) die Wartezeit $q_{vw}(l_v(\theta))$ für $\theta\in\overline{\Theta_{vw}^c}$.
 \end{lemma}
 \begin{proof}
-	Zu Aussage (i): Für $\theta'$ gilt $F_{vw}^+(l_v(\theta')) > F_{vw}^+(l_v(\theta))$.
+	Zu Aussage (i): Für $\theta'\in(\theta-\varepsilon, \theta)$ gilt $F_{vw}^+(l_v(\theta')) < F_{vw}^+(l_v(\theta))$.
 	Also existiert eine Teilmenge $Q_\varepsilon \subseteq (l_v(\theta-\varepsilon), l_v(\theta))=l_v((\theta - \varepsilon, \theta))$ mit positivem Maß und $f_{vw}^+\big|_{Q_\varepsilon} > 0$.
 	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten.
-	Daher ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
+	Nach Lemma~\ref{lemma-only-active-edges} ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
 	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
 	
 	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
 	Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
 	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
-	Dieser existiert, da $F_{vw}^+(l_v(\theta))$ positiv und $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
+	Dieser existiert, da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
 	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
 	Nach Aussage (i) gilt nun $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
 \end{proof}
 \begin{lemma}\label{lemma-x-locally-constant}
-	In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\bar{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkten, für jede Kante $e\in E$ lokal konstant.
+	In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\overline{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkte von $e$, für jede Kante $e\in E$ lokal konstant.
 \end{lemma}
 \begin{proof}
 	Da $\Theta_{vw}^c$ eine in $\R$ offene Menge ist, hat sie eine Darstellung als abzählbare Vereinigung paarweise disjunkter offener Intervalle.

@@ -1,6 +1,6 @@
 \section{Dynamische Flüsse}\label{sec-dynamic-flows}
 
-Zunächst werden die grundlegenden Begriffe eingeführt:
+Zunächst werden einige grundlegenden Begriffe eingeführt:
 
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter, endlicher Graph $G=(V,E)$ mit einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
@@ -8,7 +8,7 @@ Zunächst werden die grundlegenden Begriffe eingeführt:
 \end{definition}
 
 \begin{definition}
-	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt, es gilt $g(t)=0$ für alle $t<0$.
+	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt, es gilt $g(t)=0$ für $t<0$.
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
@@ -24,10 +24,10 @@ Zunächst werden die grundlegenden Begriffe eingeführt:
 
 Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, die an einer Kante $e$ ankommen verhalten  sollen:
 Nachdem sie zur Zeit $\theta$ die Kante betreten haben, müssen sie sich zunächst in eine Warteschlange einreihen, welche mit der Kapazität $u_e$ nach dem FIFO-Prinzip abgebaut wird.
-Nachdem diese Wartezeit $q_e(\theta)$ vorüber ist, benötigt das Partikel eine weitere konstante Verzögerungszeit $\tau_e$, bevor sie aus der Kante wieder austreten kann.
+Nachdem diese Wartezeit $q_e(\theta)$ vorüber ist, vergeht eine weitere konstante Verzögerungszeit $\tau_e$, bevor sie wieder aus der Kante austreten.
 Des Weiteren müssen sich die Partikel bereits sofort bei der Ankunft an einem Knoten entscheiden, in welche Kante sie eintreten wollen, und können nicht an einem Knoten verweilen.
 
-Man kann sich die Kanten also als Transportbänder vorstellen, deren Breite die Transportkapazität bestimmt und deren Länge und Geschwindigkeit die Verzögerungszeit darstellt.
+Man kann sich die Kanten also als Transportbänder vorstellen, deren Breite die Transportkapazität bestimmt und deren Länge die Verzögerungszeit darstellt.
 Überschreiten die Güter die Kapazität, so bildet sich eine Warteschlange vor dem Band.
 
 Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
@@ -57,7 +57,7 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 \end{proposition}
 \begin{proof}
 	In~\ref{prop-feasible-flow-T-mon-inc-cont} folgt die Stetigkeit bereits aus der Stetigkeit von $F_e^+$ und $F_e^-$.
-	Für die Monotonie seien $\theta_1 \leq \theta_2$ gegeben.
+	Um zu zeigen, dass die Funktion monoton wachsend ist, seien $\theta_1 \leq \theta_2$ gegeben.
 	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
 	\[
 		\theta_1 + q_e(\theta_1)
@@ -67,12 +67,12 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 	
 	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq \theta + q_e(\theta) - \theta' > 0$ gerade Aussage (ii) beweist.
 	
-	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), denn es gilt 
-	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$ und damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.
+	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), da
+	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$ gilt, und damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.
 	
-	Es bleibt Aussage (iv) zu zeigen:
+	Zu Aussage (iv):
 	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta') = F_e^+(\theta_2)$.
 	Also ist die Warteschlange $z_e(\theta') = F_e^+(\theta_2) - F_e^-(\theta' + \tau_e) \geq z_e(\theta_2) > 0$ positiv und nach~\ref{def-feasible-flow-queue-with-capacity} gilt $f_e^-(\theta' + \tau_e)=u_e$.
-	Die Differenz der Warteschlangen ist somit nach Bedingung~\ref{def-feasible-flow-queue-with-capacity} 
+	Die Differenz der Warteschlangen ist
 	$z_e(\theta_1)-z_e(\theta_2)=-F^-_e(\theta_1 + \tau_e) + F^-_e(\theta_2 + \tau_e) = (\theta_2 - \theta_1)u_e$, was $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$ impliziert.
 \end{proof}

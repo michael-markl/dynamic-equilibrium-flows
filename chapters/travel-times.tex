@@ -1,9 +1,9 @@
 \section{Kürzeste Wege}\label{sec-travel-times}
 
-In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten eingeführt und erörtert, wann eine Kante $vw$ in einem kürzesten $v$-$w$-Pfad liegt.
+In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten eingeführt und erörtert, wann eine Kante $vw$ in einem kürzesten $s$-$w$-Pfad liegt.
 
 \begin{definition}
-	Für einen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
+	Für einen dynamischen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
 	
 	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
 	Dann ist die früheste Ankunft eines Partikels, das zur Zeit $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
@@ -24,7 +24,7 @@ In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten
 	Daher sind auch $l^P$ und $l_v$ surjektiv.
 \end{proof}
 
-Wie im statischen Szenario von kürzesten Pfade, gilt auch hier die Dreiecksungleichung: 
+Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksungleichung: 
 
 \begin{lemma}\label{lemma-dreicksungl}
 	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
@@ -49,7 +49,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
 	Es ist $l^C(\theta) > \theta$, da für Zykeln eine positive Gesamtverzögerung vorausgesetzt ist.
-	Augrund der Aktivität von $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
+	Augrund der Aktivität aller Kanten in $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
 	
 	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
 	Daher ist $w$ von $s$ aus in $G_\theta$ erreichbar.

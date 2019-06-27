@@ -1,12 +1,12 @@
 \section{Einführung}\label{introduction}
 
 Routenplanungsspiele spielen in der Analyse und Optimierung von Verkehrs- und Kommunikationsnetzwerken eine große Rolle.
-Bei der Modellierung solcher Netzwerke wurden dabei in der Vergangenheit häufig statische Flüsse zu Rate gezogen, welche jedoch nicht abbilden können, wie sich Veränderungen des Flusses im Laufe der Zeit innerhalb des Netzwerks, wie sie beispielsweise in Straßenverkehrsnetzwerken, Kommunikations- oder Produktionsnetzwerken auftritt, auf das System auswirken.
+Bei der Modellierung solcher Netzwerke wurden dabei in der Vergangenheit häufig statische Flüsse zu Rate gezogen, welche jedoch nicht abbilden können, wie sich Veränderungen des Flusses im Laufe der Zeit innerhalb des Netzwerks, wie sie beispielsweise in Straßennetzen auftreten, auf das System auswirken.
 
 Im Artikel \glqq Nash Equilibria and the Price of Anarchy for Flow over Time\grqq\ \cite{Koch2011} der Autoren Ronald Koch und Martin Skutella werden daher Routenplanungsspiele auf dynamischen Flüssen (engl. flow over time) betrachtet, die hier dem deterministischen Warte\-schlangen-Modell (engl. deterministic queuing model) entsprechen.
 Jedes Partikel im Fluss entspricht dabei einem Spieler, der seine Entscheidungen selbst egoistisch trifft und versucht seine eigene Ankunftszeit zu minimieren.
 Dies wird auch Selfish Routing genannt.
-Zudem schreibt man den Spielern hier zu, während ihrer Entscheidungsfindung der zu wählenden Route bereits den Flussverlauf in der Zukunft und damit künftige Wartezeiten jeder Kante zu kennen.
+Zudem schreibt man den Spielern hier zu, während ihrer Entscheidungsfindung der zu wählenden Route bereits den zukünftigen Flussverlauf und damit künftige Wartezeiten jeder Kante zu kennen.
 
 Diese Arbeit gibt in den Abschnitten~\ref{sec-dynamic-flows} und~\ref{sec-travel-times} eine formale Definition dynamischer Flüsse und des Warteschlangenmodells in diesem Szenario und formuliert eine Charakterisierung von Nash Gleichgewichten im Kontext dynamischer Flüsse in Abschnitt~\ref{sec-nash-flows}.
 In Abschnitt~\ref{sec-thin-flows} wird schließlich eine Klasse von statischen Flüssen eingeführt, die verwendet wird, um bereits bestehende dynamische Nash-Flüsse mit Zeithorizont zu erweitern.
