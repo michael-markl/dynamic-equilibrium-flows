@@ -18,10 +18,10 @@ Dabei nennt man $x_e'/u_e$ die Auslastung einer Kante $e\in E$.
 Ist $E_1 = \emptyset$, dann ist die Knotenbeschriftung $l_v'$ gerade die Auslastung $\max_{e\in P} x_e'/u_e$ eines jeden $s$-$v$-Pfades $P$ mit positiven Fluss.
 Kanten in $E_1$ setzen dann die Auslastung jedes vorangegangenen Pfades auf ihre eigene zurück.
 
-\begin{remark}
+\begin{remark}\label{remark-thin-flow}
 	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
 	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
-	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Beispiel~\ref{ex-labels} erkennen kann.
+	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
 \end{remark}
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen schmalen Fluss mit Zurücksetzen induziert.
@@ -213,6 +213,20 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	Für $\theta > T+\alpha$ ist schließlich $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T + \alpha) = \tilde{x}_e^-(T+\alpha) = \tilde{x}_e^-(\theta)$.
 \end{proof}
 
-\begin{example}\label{ex-labels}
-	\todo{Add this example}
-\end{example}
+Der Abschnitt wird mit der zu Bemerkung~\ref{remark-thin-flow} gehörigen Abbildung abgeschlossen.
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+	\node[draw, circle] (S) at (0,2) {$s$};
+	\node[draw, circle] (V) at (4,2) {$v$};
+	\node[draw, circle] (T) at (2,0) {$t$};
+	
+	\path [->] (S) edge node[above] {$1/1$} (V);
+	\path [->] (S) edge node[left] {$1/1$} (T);
+	\path [->] (V) edge node[right] {$10/1$} (T);
+	\end{tikzpicture}
+	\caption{In der Abbildung ist ein Netzwerk zu erkennen mit Kantenbeschriftung $\tau_e / u_e$.
+		Man betrachte den dynamischen Nullfluss mit Zeithorizont $0$. Dann ist $x'$ mit $x_{sv}'=x_{vt}'=0$ und $x_{st}'=2$ nach \cite[Definition 6]{Koch2011} ein schmaler Fluss mit Zurücksetzen auf $\emptyset$ mit zugehörigen Knotenbewertungen $l_s' = 1$, $l_v' = 0$, $l_t' = 2$.
+		Aber für eine $\alpha$-Erweiterung ist $l_v(\theta) = \theta + 1 > \theta = l_v(0) + l_v' \theta$.} 
+	\label{figure-labels}
+\end{figure}
