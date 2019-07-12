@@ -42,7 +42,7 @@
 			\pause\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten:\\ $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
 			\pause\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
 			\[
-			\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) \begin{cases}
+			\forall\theta\in\R: \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) \begin{cases}
 				\geq 0, \text{ falls $v=s$,}\\
 				\leq 0, \text{ falls $v=t$,}\\
 				= 0, \text{ sonst.}
