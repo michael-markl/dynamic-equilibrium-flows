@@ -174,38 +174,34 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss, genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$ ist, da Differenzieren die Flusserhaltung erhält und $x_e$ monoton wachsend ist für alle $e\in E$.
 \end{remark}
 
+\begin{lemma}\label{lemma-x-locally-constant}
+In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\overline{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkte von $e$, für jede Kante $e\in E$ lokal konstant.
+\end{lemma}
+\begin{proof}
+Da $\Theta_{vw}^c$ eine in $\R$ offene Menge ist, hat sie eine Darstellung als abzählbare Vereinigung paarweise disjunkter offener Intervalle.
+Innerhalb eines solchen Intervalls $(\theta_1, \theta_2)$ gilt $x_{vw}(\theta_2) - x_{vw}(\theta_1) = \int_{l_v(\theta_1)}^{l_v(\theta_2)} f_{vw}^+(t) \diff t = 0$, da $f$ nur entlang aktiver Kanten fließt.
+Der Rest folgt mit der Monotonie und Stetigkeit von $x_{vw}$.
+\end{proof}
+
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
 	Seien ein dynamischer Nash-Fluss $f$, eine Kante $vw\in E$ und ein Zeitpunkt $\theta\in\R$ gegeben.
 	Gilt eine der folgenden Aussagen, so ist $vw$ zum Zeitpunkt $\theta$ aktiv:
 	\begin{enumerate}[label=(\roman*)]
-		\item Es existiert ein $\varepsilon>0$ mit $x_{vw}(\theta')<x_{vw}(\theta)$ für alle $\theta'\in(\theta-\varepsilon, \theta)$.
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
 	\end{enumerate}
 	Insbesondere verschwindet nach (iii) die Wartezeit $q_{vw}(l_v(\theta))$ für $\theta\in\overline{\Theta_{vw}^c}$.
 \end{lemma}
 \begin{proof}
-	Zu Aussage (i): Für $\theta'\in(\theta-\varepsilon, \theta)$ gilt $F_{vw}^+(l_v(\theta')) < F_{vw}^+(l_v(\theta))$.
-	Also existiert eine Teilmenge $Q_\varepsilon \subseteq (l_v(\theta-\varepsilon), l_v(\theta))=l_v((\theta - \varepsilon, \theta))$ mit positivem Maß und $f_{vw}^+\big|_{Q_\varepsilon} > 0$.
-	Da $f$ ein Nash-Fluss ist, fließt $f$ nach Theorem~\ref{thm-equivalencies-nash-flow} nur entlang aktiver Kanten.
-	Nach Lemma~\ref{lemma-only-active-edges} ist $\xi\in l_v(\Theta_{vw})$ für fast alle $\xi\in Q_\varepsilon$; insbesondere existiert ein $\theta_\varepsilon\in (\theta-\varepsilon, \theta)$ mit $\theta_\varepsilon\in\Theta_{vw}$.
-	Für $\varepsilon\rightarrow0$ ist also auch $\theta\in\Theta_{vw}$ wegen der Abgeschlossenheit von $\Theta_{vw}$.
+	Zu Aussage (i): Angenommen, $vw$ wäre zum Zeitpunkt $\theta$ nicht aktiv, so würde wegen der Offenheit von $\Theta_{vw}^c$ und Lemma~\ref{lemma-x-locally-constant} die Ableitung $x_{vw}'(\theta)$ verschwinden.
 	
-	Aussage (ii) folgt direkt aus (i) mittels Differenzenquotienten.
-	Für Aussage (iii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
-	Sei $\theta_1$ der früheste Zeitpunkt mit $F_{vw}^+(l_v(\theta_1)) = F_{vw}^+(l_v(\theta))$.
+	Für Aussage (ii) zeige man $T_{vw}(l_v(\theta)) \leq l_w(\theta)$.
+	Sei $\theta_1$ der früheste Zeitpunkt mit $x_{vw}^+(\theta_1)= x_{vw}^+(\theta)$.
 	Dieser existiert, da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} surjektiv ist.
+	Dann ist $\theta_1\in \Theta_{vw}$ nach Lemma~\ref{lemma-x-locally-constant}.
 	Außerdem ist $\theta_1 \leq \theta$ wegen der Monotonie von $F_{vw}^+ \circ l_v$.
 	Nach Aussage (i) gilt nun $T_{vw}(l_v(\theta_1)) = l_w(\theta_1)$.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-queue-delay} ist $T_{vw}(l_v(\theta_1)) = T_{vw}(l_v(\theta))$ und mit der Monotonie von $l_w$ folgt $T_{vw}(l_v(\theta))\leq l_w(\theta)$.
-\end{proof}
-\begin{lemma}\label{lemma-x-locally-constant}
-	In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\overline{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkte von $e$, für jede Kante $e\in E$ lokal konstant.
-\end{lemma}
-\begin{proof}
-	Da $\Theta_{vw}^c$ eine in $\R$ offene Menge ist, hat sie eine Darstellung als abzählbare Vereinigung paarweise disjunkter offener Intervalle.
-	Innerhalb eines solchen Intervalls $(\theta_1, \theta_2)$ gilt $x_{vw}(\theta_2) - x_{vw}(\theta_1) = \int_{l_v(\theta_1)}^{l_v(\theta_2)} f_{vw}^+(t) \diff t = 0$, da $f$ nur entlang aktiver Kanten fließt.
-	Der Rest folgt mit der Monotonie und Stetigkeit von $x_{vw}$.
 \end{proof}
 
 \begin{proposition}\label{prop-nash-flow-s-t-path-decomposable}
