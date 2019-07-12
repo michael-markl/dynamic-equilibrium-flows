@@ -190,7 +190,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	Demnach ist also $l_w(T) + (\theta - T) l_w' \leq l_v(T) + (\theta - T) l_v' + \tau_{vw} \leq \tilde{T}_{vw}(l_v(T) + (\theta - T) l_v')$.
 	
 	Im nächsten Schritt zeige man $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_w'$ für Kanten $vw\in E_T$, für die $x_{vw}'$ positiv ist oder deren Warteschlange zur Zeit $l_v(T)$ positiv ist:
-	Für $x_{vw}' > 0$ impliziert~(ii) bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
+	Für $x_{vw}' > 0$ impliziert~(ii) zusammen mit Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
 	Für $vw\in E_1$ gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}.
 	Entsprechend erfüllt die Warteschlange
 	\begin{align*}
@@ -198,11 +198,11 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	&= (\theta - T) (x_{vw}' -l_v' u_{vw}),
 	\end{align*}
 	da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
-	Daher ist $\tilde{T}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) = l_w(T) + (\theta - T) l_w'$.
+	Daher ist $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) = l_w(T) + (\theta - T) l_w'$.
 	
 	Zuletzt betrachte man aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
 	Hier gilt $l_w(T) = l_v(T) + \tau_{vw}$ und $l_w' \leq l_v'$ nach~\ref{def-thin-flow-x-zero}.
-	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \leq l_w(T) + (\theta - T) l_w'$ folgern kann.
+	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}_{vw}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \geq l_w(T) + (\theta - T) l_w'$ folgern kann.
 	Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
 	Daher ist $l_w(T)+(\theta - T) l_w'$ nicht nur eine untere Schranke, sondern tatsächlich das Minimum.
 	
@@ -225,9 +225,9 @@ Der Abschnitt wird mit der zu Bemerkung~\ref{remark-thin-flow} gehörigen Abbild
 	\path [->] (S) edge node[left] {$1/1$} (T);
 	\path [->] (V) edge node[right] {$10/1$} (T);
 	\end{tikzpicture}
-	\caption{In der Abbildung ist ein Netzwerk zu erkennen mit Kantenbeschriftung $\tau_e / u_e$.
-		Man betrachte den dynamischen Nullfluss mit Zeithorizont $0$. 
-		Die Kanten $st$ und $sv$ sind aktiv, wohingegen, die Kante $vt$  inaktiv ist.
-		Dann ist der Fluss $x'$ mit $x_{sv}'=0$ und $x_{st}'=2$ nach \cite[Definition 6]{Koch2011} ein schmaler Fluss mit Zurücksetzen auf $\emptyset$ mit zugehörigen Knotenbewertungen $l_s' = 1$, $l_v' = 0$ und $l_t' = 2$, aber für eine $\alpha$-Erweiterung ist $l_v(\theta) = \theta + 1 > \theta = l_v(0) + l_v' \theta$.} 
+	\caption{In der Abbildung ist ein Netzwerk mit Kantenbeschriftung $\tau_e / u_e$ zu erkennen.
+		Man betrachte den dynamischen Nullfluss mit Zeithorizont $0$.
+		Die Kanten $st$ und $sv$ sind aktiv, wohingegen die Kante $vt$ inaktiv ist.
+		Dann ist der Fluss $x'$ mit $x_{sv}'=0$ und $x_{st}'=2$ nach \cite[Definition 6]{Koch2011} ein schmaler Fluss mit Zurücksetzen auf $\emptyset$ und Knotenbewertungen $l_s' = 1$, $l_v' = 0$ und $l_t' = 2$, aber für eine $\alpha$-Erweiterung ist $l_v(\theta) = \theta + 1 > 1 = l_v(0) + l_v' \theta$ für $\theta > 0$.} 
 	\label{figure-labels}
 \end{figure}
