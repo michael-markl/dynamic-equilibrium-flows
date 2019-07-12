@@ -28,7 +28,7 @@
 			\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten: $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
 			\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
 			\[
-			\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) \begin{cases}
+			\forall\theta\in\R: \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) \begin{cases}
 				\geq 0, \text{ falls $v=s$,}\\
 				\leq 0, \text{ falls $v=t$,}\\
 				= 0, \text{ sonst.}
@@ -67,7 +67,7 @@
 		Die Menge $\Theta_e$ sei die abgeschlossene Menge aller Zeitpunkte, zu denen $e$ aktiv ist.
 	\end{definition}
 	\begin{lemma}
-		Für einen zulässigen Fluss und einem $\theta\in\R$ ist der Teilgraph der zur Zeit $\theta$ aktiven Kanten $G_\theta:=(V, E_\theta)$ ein Spannbaum mit Wurzel $s$.
+		Für einen zulässigen Fluss und einem $\theta\in\R$ ist der Teilgraph der zur Zeit $\theta$ aktiven Kanten $G_\theta:=(V, E_\theta)$ ein azyklischer Graph, in dem $s$ jeden Knoten erreichen kann.
 	\end{lemma}
 	\begin{proposition}
 		Für einen zulässigen Fluss $f$ ist $(l_v(\theta))_{v\in V}$ die eindeutige Lösung von
