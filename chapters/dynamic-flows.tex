@@ -1,6 +1,6 @@
 \section{Dynamische Flüsse}\label{sec-dynamic-flows}
 
-Zunächst werden einige grundlegenden Begriffe eingeführt:
+Zunächst werden einige grundlegende Begriffe eingeführt:
 
 \begin{definition}[Netzwerk]
 	Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter, endlicher Graph $G=(V,E)$ mit einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
@@ -22,7 +22,7 @@ Zunächst werden einige grundlegenden Begriffe eingeführt:
 	Man beschreibe die \emph{Austrittszeit $T_e(\theta)$ aus einer Kante $e\in E$ bei Eintrittszeit $\theta$}, zu der ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
 \end{definition}
 
-Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, die an einer Kante $e$ ankommen verhalten  sollen:
+Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, die an einer Kante $e$ ankommen, verhalten sollen:
 Nachdem sie zur Zeit $\theta$ die Kante betreten haben, müssen sie sich zunächst in eine Warteschlange einreihen, welche mit der Kapazität $u_e$ nach dem FIFO-Prinzip abgebaut wird.
 Nachdem diese Wartezeit $q_e(\theta)$ vorüber ist, vergeht eine weitere konstante Verzögerungszeit $\tau_e$, bevor sie wieder aus der Kante austreten.
 Des Weiteren müssen sich die Partikel bereits sofort bei der Ankunft an einem Knoten entscheiden, in welche Kante sie eintreten wollen, und können nicht an einem Knoten verweilen.
@@ -38,7 +38,7 @@ Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
 		\item\label{def-feasible-flow-capacity} Keine Abflussrate übersteigt die Kapazität, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
 		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$
 		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\
-		d.h. $\forall\theta\in\R: \sum_{e\in\delta^-(v)}f^-_e(\theta) - \sum_{e\in\delta^+(v)} f_e^+(\theta) = 0$.\\
+		d.h. $\forall\theta\in\R: \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) = 0$.\\
 		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein und heißt für $s$ \emph{der Zufluss $d(\theta)$ in das Netzwerk}.
 		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: z_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
@@ -58,7 +58,7 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 \begin{proof}
 	In~\ref{prop-feasible-flow-T-mon-inc-cont} folgt die Stetigkeit bereits aus der Stetigkeit von $F_e^+$ und $F_e^-$.
 	Um zu zeigen, dass die Funktion monoton wachsend ist, seien $\theta_1 \leq \theta_2$ gegeben.
-	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau}^{\theta_2+\tau} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
+	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau_e}^{\theta_2+\tau_e} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
 	\[
 		\theta_1 + q_e(\theta_1)
 		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}
