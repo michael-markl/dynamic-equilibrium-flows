@@ -1,7 +1,7 @@
 \section{Dynamische Nash-Flüsse}\label{sec-nash-flows}
 
 Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
-Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$ an der Senke ankommen.
+Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$, an der Senke ankommen.
 Für die formale Einführung benötigt man weitere Definitionen: 
 
 \begin{definition}
@@ -13,7 +13,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 
 \begin{remark}\label{remark-x^-leqx^+}
 	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
-	nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^+$.
+	nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^-$.
 \end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
@@ -37,11 +37,11 @@ Für die formale Einführung benötigt man weitere Definitionen:
 \end{definition}
 
 \begin{remark}
-	Diese Definition weicht von der Defintion von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
+	Diese Definition weicht von der Definition von Koch und Skutella ab und entspricht derjenigen aus~\cite[Definition 1]{Cominetti2015}:
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge Nullmenge ist: \[ l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}. \]
+	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Aufgabe 4.9]{Elstrodt2011Abs} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge eine Nullmenge ist: \[ l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}. \]
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von Lemma~\ref{lemma-only-active-edges} (i) und (iii) -- jedoch in (i) unter Verwendung ihrer Definition -- und
 	verwenden bei der Implikation (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -52,7 +52,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung von Koch und Skutella sogar echt stärker ist.
 \end{remark}
 
-Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes Lemma der Mengentheorie:
+Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes Lemma der Maßtheorie:
 
 \begin{lemma}\label{lemma-vanishes-intervals}
 	Seien $g: \R \to \R_{\geq 0}$ eine lokal Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
@@ -97,7 +97,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Aufgrund der Stetigkeit von $T_{vw}\circ l_v$ und von $l_w$ existiert ein $\varepsilon>0$, sodass $T_{vw}(l_v(\theta')) > l_w(\theta+\varepsilon)$ für $\theta'\in[\theta,\theta+\varepsilon]$ gilt.
 	Also ist $\theta\in(\omega_{\theta+\varepsilon}, \theta+\varepsilon)$.
 	Ist umgekehrt $\theta'\in (\omega_\theta,\theta)$, so ist aufgrund der Monotonie $T_{vw}(l_v(\theta'))\geq T_{vw}(l_v(\omega_\theta)) = l_w(\theta)\geq l_w(\theta')$.
-	Dies kann nicht mit Gleichheit erfüllt sein, da $\omega_\theta$ maximal mit der Eigenschaft $T_{vw}(l_v(\omega)) = l_w(\theta)$ ist, wodurch $\theta\in\Theta_{vw}^c$ folgt.
+	Die erste Ungleichung kann nicht mit Gleichheit erfüllt sein, da $\omega_\theta$ maximal mit der Eigenschaft $T_{vw}(l_v(\omega)) = l_w(\theta)$ ist, wodurch $\theta'\in\Theta_{vw}^c$ folgt.
 	
 	Mit $l_v(\Theta_{vw}^c) = \bigcup_{\theta\in\R}(l_v(\omega_\theta),l_v(\theta))$ verschwindet $f_{vw}^+$ nach Lemma~\ref{lemma-vanishes-intervals} genau dann fast überall auf $l_v(\Theta_{vw}^c)$, wenn es für alle $\theta\in\R$ fast überall auf $(l_v(\omega_\theta),l_v(\theta))$ verschwindet.
 	Dies ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} wiederum äquivalent zu
@@ -109,7 +109,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 \end{definition}
 
 Dabei betrachte man folgende Intuition:
- Partikel, die zur Zeit $\theta\in\R$ bei $s$ starten und sich auf einem kürzestem Weg zu $t$ bewegen  -- also zur Zeit $l_t(\theta)$ in $t$ ankommen --, überholen andere Partikel, falls $b_s(\theta) > -b_t(\theta)$.
+ Partikel, die zur Zeit $\theta\in\R$ bei $s$ starten und sich auf einem kürzesten Weg zu $t$ bewegen  -- also zur Zeit $l_t(\theta)$ in $t$ ankommen --, überholen andere Partikel, falls $b_s(\theta) > -b_t(\theta)$.
 Falls jedoch $b_s(\theta) < - b_t(\theta)$ gilt, wurde das Partikel bereits von anderen überholt.
 Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 
@@ -133,7 +133,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
-	$(i)$: Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $\sum_{v_\in V} b_v$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
+	$(i)$: Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $\sum_{v\in V} b_v$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
 	Damit gilt:
 		\[ \sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E}  (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0. \]
 		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
@@ -158,7 +158,7 @@ Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-gr
 \begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
 	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
-		\item Der Fluss $f$ fließt nur entlang aktiver Kanten
+		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für alle Kanten $e\in E$ und zu jeder Zeit $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
 		\item Der Fluss $f$ fließt ohne Überholungen.
 	\end{enumerate}
@@ -171,7 +171,7 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 
 \begin{remark}\label{remark-s-t-flow}
 	In einem Nash-Fluss ist der statische Fluss $x(\theta)$ mit $x_e(\theta):=x_e^+(\theta)=x_e^-(\theta)$ nach Lemma~\ref{lemma-balance-0} für alle $\theta\in\R$  ein statischer $s$-$t$-Fluss.
-	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$ ist, da Differenzieren die Flusserhaltung erhält und $x_e$ monoton wachsend ist für alle $e\in E$.
+	Wegen der Monotonie von $x_e$ ist auch $x(\theta_2) - x(\theta_1)$ für $\theta_1 \leq \theta_2$ ein statischer $s$-$t$-Fluss, genauso wie $x'(\theta)$, falls $x_e$ für alle $e\in E$ differenzierbar in $\theta$ ist, da Differenzieren die Flusserhaltung erhält und $x_e$ monoton wachsend ist für alle $e\in E$.
 \end{remark}
 
 \begin{lemma}\label{lemma-nash-flow-waiting-queue-implies-active-edge}
