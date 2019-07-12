@@ -15,8 +15,8 @@ In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten
 	Die Funktionen $T_e$, $l^P$ sowie $l_v$ sind dabei für alle Kanten $e\in E$, Pfade $P$ in G und Knoten $v\in V$ monoton wachsend, lokal absolut stetig und surjektiv.
 \end{proposition}
 \begin{proof}
-	Nach dem Hauptsatz der Differential- und Integralrechnung für das Lebesgue-Integral (siehe dazu \cite[Satz 4.14]{Elstrodt2011Abs}) ist $G(x):= \int_a^x g(t) \diff t$ für eine Lebesgue integrierbare Funktion $g: [a,b] \to \R$ absolut stetig.
-	Insbesondere sind also $F_e^+$ sowie $F_e^-$ und damit auch $q_e$, $T_e$ lokal absolut stetig.
+	Nach dem Hauptsatz der Differential- und Integralrechnung für das Lebesgue-Inte\-gral (siehe dazu \cite[Satz 4.14]{Elstrodt2011Abs}) ist $G: [a,b] \to \R, x\mapsto \int_a^x g(t) \diff t$ für eine Lebesgue integrierbare Funktion $g: [a,b] \to \R$ absolut stetig.
+	Insbesondere sind also $F_e^+$ sowie $F_e^-$ und damit auch $q_e$ und $T_e$ lokal absolut stetig.
 	Als Komposition bzw. punktweises Minimum endlich vieler lokal absolut stetiger Funktionen ist auch $l^P$ bzw. $l_v$ für alle Pfade $P$ und Knoten $v$ lokal absolut stetig.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-T-mon-inc-cont} ist die Monotonie von $T_e$ bereits gegeben, welche auch die Monotonie von $l^P$ und $l_v$ impliziert.
 	Wegen $f_e^+, f_e^-\in\mathfrak{F_0}$ gilt $q_e(\theta)=0$ für $\theta\leq 0$, wodurch auch $\lim_{\theta\to-\infty} T_e(\theta) = - \infty$ folgt.
@@ -44,12 +44,12 @@ Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksung
 Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzeste Pfade sind; im dynamischen Sinne gilt dies nicht unbedingt, jedoch aber in folgendem Teilgraph:
 
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit ein Spannbaum mit Wurzel $s$.
+	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit ein azyklischer Graph, in dem $s$ jeden Knoten $v\in V$ erreichen kann.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
-	Es ist $l^C(\theta) > \theta$, da für Zykeln eine positive Gesamtverzögerung vorausgesetzt ist.
-	Augrund der Aktivität aller Kanten in $C$ erzeugt $l_{v_1}(\theta) = T^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
+	Es ist $l^C(\theta) > \theta$, da für Zyklen eine positive Gesamtverzögerung vorausgesetzt ist.
+	Aufgrund der Aktivität aller Kanten in $C$ erzeugt $l_{v_1}(\theta) = l^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
 	
 	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
 	Daher ist $w$ von $s$ aus in $G_\theta$ erreichbar.
@@ -63,16 +63,16 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	\end{cases} \]
 \end{proposition}
 \begin{proof}
-	Offenbar löst $l_v(\theta)$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
+	Offenbar löst $(l_v(\theta))_{v\in V}$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
 	Dabei ist der Teilgraph $G'=(V, E')$ mit
 	\[ E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
-	ein Spannbaum mit Wurzel $s$:
+	ein azyklischer Graph, in dem $s$ jeden Knoten $w\in V$ erreichen kann:
 	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
-	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch den eindeutigen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
+	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch einen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
 	Für einen zur Zeit $\theta$ kürzesten $s$-$w$-Pfad $Q$ gilt außerdem $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$.
 \end{proof}
 
-Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Belman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
+Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Bellman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
 Dazu wird in jeder der $n-1$ Iterationen für jede Kante das punktweise Minimum $l_w := \min\{ l_w, T_{vw}\circ l_v \}$ gebildet.
 Sind Operationen auf Funktionen nicht möglich oder zu teuer, so kann $(l_v(\theta))_{v\in V}$ für ein spezielles $\theta\in\R$ mittels Dijkstra-Algorithmus ermittelt werden, wobei man die Kosten einer Kante $vw$ erst bei Scanning von $v$ in der Form $q_{vw}(l_v(\theta)) + \tau_{vw}$ berechnet.
