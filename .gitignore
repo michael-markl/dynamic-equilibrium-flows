@@ -14,6 +14,6 @@
 *.nav
 *.snm
 
-!main.pdf
+!seminararbeit.pdf
 !handout.pdf
 !beamer.pdf
