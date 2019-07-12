@@ -191,7 +191,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	
 	Im nächsten Schritt zeige man $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_w'$ für Kanten $vw\in E_T$, für die $x_{vw}'$ positiv ist oder deren Warteschlange zur Zeit $l_v(T)$ positiv ist:
 	Für $x_{vw}' > 0$ impliziert~(ii) zusammen mit Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
-	Für $vw\in E_1$ gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}.
+	Für $vw\in E_1$ mit $x_{vw}'=0$ gilt $l_w' = x_{vw}' / u_{vw} = 0$ nach~\ref{def-thin-flow-resetting-edge}.
 	Entsprechend erfüllt die Warteschlange
 	\begin{align*}
 	\tilde{z}_{vw}(l_v(T) + (\theta - T)l_v') - z_{vw}(l_v(T)) &= (\theta - T) x_{vw}' - \int_{l_v(T) + \tau_{vw}}^{l_v(T) + (\theta - T) l_v' + \tau_{vw}} f_e^-(t) \diff t \\
