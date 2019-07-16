@@ -70,6 +70,28 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 	Dann ist $l_w' = \min_{vw\in \delta^-(w)} \max \{ l_v', x_{vw}'/ u_{vw} \} \geq \min_{vw\in \delta^-(w)} l_v'$.
 \end{proof}
 
+\begin{lemma}[Eindeutigkeit der Knotenbewertung]
+	Sei ein azyklisches Netzwerk mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
+	Dann sind die Knotenbewertungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
+\end{lemma}
+\begin{proof}
+	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurücksetzen auf $E_1$ mit unterschiedlichen Knotenbewertungen $l'\neq h'$.
+	Dann ist oBdA. die Menge $S:=\{ v\in V \mid l_v' > h_v' \}$ nichtleer.
+	Der Balancevektor $(b_v)_{v\in V}$ mit $$b_v:=\sum_{e\in\delta^+(v)} x_e' - \sum_{e\in\delta^-(s)} x_e' = \sum_{e\in\delta^+(v)} y_e' - \sum_{e\in\delta^-(v)} y_e'$$ ist für $x'$ und $y'$ identisch, da beide Flusserhaltung in $v\notin\{ s, t\}$, und damit $b_v=0$ erfüllen und Wert $d$ besitzen.
+	Betrachtet man Kanten, die innerhalb $S$ verlaufen, erhält man 
+	\begin{equation}\label{proof-uniqueness-labels-eq}
+	\sum_{e\in \delta^+(S)} x'_e - \sum_{e\in\delta^-(S)} x'_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} y_e' - \sum_{e\in\delta^-(S)} y_e'.
+	\end{equation}
+	Für Kanten $vw\in \delta^+(S)$ gilt $x_e' \leq y_e'$, da für $x_e' > y_e'$ Lemma~\ref{lemma-thin-flow-node-labels} und $v\in S$ die Ungleichung $l_w' = \rho_{vw}(l_v', x_{vw}') > \rho_{vw}(h_v', y_{vw}')\geq h_w'$ implizieren würden, welche jedoch im Widerspruch zu $w\notin S$ steht.
+	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $x_e' \geq y_e'$, weil sonst $l_w' \leq \rho_{vw}(l_v', x_{vw}') \leq \rho_{vw}(h_v', y_{vw}') = h_w'$ wegen $v\notin S$ gelten würde, was $w\in S$ widerspricht.
+	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $x_e = y_e$ für alle $e\in \delta(S):=\delta^-(S) \cup \delta^+(S)$.
+	Für $vw\in \delta^-(S)$ ist dann $y_e'=x_e'=0$, da für $y_e'=x_e'>0$ wieder mit $v\notin S$ die Ungleichung $l_w' = \rho_{vw}(l_v, x_{vw}')\leq \rho_{vw}(h_v, y_{vw}')=h_w'$ der Bedingung $w\in S$ widerspricht.
+	
+	Aufgrund der Azyklizität existiert ein Knoten $w\in S$ mit $\delta^-(w)\subseteq \delta^-(S)$.
+	Eingehende Kanten von $w$ sind daher nicht in $E_1$ enthalten, da für solch eine Kante $\rho_{vw}(l_v', x_e') = 0 = \rho_{vw}(l_v', y_e')$ gelten würde, sodass $l_w' = 0 = h_w'$ der Voraussetzung $w\in S$ widerspricht.
+	Daher ist $l_w' = \min_{vw\in \delta^-(w)} l_v'$ und $h_w' = \min_{vw\in\delta^-(w)} h_v'$, was den Widerspruch $l_w' \leq h_w'$ impliziert.
+\end{proof}
+
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen schmalen Fluss mit Zurücksetzen induziert.
 Die Voraussetzung, dass hierbei die entsprechenden Ableitungen existieren, kann man dadurch rechtfertigen, dass nach \cite[Folgerung~4.12~b)]{Elstrodt2011Abs} absolut stetige Funktionen fast überall differenzierbar sind.
