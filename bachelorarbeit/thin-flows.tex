@@ -6,11 +6,11 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-
 	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Netzwerk $(G, u, s, t)$ mit Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
 	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
-	\item\label{def-thin-flow-source} $l_s' = F/d$,
-	\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
-	\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
-	\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
-	\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
+		\item\label{def-thin-flow-source} $l_s' = F/d$,
+		\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
+		\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
+		\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
+		\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 \end{definition}
 
@@ -59,7 +59,7 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $x_{vw}'(\theta) = u_{vw} l_w'(\theta)$.
 		Ist $vw\in E_1$, so ist also Bedingung~\ref{def-thin-flow-resetting-edge} erfüllt.
 		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $x_{vw}'(\theta)=0$ voraus, wodurch $l_w'(\theta)=0$ folgt und mit der Monotonie von $l_v$ gilt $0 \leq l_v'(\theta)$.
-
+		
 		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
 		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
@@ -84,7 +84,7 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta)}^{l_w(\theta+\varepsilon)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
-\vspace{-1.2 \baselineskip}
+	\vspace{-1.2 \baselineskip}
 \end{proof}
 
 \begin{definition}
@@ -94,8 +94,8 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizont $T$ der Zu- bzw. Abfluss ab der frühestmöglichen Ankunftszeit am Start- bzw. Endknoten jeder Kante bei Startzeit $T$ fast überall verschwinden.
 
 \begin{proposition}
-Für einen dynamischen Nash-Fluss $f$ mit Zeithorizont $T$ und eine Kante $e\in E$ gilt $x_{e}(\theta) = x_{e}(T)$ für alle $\theta \geq T$.
-Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(T)$ und $f_{vw}^-$ ab dem Zeitpunkt $l_w(T)$ fast überall für alle Kanten $vw\in E$.
+	Für einen dynamischen Nash-Fluss $f$ mit Zeithorizont $T$ und eine Kante $e\in E$ gilt $x_{e}(\theta) = x_{e}(T)$ für alle $\theta \geq T$.
+	Insbesondere verschwinden $f_{vw}^+$ ab dem Zeitpunkt $l_v(T)$ und $f_{vw}^-$ ab dem Zeitpunkt $l_w(T)$ fast überall für alle Kanten $vw\in E$.
 \end{proposition}
 \begin{proof}
 	Der statische $s$-$t$-Fluss $x(\theta) -x(T)$ ist nach Proposition~\ref{prop-nash-flow-s-t-path-decomposable} in $s$-$t$-Wege zerlegbar.
@@ -179,7 +179,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	Insbesondere ist $\theta - l_v(T) < \alpha l_w'$, was äquivalent zu $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ ist.
 	Nun kann man $l_v' < l_w'$ folgern, was $l_w' = x_{vw}'/u_{vw}$ impliziert.
 	Damit gilt $\tilde{f}^-(\theta + \tau_{vw}) = u_{vw}$.
-
+	
 	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
 	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
 	Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_s' = \theta$.

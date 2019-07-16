@@ -61,14 +61,6 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
-\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
-
-
-\renewcommand{\[}{
-	\setlength\abovedisplayskip{1.1ex}
-	\setlength{\belowdisplayskip}{1.1ex}
-	\setlength{\abovedisplayshortskip}{1.1ex}
-	\setlength{\belowdisplayshortskip}{1.1ex}\begin{equation*}}
 
 \renewcommand{\]}{\end{equation*}}
 
@@ -87,7 +79,13 @@
 \setcounter{page}{0}    % Eigentlicher Inhalt beginnt auf Seite 1
 \clearpage              % neue Seite für eigentlichen Inhalt
 
+\input{bachelorarbeit/introduction}
+\input{bachelorarbeit/dynamic-flows}
+\input{bachelorarbeit/travel-times}
+\input{bachelorarbeit/nash-flows}
+\input{bachelorarbeit/thin-flows}
 
+\input{bachelorarbeit/complexity-class-ppad}
 
 
 \clearpage          % neue Seite für Literaturverzeichnis
