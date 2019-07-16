@@ -3,9 +3,18 @@
 Zunächst werden einige grundlegende Begriffe eingeführt:
 
 \begin{definition}[Netzwerk]
-	Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter, endlicher Graph $G=(V,E)$ mit einer \emph{Quelle} $s\in V$ und einer Senke $t\in V$, sodass alle Knoten von $s$ aus erreichbar sind.
+	Ein \emph{Netzwerk} $(G, u, s, t, \tau)$ ist ein gerichteter, endlicher Graph $G=(V,E)$ mit Ursprung $s\in V$, also ein Graph in dem $s$ alle Knoten in $V$ erreichen kann.
+	Dabei heißen $s$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
 	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e$ haben.
 \end{definition}
+
+\begin{definition}[statischer Fluss]
+	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
+	Existieren zwei Knoten $s,t\in V$, sodass
+	$$ \sum_{e\in\delta^+(v)} f_e - \sum_{e\in\delta^-(v)} f_e$$ für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f):=\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
+\end{definition}
+
+Man bemerke, dass hier ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
 
 \begin{definition}
 	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt, es gilt $g(t)=0$ für $t<0$.

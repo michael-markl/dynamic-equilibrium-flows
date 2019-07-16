@@ -3,8 +3,8 @@
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-Flüsse:
 
 \begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
-	Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Netzwerk $(G, u, s, t)$ mit Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
-	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V$ existiert, die die folgenden Bedingungen erfüllt:
+	Seien ein statischer $s$-$t$-Fluss $x'$ mit Wert $F$ in einem azyklischen Netzwerk $(G, u, s, t)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
+	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V_{\geq 0}$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $l_s' = F/d$,
 		\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
@@ -12,17 +12,64 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-
 		\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
 		\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
+	Der Fluss $x'$ heißt \emph{normiert}, falls $F=d$ gilt.
+	Die \emph{Auslastung durch eine Kante $e\in E$ bei \todo{Ausgangsauslastung} $l_v'$ und Flusswert $x_e'$} sei gegeben durch
+	$$\rho_e(l_v', x_e'):=\begin{cases}
+		\max\{ l_v', x_e' / u_e \}, & \text{falls $e\notin E_1$,}\\
+		x_e' / u_e, & \text{falls $e\in E_1$.}
+	\end{cases}$$
 \end{definition}
 
-Dabei nennt man $x_e'/u_e$ die Auslastung einer Kante $e\in E$.
+\todo{
+Dabei nennt man $x_e'/u_e$ die Auslastung einer Kante $e\in E$ i $s$.
 Ist $E_1 = \emptyset$, dann ist die Knotenbeschriftung $l_v'$ gerade die Auslastung $\max_{e\in P} x_e'/u_e$ eines jeden $s$-$v$-Pfades $P$ mit positiven Fluss.
 Kanten in $E_1$ setzen dann die Auslastung jedes vorangegangenen Pfades auf ihre eigene zurück.
+}
 
 \begin{remark}\label{remark-thin-flow}
-	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
-	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
+Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
+Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
+Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
 \end{remark}
+
+\begin{lemma}\label{lemma-thin-flow-node-labels}
+	Für jeden $F$-wertigen $s$-$t$-Fluss $x'$ in einem azyklischen Netzwerk $(G, u, s, t)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie $E_1\subseteq E$ existiert eine eindeutige Lösung $(l_v')_{v\in V}$ des Gleichungssystems
+	$$l_w' = \begin{cases}
+		F/d, & \text{falls $w=s$,}\\
+		\min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}'), & \text{sonst.}
+	\end{cases}$$
+	Ist $x'$ ein schmaler Fluss mit Zurücksetzen auf $E_1$, so stimmt die zugehörige Knotenbewertung mit der Lösung dieses Systems überein.
+\end{lemma}
+\begin{proof}
+	Die eindeutige Existenz folgt aus der Azyklizität des Graphen.
+	Sei $x'$ nun schmaler Fluss mit Zurücksetzen auf $E_1$.
+	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ in $E$ bezüglich der Kantenzahl.
+	Für $w=s$ gilt $l_s'=F/d$ bereits nach~\ref{def-thin-flow-source}.
+	Für $w\neq s$ ist $l_w'$ nach~\ref{def-thin-flow-x-zero},~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} eine untere Schranke an $\rho_{vw}(l_v', x_{vw}')$ für $vw\in\delta^-(w)$.
+	Es bleibt zu zeigen, dass die Auslastung durch eine eingehende Kante gerade $l_w'$ ist:
+	Falls eine eingehende Kante in $E_1$ oder eine eingehende Kante mit $x_e'> 0$ existiert, ist die Auslastung durch die Kante $l_w'$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
+	Sonst ist $l_w'\geq \min_{vw\in \delta^-(w)} l_v' = \min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}')$ nach~\ref{def-thin-flow-no-resetting-edge}, was die Behauptung zeigt.
+\end{proof}
+
+\begin{lemma}
+	Ein $F$-wertiger statischer $s$-$t$-Fluss $x'$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn $x_{vw}'= 0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ gilt.
+	Dabei sei $(l_v')_{v\in V}$ die Lösung des Gleichungssystems aus Lemma~\ref{lemma-thin-flow-node-labels}.
+\end{lemma}
+\begin{proof}
+	Angenommen, $x'$ sei ein schmaler Fluss mit Zurücksetzen auf $E_1$.
+	Dann ist $(l_v')_{v\in V}$ nach Lemma~\ref{lemma-thin-flow-node-labels} die zugehörige Knotenbewertung von $x'$.
+	Für eine Kante $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ ist $vw\notin E_1$ und $x_{vw}'=0$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
+
+	Nun nehme man an, es gelte $x_{vw}'=0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$, und man zeige die Eigenschaften~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge}.
+	Die Eigenschaften~\ref{def-thin-flow-source} und~\ref{def-thin-flow-x-zero} gelten bereits aufgrund der Definition von $(l_v')_{v\in V}$ und $\rho_{vw}$.
+	Ist $vw\notin E_1$ mit $x_{vw}'>0$, so gilt $l_w' = \rho_{vw}(l_v', x_{vw}')$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
+	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $x_{vw}'>0$: Hier folgt wieder $l_w' = \rho_{vw}(l_v', x_{vw}')$.
+	Falls $x_{vw}'=0$ gilt $l_w'=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}', x_{\tilde{v}w}') = 0$.
+	Es bleibt also Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
+	Man nehme $\delta^-(w)\cap E_1=\emptyset$ an.
+	Dann ist $l_w' = \min_{vw\in \delta^-(w)} \max \{ l_v', x_{vw}'/ u_{vw} \} \geq \min_{vw\in \delta^-(w)} l_v'$.
+\end{proof}
+
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen schmalen Fluss mit Zurücksetzen induziert.
 Die Voraussetzung, dass hierbei die entsprechenden Ableitungen existieren, kann man dadurch rechtfertigen, dass nach \cite[Folgerung~4.12~b)]{Elstrodt2011Abs} absolut stetige Funktionen fast überall differenzierbar sind.
