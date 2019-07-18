@@ -99,8 +99,8 @@ Zudem gilt nach \cite[Aufgabe~4.10]{Elstrodt2011Abs} die Substitutionsregel für
 Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analog $x_{vw}'(\theta) = f_{vw}^-(l_w(\theta)) l_w'(\theta)$ für fast alle $\theta\in\R$.
 
 \begin{theorem}
-	Seien ein dynamischer Nash-Fluss $f$ in $(V,E)$ sowie $\theta\in\R$ gegeben.
-	Existieren die Ableitungen $x_{vw}'(\theta)$ und $l_v'(\theta)$ mit $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)$ für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein schmaler $d(\theta)$-wertiger Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ bei Versorgungsrate~$d(\theta)$.
+	Seien ein dynamischer Nash-Fluss $f$ im Graphen $(V,E)$ sowie $\theta\in\R$ gegeben.
+	Existieren die Ableitungen $x_{vw}'(\theta)$ und $l_v'(\theta)$ mit $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)$ für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ bei Versorgungsrate $d(\theta)$.
 	Als Knotenbewertung dienen dazu die Ableitungen $(l_v'(\theta))_{v\in V}$.
 \end{theorem}
 \begin{proof}
@@ -175,12 +175,12 @@ Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizon
 \end{proof}
 
 \begin{definition}[$\alpha$-Erweiterung]
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein $\tilde{d}$-wertiger schmaler Fluss $x'$ mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ bei Versorgungsrate $\tilde{d}$ und ein $\alpha > 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ und ein $\alpha > 0$ gegeben.
 	
 	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
 	\[ \tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$} \]
-	gelten, so erhält man eine \emph{$\tilde{d}$-wertige $\alpha$-Erweiterung $\tilde{f}$ von $f$}.
-	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade $\tilde{d}$.
+	gelten, so erhält man eine \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}.
+	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade dem Wert von $x'$.
 \end{definition}
 
 Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweiterung wieder einen Nash-Fluss erzeugt.
