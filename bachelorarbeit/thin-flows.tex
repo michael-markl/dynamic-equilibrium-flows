@@ -1,4 +1,4 @@
-\section{Erweiterung dynamischer Nash-Flüsse}\label{sec-thin-flows}
+\section{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
 
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-Flüsse:
 
@@ -51,7 +51,7 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 	Sonst ist $l_w'\geq \min_{vw\in \delta^-(w)} l_v' = \min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}')$ nach~\ref{def-thin-flow-no-resetting-edge}, was die Behauptung zeigt.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-equivalent-thin-flow}
 	Ein $F$-wertiger statischer $s$-$t$-Fluss $x'$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn $x_{vw}'= 0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ gilt.
 	Dabei sei $(l_v')_{v\in V}$ die Lösung des Gleichungssystems aus Lemma~\ref{lemma-thin-flow-node-labels}.
 \end{lemma}
@@ -64,7 +64,7 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 	Die Eigenschaften~\ref{def-thin-flow-source} und~\ref{def-thin-flow-x-zero} gelten bereits aufgrund der Definition von $(l_v')_{v\in V}$ und $\rho_{vw}$.
 	Ist $vw\notin E_1$ mit $x_{vw}'>0$, so gilt $l_w' = \rho_{vw}(l_v', x_{vw}')$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
 	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $x_{vw}'>0$: Hier folgt wieder $l_w' = \rho_{vw}(l_v', x_{vw}')$.
-	Falls $x_{vw}'=0$ gilt $l_w'=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}', x_{\tilde{v}w}') = 0$.
+	Falls $x_{vw}'=0$ gilt, ist $l_w'=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}', x_{\tilde{v}w}') = 0$.
 	Es bleibt also Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
 	Man nehme $\delta^-(w)\cap E_1=\emptyset$ an.
 	Dann ist $l_w' = \min_{vw\in \delta^-(w)} \max \{ l_v', x_{vw}'/ u_{vw} \} \geq \min_{vw\in \delta^-(w)} l_v'$.
@@ -92,6 +92,53 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 	Daher ist $l_w' = \min_{vw\in \delta^-(w)} l_v'$ und $h_w' = \min_{vw\in\delta^-(w)} h_v'$, was den Widerspruch $l_w' \leq h_w'$ impliziert.
 \end{proof}
 
+\begin{theorem}[Existenz eines normierten schmalen Flusses]\label{thm-existence-thin-flow}
+	Seien ein azyklisches Netzwerk $(G,u,s,t)$ mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
+	Es existiert ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$.
+\end{theorem}
+
+Um die Existenz zu beweisen, benötigen wir zunächst den Fixpunktsatz von Kakutani.
+Dazu führen wir die folgenden Begriffe ein:
+
+\begin{definition}[Korrespondenz, Fixpunkt]
+	Eine \emph{Korrespondenz} von einer Menge $A$ in eine Menge $B$ ist eine Abbildung $f: A \to \mathcal{P}(B)\setminus \{ \emptyset \}$ von $A$ in die Potenzmenge von $B$ ohne die leere Menge.
+	Sind $A$ und $B$ topologische Räume, so nennt man $f$ \emph{abgeschlossen}, wenn die zugehörige Relation $R_f := \{ (a,b) \in A\times B \mid b\in f(a)  \}$ in der Produkttopologie abgeschlossen ist.
+
+	Ein \emph{Fixpunkt} einer Korrespondenz $f: X \to \mathcal{P}$ ist ein Punkt $x\in X$ mit $x\in f(x)$.
+\end{definition}
+
+Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
+
+\begin{satz}[Fixpunktsatz von Kakutani]\label{satz-kakutani}
+	Seien $C\subseteq E$ eine nichtleere, konvexe und kompakte Teilmenge eines normierten Raumes $E$ und $f: C \to \mathcal{P}(C)$ eine abgeschlossene, konvexwertige Korrespondenz.
+	Dann besitzt $f$ einen Fixpunkt.
+\end{satz}
+
+\begin{proof}[Beweis von Theorem~\ref{thm-existence-thin-flow}]
+	Man betrachte die Menge $C$ aller $s$-$t$-Flüsse mit Wert $d$ als Teilmenge des metrischen Raums $\R^E$.
+	Diese ist nichtleer, weil $t$ von $s$ aus erreichbar ist, konvex, da für $x', y'\in C, \lambda \in [0,1]$ der Fluss $\lambda x' + (1-\lambda)y'$ wieder die Flusserhaltung erfüllt, und kompakt, da jeder Fluss in $C$ von Wert $d$ ist und aufgrund der Azyklizität in $s$-$t$-Wege zerlegbar ist, wodurch jede Kante maximal Fluss $d$ besitzen kann, sodass $C\subseteq [0, d]^E$ folgt.
+	Auf $C$ definiere man die Korrespondenz
+	\[
+	\Gamma: C\to \mathcal{P}(C), ~ x'\mapsto \{ y'\in C \mid \forall vw\in E: l_w' < \rho_{vw}(l_v', x_{vw}') \implies y_{vw}' = 0 \}.
+	\]
+	Dabei sei $l'\in\R_{\geq 0}^V$ die zu $x'$ gehörige Knotenbewertung aus Lemma~\ref{lemma-thin-flow-node-labels}.
+	Diese Korrespondenz ist wohldefiniert, da $\Gamma(x')$ für jedes $x'\in C$ nichtleer ist:
+	Der Knoten $s$ kann im Graphen $G':= (V, E')$ mit $E':= \{ vw\in E \mid \rho_{vw}(l_v', x_{vw}')=l_w' \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante mit $l_w' = \rho_{vw}(l_v', x_{vw}')$ besitzt. 
+	Daher existiert ein $s$-$t$-Weg $P$ in $G'$ und der Fluss $d\cdot P$ ist in $\Gamma(x')$ enthalten.
+	
+	Für jedes $x'\in C$ ist $\Gamma(x')$ konvex: Ist für $y', z'\in \Gamma(x'), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w' < \rho_{vw}(l_w', x_{vw}')$ erfüllt, so gilt auch $\lambda y_{vw}' + (1-\lambda) z_{vw}' = 0$, womit $\lambda y' + (1-\lambda)z'$ im Bild $\Gamma(x)$ liegt.
+	Des Weiteren ist $\Gamma$ abgeschlossen: 
+	Sei eine konvergente Folge $((x^{n}, y^{n}))_{n\in\N}$ in $R_\Gamma$ mit Grenzwert $(x, y)$ gegeben.
+	Die zu $x$ bzw. $x^n$ gehörige Knotenbeschriftung aus Lemma~\ref{lemma-thin-flow-node-labels} sei gegeben durch $l$ bzw. $l^n$. 
+	Angenommen, es gelte $l_w < \rho_{vw}(l_v, x_{vw})$.
+	Da die Zuordnung $x'\mapsto l'$ aus Lemma~\ref{lemma-thin-flow-node-labels} stetig ist, existiert ein $N\in\N$ mit $l_w^n<\rho_{vw}(l_v^n, x_{vw}^n)$ für alle $n\geq N$.
+	Damit ist auch $y_{vw} = \lim_{n\to\infty} y_{vw}^n = 0$.
+	
+	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
+\end{proof}
+
+
+\section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen schmalen Fluss mit Zurücksetzen induziert.
 Die Voraussetzung, dass hierbei die entsprechenden Ableitungen existieren, kann man dadurch rechtfertigen, dass nach \cite[Folgerung~4.12~b)]{Elstrodt2011Abs} absolut stetige Funktionen fast überall differenzierbar sind.
