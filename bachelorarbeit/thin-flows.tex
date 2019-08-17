@@ -211,17 +211,6 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	Bezüglich $\tilde{f}$ haben dann sowohl Vorwärtskanten als auch Rückwärtskanten eine geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein minimaler $b$-Fluss, dessen maximal ausgelastete Kanten, also Kanten mit Auslastung $q^*$, eine echte Teilmenge von $E'$ sind, da mindestens eine Rückwärtskante in $E'$ enthalten war.
 	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $E'$.
-%	
-%	Sei ein $v$-$w$-Pfad $P$ mit positivem Fluss gegeben, der eine Kante aus $E'$ benutzt.
-%	Angenommen, es würde $v=w$ gelten, so könnte man $f$ entlang des Kreises $P$ um $\gamma:=-\min_{e\in P} f_e > 0$ augmentieren und einen $b$-Fluss $\tilde{f}$ erhalten.
-%	Da durch die Augmentierung die Auslastung der Kanten nur kleiner werden kann, ist auch die Auslastung von $\tilde{f}$ minimal und damit $q^*$, sodass die Menge der durch $\tilde{f}$ maximal ausgelasteten Kanten eine echte Teilmenge von $E'$ ist, weil mindestens eine Kante aus $E'$ in $P$ liegt, welche nach Augmentierung nicht mehr Auslastung $q^*$ hat.
-%	Dies steht im Widerspruch zur Inklusionsminimalität von $E'$.
-%	
-%	Nun nehme man an, es existiere ein nichtleerer $v$-$w$-Pfad $Q$, der keine Kante aus $E'$ benutzt.
-%	Es sei $\gamma_Q:=\min_{e\in Q} q^*u_e - f_e$ die minimale Flussmenge, die man $f$ entlang des Pfads $Q$ zugeben müsste, sodass mindestens eine Kante in $Q$ die Auslastung $q^*$ hat.
-%	Außerdem sei $\gamma_P:=\min_{e\in P} f_e$ die maximale Flussmenge, die man aus $f$ entlang des Pfades $P$ entfernen kann.
-%	Augmentiert man den Fluss $f$ nun um $\gamma:=\max\{ \gamma_P, \gamma_Q/2 \}$, so erhält man wieder einen $b$-Fluss $\tilde{f}$ minimaler Auslastung, der auf $P$ und $Q$ keine maximal ausgelasteten Kanten besitzt.
-%	Dies erzeugt wieder einen Widerspruch zur Inklusionsminimalität von $E'$.
 \end{proof}
 
 
