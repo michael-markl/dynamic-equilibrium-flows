@@ -119,7 +119,7 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	Diese ist nichtleer, weil $t$ von $s$ aus erreichbar ist, konvex, da für $x', y'\in C, \lambda \in [0,1]$ der Fluss $\lambda x' + (1-\lambda)y'$ wieder die Flusserhaltung erfüllt, und kompakt, da jeder Fluss in $C$ von Wert $d$ ist und aufgrund der Azyklizität in $s$-$t$-Wege zerlegbar ist, wodurch jede Kante maximal Fluss $d$ besitzen kann, sodass $C\subseteq [0, d]^E$ folgt.
 	Auf $C$ definiere man die Korrespondenz
 	\[
-	\Gamma: C\to \mathcal{P}(C), ~ x'\mapsto \{ y'\in C \mid \forall vw\in E: l_w' < \rho_{vw}(l_v', x_{vw}') \implies y_{vw}' = 0 \}.
+	\Gamma: C\to \mathcal{P}(C)\setminus\{ \emptyset \}, ~ x'\mapsto \{ y'\in C \mid \forall vw\in E: l_w' < \rho_{vw}(l_v', x_{vw}') \implies y_{vw}' = 0 \}.
 	\]
 	Dabei sei $l'\in\R_{\geq 0}^V$ die zu $x'$ gehörige Knotenbewertung aus Lemma~\ref{lemma-thin-flow-node-labels}.
 	Diese Korrespondenz ist wohldefiniert, da $\Gamma(x')$ für jedes $x'\in C$ nichtleer ist:
@@ -137,6 +137,121 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
 \end{proof}
 
+\section{Effiziente Berechnung schmaler Flüsse}
+
+Die Existenz schmaler Flüsse mit Zurücksetzen aus Theorem~\ref{thm-existence-thin-flow} suggeriert bereits einen exponentiellen Algorithmus, um einen solchen Fluss mit Wert $d$ zu berechnen:
+Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w' = \rho_{vw}(l_v', x_{vw}')$ erfüllen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die $\max\{ l_v', x_{vw}/u_{vw}\} = \sigma_{vw} l_v' + (1-\sigma_{vw}) x_{vw}/u_{vw}$ erfüllt.
+Dann suche man einen zulässigen Punkt in folgendem Polyeder:
+\begin{align*}
+&	(x', l') \in \R_{\geq 0}^{E'\times V} \\
+	\text{u.d.N.}\quad &
+	x'(\delta^+(v)) - x'(\delta^-(v)) =
+		\begin{cases}
+			d, & \text{falls $v=s$},\\
+			0, & \text{sonst,} 
+		\end{cases} & \text{für $v\in V\setminus\{t \}$,} \\
+	& \begin{array}{@{}l}
+		l_w' = \sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw}\\
+		\sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw} \geq x'_{vw}/u_{vw}\\
+		\sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw} \geq l_v'
+	\end{array}
+	& \text{für $vw\in E'\setminus E_1$},\\
+	& l_w' = x'_{vw}/u_{vw} & \text{für $vw\in E_1$.}
+\end{align*}
+
+\newcommand{\TFNP}{\mathbf{TFNP}}
+
+Existiert solch ein Punkt $(x', l')$, so ist $x'$ nach Lemma~\ref{lemma-equivalent-thin-flow} ein schmaler Fluss mit Zurücksetzen auf $E_1$ mit zugehöriger Knotenbewertung $l'$.
+Außerdem muss aufgrund der Existenz eines schmalen Flusses mindestens eine Wahl von $E'$ und $\sigma$ existieren, sodass der zugehörige Polyeder nichtleer ist.
+\todo{Habe ich hier nicht das Problem, dass ich das nur für $\Q$ in polynomieller Zeit berechnen kann?}
+Die Zulässigkeit eines solchen Polyeders kann in polynomieller Zeit beispielsweise durch die Ellipsoidmethode ermittelt werden. 
+Daher liegt das Problem, zu einem Netzwerk $(V, E, u, s, t)$ einen schmalen $d$-Fluss mit Zurücksetzen auf $E_1\subseteq E$ zu finden, in der Komplexitätsklasse $\TFNP$:
+
+\begin{definition}[Komplexitätsklasse $\TFNP$]
+	Eine Relation $P(x,y)$ liegt in der Komplexitätsklasse $\TFNP$ genau dann, wenn es einen deterministischen, polynomiellen Algorithmus gibt, der entscheidet, ob $P(x,y)$ für zwei Kandidaten $x$ und $y$ gilt, und wenn für alle $x$ ein Kandidat $y$ existiert, dessen Kodierung polynomielle Größe in der Kodierungslänge von $x$ besitzt, sodass $P(x, y)$ gilt.
+\end{definition}
+
+In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
+Dazu werden zunächst einige Begriffe eingeführt:
+
+\begin{definition}[Schnitt]
+	In einem gerichteten Netzwerk $(V, E, u)$ heißt eine Teilmenge $X\subseteq V$ \emph{Schnitt}, wobei die aus $X$ ausgehenden Kanten mit $\delta^+(X)$ und die in $X$ eingehenden Kanten mit $\delta^-(X)$ bezeichnet werden.
+	
+	Sind zusätzlich Knotenbalancen $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
+	Dabei ist $b(X)$ bzw. $u(E')$ eine Kurzschreibweise für $\sum_{v\in X} b_v$ bzw. $\sum_{e\in E'} u_e$.
+	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
+\end{definition}
+Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
+\begin{definition}[Auslastung eines $b$-Flusses]
+	In einem Netzwerk $(V, E, u)$ nennt man die maximale Kantenauslastung $\max_{e\in E} f_e / u_e$ die \emph{Auslastung des $b$-Flusses $f$}.
+\end{definition}
+
+\begin{lemma}
+	\todo{Ein kantenminimaler b-Fluss kann in $O(xyz)$ Zeit gefunden werden}
+\end{lemma}
+
+\begin{lemma}
+	Sei $q^*$ die minimale Auslastung eines $b$-Flusses im Netzwerk $(V, E, u)$.
+	Ist $E'\subseteq E$ inklusionsminimal mit der Eigenschaft, dass ein $b$-Fluss $f$ minimaler Auslastung existiert, sodass $E'$ die durch $f$ maximal ausgelasteten Kanten sind, so enthält der Residualgraph $G_f := (V, E_f)$, definiert durch \[
+		E_f := \{ e \mid e\in E, f_e/u_e < q^* \} \cup \{ e^\leftarrow \mid e\in E, f_e/u_e > 0 \},
+	\]
+	für solche Flüsse $f$ keine gerichteten Kreise, die eine Rückwärtskante einer maximal ausgelasteten Kante benutzen.
+	
+	Kanten $e\in E_f$ mit $f_e/u_e < q^*$ nennt man Vorwärtskanten und Kanten $e^\leftarrow\in E_f$ mit $f_e/u_e > 0$ Rückwärtskanten.
+	%mit positivem Fluss enthalten keine maximal ausgelasteten Kanten und enthält ein $v$-$w$-Pfad $P$ mit positivem Fluss eine maximal ausgelastete Kante, so enthält jeder $v$-$w$-Pfad eine solche.
+\end{lemma}
+\begin{proof}
+	\newcommand{\VK}{\text{VK}}
+	\newcommand{\RK}{\text{RK}}
+	Angenommen, es existiere ein einfacher Kreis $C$, der eine Rückwärtskante $e^\leftarrow$ mit $e\in E'$ enthält.
+	Es seien $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
+	Man setze $\gamma_\VK := \min_{e\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
+	Weiter sei $\gamma_\RK := \min_{e^\leftarrow\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
+	Wählt man nun $0 < \gamma < \min\{ \gamma_\VK, \gamma_\RK  \}$, so erhält man durch Augmentierung von $f$ entlang $Q$ mit $\gamma$ einen $b$-Fluss $\tilde{f}$.
+	Bezüglich $\tilde{f}$ haben dann sowohl Vorwärtskanten als auch Rückwärtskanten eine geringere Auslastung als $q^*$.
+	Demnach ist auch $\tilde{f}$ ein minimaler $b$-Fluss, dessen maximal ausgelastete Kanten, also Kanten mit Auslastung $q^*$, eine echte Teilmenge von $E'$ sind, da mindestens eine Rückwärtskante in $E'$ enthalten war.
+	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $E'$.
+%	
+%	Sei ein $v$-$w$-Pfad $P$ mit positivem Fluss gegeben, der eine Kante aus $E'$ benutzt.
+%	Angenommen, es würde $v=w$ gelten, so könnte man $f$ entlang des Kreises $P$ um $\gamma:=-\min_{e\in P} f_e > 0$ augmentieren und einen $b$-Fluss $\tilde{f}$ erhalten.
+%	Da durch die Augmentierung die Auslastung der Kanten nur kleiner werden kann, ist auch die Auslastung von $\tilde{f}$ minimal und damit $q^*$, sodass die Menge der durch $\tilde{f}$ maximal ausgelasteten Kanten eine echte Teilmenge von $E'$ ist, weil mindestens eine Kante aus $E'$ in $P$ liegt, welche nach Augmentierung nicht mehr Auslastung $q^*$ hat.
+%	Dies steht im Widerspruch zur Inklusionsminimalität von $E'$.
+%	
+%	Nun nehme man an, es existiere ein nichtleerer $v$-$w$-Pfad $Q$, der keine Kante aus $E'$ benutzt.
+%	Es sei $\gamma_Q:=\min_{e\in Q} q^*u_e - f_e$ die minimale Flussmenge, die man $f$ entlang des Pfads $Q$ zugeben müsste, sodass mindestens eine Kante in $Q$ die Auslastung $q^*$ hat.
+%	Außerdem sei $\gamma_P:=\min_{e\in P} f_e$ die maximale Flussmenge, die man aus $f$ entlang des Pfades $P$ entfernen kann.
+%	Augmentiert man den Fluss $f$ nun um $\gamma:=\max\{ \gamma_P, \gamma_Q/2 \}$, so erhält man wieder einen $b$-Fluss $\tilde{f}$ minimaler Auslastung, der auf $P$ und $Q$ keine maximal ausgelasteten Kanten besitzt.
+%	Dies erzeugt wieder einen Widerspruch zur Inklusionsminimalität von $E'$.
+\end{proof}
+
+
+Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten aufzeigt:
+
+\begin{theorem}
+	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ mit $\sum_{v\in V}b_v = 0$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
+	Existiert darüber hinaus ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
+	\[
+		\min_{\text{$f$ $b$-Fluss}}~\max_{e\in E}\frac{f_e}{u_e} = \max_{\substack{X\subseteq V\\ \delta^+(X)\neq\emptyset}} ~ \frac{b(X)}{u(\delta^+(X))}.
+	\]
+\end{theorem}
+\begin{proof}
+	Sei zunächst $f$ ein $b$-Fluss und $X$ ein Schnitt mit $\delta^+(X)\neq\emptyset$.
+	Sei $e^*$ eine Kante mit maximaler Auslastung, also eine Kante mit $f_{e^*}/u_{e^*}=\max_{e\in E} f_e / u_e$.
+	Für $e^*$ gilt somit $0\geq f_e u_{e^*} - f_{e^*}u_e$ für alle $e\in E$ und man folgere
+	\[
+		0\geq \frac{\sum_{e\in \delta^+(X)}(f_e u_{e^*} - f_{e^*}u_e)}{u(\delta^+(X)) u_{e^*}} = \frac{f(\delta^+(X))}{u(\delta^+(X))} - \frac{f_{e^*}}{u_{e^*}} \geq \frac{b(X)}{u(\delta^+(X))} - \frac{f_{e^*}}{u_{e^*}},
+	\]
+	wobei in der letzten Ungleichung $b(X) = f(\delta^+(X)) - f(\delta^-(X))$ eingeht.
+	
+	Sei nun ein $b$-Fluss $f$ mit minimaler Auslastung $q^*:=\max_{e\in E} f_e/u_e$ gegeben.
+	Gesucht ist nun ein Schnitt mit Auslastung $q^*$.
+	Ist $b$ der Nullvektor, so ist $q^*=0$ und jeder Schnitt mit ausgehenden Kanten ist ein dünnster Schnitt.
+	
+	Sonst sei $f$ ein $b$-Fluss minimaler Auslastung mit möglichst wenig maximal ausgelasteten Kanten.
+	Sei $e^*=vw$ ein solche maximal ausgelastete Kante.
+	Sei $X_1$ die Menge aller Knoten, die $v$ entlang eines gerichteten Weges auf Kanten mit positivem Fluss erreichen, und sei $X_2$ die Menge aller Knoten, die man ausgehend von $X_1$ entlang eines gerichteten Weges auf Kanten mit nicht-maximaler Auslastung 
+	\todo{Finish this proof}
+\end{proof}
 
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
 
