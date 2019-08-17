@@ -1,10 +1,15 @@
 \section{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
 
-Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-Flüsse:
+Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 
-\begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
-	Seien ein statischer $s$-$t$-Fluss $x'$ mit Wert $F$ in einem azyklischen Netzwerk $(G, u, s, t)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
-	Der Fluss $x'$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls eine Knotenbewertung $l'\in\R^V_{\geq 0}$ existiert, die die folgenden Bedingungen erfüllt:
+\begin{definition}[$s$-Fluss]
+	Ein $b$-Fluss $f$ in einem Graphen $(V, E)$ heißt \emph{$s$-Fluss} für ein $s\in V$, falls $b_v\leq 0$ für alle $v\in V\setminus \{ s \}$ gilt.
+	Dabei bezeichnet $b_s$ den \emph{Wert von $f$}. 
+\end{definition}
+
+\begin{definition}[Schmaler Fluss]\label{def-thin-flow}
+	Seien ein $s$-Fluss $x'$ mit Wert $F$ in einem azyklischen Netzwerk $(V, E, u)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
+	Der Fluss $x'$ heißt \emph{schmaler Fluss}, falls eine Knotenbewertung $l'\in\R^V_{\geq 0}$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $l_s' = F/d$,
 		\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
@@ -13,6 +18,7 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer $s$-$t$-
 		\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Der Fluss $x'$ heißt \emph{normiert}, falls $F=d$ gilt.
+	Ist $E_1$ nichtleer, so heißt $x'$ \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, sonst heißt $x'$ \emph{schmaler Fluss ohne Zurücksetzen}.
 	Die \emph{Auslastung durch eine Kante $e\in E$ bei \todo{Ausgangsauslastung} $l_v'$ und Flusswert $x_e'$} sei gegeben durch
 	$$\rho_e(l_v', x_e'):=\begin{cases}
 		\max\{ l_v', x_e' / u_e \}, & \text{falls $e\notin E_1$,}\\
@@ -33,7 +39,7 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 \end{remark}
 
 \begin{lemma}\label{lemma-thin-flow-node-labels}
-	Für jeden $F$-wertigen $s$-$t$-Fluss $x'$ in einem azyklischen Netzwerk $(G, u, s, t)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie $E_1\subseteq E$ existiert eine eindeutige Lösung $(l_v')_{v\in V}$ des Gleichungssystems
+	Für jeden $F$-wertigen $s$-Fluss $x'$ in einem azyklischen Netzwerk $(V, E, u)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie $E_1\subseteq E$ existiert eine eindeutige Lösung $(l_v')_{v\in V}$ des Gleichungssystems
 	$$l_w' = \begin{cases}
 		F/d, & \text{falls $w=s$,}\\
 		\min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}'), & \text{sonst.}
@@ -52,7 +58,7 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 \end{proof}
 
 \begin{lemma}\label{lemma-equivalent-thin-flow}
-	Ein $F$-wertiger statischer $s$-$t$-Fluss $x'$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn $x_{vw}'= 0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ gilt.
+	Ein $F$-wertiger $s$-Fluss $x'$ ist genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $x_{vw}'= 0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ gilt.
 	Dabei sei $(l_v')_{v\in V}$ die Lösung des Gleichungssystems aus Lemma~\ref{lemma-thin-flow-node-labels}.
 \end{lemma}
 \begin{proof}
@@ -71,11 +77,11 @@ Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\re
 \end{proof}
 
 \begin{lemma}[Eindeutigkeit der Knotenbewertung]
-	Sei ein azyklisches Netzwerk mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
+	Seien ein azyklisches Netzwerk mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
 	Dann sind die Knotenbewertungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
 \end{lemma}
 \begin{proof}
-	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurücksetzen auf $E_1$ mit unterschiedlichen Knotenbewertungen $l'\neq h'$.
+	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurück\-setzen auf $E_1$ mit unterschiedlichen Knotenbewertungen $l'\neq h'$.
 	Dann ist oBdA. die Menge $S:=\{ v\in V \mid l_v' > h_v' \}$ nichtleer.
 	Der Balancevektor $(b_v)_{v\in V}$ mit $$b_v:=\sum_{e\in\delta^+(v)} x_e' - \sum_{e\in\delta^-(s)} x_e' = \sum_{e\in\delta^+(v)} y_e' - \sum_{e\in\delta^-(v)} y_e'$$ ist für $x'$ und $y'$ identisch, da beide Flusserhaltung in $v\notin\{ s, t\}$, und damit $b_v=0$ erfüllen und Wert $d$ besitzen.
 	Betrachtet man Kanten, die innerhalb $S$ verlaufen, erhält man 
@@ -208,11 +214,10 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	Man setze $\gamma_\VK := \min_{e\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
 	Weiter sei $\gamma_\RK := \min_{e^\leftarrow\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
 	Wählt man nun $0 < \gamma < \min\{ \gamma_\VK, \gamma_\RK  \}$, so erhält man durch Augmentierung von $f$ entlang $Q$ mit $\gamma$ einen $b$-Fluss $\tilde{f}$.
-	Bezüglich $\tilde{f}$ haben dann sowohl Vorwärtskanten als auch Rückwärtskanten eine geringere Auslastung als $q^*$.
+	Bezüglich $\tilde{f}$ haben dann sowohl alle Vorwärtskanten als auch alle Rückwärtskanten von $C$ eine geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein minimaler $b$-Fluss, dessen maximal ausgelastete Kanten, also Kanten mit Auslastung $q^*$, eine echte Teilmenge von $E'$ sind, da mindestens eine Rückwärtskante in $E'$ enthalten war.
 	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $E'$.
 \end{proof}
-
 
 Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten aufzeigt:
 
@@ -246,6 +251,8 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 		\frac{b(X)}{u(\delta^+(X))} = \frac{f(\delta^+(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} q^* = q^*.
 	\]
 \end{proof}
+
+
 
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
 
