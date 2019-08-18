@@ -58,7 +58,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls jeder $s$-$v$-Teilpfad eines flusstragenden Pfades Auslastung $l_v$ besitzt. 
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-thin-flow-t-def}
 	Ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $l_s = 0$,
@@ -68,13 +68,14 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 		\item\label{def-thin-flow-no-resetting-edge} $l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
+	Außerdem gelten die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-zero} und~\ref{def-thin-flow-no-resetting-edge} bereits für die Knotenauslastungen von $f$, falls $f$ nur ein $s$-Fluss ist.
 \end{lemma}
 \begin{proof}
 	Sei $f$ ein schmaler Fluss mit Zurücksetzen auf $E_1$ und sei $l\in\R_{\geq 0}^V$ die Knotenauslastung von $f$.
-	Man zeige, dass $l$ die Bedingungen~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt, und benutze dabei die Darstellung von $l$ aus Proposition~\ref{prop-congestion-labels-dijkstra}.
+	Man zeige, dass $l$ die Bedingungen~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt, und benutze dabei die Darstellung aus Proposition~\ref{prop-congestion-labels-dijkstra}.
 	Wegen $l_s = 0$ gilt bereits~\ref{def-thin-flow-source}.
-	Für eine Kante $vw\in E\setminus E_1$ mit $f_{vw}=0$ gilt $l_w\leq \rho_{vw}(l_v, f_{vw}) = l_v$, wodurch~\ref{def-thin-flow-x-zero} folgt.
-	Ist $vw\in E$ mit $f_{vw} > 0$, so existiert ein $s$-$w$-Pfad mit positivem Fluss, der die Kante $vw$ benutzt, sodass die Auslastung dieses Pfades $l_w=\rho_{vw}(l_v, f_{vw})$, da der $s$-$v$-Teilpfad die Auslastung $l_v$ besitzt.
+	Für eine Kante $vw\in E\setminus E_1$ mit $f_{vw}=0$ gilt $l_w\leq \rho_{vw}(l_v, f_{vw}) = l_v$, wodurch auch~\ref{def-thin-flow-x-zero} folgt.
+	Ist $vw\in E$ mit $f_{vw} > 0$, so existiert ein $s$-$w$-Pfad mit positivem Fluss, der die Kante $vw$ benutzt, sodass die Auslastung dieses Pfades $l_w=\rho_{vw}(l_v, f_{vw})$ ist, da der $s$-$v$-Teilpfad die Auslastung $l_v$ besitzt.
 	Für $vw\notin E_1$ bedeutet das gerade $l_w = \max\{ l_v, f_{vw}/u_{vw} \}$ also~\ref{def-thin-flow-x-positive}, und für $vw\in E_1$ zeigt das $l_w = f_{vw} / u_{vw}$.
 	Für~\ref{def-thin-flow-resetting-edge} bleibt der Fall $f_{vw} = 0$ zu prüfen:
 	Dann ist aber $l_w = \min_{uw\in\delta^-(w)} \rho_{uw}(l_u, f_{uw}) = f_{vw} / u_{vw} = 0$.
@@ -82,7 +83,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Dann folgt aber bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
 	
 	Sei nun umgekehrt $l\in\R_{\geq 0}^V$ eine Knotenbewertung, die~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt.
-	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ in $E$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von  $f$ ist.
+	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von  $f$ ist.
 	Für $w=s$ gilt $l_s=0$ bereits nach~\ref{def-thin-flow-source}.
 	Für $w\neq s$ ist $l_w$ nach~\ref{def-thin-flow-x-zero},~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} eine untere Schranke an $\rho_{vw}(l_v, f_{vw})$ für $vw\in\delta^-(w)$.
 	Es bleibt zu zeigen, dass für eine eingehende Kante $vw$ der Wert $\rho_{vw}(l_v, f_{vw})$ auch $l_w$ annimmt:
@@ -105,43 +106,19 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	\end{definition}
 }
 
-
-\begin{lemma}\label{lemma-thin-flow-node-labels}
-	Für jeden $F$-wertigen $s$-Fluss $x'$ in einem azyklischen Netzwerk $(V, E, u)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie $E_1\subseteq E$ existiert eine eindeutige Lösung $(l_v')_{v\in V}$ des Gleichungssystems
-	$$l_w' = \begin{cases}
-		F/d, & \text{falls $w=s$,}\\
-		\min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}'), & \text{sonst.}
-	\end{cases}$$
-	Ist $x'$ ein schmaler Fluss mit Zurücksetzen auf $E_1$, so stimmt die zugehörige Knotenbewertung mit der Lösung dieses Systems überein.
-\end{lemma}
-\begin{proof}
-	Die eindeutige Existenz folgt aus der Azyklizität des Graphen.
-	Sei $x'$ nun schmaler Fluss mit Zurücksetzen auf $E_1$.
-	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ in $E$ bezüglich der Kantenzahl.
-	Für $w=s$ gilt $l_s'=F/d$ bereits nach~\ref{def-thin-flow-source}.
-	Für $w\neq s$ ist $l_w'$ nach~\ref{def-thin-flow-x-zero},~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} eine untere Schranke an $\rho_{vw}(l_v', x_{vw}')$ für $vw\in\delta^-(w)$.
-	Es bleibt zu zeigen, dass die Auslastung durch eine eingehende Kante gerade $l_w'$ ist:
-	Falls eine eingehende Kante in $E_1$ oder eine eingehende Kante mit $x_e'> 0$ existiert, ist die Auslastung durch die Kante $l_w'$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
-	Sonst ist $l_w'\geq \min_{vw\in \delta^-(w)} l_v' = \min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}')$ nach~\ref{def-thin-flow-no-resetting-edge}, was die Behauptung zeigt.
-\end{proof}
-
 \begin{lemma}\label{lemma-equivalent-thin-flow}
-	Ein $F$-wertiger $s$-Fluss $x'$ ist genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $x_{vw}'= 0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ gilt.
-	Dabei sei $(l_v')_{v\in V}$ die Lösung des Gleichungssystems aus Lemma~\ref{lemma-thin-flow-node-labels}.
+	Ein $s$-Fluss $f$ ist genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $f_{vw}= 0$ für alle $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$ gilt.
+	Dabei sei $l\in\R_{\geq 0}^V$ die Knotenauslastung von $f$.
 \end{lemma}
 \begin{proof}
-	Angenommen, $x'$ sei ein schmaler Fluss mit Zurücksetzen auf $E_1$.
-	Dann ist $(l_v')_{v\in V}$ nach Lemma~\ref{lemma-thin-flow-node-labels} die zugehörige Knotenbewertung von $x'$.
-	Für eine Kante $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$ ist $vw\notin E_1$ und $x_{vw}'=0$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
+	Angenommen, $f$ sei ein schmaler Fluss mit Zurücksetzen auf $E_1$.
+	Für eine Kante $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$ ist $vw\notin E_1$ und $f_{vw}=0$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
 
-	Nun nehme man an, es gelte $x_{vw}'=0$ für alle $vw\in E$ mit $l_w' < \rho_{vw}(l_v', x_{vw}')$, und man zeige die Eigenschaften~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge}.
-	Die Eigenschaften~\ref{def-thin-flow-source} und~\ref{def-thin-flow-x-zero} gelten bereits aufgrund der Definition von $(l_v')_{v\in V}$ und $\rho_{vw}$.
-	Ist $vw\notin E_1$ mit $x_{vw}'>0$, so gilt $l_w' = \rho_{vw}(l_v', x_{vw}')$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
-	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $x_{vw}'>0$: Hier folgt wieder $l_w' = \rho_{vw}(l_v', x_{vw}')$.
-	Falls $x_{vw}'=0$ gilt, ist $l_w'=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}', x_{\tilde{v}w}') = 0$.
-	Es bleibt also Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen.
-	Man nehme $\delta^-(w)\cap E_1=\emptyset$ an.
-	Dann ist $l_w' = \min_{vw\in \delta^-(w)} \max \{ l_v', x_{vw}'/ u_{vw} \} \geq \min_{vw\in \delta^-(w)} l_v'$.
+	Nun nehme man an, es gelte $f_{vw}=0$ für alle $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$, und man zeige die Eigenschaften~\ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge}.
+	Der Rest folgt dann mit Lemma~\ref{lemma-thin-flow-t-def}.
+	Ist $vw\notin E_1$ mit $f_{vw}>0$, so gilt $l_w = \rho_{vw}(l_v, f_{vw})$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
+	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $f_{vw}>0$: Hier folgt wieder $l_w = \rho_{vw}(l_v, f_{vw})$.
+	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}, f_{\tilde{v}w}) = 0$.
 \end{proof}
 
 \begin{lemma}[Eindeutigkeit der Knotenbewertung]
@@ -156,7 +133,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	\begin{equation}\label{proof-uniqueness-labels-eq}
 	\sum_{e\in \delta^+(S)} x'_e - \sum_{e\in\delta^-(S)} x'_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} y_e' - \sum_{e\in\delta^-(S)} y_e'.
 	\end{equation}
-	Für Kanten $vw\in \delta^+(S)$ gilt $x_e' \leq y_e'$, da für $x_e' > y_e'$ Lemma~\ref{lemma-thin-flow-node-labels} und $v\in S$ die Ungleichung $l_w' = \rho_{vw}(l_v', x_{vw}') > \rho_{vw}(h_v', y_{vw}')\geq h_w'$ implizieren würden, welche jedoch im Widerspruch zu $w\notin S$ steht.
+	Für Kanten $vw\in \delta^+(S)$ gilt $x_e' \leq y_e'$, da für $x_e' > y_e'$ Lemma~\ref{lemma-equivalent-thin-flow} und $v\in S$ die Ungleichung $l_w' = \rho_{vw}(l_v', x_{vw}') > \rho_{vw}(h_v', y_{vw}')\geq h_w'$ implizieren würden, welche jedoch im Widerspruch zu $w\notin S$ steht.
 	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $x_e' \geq y_e'$, weil sonst $l_w' \leq \rho_{vw}(l_v', x_{vw}') \leq \rho_{vw}(h_v', y_{vw}') = h_w'$ wegen $v\notin S$ gelten würde, was $w\in S$ widerspricht.
 	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $x_e = y_e$ für alle $e\in \delta(S):=\delta^-(S) \cup \delta^+(S)$.
 	Für $vw\in \delta^-(S)$ ist dann $y_e'=x_e'=0$, da für $y_e'=x_e'>0$ wieder mit $v\notin S$ die Ungleichung $l_w' = \rho_{vw}(l_v, x_{vw}')\leq \rho_{vw}(h_v, y_{vw}')=h_w'$ der Bedingung $w\in S$ widerspricht.
