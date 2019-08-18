@@ -1,4 +1,5 @@
 \section{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
+\newcommand*{\PlH}{\makebox[1ex]{\textbf{$\cdot$}}}
 
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 
@@ -7,36 +8,103 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 	Dabei bezeichnet $b_s$ den \emph{Wert von $f$}. 
 \end{definition}
 
-\begin{definition}[Schmaler Fluss]\label{def-thin-flow}
-	Seien ein $s$-Fluss $x'$ mit Wert $F$ in einem azyklischen Netzwerk $(V, E, u)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie eine Teilmenge $E_1\subseteq E$ der Kanten gegeben.
-	Der Fluss $x'$ heißt \emph{schmaler Fluss}, falls eine Knotenbewertung $l'\in\R^V_{\geq 0}$ existiert, die die folgenden Bedingungen erfüllt:
-	\begin{enumerate}[label=(T\arabic*)]
-		\item\label{def-thin-flow-source} $l_s' = F/d$,
-		\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
-		\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
-		\item\label{def-thin-flow-resetting-edge} $l_w' = x'_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
-		\item\label{def-thin-flow-no-resetting-edge} $l_w' \geq \min_{vw\in \delta^-(w)} l_v'$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
-	\end{enumerate}
-	Der Fluss $x'$ heißt \emph{normiert}, falls $F=d$ gilt.
-	Ist $E_1$ nichtleer, so heißt $x'$ \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, sonst heißt $x'$ \emph{schmaler Fluss ohne Zurücksetzen}.
-	Die \emph{Auslastung durch eine Kante $e\in E$ bei \todo{Ausgangsauslastung} $l_v'$ und Flusswert $x_e'$} sei gegeben durch
-	$$\rho_e(l_v', x_e'):=\begin{cases}
-		\max\{ l_v', x_e' / u_e \}, & \text{falls $e\notin E_1$,}\\
-		x_e' / u_e, & \text{falls $e\in E_1$.}
-	\end{cases}$$
+\begin{definition}[Netzwerk mit Zurücksetzen]
+	Ein \emph{Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$} ist ein Tupel $(V, E, u, s, E_1)$, wobei $(V, E, u)$ ein azyklisches Netzwerk ist, in dem der Knoten $s\in V$ jeden anderen Knoten erreicht, und $E_1\subseteq E$ die Menge der \emph{zurücksetzenden Kanten} ist.
 \end{definition}
 
-\todo{
-Dabei nennt man $x_e'/u_e$ die Auslastung einer Kante $e\in E$ i $s$.
-Ist $E_1 = \emptyset$, dann ist die Knotenbeschriftung $l_v'$ gerade die Auslastung $\max_{e\in P} x_e'/u_e$ eines jeden $s$-$v$-Pfades $P$ mit positiven Fluss.
-Kanten in $E_1$ setzen dann die Auslastung jedes vorangegangenen Pfades auf ihre eigene zurück.
-}
+\begin{definition}[Auslastung]
+	Sei ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ gegeben.
+	Dann ist die \emph{Auslastung einer Kante} gegeben durch $f_e/u_e$.
+	Die \emph{Auslastungsübertragung einer Kante $vw$} sei gegeben durch \[ \rho_{vw}(l_v, f_{vw}) := \begin{cases}
+		\max\{ l_v, f_{vw} / u_{vw} \}, & \text{falls $vw\notin E_1$,}\\
+		f_{vw} / u_{vw}, & \text{falls $vw\in E_1$.}
+	\end{cases}
+	\]
+	Die \emph{Auslastung eines $s$-$v$-Pfades $P=(e_1,\dots,e_k)$} ist dann gegeben durch die Verkettung $(\rho_{e_k}(\PlH, f_{e_k})\circ \dots \circ \rho_{e_1}(\PlH, f_{e_1}))(0)$.
+	Die zu $f$ \emph{zugehörige Knotenauslastung $l\in\R_{\geq 0}^V$} sei dann für einen Knoten $v\in V$ festgelegt durch die minimale Auslastung eines $s$-$v$-Pfades.
+\end{definition}
+
+Betrachtet man einen $s$-$v$-Pfad $P=(e_1, \dots, e_k)$, der Kanten aus $E_1$ enthält, so ist die Auslastung von $P$ gerade $\max_{j=i}^k f_{e_j}/u_{e_j}$, wobei $e_i$ die letzte Kante des Pfades in $E_1$ ist.
+Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Auslastung eines vorangegangen Pfades auf ihre eigene zurücksetzen.
+
+\begin{proposition}\label{prop-congestion-labels-dijkstra}
+	Die Knotenauslastungen eines $s$-Flusses $f$ sind gegeben durch die eindeutige Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems
+	\[
+	\tilde{l}_w = \begin{cases}
+		0, & \text{falls $w=s$,}\\
+		\min_{vw\in \delta^-(w)} \rho_{vw}(\tilde{l}_v, f_{vw}), & \text{sonst.}
+	\end{cases}
+	\]
+\end{proposition}
+\begin{proof}
+	Die Existenz einer Lösung folgt aus der Azyklizität des Netzwerks und wegen der Erreichbarkeit jedes Knotens von $s$ aus.
+	
+	Sei also $\tilde{l}\in\R_{\geq 0}^V$ die Lösung des Gleichungssystems.
+	Der Teilgraph $(V, E')$ mit \[
+	E':= \{ e\in E \mid \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)}  \rho_{uw}(\tilde{l}_u, f_{uw}) \}
+	\]
+	ebenfalls azyklisch und jeder Knoten ist von $s$ aus erreichbar.
+	Man zeige $l_w = \tilde{l}_w$ durch eine Induktion über die Distanz von $w$ zu $s$ bezüglich der Anzahl an Kanten.
+	Für $w=s$ gilt offenbar $l_s = 0$.
+	Sei nun ein $s$-$w$-Pfad $P$ gegeben, seien $vw$ die letzte Kante und $Q$ das restliche Anfangsstück dieses Pfades.
+	Nach Induktionsvoraussetzung ist die Auslastung von $Q$ mindestens $\tilde{l}_v$.
+	Daher ist die Auslastung von $P$ mindestens $\rho_{vw}(\tilde{l}_v, f_{vw})$ aufgrund der Monotonie von $\rho_{vw}(\PlH, f_{vw})$, wodurch $l_v \geq \tilde{l}_v$ folgt.
+	Außerdem hat ein $s$-$v$-Pfad $P$, der in $(V, E')$ verläuft, hat Auslastung $\tilde{l}_v$.
+	Da solch ein Pfad existiert, gilt also $l_v \leq \tilde{l}_v$.
+\end{proof}
+
+\begin{definition}[Schmaler Fluss]
+	Seien ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ sowie die durch $f$ induzierten Knotenauslastungen $l$ gegeben.
+	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls jeder $s$-$v$-Teilpfad eines flusstragenden Pfades Auslastung $l_v$ besitzt. 
+\end{definition}
+
+\begin{lemma}
+	Ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
+	\begin{enumerate}[label=(T\arabic*)]
+		\item\label{def-thin-flow-source} $l_s = 0$,
+		\item\label{def-thin-flow-x-zero} $l_w \leq l_v$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
+		\item\label{def-thin-flow-x-positive} $l_w = \max(l_v, f_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
+		\item\label{def-thin-flow-resetting-edge} $l_w = f_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
+		\item\label{def-thin-flow-no-resetting-edge} $l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
+	\end{enumerate}
+	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
+\end{lemma}
+\begin{proof}
+	Sei $f$ ein schmaler Fluss mit Zurücksetzen auf $E_1$ und sei $l\in\R_{\geq 0}^V$ die Knotenauslastung von $f$.
+	Man zeige, dass $l$ die Bedingungen~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt, und benutze dabei die Darstellung von $l$ aus Proposition~\ref{prop-congestion-labels-dijkstra}.
+	Wegen $l_s = 0$ gilt bereits~\ref{def-thin-flow-source}.
+	Für eine Kante $vw\in E\setminus E_1$ mit $f_{vw}=0$ gilt $l_w\leq \rho_{vw}(l_v, f_{vw}) = l_v$, wodurch~\ref{def-thin-flow-x-zero} folgt.
+	Ist $vw\in E$ mit $f_{vw} > 0$, so existiert ein $s$-$w$-Pfad mit positivem Fluss, der die Kante $vw$ benutzt, sodass die Auslastung dieses Pfades $l_w=\rho_{vw}(l_v, f_{vw})$, da der $s$-$v$-Teilpfad die Auslastung $l_v$ besitzt.
+	Für $vw\notin E_1$ bedeutet das gerade $l_w = \max\{ l_v, f_{vw}/u_{vw} \}$ also~\ref{def-thin-flow-x-positive}, und für $vw\in E_1$ zeigt das $l_w = f_{vw} / u_{vw}$.
+	Für~\ref{def-thin-flow-resetting-edge} bleibt der Fall $f_{vw} = 0$ zu prüfen:
+	Dann ist aber $l_w = \min_{uw\in\delta^-(w)} \rho_{uw}(l_u, f_{uw}) = f_{vw} / u_{vw} = 0$.
+	Zuletzt betrachte man den Fall, dass $w$ keine eingehende zurücksetzende Kante hat.
+	Dann folgt aber bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
+	
+	Sei nun umgekehrt $l\in\R_{\geq 0}^V$ eine Knotenbewertung, die~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt.
+	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ in $E$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von  $f$ ist.
+	Für $w=s$ gilt $l_s=0$ bereits nach~\ref{def-thin-flow-source}.
+	Für $w\neq s$ ist $l_w$ nach~\ref{def-thin-flow-x-zero},~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} eine untere Schranke an $\rho_{vw}(l_v, f_{vw})$ für $vw\in\delta^-(w)$.
+	Es bleibt zu zeigen, dass für eine eingehende Kante $vw$ der Wert $\rho_{vw}(l_v, f_{vw})$ auch $l_w$ annimmt:
+	Falls eine eingehende Kante $vw\in E_1$ oder eine eingehende Kante $vw$ mit $f_{vw} > 0$ existiert, ist $\rho_{vw}(l_v, f_{vw}) = l_w$ nach~\ref{def-thin-flow-resetting-edge} und~\ref{def-thin-flow-x-positive}.
+	Sonst ist $l_w\geq \min_{vw\in \delta^-(w)} l_v = \min_{vw\in \delta^-(w)} \rho_{vw}(l_v', x_{vw}')$ nach~\ref{def-thin-flow-no-resetting-edge}, was die Behauptung zeigt.
+	Um zu sehen, dass $f$ nun ein schmaler Fluss mit Zurücksetzen auf $E_1$ ist, genügen die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge}, da dadurch jeder $s$-$v$-Teilpfad eines Pfades mit positivem Fluss gerade Auslastung $l_v$ hat.
+\end{proof}
 
 \begin{remark}\label{remark-thin-flow}
-Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
-Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
+	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
+	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
+	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
 \end{remark}
+
+\todo{
+	Introduce network inflow with normalized thin-flows
+	\begin{definition}[Schmaler Fluss]\label{def-thin-flow}
+		Der Fluss $x'$ heißt \emph{normiert}, falls $F=d$ gilt.
+		Ist $E_1$ nichtleer, so heißt $x'$ \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, sonst heißt $x'$ \emph{schmaler Fluss ohne Zurücksetzen}.
+	\end{definition}
+}
+
 
 \begin{lemma}\label{lemma-thin-flow-node-labels}
 	Für jeden $F$-wertigen $s$-Fluss $x'$ in einem azyklischen Netzwerk $(V, E, u)$ mit Ursprung $s$ und Versorgungsrate $d$ sowie $E_1\subseteq E$ existiert eine eindeutige Lösung $(l_v')_{v\in V}$ des Gleichungssystems
