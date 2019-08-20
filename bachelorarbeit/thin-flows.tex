@@ -101,7 +101,6 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Abbildung~\ref{figure-labels} erkennen kann.
 \end{remark}
-
 \todo{
 	Introduce network inflow with normalized thin-flows
 	\begin{definition}[Schmaler Fluss]\label{def-thin-flow}
@@ -125,7 +124,8 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}, f_{\tilde{v}w}) = 0$.
 \end{proof}
 
-\begin{corollary}
+\todo{Vlt im folgenden Korollar auch/oder Gleichheit zu $\max f_e/u_e$ zeigen}
+\begin{corollary}\label{cor-thin-flows-max-node-label-equals-max-edge-label}
 	Für einen schmalen $s$-Fluss $f$ in einem Netzwerk mit nichtleerer Kantenmenge und zugehöriger Knotenauslastung $l$ gilt
 	\[
 		\max_{vw\in E} \rho_{vw}(l_v, f_{vw}) = \max_{v\in V} l_v
@@ -266,7 +266,6 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	für solche Flüsse $f$ keine gerichteten Kreise, die eine Rückwärtskante einer maximal ausgelasteten Kante benutzen.
 	
 	Kanten $e\in E_f$ mit $f_e/u_e < q^*$ nennt man Vorwärtskanten und Kanten $e^\leftarrow\in E_f$ mit $f_e/u_e > 0$ Rückwärtskanten.
-	%mit positivem Fluss enthalten keine maximal ausgelasteten Kanten und enthält ein $v$-$w$-Pfad $P$ mit positivem Fluss eine maximal ausgelastete Kante, so enthält jeder $v$-$w$-Pfad eine solche.
 \end{lemma}
 \begin{proof}
 	\newcommand{\VK}{\text{VK}}
@@ -283,7 +282,7 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 
 Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten aufzeigt:
 
-\begin{theorem}
+\begin{theorem}\label{thm-strong-duality-sparsest-cut-min-flow}
 	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ mit $\sum_{v\in V}b_v = 0$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
 	Existiert darüber hinaus ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
 	\[
@@ -314,9 +313,33 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	\]
 \end{proof}
 
+\begin{corollary}\label{prop-easy-characterization-sparsest-cut}
+	Gibt es in einem Netzwerk $(V, E, u)$ einen $b$-Fluss $f$ minimaler Auslastung $q^*$, so ist ein Schnitt $X$ mit $\delta^+(X)\neq\emptyset$ genau dann ein dünnster Schnitt, wenn alle ausgehenden Kanten von $X$ bzgl. $f$ Auslastung $q^*$ besitzen und alle eingehenden Kanten bzgl. $f$ verschwinden.
+\end{corollary}
+\begin{proof}
+	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} besagt, dass $q^*$ auch die Auslastung eines dünnsten Schnittes ist.
+	Aufgrund der Flusserhaltung gilt $b(X) = f(\delta^+(X)) - f(\delta^-(X))$.
+	Außerdem gilt in \[
+	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q^*}{u(\delta^+(X))} = q^*
+	\]
+	Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q^*$ für alle $e\in\delta^+(X)$ gelten.
+\end{proof}
+
+\todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$}
+
 \begin{lemma}
-	Für einen schmalen Fluss $x$ in einem Netzwerk $(V, E, s, \emptyset)$ mit Ursprung $s$ und ohne Zurücksetzen ist die maximale Auslastungsübertragung $\max_{vw\in E} \rho_{vw}(l_v, x_{vw})$
+	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
+	Der Fluss $f$ ist ein $b$-Fluss minimaler Auslastung $q^*$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q^* \}$ ein dünnster Schnitt.
 \end{lemma}
+\begin{proof}
+	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ -- ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
+	
+	Sei also $q^*>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
+	Nach Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} genügt es zu
+	zeigen, dass die Auslastung von $X$ gerade $q^*$ ist.
+	Wegen $l_s=0$ ist $s$ im Schnitt $X$ enthalten.
+	\todo{Hier weitermachen!}
+\end{proof}
 
 
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
@@ -381,7 +404,6 @@ Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analo
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta)}^{l_w(\theta+\varepsilon)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
 		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}
-	\vspace{-1.2 \baselineskip}
 \end{proof}
 
 \begin{definition}
