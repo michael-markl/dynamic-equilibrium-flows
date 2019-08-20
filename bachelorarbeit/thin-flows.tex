@@ -57,15 +57,19 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Seien ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ sowie die durch $f$ induzierten Knotenauslastungen $l$ gegeben.
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls jeder $s$-$v$-Teilpfad eines flusstragenden Pfades Auslastung $l_v$ besitzt. 
 \end{definition}
+\begin{remark}
+	Ronald Koch betrachtet in~\cite{Koch2012} allgemeinere schmale Flüsse: Dort ist das zugrundeliegende Netzwerk nicht als azyklisch vorausgesetzt.
+	Diese Einschränkung wird hier im Sinne von~\cite{Cominetti2015} beibehalten.
+\end{remark}
 
 \begin{lemma}\label{lemma-thin-flow-t-def}
 	Ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $l_s = 0$,
-		\item\label{def-thin-flow-x-zero} $l_w \leq l_v$, \tabto{4cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
-		\item\label{def-thin-flow-x-positive} $l_w = \max(l_v, f_{vw} / u_{vw} )$,  \tabto{4cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
-		\item\label{def-thin-flow-resetting-edge} $l_w = f_{vw} / u_{vw}$,  \tabto{4cm} für $vw\in E_1$,
-		\item\label{def-thin-flow-no-resetting-edge} $l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
+		\item\label{def-thin-flow-x-zero} $l_w \leq l_v$, \tabto{4.5cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
+		\item\label{def-thin-flow-x-positive} $l_w = \max\{ l_v, f_{vw} / u_{vw} \}$,  \tabto{4.5cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
+		\item\label{def-thin-flow-resetting-edge} $l_w = f_{vw} / u_{vw}$,  \tabto{4.5cm} für $vw\in E_1$,
+		\item\label{def-thin-flow-no-resetting-edge} $l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4.5cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
 	Außerdem gelten die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-zero} und~\ref{def-thin-flow-no-resetting-edge} bereits für die Knotenauslastungen von $f$, falls $f$ nur ein $s$-Fluss ist.
@@ -121,6 +125,19 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}, f_{\tilde{v}w}) = 0$.
 \end{proof}
 
+\begin{corollary}
+	Für einen schmalen $s$-Fluss $f$ in einem Netzwerk mit nichtleerer Kantenmenge und zugehöriger Knotenauslastung $l$ gilt
+	\[
+		\max_{vw\in E} \rho_{vw}(l_v, f_{vw}) = \max_{v\in V} l_v
+	\]
+\end{corollary}
+\begin{proof}
+	Für $w\neq s$ ist $l_w = \min_{vw\in\delta^-(w)} \rho_{vw}(l_v, x_{vw})$.
+	Daher gilt bereits \glqq$\geq$\grqq.
+	Angenommen es gebe eine Kante $vw\in E$ mit $\rho_{vw}(l_v, f_{vw}) > \max_{u\in V} l_u$
+	Dann ist aber bereits $f_{vw}/u_{vw} > \max_{u\in V} l_u \geq 0$, womit $l_w \geq \rho_{vw}(l_v, f_{vw})$ nach Lemma~\ref{lemma-equivalent-thin-flow} gelten müsste.
+\end{proof}
+
 \begin{lemma}[Eindeutigkeit der Knotenbewertung]
 	Seien ein azyklisches Netzwerk mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
 	Dann sind die Knotenbewertungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
@@ -172,7 +189,7 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	\[
 	\Gamma: C\to \mathcal{P}(C)\setminus\{ \emptyset \}, ~ x'\mapsto \{ y'\in C \mid \forall vw\in E: l_w' < \rho_{vw}(l_v', x_{vw}') \implies y_{vw}' = 0 \}.
 	\]
-	Dabei sei $l'\in\R_{\geq 0}^V$ die zu $x'$ gehörige Knotenbewertung aus Lemma~\ref{lemma-thin-flow-node-labels}.
+	Dabei sei $l'\in\R_{\geq 0}^V$ die zu $x'$ gehörige Knotenauslastung.
 	Diese Korrespondenz ist wohldefiniert, da $\Gamma(x')$ für jedes $x'\in C$ nichtleer ist:
 	Der Knoten $s$ kann im Graphen $G':= (V, E')$ mit $E':= \{ vw\in E \mid \rho_{vw}(l_v', x_{vw}')=l_w' \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante mit $l_w' = \rho_{vw}(l_v', x_{vw}')$ besitzt. 
 	Daher existiert ein $s$-$t$-Weg $P$ in $G'$ und der Fluss $d\cdot P$ ist in $\Gamma(x')$ enthalten.
@@ -180,9 +197,9 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	Für jedes $x'\in C$ ist $\Gamma(x')$ konvex: Ist für $y', z'\in \Gamma(x'), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w' < \rho_{vw}(l_w', x_{vw}')$ erfüllt, so gilt auch $\lambda y_{vw}' + (1-\lambda) z_{vw}' = 0$, womit $\lambda y' + (1-\lambda)z'$ im Bild $\Gamma(x)$ liegt.
 	Des Weiteren ist $\Gamma$ abgeschlossen: 
 	Sei eine konvergente Folge $((x^{n}, y^{n}))_{n\in\N}$ in $R_\Gamma$ mit Grenzwert $(x, y)$ gegeben.
-	Die zu $x$ bzw. $x^n$ gehörige Knotenbeschriftung aus Lemma~\ref{lemma-thin-flow-node-labels} sei gegeben durch $l$ bzw. $l^n$. 
+	Die zu $x$ bzw. $x^n$ gehörigen Knotenauslastungen seien gegeben durch $l$ bzw. $l^n$. 
 	Angenommen, es gelte $l_w < \rho_{vw}(l_v, x_{vw})$.
-	Da die Zuordnung $x'\mapsto l'$ aus Lemma~\ref{lemma-thin-flow-node-labels} stetig ist, existiert ein $N\in\N$ mit $l_w^n<\rho_{vw}(l_v^n, x_{vw}^n)$ für alle $n\geq N$.
+	Da die Zuordnung $x'\mapsto l'$ eines $s$-Flusses auf seine Knotenauslastung nach Lemma~\ref{prop-congestion-labels-dijkstra} stetig ist, existiert ein $N\in\N$ mit $l_w^n<\rho_{vw}(l_v^n, x_{vw}^n)$ für alle $n\geq N$.
 	Damit ist auch $y_{vw} = \lim_{n\to\infty} y_{vw}^n = 0$.
 	
 	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
@@ -297,6 +314,9 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	\]
 \end{proof}
 
+\begin{lemma}
+	Für einen schmalen Fluss $x$ in einem Netzwerk $(V, E, s, \emptyset)$ mit Ursprung $s$ und ohne Zurücksetzen ist die maximale Auslastungsübertragung $\max_{vw\in E} \rho_{vw}(l_v, x_{vw})$
+\end{lemma}
 
 
 \section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
