@@ -314,31 +314,39 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 \end{proof}
 
 \begin{corollary}\label{prop-easy-characterization-sparsest-cut}
-	Gibt es in einem Netzwerk $(V, E, u)$ einen $b$-Fluss $f$ minimaler Auslastung $q^*$, so ist ein Schnitt $X$ mit $\delta^+(X)\neq\emptyset$ genau dann ein dünnster Schnitt, wenn alle ausgehenden Kanten von $X$ bzgl. $f$ Auslastung $q^*$ besitzen und alle eingehenden Kanten bzgl. $f$ verschwinden.
+	Seien $f$ ein $b$-Fluss mit Auslastung $q$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$ in einem Netzwerk $(V, E, u)$.
+	Dann sind die beiden Aussagen äquivalent:
+	\begin{enumerate}[label=(\roman*)]
+		\item Es sind $X$ ein dünnster Schnitt und $f$ ein $b$-Fluss minimaler Auslastung.
+		\item Die Auslastung bezüglich $f$ aller ausgehenden Kanten von $X$ beträgt $q$ und $f$ verschwindet auf allen eingehende Kanten von $X$.
+	\end{enumerate}
 \end{corollary}
 \begin{proof}
-	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} besagt, dass $q^*$ auch die Auslastung eines dünnsten Schnittes ist.
 	Aufgrund der Flusserhaltung gilt $b(X) = f(\delta^+(X)) - f(\delta^-(X))$.
-	Außerdem gilt in \[
-	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q^*}{u(\delta^+(X))} = q^*
+	In \[
+	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q}{u(\delta^+(X))} = q
 	\]
-	Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q^*$ für alle $e\in\delta^+(X)$ gelten.
+	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q$ für alle $e\in\delta^+(X)$ gelten.
+	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung.
 \end{proof}
 
 \todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$}
 
 \begin{lemma}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
-	Der Fluss $f$ ist ein $b$-Fluss minimaler Auslastung $q^*$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q^* \}$ ein dünnster Schnitt.
+	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
 \begin{proof}
-	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ -- ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
+	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
 	
-	Sei also $q^*>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
-	Nach Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} genügt es zu
-	zeigen, dass die Auslastung von $X$ gerade $q^*$ ist.
+	Sei also $q>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
+	Nach Korollar~\ref{cor-thin-flows-max-node-label-equals-max-edge-label} genügt es zu
+	zeigen, dass die Auslastung jeder ausgehenden Kante von $X$ bezüglich $f$ gerade $q$ beträgt und auf eingehenden Kanten von $X$ kein Fluss fließt.
 	Wegen $l_s=0$ ist $s$ im Schnitt $X$ enthalten.
-	\todo{Hier weitermachen!}
+	Sei $vw\in\delta^+(X)$ eine ausgehende Kante.
+	Dann gilt $l_v < l_w = q $ und nach Proposition~\ref{prop-congestion-labels-dijkstra} auch $q = l_w \leq \rho_{vw}(l_v, f_{vw}) = f_{vw} / u_{vw}$.
+	Da $q$ eine obere Schranke an $f_{vw}/u_{vw}$ ist, gilt also $f_{vw}/u_{vw} = q$.
+	Für eine eingehende Kante $vw\in\delta^-(X)$ gilt $\rho_{vw}(l_v, f_{vw})\geq l_v > l_w$ und somit muss nach Lemma~\ref{lemma-equivalent-thin-flow} der Fluss $f$ auf der Kante $vw$ verschwinden.
 \end{proof}
 
 
