@@ -321,7 +321,7 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	Dann sind die beiden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Es sind $X$ ein dünnster Schnitt und $f$ ein $b$-Fluss minimaler Auslastung.
-		\item Die Auslastung bezüglich $f$ aller ausgehenden Kanten von $X$ beträgt $q$ und $f$ verschwindet auf allen eingehende Kanten von $X$.
+		\item Die Auslastung bezüglich $f$ aller ausgehenden Kanten von $X$ beträgt $q$ und $f$ verschwindet auf allen eingehenden Kanten von $X$.
 	\end{enumerate}
 \end{corollary}
 \begin{proof}
@@ -335,7 +335,7 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 
 \todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$ -- Allerdings muss man hier bisschen aufpassen, findet man ausgehend von einer maximal ausgelasteten Kante eine weitere, so muss man (für inklusionsminimalität das Vorgehen von hier zurücksetzen)}
 
-\begin{lemma}\label{lemma-thin-flows-have-minimal-congestion}
+\begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
 	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
@@ -352,8 +352,6 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	Für eine eingehende Kante $vw\in\delta^-(X)$ gilt $\rho_{vw}(l_v, f_{vw})\geq l_v > l_w$ und somit muss nach Lemma~\ref{lemma-equivalent-thin-flow} der Fluss $f$ auf der Kante $vw$ verschwinden.
 \end{proof}
 
-
-\newcommand{\abs}[1]{|{#1}|}
 \begin{definition}
 	Seien $\mathcal{I}:=(V, E, u, b)$ eine $b$-Fluss-Instanz und $X\subseteq V$ ein dünnster Schnitt mit Auslastung $q$.
 	Dann heißt $\mathcal{I}[X] := (X, E[X], u[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
@@ -368,38 +366,72 @@ Man bemerke, dass $b[X]_v \leq b_v$ für $v\in X$ erfüllt und $b[X]$ ein zuläs
 
 \begin{proposition}\label{prop-restricted-minimal-flow-is-b-flow-on-induced-instance}
 	Ist $f$ ein $b$-Fluss minimaler Auslastung einer $b$-Fluss-Instanz $(V, E, u, b)$, so ist die Einschränkung $f':=f_{\mid E[X]}$ ein $b[X]$-Fluss der induzierten Instanz $(X, E[X], u[X], b[X])$ für jeden dünnsten Schnitt $X$.
+	Ist $f$ sogar ein $s$-Fluss mit Knotenauslastung $l$ und $b_s > 0$, so stimmt die Einschränkung von $l$ auf $X$ mit der Knotenauslastung $l'$ vom $s$-Fluss $f'$ überein.
 \end{proposition}
 \begin{proof}
-	Nach Korollar~\ref{cor-thin-flows-max-node-label-equals-max-edge-label}  gelten $f_{e}/u_{e}=q$ für $e\in\delta^+(X)$ und $f_{e} = 0$ für $e\in\delta^-(X)$.
+	Nach Korollar~\ref{cor-easy-characterization-sparsest-cut} gelten $f_{e}/u_{e}=q$ für $e\in\delta^+(X)$ und $f_{e} = 0$ für $e\in\delta^-(X)$.
 	Daher kann man zeigen, dass $f'$ ein $b[X]$-Fluss ist, denn für alle $v\in X$ gilt:
 	\begin{align*}
 	f'(\delta^+_{E[X]}(v)) - f'(\delta^-_{E[X]}) &= f(\delta^+_E(v)) - f(\delta^-_E(v)) - f(\delta^+_{E[X]}(v)\cap\delta^+_{E[X]}(X)) \\
 	&= b_v - u(\delta^+_{E[X]}(v)\cap\delta^+_{E[X]}(X))q = b[X]_v.
 	\end{align*}
-\end{proof}
-
-\begin{lemma}
-	Seien ein schmaler $s$-Fluss $f$ auf dem Netzwerk $(V, E, u, b)$ sowie ein  dünnster Schnitt $X$ gegeben.
-	Sei $(X, E', u', b')$ das durch $X$ induzierte Teilnetz.
-	Dann ist die Einschränkung $f':=f_{\mid E'}$ von $f$ auf $E'$ auch ein schmaler $s$-Fluss auf dem von $X$ induzierten Teilgraph.
-\end{lemma}
-\begin{proof}
-	Lemma~\ref{lemma-thin-flows-have-minimal-congestion} und Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} implizieren bereits, dass $f(\delta^-_E(X)) = 0$ gilt und $f'$ ein $b'$-Fluss ist. 
-	Für $b_s = 0$ ist die Aussage trivial, denn dann ist $f$ der Nullfluss.
-	Ist $b_s > 0$, so liegt $s$ auch im Schnitt $X$.
-	
-	Man zeige, dass die Knotenauslastungen $l$ und $l'$ von $f$ und $f'$ auf allen Knoten $v\in X$ übereinstimmen:
+	Sei nun $f$ sogar ein $s$-Fluss mit $b_s > 0$, wodurch $s$ in $X$ enthalten ist.
+	Sei $v\in X$ gegeben.
 	Da jeder $s$-$v$-Pfad in $(X, E')$ auch in $(V, E)$ enthalten ist, gilt bereits $l'_v\leq l_v$.
 	Außerdem liegt jeder $s$-$v$-Pfad in $(V, E)$ mit positivem Fluss bezüglich $f$ auch komplett in $(X, E')$, da $f$ auf $\delta^-_E(X)$ verschwindet.
-	Daraus folgt $l'_v \geq l_v$, also insbesondere $l'_v = l_v$, wodurch auch $f'$ ein schmaler Fluss ist.
+	Daraus folgt $l'_v \geq l_v$.
 \end{proof}
 
-\begin{lemma}
+Daher kann man bereits erkennen, dass ein schmaler Fluss ohne Zurücksetzen eingeschränkt auf eine durch einen dünnsten Schnitt induzierte Teilinstanz wieder ein schmaler Fluss ist.
+Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Fluss auf der ursprünglichen Instanz zu konstruieren.
+
+\begin{lemma}\label{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q}
 	Seien ein $s$-Fluss $f$ minimaler Auslastung $q^*$ mit zugehöriger Knotenauslastung $l_v$ und ein dünnster Schnitt $X$ in einem Netzwerk ohne zurücksetzende Kanten gegeben.
-	Dann hat jeder $s$-$v$-Pfad $P$ Auslastung $q^*=l_v$ für alle $v\in V\setminus X$.
+	Für alle $v\in V\setminus X$ hat jeder $s$-$v$-Pfad $P$ Auslastung $q^*=l_v$.
 \end{lemma}
 \begin{proof}
 	Ist $b$ der Nullvektor, so ist $f$ der Nullfluss und $l_v = 0$ für alle $v\in V$.
-	Sonst ist $s$ in $X$ enthalten und jeder $s$-$v$-Pfad enthält mindestens eine Kante, die $X$ verlässt und nach Korollar~\ref{cor-easy-characterization-sparsest-cut} Auslastung $q^*$ besitzt.
-	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung also $\max_{e\in P} f_e / u_e = q^*$.	
+	Sonst ist $s$ in $X$ enthalten und für alle $v\in V\setminus X$ enthält jeder $s$-$v$-Pfad mindestens eine Kante, die $X$ verlässt und nach Korollar~\ref{cor-easy-characterization-sparsest-cut} Auslastung $q^*$ besitzt.
+	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung also $\max_{e\in P} f_e / u_e = q^*$.
 \end{proof}
+
+\begin{corollary}
+	Seien ein $s$-Fluss $f$ minimaler Auslastung sowie ein dünnster Schnitt $X$ auf einem Netzwerk ohne zurücksetzende Kanten gegeben.
+	Ist $f'$ ein schmaler Fluss ohne Zurücksetzen auf der durch $X$ induzierten Teilinstanz, so ist \[
+		g_e := \begin{cases}
+			f'_e, & \text{falls $e\in E[X]$,} \\
+			f_e, & \text{falls $e\in E\setminus E[X]$,}
+		\end{cases}
+	\] ein schmaler Fluss ohne Zurücksetzen auf der ursprünglichen Instanz.
+\end{corollary}
+\begin{proof}
+	Es ist leicht zu sehen, dass $g$ ein $s$-Fluss minimaler Auslastung ist:
+	Für einen Knoten $v \in V\setminus X$ ist $g(\delta^+_E(v)) - g(\delta^-_E(v)) = f(\delta^+_E(v)) - g(\delta^-_E(v)) = b_v$ und für $v\in X$ gilt \begin{align*}
+	g(\delta^+_E(v)) - g(\delta^-_E(v)) =& f'(\delta^+_{E[X]}(v))  - f'(\delta^-_{E[X]}(v))  \\
+	&+ f(\delta^+_E(v)\cap\delta^+_E(X)) - f(\delta^-_E(v)\cap\delta^-_E(X)) = b_v
+	\end{align*}
+
+	
+	Sei ein $s$-$v$-Pfad $P$ mit positivem Fluss gegeben.
+	Ist $v$ nicht in $X$, so hat $P$ nach Lemma~\ref{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q} Auslastung $l_v$.
+	Ist $v$ in $X$ enthalten, muss $P$ entlang Kanten innerhalb von $X$ laufen, da $g$ auf eingehenden Kanten von $X$ verschwindet.
+	Nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} stimmt die Auslastung von $v$ bezüglich der Einschränkung von $f$ mit der Auslastung von $v$ bezüglich $f$ überein, sodass auch die Auslastung von $P$ mit der Auslastung von $v$ bezüglich $f$ übereinstimmen.
+\end{proof}
+
+Dies bildet die Grundlage des nachfolgenden polynomiellen Algorithmus' zur Berechnung von schmalen Flüssen ohne Zurücksetzen:
+
+\begin{algorithm}
+\caption{Berechnung eines schmalen Flusses ohne Zurücksetzen}
+\begin{algorithmic}[1]
+\Function{ThinFlow}{$V, E, u, b, s$}
+	\If{$b_s = 0$}
+		\State\Return $0^E$
+	\Else 
+		\State Berechne $s$-Fluss $f$ minimaler Auslastung und dünnsten Schnitt $X$
+		\State $f' \gets $ \Call{ThinFlow}{$X, E[X], u[X], b[X], s$}
+		\ForAll{$e\in E[X]$} \State $f_e \gets f'_e$ \EndFor
+		\State\Return $f$
+	\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
