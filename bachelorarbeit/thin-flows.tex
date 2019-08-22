@@ -57,6 +57,9 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Seien ein $s$-Fluss $f$ in einem Netzwerk mit Zurück\-setzen auf $E_1$ und Ursprung $s$ sowie die durch $f$ induzierten Knotenauslastungen $l$ gegeben.
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt. 
 \end{definition}
+
+Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knotens $v$ gerade die Auslastung eines jeden $s$-$v$-Pfades mit positivem Fluss und $0$, falls kein solcher existiert.
+
 \begin{remark}
 	Ronald Koch betrachtet in~\cite{Koch2012} allgemeinere schmale Flüsse: Dort ist das zugrundeliegende Netzwerk nicht als azyklisch vorausgesetzt.
 	Diese Einschränkung wird hier im Sinne von~\cite{Cominetti2015} beibehalten.
@@ -313,7 +316,7 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	\]
 \end{proof}
 
-\begin{corollary}\label{prop-easy-characterization-sparsest-cut}
+\begin{corollary}\label{cor-easy-characterization-sparsest-cut}
 	Seien $f$ ein $b$-Fluss mit Auslastung $q$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$ in einem Netzwerk $(V, E, u)$.
 	Dann sind die beiden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
@@ -330,9 +333,9 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung.
 \end{proof}
 
-\todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$}
+\todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$ -- Allerdings muss man hier bisschen aufpassen, findet man ausgehend von einer maximal ausgelasteten Kante eine weitere, so muss man (für inklusionsminimalität das Vorgehen von hier zurücksetzen)}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-thin-flows-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
 	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
@@ -349,11 +352,54 @@ Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zw
 	Für eine eingehende Kante $vw\in\delta^-(X)$ gilt $\rho_{vw}(l_v, f_{vw})\geq l_v > l_w$ und somit muss nach Lemma~\ref{lemma-equivalent-thin-flow} der Fluss $f$ auf der Kante $vw$ verschwinden.
 \end{proof}
 
-\begin{lemma}
-	Seien ein schmaler $s$-Fluss $f$  sowie ein $s$-Schnitt $X\subseteq V$ mit $f(\delta^-(X)) = 0$ gegeben.
-	Dann ist $f$ auch ein schmaler $s$-Fluss auf dem von $X$ induzierten Teilnetz.
-\end{lemma}
+
+\newcommand{\abs}[1]{|{#1}|}
+\begin{definition}
+	Seien $\mathcal{I}:=(V, E, u, b)$ eine $b$-Fluss-Instanz und $X\subseteq V$ ein dünnster Schnitt mit Auslastung $q$.
+	Dann heißt $\mathcal{I}[X] := (X, E[X], u[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
+	wobei $E[X] := \{ vw \in E \mid v, w \in X \}$ als die Menge der Kanten zwischen Knoten in $X$, $u[X]$ als die Einschränkung von $u$ auf $E[X]$ und $b[X]$ durch \[
+	b[X]_v := b_v - u(\delta^+_E(v)\cap\delta^+_E(X)) q \quad \text{für $v\in X$}
+\] definiert ist.
+\end{definition}
+
+Man bemerke, dass $b[X]_v \leq b_v$ für $v\in X$ erfüllt und $b[X]$ ein zulässiger Balancevektor ist: \[
+	\sum_{v\in X} b[X]_v = b(X) - u(\delta^+_E(X)) q = 0
+\]
+
+\begin{proposition}\label{prop-restricted-minimal-flow-is-b-flow-on-induced-instance}
+	Ist $f$ ein $b$-Fluss minimaler Auslastung einer $b$-Fluss-Instanz $(V, E, u, b)$, so ist die Einschränkung $f':=f_{\mid E[X]}$ ein $b[X]$-Fluss der induzierten Instanz $(X, E[X], u[X], b[X])$ für jeden dünnsten Schnitt $X$.
+\end{proposition}
 \begin{proof}
-	Seien $l$ bzw. $\tilde{l}$ die Knotenauslastungen von $f$ 
+	Nach Korollar~\ref{cor-thin-flows-max-node-label-equals-max-edge-label}  gelten $f_{e}/u_{e}=q$ für $e\in\delta^+(X)$ und $f_{e} = 0$ für $e\in\delta^-(X)$.
+	Daher kann man zeigen, dass $f'$ ein $b[X]$-Fluss ist, denn für alle $v\in X$ gilt:
+	\begin{align*}
+	f'(\delta^+_{E[X]}(v)) - f'(\delta^-_{E[X]}) &= f(\delta^+_E(v)) - f(\delta^-_E(v)) - f(\delta^+_{E[X]}(v)\cap\delta^+_{E[X]}(X)) \\
+	&= b_v - u(\delta^+_{E[X]}(v)\cap\delta^+_{E[X]}(X))q = b[X]_v.
+	\end{align*}
 \end{proof}
 
+\begin{lemma}
+	Seien ein schmaler $s$-Fluss $f$ auf dem Netzwerk $(V, E, u, b)$ sowie ein  dünnster Schnitt $X$ gegeben.
+	Sei $(X, E', u', b')$ das durch $X$ induzierte Teilnetz.
+	Dann ist die Einschränkung $f':=f_{\mid E'}$ von $f$ auf $E'$ auch ein schmaler $s$-Fluss auf dem von $X$ induzierten Teilgraph.
+\end{lemma}
+\begin{proof}
+	Lemma~\ref{lemma-thin-flows-have-minimal-congestion} und Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} implizieren bereits, dass $f(\delta^-_E(X)) = 0$ gilt und $f'$ ein $b'$-Fluss ist. 
+	Für $b_s = 0$ ist die Aussage trivial, denn dann ist $f$ der Nullfluss.
+	Ist $b_s > 0$, so liegt $s$ auch im Schnitt $X$.
+	
+	Man zeige, dass die Knotenauslastungen $l$ und $l'$ von $f$ und $f'$ auf allen Knoten $v\in X$ übereinstimmen:
+	Da jeder $s$-$v$-Pfad in $(X, E')$ auch in $(V, E)$ enthalten ist, gilt bereits $l'_v\leq l_v$.
+	Außerdem liegt jeder $s$-$v$-Pfad in $(V, E)$ mit positivem Fluss bezüglich $f$ auch komplett in $(X, E')$, da $f$ auf $\delta^-_E(X)$ verschwindet.
+	Daraus folgt $l'_v \geq l_v$, also insbesondere $l'_v = l_v$, wodurch auch $f'$ ein schmaler Fluss ist.
+\end{proof}
+
+\begin{lemma}
+	Seien ein $s$-Fluss $f$ minimaler Auslastung $q^*$ mit zugehöriger Knotenauslastung $l_v$ und ein dünnster Schnitt $X$ in einem Netzwerk ohne zurücksetzende Kanten gegeben.
+	Dann hat jeder $s$-$v$-Pfad $P$ Auslastung $q^*=l_v$ für alle $v\in V\setminus X$.
+\end{lemma}
+\begin{proof}
+	Ist $b$ der Nullvektor, so ist $f$ der Nullfluss und $l_v = 0$ für alle $v\in V$.
+	Sonst ist $s$ in $X$ enthalten und jeder $s$-$v$-Pfad enthält mindestens eine Kante, die $X$ verlässt und nach Korollar~\ref{cor-easy-characterization-sparsest-cut} Auslastung $q^*$ besitzt.
+	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung also $\max_{e\in P} f_e / u_e = q^*$.	
+\end{proof}
