@@ -53,9 +53,13 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Da solch ein Pfad existiert, gilt also $l_v \leq \tilde{l}_v$.
 \end{proof}
 
+\newcommand{\problemThinFlow}{\textsc{ThinFlow}}
 \begin{definition}[Schmaler Fluss]
 	Seien ein $s$-Fluss $f$ in einem Netzwerk mit Zurück\-setzen auf $E_1$ und Ursprung $s$ sowie die durch $f$ induzierten Knotenauslastungen $l$ gegeben.
-	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt. 
+	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
+	
+	Dabei nennt man das Tupel $(V, E, u, s, b, E_1)$ eine \emph{Instanz des $\problemThinFlow$ Problems}.
+	
 \end{definition}
 
 Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knotens $v$ gerade die Auslastung eines jeden $s$-$v$-Pfades mit positivem Fluss und $0$, falls kein solcher existiert.
@@ -141,15 +145,14 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Dann ist aber bereits $f_{vw}/u_{vw} > \max_{u\in V} l_u \geq 0$, womit $l_w \geq \rho_{vw}(l_v, f_{vw})$ nach Lemma~\ref{lemma-equivalent-thin-flow} gelten müsste.
 \end{proof}
 
-\begin{lemma}[Eindeutigkeit der Knotenbewertung]
+\begin{lemma}[Eindeutigkeit der Knotenauslastung]\label{lemma-node-congestion-unique}
 	Seien ein azyklisches Netzwerk mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
-	Dann sind die Knotenbewertungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
+	Dann sind die Knotenauslastungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
 \end{lemma}
 \begin{proof}
-	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurück\-setzen auf $E_1$ mit unterschiedlichen Knotenbewertungen $l'\neq h'$.
+	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurück\-setzen auf $E_1$ mit unterschiedlichen Knotenauslastungen $l'\neq h'$.
 	Dann ist oBdA. die Menge $S:=\{ v\in V \mid l_v' > h_v' \}$ nichtleer.
-	Der Balancevektor $(b_v)_{v\in V}$ mit $$b_v:=\sum_{e\in\delta^+(v)} x_e' - \sum_{e\in\delta^-(s)} x_e' = \sum_{e\in\delta^+(v)} y_e' - \sum_{e\in\delta^-(v)} y_e'$$ ist für $x'$ und $y'$ identisch, da beide Flusserhaltung in $v\notin\{ s, t\}$, und damit $b_v=0$ erfüllen und Wert $d$ besitzen.
-	Betrachtet man Kanten, die innerhalb $S$ verlaufen, erhält man 
+	Da $x'$ und $y'$ beide $b$-Flüsse sind, gilt 
 	\begin{equation}\label{proof-uniqueness-labels-eq}
 	\sum_{e\in \delta^+(S)} x'_e - \sum_{e\in\delta^-(S)} x'_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} y_e' - \sum_{e\in\delta^-(S)} y_e'.
 	\end{equation}
@@ -163,9 +166,58 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Daher ist $l_w' = \min_{vw\in \delta^-(w)} l_v'$ und $h_w' = \min_{vw\in\delta^-(w)} h_v'$, was den Widerspruch $l_w' \leq h_w'$ impliziert.
 \end{proof}
 
-\begin{theorem}[Existenz eines normierten schmalen Flusses]\label{thm-existence-thin-flow}
-	Seien ein azyklisches Netzwerk $(G,u,s,t)$ mit Ursprung $s$ und Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
-	Es existiert ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$.
+Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurück\-setzende Kanten --, wie man leicht in Abbildung~\ref{figure-thin-flows-not-unique} erkennen kann, jedoch ist der Fluss auf einigen Kanten eindeutig:
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\begin{tikzpicture}[scale=0.8]
+		\node[draw, circle] (S) at (0,2) {$s$};
+		\node[draw, circle] (U) at (2,2) {$u$};
+		\node[draw, circle] (W) at (4,1) {$w$};
+		\node[draw, circle] (V) at (4,3) {$v$};
+		\node[draw, circle] (T) at (6,2) {$t$};
+		
+		\path [->] (S) edge node[above] {$2$} (U);
+		\path [->] (U) edge node[above] {$1$} (V);
+		\path [->] (U) edge node[below] {$1$} (W);
+		\path [->] (V) edge node[above] {$1$} (T);
+		\path [->] (W) edge node[below] {$1$} (T);
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\begin{tikzpicture}[scale=0.8]
+		\node[draw, circle] (S) at (0,2) {$s$};
+		\node[draw, circle] (U) at (2,2) {$u$};
+		\node[draw, circle] (W) at (4,1) {$w$};
+		\node[draw, circle] (V) at (4,3) {$v$};
+		\node[draw, circle] (T) at (6,2) {$t$};
+		
+		\path [->] (S) edge node[above] {$2$} (U);
+		\path [->] (U) edge node[above] {$2$} (V);
+		\path [->] (U) edge node[below] {$0$} (W);
+		\path [->] (V) edge node[above] {$2$} (T);
+		\path [->] (W) edge node[below] {$0$} (T);
+		\end{tikzpicture}
+	\end{subfigure}
+	\caption{Zwei verschiedene schmale Flüsse derselben Instanz ohne Zurück\-setzen. Auf den Kanten steht der Flusswert; die Kapazitäten sind allesamt $1$.}
+	
+\end{figure}
+
+\begin{corollary}[Eindeutigkeit schmaler Flüsse]
+	 Für eine Instanz von~$\problemThinFlow$ sind alle Lösungen auf den zurück\-setzen\-den Kanten sowie auf Kanten $vw$ mit $l_v \neq l_w$ identisch.
+	 Dabei ist $(l_v)_{v\in V}$ die eindeutige Knotenauslastung.
+\end{corollary}
+\begin{proof}
+	Da nach Lemma~\ref{lemma-node-congestion-unique} die Knotenauslastung $(l_v)_{v\in V}$ für jeden schmalen Fluss $f$ eindeutig ist, gilt $f_{vw} = u_{vw} l_w$ für $vw\in E_1$ nach~\ref{def-thin-flow-resetting-edge}.
+	Für $vw\notin E_1$ betrachte man zunächst den Fall $l_v < l_w$.
+	Nach Definition gilt $l_w \leq \max \{ l_v, f_{vw}/u_{vw} \}$, sodass man $f_{vw}/u_{vw} > l_v \geq 0$ folgern kann.
+	Nach Lemma~\ref{lemma-equivalent-thin-flow} gilt also $f_{vw} = l_w u_{vw}$.
+	Im Fall $l_v > l_w$ muss $f_{vw} = 0$ gelten, da sonst $l_w=\max\{ l_v, f_e/u_e \}$ gelten würde.
+\end{proof}
+
+\begin{theorem}[Existenz schmaler Flüsse]\label{thm-existence-thin-flow}
+	Für jede Instanz von $\problemThinFlow$ existiert ein schmaler Fluss, falls im zugehörigen Netzwerk ein $s$-Fluss existiert.
 \end{theorem}
 
 Um die Existenz zu beweisen, benötigen wir zunächst den Fixpunktsatz von Kakutani.
@@ -186,26 +238,27 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 \end{satz}
 
 \begin{proof}[Beweis von Theorem~\ref{thm-existence-thin-flow}]
-	Man betrachte die Menge $C$ aller $s$-$t$-Flüsse mit Wert $d$ als Teilmenge des metrischen Raums $\R^E$.
-	Diese ist nichtleer, weil $t$ von $s$ aus erreichbar ist, konvex, da für $x', y'\in C, \lambda \in [0,1]$ der Fluss $\lambda x' + (1-\lambda)y'$ wieder die Flusserhaltung erfüllt, und kompakt, da jeder Fluss in $C$ von Wert $d$ ist und aufgrund der Azyklizität in $s$-$t$-Wege zerlegbar ist, wodurch jede Kante maximal Fluss $d$ besitzen kann, sodass $C\subseteq [0, d]^E$ folgt.
+	Man betrachte die Menge $C$ aller $b$-Flüsse als Teilmenge des metrischen Raums $\R^E$.
+	Nach Voraussetzung ist diese nichtleer, konvex, da für $f, g\in C, \lambda \in [0,1]$ der Fluss $\lambda f + (1-\lambda)g$ wieder die Flusserhaltung erfüllt, und kompakt, da jeder Fluss in $C$ aufgrund der Azyklizität in $s$-$v_i$-Wege zerlegbar ist, wodurch jede Kante maximal Fluss $b_s$ besitzen kann, sodass $C$ eine beschränkte Teilmenge von $\subseteq [0, b_s]^E$ ist.
+	Außerdem ist $C$ abgeschlossen, da es die Lösungsmenge eines linearen Gleichungssystem ist.
 	Auf $C$ definiere man die Korrespondenz
 	\[
-	\Gamma: C\to \mathcal{P}(C)\setminus\{ \emptyset \}, ~ x'\mapsto \{ y'\in C \mid \forall vw\in E: l_w' < \rho_{vw}(l_v', x_{vw}') \implies y_{vw}' = 0 \}.
+	\Gamma: C\to \mathcal{P}(C)\setminus\{ \emptyset \}, ~ f\mapsto \{ g\in C \mid \forall vw\in E: l_w < \rho_{vw}(l_v, f_{vw}) \implies g_{vw} = 0 \}.
 	\]
-	Dabei sei $l'\in\R_{\geq 0}^V$ die zu $x'$ gehörige Knotenauslastung.
-	Diese Korrespondenz ist wohldefiniert, da $\Gamma(x')$ für jedes $x'\in C$ nichtleer ist:
-	Der Knoten $s$ kann im Graphen $G':= (V, E')$ mit $E':= \{ vw\in E \mid \rho_{vw}(l_v', x_{vw}')=l_w' \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante mit $l_w' = \rho_{vw}(l_v', x_{vw}')$ besitzt. 
-	Daher existiert ein $s$-$t$-Weg $P$ in $G'$ und der Fluss $d\cdot P$ ist in $\Gamma(x')$ enthalten.
+	Dabei sei $l\in\R_{\geq 0}^V$ die zu $f$ gehörige Knotenauslastung.
+	Diese Korrespondenz ist wohldefiniert, da $\Gamma(f)$ für jedes $f\in C$ nichtleer ist:
+	Der Knoten $s$ kann im Graphen $G':= (V, E')$ mit $E':= \{ vw\in E \mid \rho_{vw}(l_v, f_{vw})=l_w \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ mindestens eine eingehende Kante mit $l_w = \rho_{vw}(l_v, f_{vw})$ besitzt. 
+	Daher existiert ein $s$-$v$-Weg $P_v$ in $G'$ für alle $v\in V$ und der Fluss $\sum_{v\in V\setminus\{ s\}} b_v \cdot P_v$ ist in $\Gamma(f)$ enthalten.
 	
-	Für jedes $x'\in C$ ist $\Gamma(x')$ konvex: Ist für $y', z'\in \Gamma(x'), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w' < \rho_{vw}(l_w', x_{vw}')$ erfüllt, so gilt auch $\lambda y_{vw}' + (1-\lambda) z_{vw}' = 0$, womit $\lambda y' + (1-\lambda)z'$ im Bild $\Gamma(x)$ liegt.
+	Für jedes $f\in C$ ist $\Gamma(f)$ konvex: Ist für $g, h\in \Gamma(f), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w < \rho_{vw}(l_w, f_{vw})$ erfüllt, so gilt auch $\lambda g_{vw} + (1-\lambda) h_{vw} = 0$, womit $\lambda g + (1-\lambda)h$ im Bild $\Gamma(f)$ liegt.
 	Des Weiteren ist $\Gamma$ abgeschlossen: 
-	Sei eine konvergente Folge $((x^{n}, y^{n}))_{n\in\N}$ in $R_\Gamma$ mit Grenzwert $(x, y)$ gegeben.
-	Die zu $x$ bzw. $x^n$ gehörigen Knotenauslastungen seien gegeben durch $l$ bzw. $l^n$. 
-	Angenommen, es gelte $l_w < \rho_{vw}(l_v, x_{vw})$.
-	Da die Zuordnung $x'\mapsto l'$ eines $s$-Flusses auf seine Knotenauslastung nach Lemma~\ref{prop-congestion-labels-dijkstra} stetig ist, existiert ein $N\in\N$ mit $l_w^n<\rho_{vw}(l_v^n, x_{vw}^n)$ für alle $n\geq N$.
-	Damit ist auch $y_{vw} = \lim_{n\to\infty} y_{vw}^n = 0$.
+	Sei eine konvergente Folge $((f^{n}, g^{n}))_{n\in\N}$ in $R_\Gamma$ mit Grenzwert $(f, g)$ gegeben.
+	Die zu $f$ bzw. $f^n$ gehörigen Knotenauslastungen seien gegeben durch $l$ bzw. $l^n$.
+	Angenommen, es gelte $l_w < \rho_{vw}(l_v, f_{vw})$.
+	Da die Zuordnung $x'\mapsto l'$ eines $s$-Flusses auf seine Knotenauslastung nach Lemma~\ref{prop-congestion-labels-dijkstra} stetig ist, existiert ein $N\in\N$ mit $l_w^n<\rho_{vw}(l_v^n, f_{vw}^n)$ für alle $n\geq N$.
+	Damit ist auch $g_{vw} = \lim_{n\to\infty} g_{vw}^n = 0$.
 	
-	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein normierter schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
+	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
 \end{proof}
 
 \section{Effiziente Berechnung schmaler Flüsse}
@@ -221,6 +274,7 @@ Dann suche man einen zulässigen Punkt in folgendem Polyeder:
 			d, & \text{falls $v=s$},\\
 			0, & \text{sonst,} 
 		\end{cases} & \text{für $v\in V\setminus\{t \}$,} \\
+	& l'_s = 0, \\
 	& \begin{array}{@{}l}
 		l_w' = \sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw}\\
 		\sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw} \geq x'_{vw}/u_{vw}\\
@@ -229,6 +283,7 @@ Dann suche man einen zulässigen Punkt in folgendem Polyeder:
 	& \text{für $vw\in E'\setminus E_1$},\\
 	& l_w' = x'_{vw}/u_{vw} & \text{für $vw\in E_1$.}
 \end{align*}
+\todo{Genauerer Beweis}
 
 \newcommand{\TFNP}{\mathbf{TFNP}}
 
@@ -253,27 +308,57 @@ Dazu werden zunächst einige Begriffe eingeführt:
 	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
 \end{definition}
 Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
-\begin{definition}[Auslastung eines $b$-Flusses]
-	In einem Netzwerk $(V, E, u)$ nennt man die maximale Kantenauslastung $\max_{e\in E} f_e / u_e$ die \emph{Auslastung des $b$-Flusses $f$}.
+\begin{definition}[Doppelgraph]
+	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}:=\{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}:=\{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
+\end{definition}
+\begin{definition}[Auslastung eines $b$-Flusses, Residualgraph]
+	In einem Netzwerk $(V, E, u)$ nennt man die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e / u_e$ die \emph{Auslastung des $b$-Flusses $f$}.
+	Der \emph{Residualgraph von $G$ bezüglich $f$}, $G_f := (V, E_f)$, ist definiert durch \[
+	E_f := \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
+	\]
 \end{definition}
 
-\begin{lemma}
-	\todo{Ein kantenminimaler b-Fluss kann in $O(xyz)$ Zeit gefunden werden}
+\begin{lemma}\label{lemma-min-flow-criterion}
+	Ist $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise besitzt, die eine durch $f$ maximal ausgelastete Rückwärtskante benutzen, so ist $f$ ein $b$-Fluss minimaler Auslastung.
 \end{lemma}
+
+\begin{proposition}
+	Für zwei $b$-Flüsse $f$, $f'$ mit $c(f) \geq c(f')$ ist $f'\Delta f := g\in \R_{\geq0}^{E^\leftrightarrow}$, definiert durch
+	\begin{align*}
+	g_{\overrightsmallarrow{e}} := \max\{ 0, f_e' - f_e \} \text{~~~und~~~}
+	g_{\overleftsmallarrow{e}} := \max\{ 0, f_e - f_e' \} \text{~~~für $e\in E$},
+	\end{align*}
+	eine Strömung auf $G^\leftrightarrow$, die auf $E^\leftrightarrow \setminus E_f$ verschwindet.
+\end{proposition}
+\begin{proof}
+	Eine Strömung ist eine Kantenbewertung, die in jedem Knoten Flusserhaltung erhält.
+	Man zeige also $g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v)) = 0$ für alle Knoten $v\in V$.
+	Durch Fallunterscheidung erkenne man $g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}} = f_e' - f_e$ für alle $e\in E$ und man folgere:
+	\begin{align*}
+		g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v))
+		&= \left( \sum_{e\in\delta^+_G(v)} g_{\overrightsmallarrow{e}} +  \sum_{e\in\delta^-_G(v)} g_{\overleftsmallarrow{e}} \right)
+		- \left(\sum_{e\in\delta^-_G(v)} g_{\overrightsmallarrow{e}} + \sum_{e\in\delta^+_G(v)} g_{\overleftsmallarrow{e}} \right) \\
+		&= \sum_{e\in\delta^+_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}}) - \sum_{e\in\delta^-_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}})\\
+		&= \sum_{e\in\delta^+_G(v)} (f_e' - f_e) - \sum_{e\in\delta^-_G(v)} (f_e' - f_e) = b_v - b_v = 0.
+	\end{align*}
+	Es bleibt also zu zeigen, dass $g$ auf $E^\leftrightarrow \setminus E_f$ verschwindet.
+	\todo{zeige}
+\end{proof}
+
+
+\begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}
+	\todo{zeige}
+\end{proof}
 
 \begin{lemma}\label{lemma-no-circle-in-res-graph-inclus-min}
 	Sei $q^*$ die minimale Auslastung eines $b$-Flusses im Netzwerk $(V, E, u)$.
-	Ist $E'\subseteq E$ inklusionsminimal mit der Eigenschaft, dass ein $b$-Fluss $f$ minimaler Auslastung existiert, sodass $E'$ die durch $f$ maximal ausgelasteten Kanten sind, so enthält der Residualgraph $G_f := (V, E_f)$, definiert durch \[
-		E_f := \{ e \mid e\in E, f_e/u_e < q^* \} \cup \{ e^\leftarrow \mid e\in E, f_e/u_e > 0 \},
-	\]
+	Ist $E'\subseteq E$ inklusionsminimal mit der Eigenschaft, dass ein $b$-Fluss $f$ minimaler Auslastung existiert, sodass $E'$ die durch $f$ maximal ausgelasteten Kanten sind, so enthält der Residualgraph $G_f$
 	für solche Flüsse $f$ keine gerichteten Kreise, die eine Rückwärtskante einer maximal ausgelasteten Kante benutzen.
-	
-	Kanten $e\in E_f$ mit $f_e/u_e < q^*$ nennt man Vorwärtskanten und Kanten $e^\leftarrow\in E_f$ mit $f_e/u_e > 0$ Rückwärtskanten.
 \end{lemma}
 \begin{proof}
 	\newcommand{\VK}{\text{VK}}
 	\newcommand{\RK}{\text{RK}}
-	Angenommen, es existiere ein einfacher Kreis $C$, der eine Rückwärtskante $e^\leftarrow$ mit $e\in E'$ enthält.
+	Angenommen, es existiere ein einfacher Kreis $C$, der eine Rückwärtskante $\overleftsmallarrow{e}$ mit $e\in E'$ enthält.
 	Es seien $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
 	Man setze $\gamma_\VK := \min_{e\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
 	Weiter sei $\gamma_\RK := \min_{e^\leftarrow\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
@@ -282,6 +367,10 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	Demnach ist auch $\tilde{f}$ ein minimaler $b$-Fluss, dessen maximal ausgelastete Kanten, also Kanten mit Auslastung $q^*$, eine echte Teilmenge von $E'$ sind, da mindestens eine Rückwärtskante in $E'$ enthalten war.
 	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $E'$.
 \end{proof}
+
+\begin{lemma}
+	\todo{Ein kantenminimaler b-Fluss kann in $O(xyz)$ Zeit gefunden werden}
+\end{lemma}
 
 Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten aufzeigt:
 

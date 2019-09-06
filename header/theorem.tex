@@ -88,3 +88,30 @@
 \else					% Kapitel sind nicht definiert
   \numberwithin{equation}{chapter}	% Gleichungsnummern in Kapiteln
 \fi
+
+
+
+
+
+\makeatletter
+\newcommand{\overleftsmallarrow}{\mathpalette{\overarrowsmall@\leftarrowfill@}}
+\newcommand{\overrightsmallarrow}{\mathpalette{\overarrowsmall@\rightarrowfill@}}
+\newcommand{\overleftrightsmallarrow}{\mathpalette{\overarrowsmall@\leftrightarrowfill@}}
+\newcommand{\overarrowsmall@}[3]{%
+	\vbox{%
+		\ialign{%
+			##\crcr
+			#1{\smaller@style{#2}}\crcr
+			\noalign{\nointerlineskip\vskip0.4pt}%
+			$\m@th\hfil#2#3\hfil$\crcr
+		}%
+	}%
+}
+\def\smaller@style#1{%
+	\ifx#1\displaystyle\scriptstyle\else
+	\ifx#1\textstyle\scriptstyle\else
+	\scriptscriptstyle
+	\fi
+	\fi
+}
+\makeatother
