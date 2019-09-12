@@ -311,7 +311,7 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 \begin{definition}[Doppelgraph]
 	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}:=\{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}:=\{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
 \end{definition}
-\begin{definition}[Auslastung eines $b$-Flusses, Residualgraph]
+\begin{definition}[Auslastung und Residualgraph eines $b$-Flusses]
 	In einem Netzwerk $(V, E, u)$ nennt man die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e / u_e$ die \emph{Auslastung des $b$-Flusses $f$}.
 	Der \emph{Residualgraph von $G$ bezüglich $f$}, $G_f := (V, E_f)$, ist definiert durch \[
 	E_f := \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
@@ -322,7 +322,7 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	Ist $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise besitzt, die eine durch $f$ maximal ausgelastete Rückwärtskante benutzen, so ist $f$ ein $b$-Fluss minimaler Auslastung.
 \end{lemma}
 
-\begin{proposition}
+\begin{proposition}\label{prop-difference-b-flows-stream}
 	Für zwei $b$-Flüsse $f$, $f'$ mit $c(f) \geq c(f')$ ist $f'\Delta f := g\in \R_{\geq0}^{E^\leftrightarrow}$, definiert durch
 	\begin{align*}
 	g_{\overrightsmallarrow{e}} := \max\{ 0, f_e' - f_e \} \text{~~~und~~~}
@@ -347,11 +347,15 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 	Für eine Rückwärtskante $\overleftsmallarrow{e}$ mit $f_e = 0$ folgt $g_{\overleftsmallarrow{e}} = 0$ direkt.
 \end{proof}
 
-Insbesondere existiert für solche Strömungen $f'\Delta f$ eine Dekomoposition in Zyklen.
+Insbesondere existiert für solche Strömungen $f'\Delta f$ eine Dekomposition in Zyklen.
 Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 
 \begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}]
-	\todo{zeige}
+	Sei $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise mit einer maximal ausgelasteten Kante besitzt, und sei $e$ eine Kante mit Auslastung $c(f)$.
+	Angenommen, es existiere ein $b$-Fluss $f'$ mit geringerer Auslastung; es gilt also insbesondere $f'_e/u_e < f_e/u_e$.
+	Die Strömung $g:= f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} eine Dekomposition in Zyklen $g = \lambda_1 \cdot C_1 +\dots + \lambda_k \cdot C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
+	Da $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
+	Da $g$ außerdem nur auf $E_f$ verläuft, enthält $E_f$ also den Zyklus $C_i$, der die maximal ausgelastete Kante $e$ benutzt, was im Widerspruch zur Voraussetzung steht.
 \end{proof}
 
 
