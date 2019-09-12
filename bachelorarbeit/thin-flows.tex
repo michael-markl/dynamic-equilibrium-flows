@@ -342,13 +342,18 @@ Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nich
 		&= \sum_{e\in\delta^+_G(v)} (f_e' - f_e) - \sum_{e\in\delta^-_G(v)} (f_e' - f_e) = b_v - b_v = 0.
 	\end{align*}
 	Es bleibt also zu zeigen, dass $g$ auf $E^\leftrightarrow \setminus E_f$ verschwindet.
+	Sei zunächst eine Vorwärtskante $\overrightsmallarrow{e}$ mit $f_{e}/u_{e} = c(f)$ gegeben.
+	Dann gilt nach Voraussetzung auch $f_{e}/u_{e} = c(f) \geq c(f') \geq f'_{e}/u_{e}$, wodurch $g_{\overrightsmallarrow{e}}= 0$ folgt.
+	Für eine Rückwärtskante $\overleftsmallarrow{e}$ mit $f_e = 0$ folgt $g_{\overleftsmallarrow{e}} = 0$ direkt.
+\end{proof}
+
+Insbesondere existiert für solche Strömungen $f'\Delta f$ eine Dekomoposition in Zyklen.
+Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
+
+\begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}]
 	\todo{zeige}
 \end{proof}
 
-
-\begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}
-	\todo{zeige}
-\end{proof}
 
 \begin{lemma}\label{lemma-no-circle-in-res-graph-inclus-min}
 	Sei $q^*$ die minimale Auslastung eines $b$-Flusses im Netzwerk $(V, E, u)$.
