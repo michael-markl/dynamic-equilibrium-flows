@@ -516,20 +516,21 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	Nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} stimmt die Auslastung von $v$ bezüglich der Einschränkung von $f$ mit der Auslastung von $v$ bezüglich $f$ überein, sodass auch die Auslastung von $P$ mit der Auslastung von $v$ bezüglich $f$ übereinstimmen.
 \end{proof}
 
-Dies bildet die Grundlage des nachfolgenden polynomiellen Algorithmus' zur Berechnung von schmalen Flüssen ohne Zurücksetzen:
-
 \begin{algorithm}
 \caption{Berechnung eines schmalen Flusses ohne Zurücksetzen}
+\label{algorithm-computation-thin-flow-without-resetting}
 \begin{algorithmic}[1]
-\Function{ThinFlow}{$V, E, u, b, s$}
+	\Function{ThinFlow}{$V, E, u, b, s$}
 	\If{$b_s = 0$}
-		\State\Return $0^E$
+	\State\Return $0^E$
 	\Else 
-		\State Berechne $s$-Fluss $f$ minimaler Auslastung und dünnsten Schnitt $X$
-		\State $f' \gets $ \Call{ThinFlow}{$X, E[X], u[X], b[X], s$}
-		\ForAll{$e\in E[X]$} \State $f_e \gets f'_e$ \EndFor
-		\State\Return $f$
+	\State Berechne $s$-Fluss $f$ minimaler Auslastung und dünnsten Schnitt $X$
+	\State $f' \gets $ \Call{ThinFlow}{$X, E[X], u[X], b[X], s$}
+	\ForAll{$e\in E[X]$} \State $f_e \gets f'_e$ \EndFor
+	\State\Return $f$
 	\EndIf
-\EndFunction
+	\EndFunction
 \end{algorithmic}
 \end{algorithm}
+
+Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
