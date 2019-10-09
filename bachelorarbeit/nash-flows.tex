@@ -2,7 +2,11 @@
 
 Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
 Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$, an der Senke ankommen.
-Für die formale Einführung benötigt man weitere Definitionen: 
+
+\section{Charakterisierung dynamischer Nash-Flüsse}
+
+
+Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Definitionen: 
 
 \begin{definition}
 	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ den Zufluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $v$, die zur Zeit $\theta$ in $s$ starten.\\
@@ -22,11 +26,7 @@ Für die formale Einführung benötigt man weitere Definitionen:
 \begin{proof}
 	Unter Benutzung der Voraussetzung~\ref{def-feasible-flow-no-flow-at-node} folgere man für $v\in V\setminus \{ s, t\}, \theta\in\R$:
 	\[ \sum_{e\in\delta^-(v)} x_e^-(\theta) = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^-(v)} f_e^-(t) \diff t = \int_{0}^{l_v(\theta)} \sum_{e\in\delta^+(v)} f_e^+(t) \diff t = \sum_{e\in\delta^+(v)}x_e^+(\theta). \]
-\vspace{-1.4 \baselineskip}
-
 \end{proof}
-
-\section{Charakterisierung dynamischer Nash-Flüsse}
 
 \begin{notation}
 	 $M^c:= \R\setminus M$ bezeichne das Komplement von $M\subseteq\R$, $\overline{M}$ den Abschluss.
@@ -82,7 +82,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Daher genügt es, zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
 	Mit der Surjektivität von $l_v$ gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
-	Des Weiteren ist $S:=l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})\subseteq l_v(\Q)$:
+	Des Weiteren ist $S:=l_v(\Theta_{vw}^c)\setminus l_v(\Theta_{vw})^c = l_v(\Theta_{vw}^c)\cap l_v(\Theta_{vw})$ eine Teilmenge von $l_v(\Q)$:
 	Für ein $\xi\in S$ gibt es $\theta\in\Theta_{vw}^c$ und $\theta'\in\Theta_{vw}$ mit $l_v(\theta)=\xi=l_v(\theta')$.
 	Da $\theta\neq\theta'$ ist, existiert ein $\theta_q\in\Q\cap(\theta,\theta')$.
 	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$, womit $\xi\in l_v(\Q)$ folgt.
@@ -190,7 +190,7 @@ Der Rest folgt mit der Monotonie und Stetigkeit von $x_{vw}$.
 		\item Die Ableitung $x_{vw}'(\theta)$ existiert und es gilt $x_{vw}'(\theta)> 0$.
 		\item Die Wartezeit $q_{vw}$ an der Kante $vw$ ist zur Zeit $l_v(\theta)$ positiv.
 	\end{enumerate}
-	Insbesondere verschwindet nach (iii) die Wartezeit $q_{vw}(l_v(\theta))$ für $\theta\in\overline{\Theta_{vw}^c}$.
+	Insbesondere verschwindet die Wartezeit $q_{vw}(l_v(\theta))$ für alle $\theta\in\overline{\Theta_{vw}^c}$.
 \end{lemma}
 \begin{proof}
 	Zu Aussage (i): Angenommen, $vw$ wäre zum Zeitpunkt $\theta$ nicht aktiv, so würde wegen der Offenheit von $\Theta_{vw}^c$ und Lemma~\ref{lemma-x-locally-constant} die Ableitung $x_{vw}'(\theta)$ verschwinden.

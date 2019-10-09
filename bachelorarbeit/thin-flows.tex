@@ -1,4 +1,4 @@
-\section{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
+\chapter{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
 \newcommand*{\PlH}{\makebox[1ex]{\textbf{$\cdot$}}}
 
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
@@ -15,7 +15,7 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 \begin{definition}[Auslastung]
 	Sei ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ gegeben.
 	Dann ist die \emph{Auslastung einer Kante} gegeben durch $f_e/u_e$.
-	Die \emph{Auslastungsübertragung einer Kante $vw$} sei gegeben durch \[ \rho_{vw}(l_v, f_{vw}) := \begin{cases}
+	Die \emph{Auslastungsübertragung einer Kante $vw$} ist gegeben durch \[ \rho_{vw}(l_v, f_{vw}) := \begin{cases}
 		\max\{ l_v, f_{vw} / u_{vw} \}, & \text{falls $vw\notin E_1$,}\\
 		f_{vw} / u_{vw}, & \text{falls $vw\in E_1$.}
 	\end{cases}
@@ -298,140 +298,6 @@ Daher liegt das Problem, zu einem Netzwerk $(V, E, u, s, t)$ einen schmalen $d$-
 \end{definition}
 
 In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
-Dazu werden zunächst einige Begriffe eingeführt:
-
-\begin{definition}[Schnitt]
-	In einem gerichteten Netzwerk $(V, E, u)$ heißt eine Teilmenge $X\subseteq V$ \emph{Schnitt}, wobei die aus $X$ ausgehenden Kanten mit $\delta^+(X)$ und die in $X$ eingehenden Kanten mit $\delta^-(X)$ bezeichnet werden.
-	
-	Sind zusätzlich Knotenbalancen $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
-	Dabei ist $b(X)$ bzw. $u(E')$ eine Kurzschreibweise für $\sum_{v\in X} b_v$ bzw. $\sum_{e\in E'} u_e$.
-	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
-\end{definition}
-Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
-\begin{definition}[Doppelgraph]
-	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}:=\{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}:=\{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
-\end{definition}
-\begin{definition}[Auslastung und Residualgraph eines $b$-Flusses]
-	In einem Netzwerk $(V, E, u)$ nennt man die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e / u_e$ die \emph{Auslastung des $b$-Flusses $f$}.
-	Der \emph{Residualgraph von $G$ bezüglich $f$}, $G_f := (V, E_f)$, ist definiert durch \[
-	E_f := \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
-	\]
-\end{definition}
-
-\begin{lemma}\label{lemma-min-flow-criterion}
-	Ist $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise besitzt, die eine durch $f$ maximal ausgelastete Rückwärtskante benutzen, so ist $f$ ein $b$-Fluss minimaler Auslastung.
-\end{lemma}
-
-\begin{proposition}\label{prop-difference-b-flows-stream}
-	Für zwei $b$-Flüsse $f$, $f'$ mit $c(f) \geq c(f')$ ist $f'\Delta f := g\in \R_{\geq0}^{E^\leftrightarrow}$, definiert durch
-	\begin{align*}
-	g_{\overrightsmallarrow{e}} := \max\{ 0, f_e' - f_e \} \text{~~~und~~~}
-	g_{\overleftsmallarrow{e}} := \max\{ 0, f_e - f_e' \} \text{~~~für $e\in E$},
-	\end{align*}
-	eine Strömung auf $G^\leftrightarrow$, die auf $E^\leftrightarrow \setminus E_f$ verschwindet.
-\end{proposition}
-\begin{proof}
-	Eine Strömung ist eine Kantenbewertung, die in jedem Knoten Flusserhaltung erhält.
-	Man zeige also $g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v)) = 0$ für alle Knoten $v\in V$.
-	Durch Fallunterscheidung erkenne man $g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}} = f_e' - f_e$ für alle $e\in E$ und man folgere:
-	\begin{align*}
-		g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v))
-		&= \left( \sum_{e\in\delta^+_G(v)} g_{\overrightsmallarrow{e}} +  \sum_{e\in\delta^-_G(v)} g_{\overleftsmallarrow{e}} \right)
-		- \left(\sum_{e\in\delta^-_G(v)} g_{\overrightsmallarrow{e}} + \sum_{e\in\delta^+_G(v)} g_{\overleftsmallarrow{e}} \right) \\
-		&= \sum_{e\in\delta^+_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}}) - \sum_{e\in\delta^-_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}})\\
-		&= \sum_{e\in\delta^+_G(v)} (f_e' - f_e) - \sum_{e\in\delta^-_G(v)} (f_e' - f_e) = b_v - b_v = 0.
-	\end{align*}
-	Es bleibt also zu zeigen, dass $g$ auf $E^\leftrightarrow \setminus E_f$ verschwindet.
-	Sei zunächst eine Vorwärtskante $\overrightsmallarrow{e}$ mit $f_{e}/u_{e} = c(f)$ gegeben.
-	Dann gilt nach Voraussetzung auch $f_{e}/u_{e} = c(f) \geq c(f') \geq f'_{e}/u_{e}$, wodurch $g_{\overrightsmallarrow{e}}= 0$ folgt.
-	Für eine Rückwärtskante $\overleftsmallarrow{e}$ mit $f_e = 0$ folgt $g_{\overleftsmallarrow{e}} = 0$ direkt.
-\end{proof}
-
-Insbesondere existiert für solche Strömungen $f'\Delta f$ eine Dekomposition in Zyklen.
-Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
-
-\begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}]
-	Sei $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise mit einer maximal ausgelasteten Kante besitzt, und sei $e$ eine Kante mit Auslastung $c(f)$.
-	Angenommen, es existiere ein $b$-Fluss $f'$ mit geringerer Auslastung; es gilt also insbesondere $f'_e/u_e < f_e/u_e$.
-	Die Strömung $g:= f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} eine Dekomposition in Zyklen $g = \lambda_1 \cdot C_1 +\dots + \lambda_k \cdot C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
-	Da $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
-	Da $g$ außerdem nur auf $E_f$ verläuft, enthält $E_f$ also den Zyklus $C_i$, der die maximal ausgelastete Kante $e$ benutzt, was im Widerspruch zur Voraussetzung steht.
-\end{proof}
-
-
-\begin{lemma}\label{lemma-no-circle-in-res-graph-inclus-min}
-	Sei $q^*$ die minimale Auslastung eines $b$-Flusses im Netzwerk $(V, E, u)$.
-	Ist $E'\subseteq E$ inklusionsminimal mit der Eigenschaft, dass ein $b$-Fluss $f$ minimaler Auslastung existiert, sodass $E'$ die durch $f$ maximal ausgelasteten Kanten sind, so enthält der Residualgraph $G_f$
-	für solche Flüsse $f$ keine gerichteten Kreise, die eine Rückwärtskante einer maximal ausgelasteten Kante benutzen.
-\end{lemma}
-\begin{proof}
-	\newcommand{\VK}{\text{VK}}
-	\newcommand{\RK}{\text{RK}}
-	Angenommen, es existiere ein einfacher Kreis $C$, der eine Rückwärtskante $\overleftsmallarrow{e}$ mit $e\in E'$ enthält.
-	Es seien $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
-	Man setze $\gamma_\VK := \min_{e\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
-	Weiter sei $\gamma_\RK := \min_{e^\leftarrow\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
-	Wählt man nun $0 < \gamma < \min\{ \gamma_\VK, \gamma_\RK  \}$, so erhält man durch Augmentierung von $f$ entlang $Q$ mit $\gamma$ einen $b$-Fluss $\tilde{f}$.
-	Bezüglich $\tilde{f}$ haben dann sowohl alle Vorwärtskanten als auch alle Rückwärtskanten von $C$ eine geringere Auslastung als $q^*$.
-	Demnach ist auch $\tilde{f}$ ein minimaler $b$-Fluss, dessen maximal ausgelastete Kanten, also Kanten mit Auslastung $q^*$, eine echte Teilmenge von $E'$ sind, da mindestens eine Rückwärtskante in $E'$ enthalten war.
-	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $E'$.
-\end{proof}
-
-\begin{lemma}
-	\todo{Ein kantenminimaler b-Fluss kann in $O(xyz)$ Zeit gefunden werden}
-\end{lemma}
-
-Weiter wird das folgende fundamentale Theorem benötigt, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten aufzeigt:
-
-\begin{theorem}\label{thm-strong-duality-sparsest-cut-min-flow}
-	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ mit $\sum_{v\in V}b_v = 0$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
-	Existiert darüber hinaus ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
-	\[
-		\min_{\text{$f$ $b$-Fluss}}~\max_{e\in E}\frac{f_e}{u_e} = \max_{\substack{X\subseteq V\\ \delta^+(X)\neq\emptyset}} ~ \frac{b(X)}{u(\delta^+(X))}.
-	\]
-\end{theorem}
-\begin{proof}
-	Sei zunächst $f$ ein $b$-Fluss und $X$ ein Schnitt mit $\delta^+(X)\neq\emptyset$.
-	Sei $e^*$ eine Kante mit maximaler Auslastung, also eine Kante mit $f_{e^*}/u_{e^*}=\max_{e\in E} f_e / u_e$.
-	Für $e^*$ gilt somit $0\geq f_e u_{e^*} - f_{e^*}u_e$ für alle $e\in E$ und man folgere
-	\[
-		0\geq \frac{\sum_{e\in \delta^+(X)}(f_e u_{e^*} - f_{e^*}u_e)}{u(\delta^+(X)) u_{e^*}} = \frac{f(\delta^+(X))}{u(\delta^+(X))} - \frac{f_{e^*}}{u_{e^*}} \geq \frac{b(X)}{u(\delta^+(X))} - \frac{f_{e^*}}{u_{e^*}},
-	\]
-	wobei in der letzten Ungleichung $b(X) = f(\delta^+(X)) - f(\delta^-(X))$ eingeht.
-	
-	Sei nun ein $b$-Fluss $f$ mit minimaler Auslastung $q^*:=\max_{e\in E} f_e/u_e$ gegeben.
-	Gesucht ist nun ein Schnitt mit Auslastung $q^*$.
-	Ist $b$ der Nullvektor, so ist $q^*=0$ und jeder Schnitt mit ausgehenden Kanten ist ein dünnster Schnitt.
-	
-	Sonst sei $f$ ein $b$-Fluss minimaler Auslastung $q^* > 0$ mit möglichst wenig maximal ausgelasteten Kanten.
-	Sei $e^*=vw$ eine solche maximal ausgelastete Kante und sei $X\subseteq V$ die Menge aller Knoten, die im Residualgraph $G_f$ vom Knoten $v$ erreicht werden können.
-	Eine ausgehende Kante $xy\in\delta^+(X)$ muss dann Auslastung $q^*$ haben, da $x$ von $v$ in $G_f$ erreichbar ist und daher $xy$ nicht als Vorwärtskante in $G_f$ erscheinen kann; sonst wäre $y$ auch in $X$.
-	Die Auslastung einer eingehenden Kante $xy\in\delta^-(X)$ muss jedoch verschwinden, da $xy$ nicht als Rückwärtskante in $G_f$ auftaucht.
-	Außerdem ist $e^*\in \delta^+(X)$, da sonst $w$ von $v$ aus in $G_f$ erreichbar wäre und mit $e^{*\leftarrow}$ einen Kreis in $G_f$ bilden würde, der eine Rückwärtskante maximaler Auslastung benutzt, welchen es nach Lemma~\ref{lemma-no-circle-in-res-graph-inclus-min} nicht geben kann.
-	Also ist $\delta^+(X)\neq \emptyset$ und es gilt:
-	\[
-		\frac{b(X)}{u(\delta^+(X))} = \frac{f(\delta^+(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} q^* = q^*.
-	\]
-\end{proof}
-
-\begin{corollary}\label{cor-easy-characterization-sparsest-cut}
-	Seien $f$ ein $b$-Fluss mit Auslastung $q$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$ in einem Netzwerk $(V, E, u)$.
-	Dann sind die beiden Aussagen äquivalent:
-	\begin{enumerate}[label=(\roman*)]
-		\item Es sind $X$ ein dünnster Schnitt und $f$ ein $b$-Fluss minimaler Auslastung.
-		\item Die Auslastung bezüglich $f$ aller ausgehenden Kanten von $X$ beträgt $q$ und $f$ verschwindet auf allen eingehenden Kanten von $X$.
-	\end{enumerate}
-\end{corollary}
-\begin{proof}
-	Aufgrund der Flusserhaltung gilt $b(X) = f(\delta^+(X)) - f(\delta^-(X))$.
-	In \[
-	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q}{u(\delta^+(X))} = q
-	\]
-	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q$ für alle $e\in\delta^+(X)$ gelten.
-	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung.
-\end{proof}
-
-\todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$ -- Allerdings muss man hier bisschen aufpassen, findet man ausgehend von einer maximal ausgelasteten Kante eine weitere, so muss man (für inklusionsminimalität das Vorgehen von hier zurücksetzen)}
 
 \begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
