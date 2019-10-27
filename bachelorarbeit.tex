@@ -12,6 +12,7 @@
 \usepackage[intlimits,sumlimits]{amsmath} % Integral-/Summationsgrenzen über/unter Zeichen
 \usepackage{tabto}
 \usepackage{mathabx}
+\usepackage{mathtools}
 \usepackage{subcaption}
 % mathematische Verbesserungen
 \usepackage{amsthm}	                    % spezielle theorem Stile
@@ -34,6 +35,7 @@
 \usepackage{subcaption}                 % Beschriftungen für Unterteilung
 \usepackage{tikz}
 \usepackage[chapter]{algorithm}
+
 \usepackage{algpseudocode}
 % Interaktive Referenzen, und PDF-Keys
 \usepackage{xr-hyper}  
@@ -64,8 +66,10 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
-
+\newcommand{\bigO}{\mathcal{O}}
 \renewcommand{\]}{\end{equation*}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments
@@ -73,7 +77,6 @@
 
 \ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
 \include{bachelorarbeit/titlepage}
-
 
 \thispagestyle{empty}
 \tableofcontents        % Inhaltsverzeichnis
