@@ -212,17 +212,51 @@ Dabei wird die Kodierungslänge von $r$ als $\size{r}:= \size{p} + \size{q}$ def
 Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ Kodierungslängen $\size{v} := \sum_{i=1}^n \size{v_i}$ und $\size{A}:= \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
 
 \begin{proposition}
-	Es seien $a,b\in\Q$ zwei rationale Zahlen und $A\in\Q^{n\times n}$ eine rationale Matrix.
+	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
 	Dann gelten:
 	\begin{enumerate}[label=(\roman*)]
 		\item $\size{ab} \leq \size{a}+\size{b}$,
+		\item $\norm{v}_2 \leq 2^{\size{v} - n} - 1$,
 		\item $\abs{\det(A)} \leq 2^{\size{A} - n^2}$.
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
-	Aussage $(i)$ folgt durch Multiplizieren der Nenner und Zähler:
-	Es seien $p_a/q_a$ und $p_b/q_b$ die vollständig gekürzten Bruchdarstellungen von $a$ und $b$.
-	Dann ist $\size{ab} \leq \size{p_a p_b} + \size{q_a q_b} = $
+	Zunächst zeigt man Aussage $(i)$ für ganze Zahlen $a$ und $b$:
+	\begin{align*}
+		\size{ab} &= 1+\lceil \log_2(\abs{ab} + 1) \rceil \leq 2+\log_2(\abs{a}\abs{b}+1) \leq 2+\log_2((\abs{a}+1)(\abs{b}+1))\\
+		&=2+\log_2(\abs{a} + 1) + \log_2(\abs{b} + 1) = \size{a} + \size{b}.
+	\end{align*}
+	Es seien nun $a$ und $b$ rationale Zahlen und $p_a/q_a$ und $p_b/q_b$ die vollständig gekürzten Bruchdarstellungen von $a$ und $b$.
+	Diesen Fall führt man auf den ganzzahligen zurück: \[
+	\size{ab} \leq \size{p_a p_b} + \size{q_a q_b} \leq \size{p_a}+\size{p_b} + \size{q_a} + \size{q_b} = \size{a} + \size{b}.\]
+	
+	Für jede ganze Zahl $z$ gilt außerdem 
+	\[
+	\abs{z} = 2^{\log_2(\abs{z} + 1)} - 1 \leq 2^{\lceil\log_2(\abs{z} + 1)\rceil} - 1 = 2^{\size{z} - 1} - 1
+	\]
+	und daher gilt auch für jede rationale Zahl $r = p/q$ in teilerfremder Darstellung
+	\[
+	\abs{r} \leq \abs{p} \leq 2^{\size{p} -1} - 1 \leq 2^{\size{r} - 1} -1.
+	\]
+	
+	Des Weiteren folgt mit $\sum_{i=1}^n \abs{v_i}^2 \leq (\sum_{i=1}^n \abs{v_i})^2$ die Ungleichung $\norm{v}_2 \leq \norm{v}_1$.
+	Eine verallgemeinerte Version der Bernoulli-Ungleichung besagt, dass für nichtnegative Zahlen $x_1,\dots,x_n$ die Ungleichung $\prod_{i=1}^n (1+x_i) \geq 1 + \sum_{i=1}^n x_i$ gilt.
+	Dies ist leicht per Induktion über $n\in\N$ einzusehen:
+	Der Induktionsanfang ist klar.
+	Der Induktionsschritt folgt ebenfalls sehr schnell:
+	\[
+	\prod_{i=1}^{n+1} (1+x_i) \geq (1 + \sum_{i=1}^n x_i) x_{n+1} = 1 + x_{n+1} + \sum_{i=1}^n x_i + x_{n+1} \sum_{i=1}^n x_i \geq 1 + \sum_{i=1}^{n+1} x_i.
+	\]
+	Damit lässt sich Aussage $(ii)$ beweisen:
+	\[
+		\norm{v}_2 \leq \norm{v}_1 \leq \prod_{i=1}^{n} (1+\abs{v_i}) - 1 \leq \prod_{i=1}^n 2^{\size{v_i} - 1} - 1 = 2^{\size{v} - n} - 1.
+	\] 
+	
+	Für Aussage $(iii)$ benötigt man die Hadamard-Ungleichung: Sind $a^1, \dots, a^n$ die Spaltenvektoren von $A$, so gilt $\abs{\det(A)} \leq  \prod_{i=1}^{n} \norm{a^i}_2$.
+	Damit folgere man:
+	\[
+		\abs{\det(A)} \leq \prod_{i=1}^n (2^{\size{a^i} - n} - 1) \leq 2^{\sum_{i=1}^n \size{a^i} - n^2} = 2^{\size{A} - n^2}.
+	\]
 \end{proof}
 
 Die Laufzeit eines Programms $\mathcal{A}$ bei Eingabe einer Instanz $\mathcal{I}$ einer Problemklasse $\Pi$ ist dann die Summe der Zeitaufwände der einzelnen Instruktionen, die während der Ausführung des Programms bei Eingabe $\mathcal{I}$ durchlaufen werden.
