@@ -4,7 +4,7 @@
 \newcommand*\ClassList{scrreprt,article}
 \documentclass[\DocType, paper=a4,fontsize=11pt,titlepage]{generalclass}
 
-
+\usepackage{framed}
 \usepackage[utf8]{inputenc}
 \usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
 % Mathematische Zeichensätze und Umgebungen
@@ -70,6 +70,8 @@
 \renewcommand{\]}{\end{equation*}}
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\newcommand{\size}[1]{\langle#1\rangle}
+\DeclareMathOperator{\rank}{rang}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments

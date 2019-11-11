@@ -189,10 +189,9 @@ Versucht man beispielsweise $\gamma$ so zu wählen, dass die Auslastung des Zykl
 	Auch hier spielt die Wahl aufgrund der Symmetrie keine Rolle und man augmentiere entlang $\overrightsmallarrow{e_3}\overleftsmallarrow{e_2}$, sodass auf der Flaschenhalskante $e_1$ Fluss von Wert $1/2$ und auf $e_2$ und $e_3$ jeweils Fluss von Wert $1/4$ fließt.
 	
 	\todo{Überprüfe Deutsch}
-	Tatsächlich kann man durch beliebige Wahl der Zyklen den auslastungsminimalen Fluss nicht erreichen, da der Fluss zu jeder Zeit auf zwei Kanten $e_i$, $e_j$ identisch und auf der übrigen Kante $e_k$ unterschiedlich ist, insbesondere beträgt er nie $1/3$ auf allen drei Kanten: Ist die Kante $e_k$ Flaschenhalskante und wird o.B.d.A. entlang $\overrightsmallarrow{e_i}\overleftsmallarrow{e_k}$ augmentiert, so wird der Wert von $e_i$ und $e_k$ angeglichen und der Wert von $e_k$ echt erhöht.
+	Tatsächlich kann man durch beliebige Wahl der Zyklen den auslastungsminimalen Fluss nicht erreichen, da der Fluss zu jeder Zeit auf zwei Kanten $e_i$ und $e_j$ identisch und auf der übrigen Kante $e_k$ unterschiedlich ist, insbesondere beträgt er nie $1/3$ auf allen drei Kanten gleichzeitig: Ist die Kante $e_k$ Flaschenhalskante und wird o.B.d.A. entlang $\overrightsmallarrow{e_i}\overleftsmallarrow{e_k}$ augmentiert, so wird der Wert von $e_i$ und $e_k$ angeglichen und der Wert von $e_k$ echt erhöht.
 	Ist die Kante $e_k$ kein Flaschenhals, so wird im nächsten Schritt entlang eines Zyklus', der $e_k$ und o.B.d.A. $e_i$ enthält, augmentiert; der Fluss von $e_k$ und $e_i$ dadurch angeglichen, sodass sich dieser wieder vom Wert von $e_j$ unterscheidet.
 \end{example}
-
 
 \subsection{Berechnung durch Binäre Suche}
 
@@ -204,10 +203,111 @@ Eine solche elementare Instruktion ist entweder eine arithmetische Operation, al
 Dabei erlaubt die RAM die Angabe der Operanden durch indirekte Adressierung.
 \todo{refine RAM}.
 
+
 Für die Bestimmung der Laufzeit eines Programms $\mathcal{A}$ wird hier das logarithmische Kostenmaß verwendet, um dem zeitlichen Mehraufwand von beispielsweise der Multiplikation großer Zahlen gerecht zu werden:
 Demnach benötigt die Ausführung einer elementaren Instruktion $t$ viele Zeiteinheiten, wobei $t$ die Summe der Kodierungslängen der darin genutzten Zahlen (d.h. Speicheradressen und -werte) ist.
-Dabei wird -- wie üblich -- für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $1 + \lceil \log_2(\abs{z}+1)  \rceil$ ist. 
+Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} := 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
+Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ kodiert, sodass $r = p/q$ gilt.
+Dabei wird die Kodierungslänge von $r$ als $\size{r}:= \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
+Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ Kodierungslängen $\size{v} := \sum_{i=1}^n \size{v_i}$ und $\size{A}:= \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
+
+\begin{proposition}
+	Es seien $a,b\in\Q$ zwei rationale Zahlen und $A\in\Q^{n\times n}$ eine rationale Matrix.
+	Dann gelten:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\size{ab} \leq \size{a}+\size{b}$,
+		\item $\abs{\det(A)} \leq 2^{\size{A} - n^2}$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Aussage $(i)$ folgt durch Multiplizieren der Nenner und Zähler:
+	Es seien $p_a/q_a$ und $p_b/q_b$ die vollständig gekürzten Bruchdarstellungen von $a$ und $b$.
+	Dann ist $\size{ab} \leq \size{p_a p_b} + \size{q_a q_b} = $
+\end{proof}
+
 Die Laufzeit eines Programms $\mathcal{A}$ bei Eingabe einer Instanz $\mathcal{I}$ einer Problemklasse $\Pi$ ist dann die Summe der Zeitaufwände der einzelnen Instruktionen, die während der Ausführung des Programms bei Eingabe $\mathcal{I}$ durchlaufen werden.
 
+Es werden einige Grundlagen der Optimierung wiederholt:
+\begin{definition}[Lineare Programm in Standardform]
+	Ein Optimierungsproblem der Form $\min\{ c^T x \mid x \in P^=(A, b) \}$ mit $c\in\R^n, b\in\R^m, A\in\R^{m\times n}$ und Zulässigkeitsbereich $P^=(A,b):= \{ x\in\R^n \mid Ax = b, x\geq 0 \}$ heißt \emph{lineares Programm in Standardform}.
+\end{definition}
 
-\todo{Removing circles as naive approach of finding minimal b flow does not terminate.}
+\begin{definition}[Ecke konvexer Menge]
+	Für eine konvexe Menge $P$ heißt $x\in P$ eine \emph{Ecke von $P$}, falls $x$ das einzige Element des Schnittes von $P$ und einer Stützhyperebene $H:=\{ x\in\R^n \mid d^T x = \delta \}$ mit $d\in\R^n$ und $\delta\in\R$ ist.
+\end{definition}
+
+\begin{definition}[Zulässige Basislösung]
+Für ein lineares Programm in Standardform mit $P:=P^=(A, b)$ mit $\rank(A) = m$ heißt eine $m$-wertige Teilmenge $B$ von $[n]$ Basis und $N:= [n]\setminus B$ die zugehörige Nichtbasis zu $B$, falls $A_B$ invertierbar ist.
+Ein Punkt $x\in P$ ist eine \emph{zulässige Basislösung zur Basis $B$}, falls $x_N$ verschwindet.
+In diesem Fall gilt $x_B = A_B^{-1} b$.
+\end{definition}
+
+\begin{satz}[{siehe \cite[Satz 5.2.1. (2)]{Jungnickel2008}}]\label{satz-existence-optimality-for-lps}
+	Ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P:=P^=(A,b)$ und $\rank(A) = m$ hat eine optimale Ecklösung, falls die Zielfunktion $x\mapsto c^T x$ auf $P$ nach unten beschränkt ist.
+\end{satz}
+
+\begin{satz}[{siehe \cite[Satz 5.2.3.]{Jungnickel2008}}]\label{satz-ecke-basislsg}
+Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P:=P^=(A,b)$ und $\rank(A) = m$ ist $x\in\R^n$ genau dann eine Ecke von $P$, wenn $x$ eine zulässige Basislösung ist.
+\end{satz}
+
+\begin{proposition}\label{prop-rank-obda-m}
+	Sei ein nichtleeres Polytop $P^=(A, b)$ mit $k:=\rank(A)$ und linear unabhängigen Zeilen $a_{i_1},\dots, a_{i_k}$ gegeben.
+	Setzt man \[
+	\tilde{A}:= (a_{i_1}, \dots, a_{i_k})^T\text{~ und ~}\tilde{b}:= (b_{i_1}, \dots, b_{i_k})^T, \]
+	 so hat $\tilde{A}$ Rang $k$ und es gilt $P^=(A,b) = P^=(\tilde{A}, \tilde{b})$.
+\end{proposition}
+\begin{proof}
+	Die Teilmenge $P^=(A,b)\subseteq P^=(\tilde{A}, \tilde{b})$ ist klar:
+	Gelten für ein $x\in\R^n_{\geq0}$ alle Ungleichungen von $Ax \leq b$, so erst recht alle der Teilmenge $\tilde{A}x \leq \tilde{b}$.
+	
+	Da der Zeilenrang von $A$ gerade $k$ ist, existiert für jede Zeile $a_j$ eine Linearkombination $a_j=\sum_{l=1}^k \lambda_l a_{i_l}$ aus den Zeilen in $\tilde{A}$.
+	Da $P^=(A,b)$ nichtleer ist, existiert ein $y$ darin, welches die Gleichung
+	$b_j = a_j y = \sum_{l=1}^k \lambda_l a_{i_l} y = \sum_{l=1}^k \lambda_l b_{i_l}$ liefert.
+	Für alle $x\in P^=(\tilde{A}, \tilde{b})$ gilt also $a_j x = \sum_{l=1}^k \lambda_l a_{i_l} x = \sum_{l=1}^k \lambda_l b_{i_l} = b_j$.
+\end{proof}
+
+\begin{lemma}
+	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P:= P^=(A,b)$ und auf $P$ nach unten beschränkter Zielfunktion $x\mapsto c^T x$ gegeben.
+	Man erhalte $c^*$ aus $c$ durch Streichen der Koordinaten, in denen $c$ verschwindet. Ist weiter $k$ die Anzahl der Koordinaten, in denen $c$ nicht verschwindet, so liegt der optimale Zielfunktionswert in der endlichen Menge
+	\[ \left\{ \frac{p}{q} ~\middle|~ p\in\Z, q\in\N, \abs{p} \leq k2^{\size{A} + \size{b} + \size{c^*} - n^2}, 1\leq q \leq 2^{\size{A}-n^2} \right\}. \]
+\end{lemma}
+\begin{proof}
+	Nach Proposition~\ref{prop-rank-obda-m} kann ohne Einschränkung davon ausgegangen werden, dass $A$ Rang $m$ hat.
+	Mit den Sätzen~\ref{satz-existence-optimality-for-lps} und~\ref{satz-ecke-basislsg} folgt, dass es eine optimale Basislösung $x^*$ gibt.
+	Ist $B$ die Basis von $x^*$, so ist $x^*$ auf den Koordinaten von $B$ gerade $A_B^{-1} b$, sodass die Cramersche Regel die Darstellung $x_i = \det(A_B^i) / \det(A_B)$ für jede Koordinate $i\in B$ liefert.
+	Dabei ist $A_B^i$ die Matrix, die aus $A_B$ durch Ersetzen der $i$-ten Spalte durch $b$ entsteht.
+	Insbesondere hat der optimale Zielfunktionswert die Form \[
+	c^T x^* = 
+	\frac{\sum_{i\in B} c_i \det(A_B^i)}{\det(A_B)}.
+	\]
+	Der Zähler ist nach \todo{bla} betragsmäßig durch $k 2^{\size{A} + \size{b} + \size{c^*} - n^2}$ nach oben beschränkt, der Nenner durch $2^{\size{A} - n^2}$.
+\end{proof}
+
+
+Da das Maschinenmodell nur auf Zahlen mit endlicher Kodierung arbeiten kann, wird die Eingabe des Problems zunächst auf rationale Zahlen beschränkt, sodass folgende Problemstellung (MCF) entsteht:
+
+\begin{centering}
+	\begin{framed}
+		\emph{Minimum Congestion Flow (MCF)} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &$b$-Fluss-Instanz $(V, E, b\in\Q^V, u \in \Q^E_{>0})$\\
+			{\bfseries Output}: &Auslastungsminimaler $b$-Fluss $f$
+		\end{tabular}
+	\end{framed}
+\end{centering}
+
+Ein Algorithmus, der (MCF) löst, soll zudem mit einer Fehlermeldung abbrechen, falls kein $b$-Fluss existiert.
+Zunächst wird (MCF) als lineares Optimierungsproblem formuliert.
+Dabei minimieren wir die Zahl $q^*$, sodass $b$-Flüsse existieren, deren Auslastung $q^*$ nicht überschreitet:
+\begin{equation}\tag{LP}\label{problem-lp-minimal-flow}
+\begin{aligned}
+& \min q^* \\[1em]
+\text{u.d.N.\quad} & \sum_{e\in \delta^+(v)} f_e - \sum_{e\in\delta^-(v)} f_e = b_v & \text{für alle $v\in V$,} \\[1em]
+& 0 \leq \frac{f_e}{u_e} \leq q^* & \text{für alle $e\in E$.}
+\end{aligned}
+\end{equation}
+
+Schnell ist ersichtlich, dass $f$ für eine optimale Lösung $(q^*, f)$ von~(\ref{problem-lp-minimal-flow}) auch ein auslastungsminimaler $b$-Fluss ist: Die $b$-Fluss-Eigenschaft folgt bereits aus der ersten Bedingung und aus der Nichtnegativität von $f_e / u_e$.
+Die Auslastungsminimalität von $f$ in~(\ref{problem-lp-minimal-flow}) wird durch die Minimierung der oberen Schranke $q^*$ aller $f_e / u_e$ sichergestellt.
+Umgekehrt ist $(c(f), f)$ eine optimale Lösung von~(\ref{problem-lp-minimal-flow}) für einen auslastungsminimalen $b$-Fluss $f$.
+
