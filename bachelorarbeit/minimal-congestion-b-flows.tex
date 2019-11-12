@@ -211,7 +211,7 @@ Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ kodiert, soda
 Dabei wird die Kodierungslänge von $r$ als $\size{r}:= \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
 Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ Kodierungslängen $\size{v} := \sum_{i=1}^n \size{v_i}$ und $\size{A}:= \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
 
-\begin{proposition}
+\begin{proposition}\label{prop-rational-bounds-encoding}
 	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
 	Dann gelten:
 	\begin{enumerate}[label=(\roman*)]
@@ -303,7 +303,7 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 \begin{lemma}
 	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P:= P^=(A,b)$ und auf $P$ nach unten beschränkter Zielfunktion $x\mapsto c^T x$ gegeben.
 	Man erhalte $c^*$ aus $c$ durch Streichen der Koordinaten, in denen $c$ verschwindet. Ist weiter $k$ die Anzahl der Koordinaten, in denen $c$ nicht verschwindet, so liegt der optimale Zielfunktionswert in der endlichen Menge
-	\[ \left\{ \frac{p}{q} ~\middle|~ p\in\Z, q\in\N, \abs{p} \leq k2^{\size{A} + \size{b} + \size{c^*} - n^2}, 1\leq q \leq 2^{\size{A}-n^2} \right\}. \]
+	\[ \left\{ \frac{p}{q} ~\middle|~ p\in\Z, q\in\N, \abs{p} \leq k2^{\size{A} + \size{b} + \size{c^*} - m^2}, 1\leq q \leq 2^{\size{A}-m^2} \right\}. \]
 \end{lemma}
 \begin{proof}
 	Nach Proposition~\ref{prop-rank-obda-m} kann ohne Einschränkung davon ausgegangen werden, dass $A$ Rang $m$ hat.
@@ -314,7 +314,11 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 	c^T x^* = 
 	\frac{\sum_{i\in B} c_i \det(A_B^i)}{\det(A_B)}.
 	\]
-	Der Zähler ist nach \todo{bla} betragsmäßig durch $k 2^{\size{A} + \size{b} + \size{c^*} - n^2}$ nach oben beschränkt, der Nenner durch $2^{\size{A} - n^2}$.
+	Der Zähler wird mit $\size{A_B^i} \leq \size{A}+\size{b}$ nach Proposition~\ref{prop-rational-bounds-encoding} wie folgt abgeschätzt:
+	\[
+	\abs{ \sum_{i\in B} c_i \det(A_B^i) } \leq \sum_{i\in B} (2^{\size{c_i} - 1} - 1) 2^{\size{A} + \size{b} - m^2} \leq k 2^{\size{c^*} + \size{A} + \size{b} - m^2}
+	\]
+	Der Nenner ist betraglich durch $2^{\size{A} - m^2}$ beschränkt, sodass die Aussage folgt.
 \end{proof}
 
 
