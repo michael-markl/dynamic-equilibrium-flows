@@ -402,3 +402,27 @@ Dazu werden die folgenden beiden Abschätzungen benötigt:
 &\leq 2\size{b} + 3\size{u} - 5m.
 \end{align*}
 \end{proof}
+
+\subsection{Effiziente Suche rationaler Zahlen}
+
+In diesem Abschnitt wird eine effiziente Suche von rationalen Zahlen vorgestellt.
+Dabei werden die Ergebnisse von Christos H. Papadimitriou aus~\cite{Papadimitriou1979} erarbeitet.
+Die Zielsetzung lautet dabei wie folgt:
+Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch eine Konstante $M$ beschränkt ist, soll nur durch Vergleiche der Form \glqq Ist $x\leq p/q$?\grqq mit $p,q \leq M$ möglichst schnell bestimmt werden.
+Dabei werden jedoch mindestens $\theta(\log M)$ Vergleiche benötigt, da bereits das Suchen von $x$ in der Menge $\{ 0/M, 1/M, \dots, M/M \}$ unter der Annahmen, dass $x$ durch einen Bruch mit Nenner $M$ dargestellt werden kann, $\Omega(\log M)$ Vergleiche bedarf.
+Der Wunsch ist also ein Verfahren zu finden, das nur $\bigO(\log M)$ viele solcher Vergleiche verwendet.
+
+Dazu werden einige grundlegende Kenntnisse der Farey-Folge benötigt.
+
+\begin{definition}[Farey-Folge]
+	Für ein $n> 1$ sei $F_n$ die Menge aller Paare ganzer Zahlen $(x,y)$ mit $0 \leq x \leq y \leq n$, deren größter gemeinsamer Teiler gerade $1$ ist.
+	Wegen $\ggT(0,0)= 0$ ist $y$ niemals $0$ und so kann man $F_n$ als die Menge aller Brüche in vollständig gekürzter Darstellung zwischen $0$ und $1$ verstehen, deren Zähler und Nenner durch $n$ beschränkt sind.
+	Sortiert man $F_n$ mittels $(i < j \implies x_i^n / y_i^n < x_j^ n/y_j^n)$, so erhält man mit $(x_i^n/y_i^n)_{i\in [f(n)]}$, wobei $f(n)$ die Mächtigkeit von $F_n$ sei, die \emph{Farey-Folge der Ordnung $n$}.
+\end{definition}
+
+\begin{example}
+	Beispielsweise ist die Farey-Folge der Ordnung $5$ definiert durch:
+	\[
+		\frac{0}{1}, \frac{1}{5}, \frac{1}{4}, \frac{1}{3}, \frac{2}{5}, \frac{1}{2}, \frac{3}{5}, \frac{2}{3}, \frac{3}{4}, \frac{4}{5}, \frac{1}{1}
+	\]
+\end{example}
