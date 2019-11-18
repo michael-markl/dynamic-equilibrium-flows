@@ -443,7 +443,7 @@ Es wird das bekannte Lemma von Bézout (siehe~\todo{REFERENZ EINFÜGEN}) wiederh
 \end{proof}
 
 Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
-\begin{lemma}
+\begin{lemma}\label{lemma-basic-property-farey-successor}
 	Ist $h'/k'$ der Nachfolger von $h/k$ in $F_n$, so gilt \[
 	h'k - hk' = 1 \text{~~~oder äquivalent~~~} \frac{h'}{k'} - \frac{h}{k} = \frac{1}{kk'}.
 	\]
@@ -464,4 +464,20 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 	\[
 		\frac{1}{ky} = \frac{x}{y} - \frac{h}{k} \geq \frac{h'}{k'} + \frac{1}{yk'}- \frac{h}{k} \geq \frac{1}{kk'} + \frac{1}{yk'} = \frac{y+k}{kk'y} > \frac{n}{kk'y} \geq \frac{1}{ky}.
 	\]
+\end{proof}
+
+\begin{lemma}
+	Seien drei Brüche $x_i/y_i < x_j / y_j < x_k / y_k$ in $F_n$ gegeben.
+	Gilt die Gleichung $y_i x_k - y_k x_i = 1$, so existieren zwei ganze Zahlen $\alpha,\beta\in\Z$, die $x_j = \alpha x_i + \beta x_k$, $y_j = \alpha y_i + \beta y_k$ sowie $\ggT(\alpha, \beta)=1$ erfüllen.
+\end{lemma}
+\begin{proof}
+	Man definiere $\alpha:= y_j x_k - y_k x_j\in\Z$ und $\beta:=y_i x_j - y_j x_i\in\Z$.
+	Dann gilt  $\alpha = (x_k/y_k - x_j/y_j)y_k y_j > 0$ und analog $\beta > 0$.
+	Es folgen die beiden Gleichungen:
+	\begin{align*}
+	\alpha x_i + \beta x_k &= x_j(x_k y_i - y_k x_i ) + y_j (x_k x_i - x_k x_i) = x_j, \\[1em]
+	\alpha y_i + \beta y_k &= x_j (y_i y_k - y_k y_i) + y_j (x_k y_i - x_i y_k) = y_j.
+	\end{align*}
+	Nach Lemma~\ref{lemma-von-bezout} existieren wegen der Irreduzibilität von $x_j/y_j$ außerdem $s,t\in\Z$ mit $sx_j + ty_j = 1$.
+	Betrachtet man $(sx_i + ty_i)\alpha + (sx_k + ty_k)\beta = s x_j + t x_j = 1$, folgt $\ggT(\alpha, \beta) = 1$ mit Korollar~\ref{cor-bezout-reverted}.
 \end{proof}
