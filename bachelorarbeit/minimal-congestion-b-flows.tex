@@ -4,13 +4,14 @@ Ein effiziente Berechnung von Nash-Gleichgewichten erfordert zunächst Verständ
 Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse:
 
 \begin{definition}[Auslastungsminimaler $b$-Fluss]
-	Sei ein $b$-Fluss $f$ auf einem Netzwerk mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
+	Sei ein $b$-Fluss $f$ auf einem Netzwerk ohne Schleifen mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
 	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e/u_e$ bezeichnet die \emph{Auslastung des Flusses $f$}.
 	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge) bezeichnet.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
 \end{definition}
 
 In diesem Kapitel wird nun ein Optimalitätskriterium und ein effizienter Algorithmus zur Berechnung solcher auslastungsminimaler $b$-Flüsse vorgestellt.
+In diesem Kapitel nehmen wir an, dass keine Schleifen existieren, da diese bei der Berechnung auslastungsminimaler $b$-Flüsse ignoriert werden können.
 
 \section{Optimalitätskriterium auslastungsminimaler $b$-Flüsse}
 
@@ -285,7 +286,7 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 \end{satz}
 
 \begin{proposition}\label{prop-rank-obda-m}
-	Sei ein nichtleeres Polytop $P^=(A, b)$ mit $k:=\rank(A)$ und linear unabhängigen Zeilen $a_{i_1},\dots, a_{i_k}$ gegeben.
+	Sei ein nichtleeres Polyeder $P^=(A, b)$ mit $k:=\rank(A)$ und linear unabhängigen Zeilen $a_{i_1},\dots, a_{i_k}$ gegeben.
 	Setzt man \[
 	\tilde{A}:= (a_{i_1}, \dots, a_{i_k})^T\text{~ und ~}\tilde{b}:= (b_{i_1}, \dots, b_{i_k})^T, \]
 	 so hat $\tilde{A}$ Rang $k$ und es gilt $P^=(A,b) = P^=(\tilde{A}, \tilde{b})$.
@@ -300,27 +301,33 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 	Für alle $x\in P^=(\tilde{A}, \tilde{b})$ gilt also $a_j x = \sum_{l=1}^k \lambda_l a_{i_l} x = \sum_{l=1}^k \lambda_l b_{i_l} = b_j$.
 \end{proof}
 
-\begin{lemma}
-	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P:= P^=(A,b)$ und auf $P$ nach unten beschränkter Zielfunktion $x\mapsto c^T x$ gegeben.
-	Man erhalte $c^*$ aus $c$ durch Streichen der Koordinaten, in denen $c$ verschwindet. Ist weiter $k$ die Anzahl der Koordinaten, in denen $c$ nicht verschwindet, so liegt der optimale Zielfunktionswert in der endlichen Menge
-	\[ \left\{ \frac{p}{q} ~\middle|~ p\in\Z, q\in\N, \abs{p} \leq k2^{\size{A} + \size{b} + \size{c^*} - m^2}, 1\leq q \leq 2^{\size{A}-m^2} \right\}. \]
+\begin{lemma}\label{lemma-optimal-value-in-finite-domain}
+	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P:= P^=(A,b)$ und ganzzahligen Parametern $A\in \Z^{m\times n}$, $b\in\Z^m$ und $c\in\Z^n$, sodass $x\mapsto c^T x$  auf $P$ nach unten beschränkt ist.
+	Es sei $c_{\max}$ der betraglich größte Eintrag in $c$.
+	Ist weiter $k$ die Anzahl der Koordinaten, in denen $c$ nicht verschwindet, so liegt der optimale Zielfunktionswert in der endlichen Menge
+	\[
+	\left\{ \frac{p}{q} ~\middle|~ p\in\Z, q\in\N, \abs{p} \leq k \abs{c_{\max}} 2^{\size{A} + \size{b} -m(n + 1)}, 1\leq q \leq 2^{\size{A}-mn} \right\}.
+	\]
 \end{lemma}
 \begin{proof}
-	Nach Proposition~\ref{prop-rank-obda-m} kann ohne Einschränkung davon ausgegangen werden, dass $A$ Rang $m$ hat.
+	Es sei $\tilde{A}$ die Teilmatrix von $A$, die $r:=\rank{A}$ linear unabhängige Zeilen von $A$ enthält; $\tilde{b}$ sei der entsprechende Teilvektor von $b$.
+	Dann stimmen die Polyeder $P^=(A,b)$ und $P^=(\tilde{A}, \tilde{b})$ nach Proposition~\ref{prop-rank-obda-m} überein.
 	Mit den Sätzen~\ref{satz-existence-optimality-for-lps} und~\ref{satz-ecke-basislsg} folgt, dass es eine optimale Basislösung $x^*$ gibt.
-	Ist $B$ die Basis von $x^*$, so ist $x^*$ auf den Koordinaten von $B$ gerade $A_B^{-1} b$, sodass die Cramersche Regel die Darstellung $x_i = \det(A_B^i) / \det(A_B)$ für jede Koordinate $i\in B$ liefert.
-	Dabei ist $A_B^i$ die Matrix, die aus $A_B$ durch Ersetzen der $i$-ten Spalte durch $b$ entsteht.
-	Insbesondere hat der optimale Zielfunktionswert die Form \[
+	Ist $B$ die Basis von $x^*$, so ist $x^*$ auf den Koordinaten von $B$ gerade $\tilde{A}_B^{-1} \tilde{b}$, sodass die Cramersche Regel die Darstellung $x_i^* = \det(\tilde{A}_B^i) / \det(\tilde{A}_B)$ für jede Koordinate $i\in B$ liefert.
+	Dabei ist $\tilde{A}_B^i$ die Matrix, die aus $\tilde{A}_B$ durch Ersetzen der $i$-ten Spalte durch $\tilde{b}$ entsteht.
+	Für die Kodierungslänge von $\tilde{A}_B$ ergibt sich die obere Schranke $\size{A} - (mn - r^2)$, da für jeden Eintrag, der in $A$ und nicht in $\tilde{A}_B$ vorkommt, eine Kodierungslänge von mindestens $1$ hinzukommt.
+	Entsprechend ist $\size{A} + \size{b} - (mn + m - r^2)$ eine obere Schranke an die Kodierung von $\tilde{A}_B^i$ für alle $i\in B$.
+	
+	Der optimale Zielfunktionswert hat die Form \[
 	c^T x^* = 
 	\frac{\sum_{i\in B} c_i \det(A_B^i)}{\det(A_B)}.
 	\]
-	Der Zähler wird mit $\size{A_B^i} \leq \size{A}+\size{b}$ nach Proposition~\ref{prop-rational-bounds-encoding} wie folgt abgeschätzt:
+	Der Zähler wird nun mit Proposition~\ref{prop-rational-bounds-encoding} wie folgt abgeschätzt:
 	\[
-	\abs{ \sum_{i\in B} c_i \det(A_B^i) } \leq \sum_{i\in B} (2^{\size{c_i} - 1} - 1) 2^{\size{A} + \size{b} - m^2} \leq k 2^{\size{c^*} + \size{A} + \size{b} - m^2}
+	\left| { \sum_{i\in B} c_i \det(A_B^i) } \right| \leq \sum_{i\in B} \abs{c_{\max}} 2^{\size{\tilde{A}_B^i}- r^2} \leq k \abs{c_{\max}} 2^{\size{A} + \size{b} - m(n+1)}
 	\]
-	Der Nenner ist betraglich durch $2^{\size{A} - m^2}$ beschränkt, sodass die Aussage folgt.
+	Der Nenner ist betraglich durch $2^{\size{\tilde{A}_B} - r^2}\leq 2^{\size{A} - mn}$ beschränkt, sodass die Aussage folgt.
 \end{proof}
-
 
 Da das Maschinenmodell nur auf Zahlen mit endlicher Kodierung arbeiten kann, wird die Eingabe des Problems zunächst auf rationale Zahlen beschränkt, sodass folgende Problemstellung (MCF) entsteht:
 
@@ -349,3 +356,49 @@ Schnell ist ersichtlich, dass $f$ für eine optimale Lösung $(q^*, f)$ von~(\re
 Die Auslastungsminimalität von $f$ in~(\ref{problem-lp-minimal-flow}) wird durch die Minimierung der oberen Schranke $q^*$ aller $f_e / u_e$ sichergestellt.
 Umgekehrt ist $(c(f), f)$ eine optimale Lösung von~(\ref{problem-lp-minimal-flow}) für einen auslastungsminimalen $b$-Fluss $f$.
 
+
+\begin{corollary}
+	Existiert für eine $b$-Fluss-Instanz $(V, E, b\in\Q^V, u\in\Q^E_{>0})$ ein $b$-Fluss, so ist die Auslastung $q^*$ eines auslastungsminimalen $b$-Flusses enthalten in
+	\[
+	\left\{ \frac{p}{q} ~\middle|~ p\in\N_0, q\in\N_1, p,q \leq 8^{\size{b} + \size{u} } \right\}.
+	\]
+\end{corollary}
+\begin{proof}
+	
+Formuliert man~(\ref{problem-lp-minimal-flow}) als lineares Programm in Standardform, so führt man für die Ungleichungen der Form $f_e/u_e \leq q^*$ Schlupfvariablen $y\in\R^E$ ein und erhält:
+\newcommand{\nil}{\mathbf{0}}
+\newcommand{\one}{\mathbf{1}}
+\[
+	A = \begin{pmatrix}
+		B & \nil_{n\times m} & \nil_{n\times 1} \\
+		\one_{m\times m} & \one_{m\times m} & -u
+	\end{pmatrix} \in \Q^{(n+m) \times (2m+1)},
+	\tilde{b} = \begin{pmatrix}
+		b \\
+		\nil_{m\times 1}
+	\end{pmatrix} \in \Q^{n+m}.
+\]
+Dabei ist $B$ die Inzidenzmatrix des schleifenfreien Graphen, das heißt, nennt man die Kanten $e_1, \dots, e_m $ und die Knoten $v_1, \dots, v_n$, setzt man  für alle $i\in [n]$ und $j\in [m]$
+\[ 
+	b_{i,j} := \begin{cases}
+		1, & \text{falls $v_i = \head(e_j)$}, \\
+		-1, & \text{falls $v_i = \tail(e_j)$},\\
+		0, & \text{sonst.}
+	\end{cases}
+\]
+ Die zugehörigen Entscheidungsvariablen sind $(f, y, q^*)^T\in\R_{\geq 0}^{2m+1}$, die Zielfunktion ist definiert durch $x\mapsto c^T x$ mit $c = (\nil_{1\times 2m}, 1)^T$.
+ 
+Multipliziert man nun für $i\in [n]$ die $i$-te Zeile von $A$ und $\tilde{b}$ mit dem Nenner von $b_i$ und für $i\in [m]$ die $(n+i)$-te Zeile mit dem Nenner von $u_i$, so erhält man eine ganzzahlige Matrix $\hat{A}$ und einen ganzzahligen Vektor $\hat{b}$.
+Die Kodierungslänge der ersten $n$ Zeilen von $\hat{A}$ beträgt höchstens $2\size{b} + (n-2)m) + nm + n = 2\size{b} + 2nm -2m + n$.
+Die restlichen $m$ Zeilen haben eine Kodierungslänge von höchstens $3\size{u} + 2m^2 - 2m$.
+Der Vektor $\hat{b}$ hat eine Kodierungslänge von höchstens $\size{b} + m$.
+
+Lemma~\ref{lemma-optimal-value-in-finite-domain} wird nun genutzt, um das Resultat zu folgern.
+Dazu werden die folgenden beiden Abschätzungen benötigt:
+\begin{align*}
+\size{\hat{A}} + \size{\hat{b}} - (n+m)(2m+2) &= \size{\hat{A}} + \size{\hat{b}} - 2mn - 2n - 2m^2 - 2m\\
+&\leq 2 \size{b} + 3\size{u} + \size{\hat{b}} - n - 6m \leq 3\size{b} + 3\size{u} -n-5m, \\[1em]
+\size{\hat{A}} - (m+n)(2m + 1) &= \size{\hat{A}} - 2m^2 - m - 2mn - n\\
+&\leq 2\size{b} + 3\size{u} - 5m.
+\end{align*}
+\end{proof}
