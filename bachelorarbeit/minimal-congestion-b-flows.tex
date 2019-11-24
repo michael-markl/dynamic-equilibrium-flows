@@ -408,15 +408,15 @@ Dazu werden die folgenden beiden Abschätzungen benötigt:
 In diesem Abschnitt wird eine effiziente Suche von rationalen Zahlen vorgestellt.
 Dabei werden die Ergebnisse von Christos H. Papadimitriou aus~\cite{Papadimitriou1979} erarbeitet.
 Die Zielsetzung lautet dabei wie folgt:
-Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch eine Konstante $M$ beschränkt ist, soll nur durch Vergleiche der Form \glqq Ist $x\leq p/q$?\grqq mit $p,q \leq M$ möglichst schnell bestimmt werden.
+Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch eine Konstante $M$ beschränkt ist, soll nur durch Vergleiche der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q \leq M$ möglichst schnell bestimmt werden.
 Dabei werden jedoch mindestens $\theta(\log M)$ Vergleiche benötigt, da bereits das Suchen von $x$ in der Menge $\{ 0/M, 1/M, \dots, M/M \}$ unter der Annahmen, dass $x$ durch einen Bruch mit Nenner $M$ dargestellt werden kann, $\Omega(\log M)$ Vergleiche bedarf.
 Der Wunsch ist also ein Verfahren zu finden, das nur $\bigO(\log M)$ viele solcher Vergleiche verwendet.
 
 Dazu werden einige grundlegende Kenntnisse der Farey-Folge benötigt.
 
 \begin{definition}[Farey-Folge]
-	Für ein $n> 1$ sei $F_n$ die aufsteigend sortierte Folge aller irreduziblen, d.h. vollständig gekürzten, Brüche in $[0,1]$, deren Zähler bzw. Nenner ganze Zahlen von $0$ bzw. $1$ bis $n$ sind.
-	Man nennt $F_n$ die \emph{Farey-Folge der Ordnung $n$} und $x_i^n/y_i^n$ bezeichnet den $i$-ten Eintrag von $F_n$.
+	Für ein $n\geq 1$ sei $F_n$ die aufsteigend sortierte Folge aller irreduziblen, d.h. vollständig gekürzten, Brüche in $[0,1]$, deren Zähler  und Nenner ganze Zahlen in $\{0, \dots, n\}$ sind.
+	Man nennt $F_n$ die \emph{Farey-Folge der Ordnung $n$}.
 \end{definition}
 
 \begin{example}
@@ -466,7 +466,7 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 	\]
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma-farey-middle-member}
 	Seien drei Brüche $x_i/y_i < x_j / y_j < x_k / y_k$ in $F_n$ gegeben.
 	Gilt die Gleichung $y_i x_k - y_k x_i = 1$, so existieren zwei ganze Zahlen $\alpha,\beta\in\Z$, die $x_j = \alpha x_i + \beta x_k$, $y_j = \alpha y_i + \beta y_k$ sowie $\ggT(\alpha, \beta)=1$ erfüllen.
 \end{lemma}
@@ -480,4 +480,164 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 	\end{align*}
 	Nach Lemma~\ref{lemma-von-bezout} existieren wegen der Irreduzibilität von $x_j/y_j$ außerdem $s,t\in\Z$ mit $sx_j + ty_j = 1$.
 	Betrachtet man $(sx_i + ty_i)\alpha + (sx_k + ty_k)\beta = s x_j + t x_j = 1$, folgt $\ggT(\alpha, \beta) = 1$ mit Korollar~\ref{cor-bezout-reverted}.
+\end{proof}
+
+\begin{lemma}\label{lemma-fraction-helpers}
+	Seien $a,b,c,d\in\R_{>0}$ mit $a/b < c/d$ gegeben.
+	Für alle $\alpha, \beta \in\R_{>0}$ gilt
+	\[
+		\frac{a}{b} < \frac{\alpha a + \beta c}{\alpha b + \beta d} < \frac{c}{d}.
+	\]
+	Außerdem ist der Bruch $(\alpha a + \beta c)/(\alpha b +  \beta d)$ als Funktion in $\alpha$ streng monoton fallend und als Funktion in $\beta$ streng monoton wachsend.
+\end{lemma}
+\begin{proof}
+	Zunächst folgt aus $a/b < c/d$ sofort $ad<cb$.
+	Der erste Teil der Aussage ist Resultat der folgenden Ungleichungen:
+	\begin{align*}
+		a(\alpha b + \beta d) - (\alpha a + \beta c)b = \beta(ad - cb) < 0,\\[1em]
+		(\alpha a + \beta c)d - c(\alpha b + \beta d) = \alpha(ad - cb) < 0.
+	\end{align*}
+	Zudem kann man mit $0\leq\alpha_1< \alpha_2$ sowie $0\leq\beta_1< \beta_2$ die Monotonien des erweiterten Bruches zeigen:
+	\begin{align*}
+		(\alpha_1 a + \beta c)(\alpha_2 b + \beta d) - (\alpha_2a + \beta c)(\alpha_1 b + \beta d) &= \beta a d(\alpha_1 - \alpha_2) + \beta c b (\alpha_2 - \alpha_1) > 0, \\[1em]
+		(\alpha a + \beta_1 c)(\alpha b + \beta_2 d) - (\alpha a + \beta_2c)(\alpha b + \beta_1 d) &= \alpha ad(\beta_2 - \beta_1) + \alpha cb(\beta_1 - \beta_2) < 0.
+	\end{align*}
+\end{proof}
+
+Nun wird der Algorithmus erarbeitet.
+Die Grundidee ist der binären Suche entnommen:
+Beginnend bei $(0,1]$ wird ein Suchintervall verwaltet, in dem sich die gesuchte Zahl $x$ befindet.
+Dazu wird in jeder Runde eine beste obere Schranke $x_r/y_r$ an $x$ in einer Farey-Folge steigender Ordnung ermittelt und der Suchraum durch das Intervall $(x_l/y_l, x_r/y_r]$ beschränkt, wobei $x_l/y_l$ der Vorgänger von $x_r/y_r$ in der Farey-Folge ist, bis man aufgrund der Endlichkeit des Suchraums die gesuchte Zahl erreicht.
+In der $k$-ten Runde soll die obere Schranke $x_r/y_r$ der kleinstmögliche Bruch der Farey-Folge der Ordnung $2^k$ sein, der $x \leq x_r/y_r$ erfüllt.
+\todo{Sobald man bei $F_{2M}$ angelangt, kann man sich sicher sein, dass alle möglichen Brüche untersucht wurden.}
+Insgesamt werden also maximal $\lceil \log_2(M) \rceil$ solcher Runden benötigt.
+
+Für die Bestimmung der Schranken werden einige Eigenschaften der Farey-Folgen diskutiert.
+Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, analysiert:
+
+\begin{lemma}\label{lemma-candidates-next-farey-bound}
+	Sei $x\in(0,1]$ eine rationale Zahl und sei $x_r/y_r$ die kleinste obere Schranke an $x$ in $F_n$ und sei $x_l/y_l$ der Vorgänger von $x_r/y_r$ in $F_n$.
+	Dann sind alle Brüche der Farey-Folge von Ordnung $2n$ in $[x_l/y_l, x_r/y_r]$ gegeben durch
+	\[
+		M:= \{ x_l/y_l \} \cup \left\{ \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_r} ~\middle\vert~ \alpha,\beta\in\N, \alpha y_l + \beta y_r\leq 2n \right\} \cup \{ x_r/y_r \}.
+	\]
+	Außerdem gilt $\alpha y_l + \beta y_r > n$ für alle $\alpha,\beta \in\N$.
+\end{lemma}
+\begin{proof}
+	Sei zunächst ein Bruch $x/y$ der Farey-Folge von Ordnung $2n$ gegeben.
+	Ist $x/y$ bereits $x_l/y_l$ bzw. $x_r/y_r$, so wähle $\alpha = 1, \beta = 0$ bzw. $\alpha = 0, \beta = 1$.
+	Ist $x/y$ jedoch echt zwischen $x_l/y_l$ und $x_r/y_r$ so sind $x_l/y_l$ und $x_r/y_r$ Nachbarn in der Farey-Folge von Ordnung $n$ und somit gilt nach Lemma~\ref{lemma-basic-property-farey-successor} bereits $x_ly_r - x_ry_l = 1$.
+	Fässt man $x_l/y_l$ und $x_r/y_r$ nun als Folgenglieder der Farey-Folge von Ordnung $2n$ auf, existieren nach Lemma~\ref{lemma-farey-middle-member} für das Zwischenglied $x/y$ die Darstellungen $x = \alpha x_l + \beta x_r$ und $y= \alpha y_l + \beta y_l$ mit $\alpha, \beta \in\N$.
+	
+	Sei umgekehrt $x/y$ aus $M$.
+	Ist der Bruch $x/y$ bereits $x_l/y_l$ oder $x_r/y_r$, so ist er in der Farey-Folge von Ordnung $n$, also erst recht in der von Ordnung $2n$.
+	Sonst hat $x/y$ die Darstellung $x=\alpha x_l + \beta x_r$ und $y=\alpha y_l + \beta y_r$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r \leq 2n$.
+	Angenommen der größte gemeinsame Teiler von $x$ und $y$ wäre $d\geq 2$.
+	Dann gäbe es ganze Zahlen $z_1, z_2 \leq n$ mit $x=d z_1$ und $y=d z_2$.
+	Insbesondere würde die irreduzible Darstellung von $x/y$ bereits in $F_n$ liegen.
+	Dies widerspricht aber der Optimalität der Schranken, denn Lemma~\ref{lemma-fraction-helpers}~$(ii)$ impliziert $x_l / y_l < x/y < x_r/y_r$, und so könnte mindestens eine Schranke verbessert werden.
+	Also ist $x/y$ in $F_{2n}$ enthalten.
+	
+	Zuletzt ist zu zeigen, dass für alle $\alpha,\beta\in\N$ der Ausdruck $\alpha y._l + \beta y_r$ größer als $n$ ist.
+	Wäre dies nicht der Fall, so wäre $(\alpha x_l + \beta x_r) / (\alpha y_l + \beta y_r)$ nach Proposition~\ref{lemma-fraction-helpers}~$(ii)$ ein Bruch in $F_n$, der echt zwischen $x_l/y_l$ und $x_r/y_r$ liegt.
+	Jedoch ist $x_l/y_l$ bereits der Vorgänger von $x_r/y_r$ in $F_n$.
+\end{proof}
+
+\begin{theorem}\label{theorem-find-fraction}
+	Eine rationale Zahl $x\in[0,1)$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 2M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $2M$ bestimmt werden.
+\end{theorem}
+\begin{proof}
+	Ist $x\leq 0/1$, so kann sofort $x=0$ geschlossen werden, sodass im Weiteren von $x\in(0,1)$ ausgegangen wird.
+	
+	Man betrachte zunächst den Fall, dass man über die beste obere Schranke $x_r/y_r$ an $x$ in $F_{2^k}$ sowie über dessen Vorgänger $x_l/y_l$ in $F_{2^k}$ verfügt und nun die beste obere Schranke $x_r'/y_r'$ in $F_{2^{k+1}}$ und dessen Vorgänger $x_l'/y_l'$ ermitteln möchte.
+	Nach Lemma~\ref{lemma-candidates-next-farey-bound} kommen dabei als Kandidaten für $x_l'/y_l'$ und $x_r'/y_r'$ genau die Brüche der Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r \leq 2^{k+1}$ in Frage; für $x_l'/y_l'$ bzw. $x_r'/y_r'$ ist außerdem $x_l/y_l$ bzw. $x_r/y_r$ möglich.
+	
+	Unter diesen Brüchen ist für $x_r/y_r$ der kleinstmögliche gesucht, der $x\leq x_r/y_r$ erfüllt, und für $x_l/y_l$ der größtmögliche, für den $x_l/y_l < x_r/y_r$ gilt.
+	Nach Proposition~\ref{lemma-farey-middle-member} ist $y_l + y_r > 2^k$.
+	Daher ist $y_l$ oder $y_r$ größer als $2^{k-1}$.
+	Aus Symmetriegründen sei im Folgenden ohne Einschränkung $y_l$ größer als $2^{k-1}$.
+	Nun unterscheide man drei Fälle:
+	
+	\begin{description}
+		\item[1. Fall:] $y_r \geq 2^{k-2}$.
+		
+		In diesem Fall sind alle Möglichkeiten an $(\alpha,\beta)\in\N^2$ mit $\alpha y_l + \beta y_r \leq 2^{k+1}$ enthalten in der Menge $\{ (1,1), (1,2),\dots,(1,5), (2,1), (2,2),(2,3),(3,1) \}$.
+		Hier kann mit konstant vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ und arithmetischen Operationen die beste obere Schranke an $x$ in $F_{2^{k+1}}$ und den Vorgänger der Schranke finden.
+		
+		\item[2. Fall:] $x > \frac{x_l'}{y_l'} := \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_l}$ mit $\alpha := 1$ und $\beta := \lfloor \frac{2^{k+1} - y_l}{y_r}\rfloor$.
+		
+		Lemma~\ref{lemma-fraction-helpers}~$(ii)$ impliziert, dass $x_l'/y_l'$ der direkte Vorgänger von $x_r/y_r$ in $F_{2^{k+1}}$ ist, denn für $\alpha$ ist $1$ der minimale Wert und für $\beta$ ist der maximale Wert, der $y_l + \beta y_r \leq 2^{k+1}$ noch erfüllt, gerade $\lfloor (2^{k+1} - y_l)/y_r \rfloor$.
+		Des Weiteren ist $\beta$ mindestens $\lfloor y_r/y_r  \rfloor = 1$.
+		Dementsprechend wird als neue obere Schranke die vorherige Schranke übernommen, d.h. $x_r'/y_r' = x_r/y_r$, mit Vorgänger $x_l'/y_l'$ in $F_{2^{k+1}}$.
+		
+		\item[3. Fall:]~Weder Fall~1 noch Fall~2 treten ein.
+		
+			Man betrachte diesen Fall nur, falls Fall~1 und Fall~2 nicht eintreten.
+			Das bedeutet, dass $y_r$ kleiner als $2^{k-2}$ ist und die gesuchte obere Schranke $x_r'/y_r'$ kleiner als die aktuelle Schranke $x_r/y_r$ sein muss.
+			Also hat die gesuchte Schranke die Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r\leq 2^{k+1}$.
+			Wegen $x_l > 2^{k-1}$ kann man die Suche dabei auf $\alpha \in \{ 1, 2, 3 \}$ beschränken.
+			Für jedes $\alpha\in\{1,2,3\}$ bestimmt man nun das $\beta_\alpha$, sodass der entsprechende Bruch $x$ von oben möglichst gut beschränkt:
+			\[
+				\frac{\alpha x_l + (\beta_\alpha - 1) x_l}{\alpha y_l + (\beta_\alpha - 1) y_r} < x \leq \frac{\alpha x_l + \beta_\alpha x_l}{\alpha y_l + \beta_\alpha y_l}.
+			\]
+			
+			Unter diesen Brüchen wird nun $x_r'/y_r'$ und $x_l'/y_l'$ bestimmt durch
+			\[\frac{x_r'}{y_r'}:=\min_{\alpha\in[3]} \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}
+			\text{~~~~~und~~~~~}
+			\frac{x_l'}{y_l'}:=\max_{\alpha\in[3]} \begin{cases}
+			\frac{\alpha x_l + (\beta_\alpha - 1)x_r}{\alpha y_l + (\beta_\alpha - 1)y_r}, &\text{falls $\beta_\alpha > 1$,}\\
+			\frac{x_l}{y_l} &\text{sonst.}
+			\end{cases}
+		\]
+			
+			Die $\beta_\alpha$ können wegen der Monotonie nach Lemma~\ref{lemma-fraction-helpers} mittels binärer Suche auf $\beta \in \{1,\dots, \lfloor (2^{k+1} - \alpha y_l) / y_r \rfloor \}$ ermittelt werden.
+			Dabei werden insgesamt maximal $3 \cdot \lfloor \log_2(2^{k+1} / y_r) + 1 \rfloor \leq 3 (k+2 - \log_2(y_r))$ Vergleiche mit $x$ benötigt.
+			Man bemerke für die spätere Analyse, dass $y_r'$ in diesem Fall größer als $2^k$ ist.
+ 	\end{description}
+ 	
+ 	Der Algorithmus wird mit $k=0$, $x_l/y_l$ = $0/1$ sowie $x_r/y_r = 1/1$ initialisiert.
+ 	Dann wird das Suchintervall wie oben beschrieben in $n:=\lceil \log_2(M) \rceil$ Runden verkleinert.
+ 	In Runde $k$ soll also ausgehend von einer besten Schranke (und ihrem Vorgänger) in $F_{2^{k-1}}$ eine beste Schranke (und ihr Vorgänger) in $F_{2^k}$ ermittelt werden.
+ 	Schließlich erhält man eine niedrigste obere Schranke $x_r/y_r$ an $x$ in $F_{2^n}$.
+ 	Da eine Darstellung von $x$ selbst in $F_{2^n}$ existiert, muss $x_r/y_r$ also bereits mit $x$ übereinstimmen.
+ 	
+ 	Es bleibt die Analyse der Laufzeit.
+ 	Wie bereits argumentiert, werden $\bigO(\log M)$ Runden benötigt.
+ 	Wird in einer Runde nur Fall~1 oder Fall~2 betrachtet, so werden nur konstant viele Vergleiche und Operationen benötigt.
+ 	Jedoch benötigt eine einzelne Ausführung von Fall~3 aufgrund der binären Suche unter Umständen $\bigO(\log M)$ viele Vergleiche.
+ 	Hier hilft eine genauere Analyse der akkumulierten Anzahl von Vergleichen, die durch Fall~3 ausgelöst werden.
+ 	
+ 	Dazu zeigt man, dass bis zur $k$-ten Runde des Algorithmus für den dritten Fall insgesamt nur maximal $12k$ Vergleiche mit $x$ unternommen werden.
+ 	Dies zeigt man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
+ 	Ist $i=1$ -- tritt also Fall 3 das erste Mal ein --, so werden maximal $3(k+2) \leq 12k$ Vergleiche benötigt.
+ 	Für $i\geq2$ sei $k'$ die letzte Runde, zu der Fall 3 angewandt wurde.
+ 	Bis zur Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $12k'$ Vergleiche benötigt.
+ 	Die obere Schranke $x_r^{k'} / y_r^{k'}$, die in Runde $k'$ im Fall $3$ ausgewählt wurde,  erfüllt außerdem $y_r^{k'} > 2^{k'-1}$.
+ 	Da der Nenner der oberen Schranke im Laufe der Runden nur wachsen kann, gilt $y_r^{k - 1} \geq 2^{k'-1}$ für die obere Schranke $x_r^{k-1}/y_r^{k-1}$, die in Runde $k-1$ ausgewählt wurde.
+ 	Daher ist die Anzahl an Vergleichen, die im dritten Fall in Runde $k$ gemacht werden, höchstens \[
+ 	3(k+2-\log_2(y_r^{k' - 1}))\leq 3(k - k' + 3).
+ 	\]
+ 	Insgesamt werden also bis Runde $k$ zur Ausführung von Fall 3 höchstens \[
+ 	12k' + 3(k-k'+3) = 3(3k' + k + 3) \leq 3(3k' + k + 3(k-k')) = 12 k
+ 	\]
+ 	Vergleiche mit $x$ benötigt, womit die Induktionsbehauptung gezeigt ist.
+ 	Damit werden von Fall~3 ebenfalls $\bigO(\log M)$ Vergleiche mit $x$ ausgelöst.
+ 	Darüber hinaus wird $x$ nur mit Brüchen verglichen, die im Zähler und Nenner durch $2^{\lceil \log_2(M) \rceil}\leq 2M$ beschränkt sind, wodurch das Theorem folgt.
+ \end{proof}
+
+\begin{theorem}
+	Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 2M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $8M$ bestimmt werden.
+\end{theorem}
+\begin{proof}
+	\newcommand{\lowx}{\lfloor x \rfloor}
+	Zunächst wird mittels binärer Suche auf der Menge $A:=\{0,\dots, M\}$ und $\bigO(\log M)$ Vergleichen $\lowx$ ermittelt.
+	Es existiert ein irreduzibler Bruch $a/b\in[0,1)$ mit $x=\lowx + a/b$.
+	Für den Fall $\lowx = 0$ wende man direkt Theorem~\ref{theorem-find-fraction} an.
+	Sonst ist $(\lowx b + a)/b$ die irreduzible Darstellung von $x$, für die $b = (\lowx b+a)/x \leq M/\lowx$ gilt.
+	Mit Theorem~\ref{theorem-find-fraction} kann nun die Zahl $y:=x-\lowx\in(0,1)$ gefunden werden, wobei Zähler und Nenner auf $\lceil M/\lowx \rceil$ beschränkt sind, indem man Vergleiche der Form \glqq Ist $y\leq p/q$?\grqq\ mit dem Resultat des Vergleichs \glqq Ist $x\leq (p + zq)/q$?\grqq\ beantwortet.
+	Dabei ist der Zähler beschränkt durch \begin{align*}
+	p+\lowx q &\leq 2 \left\lceil \frac{M}{\lowx} \right\rceil (1+\lowx) \leq 2 \left(\frac{M}{\lowx} + 1\right)(1+\lowx)
+	= 2\left(\frac{M}{\lowx} + M + \lowx + 1\right) \leq 8M.
+	\end{align*}
+	Schließlich gelangt man zu $x$, durch Addition von $y$ und $\lowx$.
 \end{proof}
