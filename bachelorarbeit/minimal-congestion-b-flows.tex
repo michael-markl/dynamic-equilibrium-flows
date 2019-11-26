@@ -361,14 +361,13 @@ Die Auslastungsminimalität von $f$ in~(\ref{problem-lp-minimal-flow}) wird durc
 Umgekehrt ist $(c(f), f)$ eine optimale Lösung von~(\ref{problem-lp-minimal-flow}) für einen auslastungsminimalen $b$-Fluss $f$.
 
 
-\begin{corollary}
+\begin{corollary}\label{cor-minimal-congestion-limited}
 	Existiert für eine $b$-Fluss-Instanz $(V, E, b\in\Q^V, u\in\Q^E_{>0})$ ein $b$-Fluss, so ist die Auslastung $q^*$ eines auslastungsminimalen $b$-Flusses enthalten in
 	\[
 	\left\{ \frac{p}{q} ~\middle|~ p\in\N_0, q\in\N_1, p,q \leq 8^{\size{b} + \size{u} } \right\}.
 	\]
 \end{corollary}
 \begin{proof}
-	
 Formuliert man~(\ref{problem-lp-minimal-flow}) als lineares Programm in Standardform, so führt man für die Ungleichungen der Form $f_e/u_e \leq q^*$ Schlupfvariablen $y\in\R^E$ ein und erhält:
 \newcommand{\nil}{\mathbf{0}}
 \newcommand{\one}{\mathbf{1}}
@@ -408,5 +407,34 @@ Dazu werden die folgenden beiden Abschätzungen benötigt:
 \end{proof}
 
 \begin{theorem}
-	Das Minimum-Congestion-Flow-Problem kann 
+	Eine Instanz $(V,E,b,u)$ des (MCF)-Problems kann mit $\bigO(\size{b} + \size{u})$ Berechnungen eines maximalen Flusses auf einem Graphen der Größe von $(V,E)$ gelöst werden.
 \end{theorem}
+\begin{proof}
+	Es sei zunächst $\mathbf{b}$ die Summe aller positiven $b_v$ für $v\in V$.
+	Dies ist gerade das Negative der Summe aller negativen $b_v$ für $v\in V$, denn sonst wäre $b$ kein zulässiger Balance-Vektor, für den es von vornherein keinen $b$-Fluss gibt.
+	
+	Angenommen, es existiere ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses nach Korollar~\ref{cor-minimal-congestion-limited} eine nichtnegative, rationale Zahl, deren Zähler und Nenner durch $8^{\size{b} + \size{u}}$ beschränkt sind.
+	Nach Theorem~\ref{theorem-find-rational} kann $q^*$ durch $\bigO(\size{b} + \size{u})$ Vergleiche der Form \glqq Ist $q^*\leq p/q$?\grqq\ ermittelt werden.
+	
+	Ein solcher Vergleich kann wie folgt umgesetzt werden:
+	Der Graph $(V,E)$ wird um zwei Knoten, eine sog. Superquelle $s$ und Supersenke $t$, augmentiert.
+	Für jeden Knoten $v\in V$ mit $b_v > 0$ wird eine Kante $(s,v)$ mit Kapazität $\nu_{(s,v)}:= b_v$ eingefügt; für einen Knoten $v\in V$ mit $b_v < 0$ wird eine Kante $(v,t)$ mit Kapazität $\nu_{(v,t)}:= -b_v$ erstellt.
+	Für bereits bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e := u_e \cdot  p / q$ gesetzt.
+	
+	Dann hat ein maximaler $s$-$t$-Fluss $f$, der die Kantenkapazitäten $\nu$  einhält, der also $f_e\leq \nu_e$ für alle $e\in E$ erfüllt, genau dann Wert $\mathbf{b}$, wenn $q^*\leq p/q$ gilt:
+	Für einen maximalen $s$-$t$-Fluss $f$ mit $f\leq \nu$ und Wert $\mathbf{b}$ ist $f$ eingeschränkt auf $E$ ein $b$-Fluss, denn offenbar sind hier alle Kanten der Form $(s,v)$ bzw. $(v,t)$ hinsichtlich $\nu_{(s,v)}$ bzw. $\nu_{(v,t)}$ voll ausgelastet.	
+	Da diese Kanten durch Einschränkung auf $E$ wegfallen und $v$ bzgl. $f$ Flusserhaltung gewährt hat, gilt $\sum_{e\in\delta^+_E(v)} f_e - \sum_{e\in\delta^-_E(v)} f_e = b_v$.
+	Außerdem gilt $f_e/u_e \leq p/q$ für alle Kanten $e\in E$.
+	Insbesondere ist $q^*\leq p/q$.
+	Ist andersherum $f$ ein $b$-Fluss mit Auslastung $q^*\leq p/q$, so ist der Fluss $\tilde{f}$, der $f$ um $\tilde{f}_{(s,v)}:=b_v$ für $b_v > 0$ und $\tilde{f}_{(v,t)}:= -b_v$ für $b_v < 0$ augmentiert, ein maximaler $s$-$t$-Fluss, der die Kapazitäten $\nu$ einhält.
+	
+	Außerdem kann man herausfinden, ob ein $b$-Fluss überhaupt existiert, indem man wie oben überprüft, ob ein maximaler $s$-$t$-Fluss den Wert $\mathbf{b}$ hat, wenn man $\nu_e=\infty$ für $e\in E$ setzt.
+\end{proof}
+
+Hier kann man nun aus den zahlreichen Algorithmen zur Berechnung von maximalen Flüssen wählen.
+Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Goldberg-Tarjan, so kann ein maximaler $s$-$t$-Fluss in $\bigO(\abs{V}^2\abs{E})$ Operationen berechnet werden.
+Die Ergebnisse werden nun im folgenden Korollar gesammelt.
+
+\begin{corollary}
+	Ein auslastungsminimaler $b$-Fluss kann mit $\bigO((\size{b}+\size{u}) \abs{V}^2 \abs{E})$ arithmetischen Operationen auf Zahlen mit Kodierungslänge $\bigO(\size{b} + \size{u})$ berechnet werden.
+\end{corollary}

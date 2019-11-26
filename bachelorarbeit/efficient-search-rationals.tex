@@ -157,7 +157,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 		In diesem Fall sind alle Möglichkeiten an $(\alpha,\beta)\in\N^2$ mit $\alpha y_l + \beta y_r \leq 2^{k+1}$ enthalten in der Menge $\{ (1,1), (1,2),\dots,(1,5), (2,1), (2,2),(2,3),(3,1) \}$.
 		Hier kann mit konstant vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ und arithmetischen Operationen die beste obere Schranke an $x$ in $F_{2^{k+1}}$ und den Vorgänger der Schranke finden.
 		
-		\item[2. Fall:] $x > \frac{x_l'}{y_l'} := \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_l}$ mit $\alpha := 1$ und $\beta := \lfloor \frac{2^{k+1} - y_l}{y_r}\rfloor$.
+		\item[2. Fall:] $x > \frac{x_l'}{y_l'} := \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_l}$ mit $\alpha := 1$ und $\beta := \left\lfloor \frac{2^{k+1} - y_l}{y_r}\right\rfloor$.
 		
 		Lemma~\ref{lemma-fraction-helpers}~$(ii)$ impliziert, dass $x_l'/y_l'$ der direkte Vorgänger von $x_r/y_r$ in $F_{2^{k+1}}$ ist, denn für $\alpha$ ist $1$ der minimale Wert und für $\beta$ ist der maximale Wert, der $y_l + \beta y_r \leq 2^{k+1}$ noch erfüllt, gerade $\lfloor (2^{k+1} - y_l)/y_r \rfloor$.
 		Des Weiteren ist $\beta$ mindestens $\lfloor y_r/y_r  \rfloor = 1$.
@@ -218,7 +218,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Darüber hinaus wird $x$ nur mit Brüchen verglichen, die im Zähler und Nenner durch $2^{\lceil \log_2(M) \rceil}\leq 2M$ beschränkt sind, wodurch das Theorem folgt.
  \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{theorem-find-rational}
 	Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 2M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $8M$ bestimmt werden.
 \end{theorem}
 \begin{proof}
@@ -236,6 +236,6 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 \end{proof}
 
 Papadimitriou hat dieses Resultat verwendet, um zu zeigen, dass man lineare Optimierungsprobleme genau dann in polynomieller Zeit lösen kann, wenn man in polynomieller Zeit entscheiden kann, ob ein Polyeder zulässig ist.
-Schließlich wurde das letztere Problem durch Leonid Khachiyan mit der Ellipsoidmethode gelöst.
+Schließlich wurde das letztere Problem durch Leonid Khachiyan in~\cite{Kha79} mit der Ellipsoidmethode gelöst.
 Ein ähnliches Ergebnis wie hier vorgestellt konnten Stephen Kwek und Kurt Mehlhorn 2003 in~\cite{Kwek:2003} erzielen:
 Diese haben ein Verfahren vorgestellt, das sogar nur maximal $2\log_2(M) + \bigO(1)$ Vergleiche zur Bestimmung einer rationalen Zahl, deren Zähler und Nenner durch $M$ beschränkt sind, benötigt.
