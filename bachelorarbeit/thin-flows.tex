@@ -43,7 +43,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	
 	Sei also $\tilde{l}\in\R_{\geq 0}^V$ die Lösung des Gleichungssystems.
 	Der Teilgraph $(V, E')$ mit \[
-	E':= \{ e\in E \mid \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)}  \rho_{uw}(\tilde{l}_u, f_{uw}) \}
+	E':= \left\{ vw\in E ~\middle\vert~ \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)}  \rho_{uw}(\tilde{l}_u, f_{uw}) \right\}
 	\]
 	ebenfalls azyklisch und jeder Knoten ist von $s$ aus erreichbar.
 	Man zeige $l_w = \tilde{l}_w$ durch eine Induktion über die Distanz von $w$ zu $s$ bezüglich der Anzahl an Kanten.
@@ -61,7 +61,6 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
 	
 	Dabei nennt man das Tupel $(V, E, u, s, b, E_1)$ eine \emph{Instanz des $\problemThinFlow$ Problems}.
-	
 \end{definition}
 
 Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knotens $v$ gerade die Auslastung eines jeden $s$-$v$-Pfades mit positivem Fluss und $0$, falls kein solcher existiert.
@@ -70,6 +69,117 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Ronald Koch betrachtet in~\cite{Koch2012} allgemeinere schmale Flüsse: Dort ist das zugrundeliegende Netzwerk nicht als azyklisch vorausgesetzt.
 	Diese Einschränkung wird hier im Sinne von~\cite{Cominetti2015} beibehalten.
 \end{remark}
+
+\begin{figure}
+	\centering
+	\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
+	\begin{subfigure}{\textwidth}
+		\begin{tikzpicture}[lul/.style={draw,
+			ellipse,
+			align=center,
+			inner sep=0pt,
+			outer sep=4pt,
+			text width=7mm,
+			minimum height=1.5cm
+		}]
+		
+		\newnode{0}{(0,2)}{$a$}{$32$}
+		\newnode{1}{(3,2)}{$b$}{$0$}
+		\newnode{2}{(5,0)}{$c$}{$-2$}
+		\newnode{3}{(7,2)}{$d$}{$-12$}
+		\newnode{4}{(10,3)}{$e$}{$-2$}
+		\newnode{5}{(10,1)}{$f$}{$0$}
+		\newnode{6}{(13,2)}{$g$}{$-16$}
+		
+		\begin{scope}[-Latex]
+		\path [-Latex] (0) edge node[above] {$4$} (1);
+		\path [-Latex] (0) edge[bend right] node[above] {$4$} (2);
+		\path [-Latex] (0) edge[bend left] node[above] {$4$} (4);
+		\path [-Latex] (1) edge node[right] {$2$} (2);
+		\path [-Latex] (1) edge node[above] {$2$} (3);
+		\path [-Latex] (2) edge node[left] {$2$} (3);
+		\path [-Latex] (3) edge node[above] {$1$} (4);
+		\path [-Latex] (3) edge node[above] {$2$} (5);
+		\path [-Latex] (4) edge node[above] {$1$} (6);
+		\path [-Latex] (5) edge node[above] {$1$} (6);
+		\end{scope}
+		\end{tikzpicture}
+		\subcaption{Der Ursprungsgraph. Die Kanten $e$ sind mit Kapazitäten $u_e$ und die Knoten $v$ mit einem Bezeichner $v$ und einer Balance $b_v$ beschriftet.}
+	\end{subfigure}
+	\par\bigskip
+	\begin{subfigure}{\textwidth}
+		\begin{tikzpicture}[lul/.style={draw,
+			ellipse,
+			align=center,
+			inner sep=0pt,
+			outer sep=4pt,
+			text width=7mm,
+			minimum height=1.5cm
+		}]
+		
+		\newnode{0}{(0,2)}{$a$}{$0$}
+		\newnode{1}{(3,2)}{$b$}{$2{,}75$}
+		\newnode{2}{(5,0)}{$c$}{$2{,}75$}
+		\newnode{3}{(7,2)}{$d$}{$5$}
+		\newnode{4}{(10,3)}{$e$}{$2{,}5$}
+		\newnode{5}{(10,1)}{$f$}{$5$}
+		\newnode{6}{(13,2)}{$g$}{$8$}
+		
+		\begin{scope}[-Latex]
+		\path [-Latex] (0) edge node[above] {$11/4$} (1);
+		\path [-Latex] (0) edge[bend right] node[above] {$11/4$} (2);
+		\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
+		\path [-Latex] (1) edge node[right] {$1/2$} (2);
+		\path [-Latex] (1) edge node[above] {$10/2$} (3);
+		\path [-Latex] (2) edge node[left] {$10/2$} (3);
+		\path [-Latex] (3) edge node[above] {$0/1$} (4);
+		\path [-Latex] (3) edge node[above] {$8/2$} (5);
+		\path [-Latex] (4) edge node[above] {$8/1$} (6);
+		\path [-Latex] (5) edge node[above] {$8/1$} (6);
+		\end{scope}
+		\end{tikzpicture}
+		\subcaption{Ein schmaler Fluss $f$ ohne Zurücksetzen.}
+		\label{subfig-thin-flow-without-resetting}
+	\end{subfigure}
+	\par\bigskip
+	\begin{subfigure}{\textwidth}
+		\begin{tikzpicture}[lul/.style={draw,
+			ellipse,
+			align=center,
+			inner sep=0pt,
+			outer sep=4pt,
+			text width=7mm,
+			minimum height=1.5cm
+		},
+		scale=1]
+		
+		\newnode{0}{(0,2)}{$a$}{$0$}
+		\newnode{1}{(3,2)}{$b$}{$3$}
+		\newnode{2}{(5,0)}{$c$}{$3$}
+		\newnode{3}{(7,2)}{$d$}{$5{,}5$}
+		\newnode{4}{(10,3)}{$e$}{$2$}
+		\newnode{5}{(10,1)}{$f$}{$5{,}5$}
+		\newnode{6}{(13,2)}{$g$}{$8$}
+		
+		\begin{scope}[-Latex]
+		\path [-Latex] (0) edge node[above] {$12/4$} (1);
+		\path [-Latex] (0) edge[bend right] node[above] {$12/4$} (2);
+		\path [-Latex] (0) edge[bend left] node[above] {$8/4$} (4);
+		\path [-Latex] (1) edge node[right] {$1/2$} (2);
+		\path [-Latex] (1) edge node[above] {$11/2$} (3);
+		\path [-Latex] (2) edge node[left] {$11/2$} (3);
+		\path [Square-Latex] (3) edge node[above] {$2/1$} (4);
+		\path [-Latex] (3) edge node[above] {$8/2$} (5);
+		\path [-Latex] (4) edge node[above] {$8/1$} (6);
+		\path [-Latex] (5) edge node[above] {$8/1$} (6);
+		\end{scope}
+		\end{tikzpicture}
+		\subcaption{Ein schmaler Fluss mit Zurücksetzen auf $(d,e)$.}
+		\label{subfig-thin-flow-with-resetting}
+	\end{subfigure}
+\caption{Ein schmaler Fluss einmal ohne Zurücksetzen und einmal mit Zurücksetzen auf $(d,e)$.
+	In~\ref{subfig-thin-flow-without-resetting} und~\ref{subfig-thin-flow-with-resetting} hat die Kantenbeschriftung die Form $f_e/u_e$ und in den Knoten steht die Knotenauslastung.}
+\end{figure}
 
 \begin{lemma}\label{lemma-thin-flow-t-def}
 	Ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
@@ -352,7 +462,7 @@ Daher kann man bereits erkennen, dass ein schmaler Fluss ohne Zurücksetzen eing
 Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Fluss auf der ursprünglichen Instanz zu konstruieren.
 
 \begin{lemma}\label{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q}
-	Seien ein $s$-Fluss $f$ minimaler Auslastung $q^*$ mit zugehöriger Knotenauslastung $l_v$ und ein dünnster Schnitt $X$ in einem Netzwerk ohne zurücksetzende Kanten gegeben.
+	Seien ein $s$-Fluss $f$ minimaler Auslastung $q^*$ mit zugehöriger Knotenauslastung $l$ und ein dünnster Schnitt $X$ in einem Netzwerk ohne zurücksetzende Kanten gegeben.
 	Für alle $v\in V\setminus X$ hat jeder $s$-$v$-Pfad $P$ Auslastung $q^*=l_v$.
 \end{lemma}
 \begin{proof}
