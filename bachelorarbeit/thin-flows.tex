@@ -1,6 +1,8 @@
 \chapter{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
 \newcommand*{\PlH}{\makebox[1ex]{\textbf{$\cdot$}}}
 
+\section{Definition und Eigenschaften}
+
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 
 \begin{definition}[$s$-Fluss]
@@ -201,7 +203,7 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 		\end{tikzpicture}
 	\end{subfigure}
 	\caption{Zwei verschiedene schmale Flüsse derselben Instanz ohne Zurück\-setzen. Auf den Kanten steht der Flusswert; die Kapazitäten sind allesamt $1$.}
-	
+	\label{figure-thin-flows-not-unique}
 \end{figure}
 
 \begin{corollary}[Eindeutigkeit schmaler Flüsse]
@@ -370,12 +372,12 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 \end{corollary}
 \begin{proof}
 	Es ist leicht zu sehen, dass $g$ ein $s$-Fluss minimaler Auslastung ist:
-	Für einen Knoten $v \in V\setminus X$ ist $g(\delta^+_E(v)) - g(\delta^-_E(v)) = f(\delta^+_E(v)) - g(\delta^-_E(v)) = b_v$ und für $v\in X$ gilt \begin{align*}
+	Für einen Knoten $v \in V\setminus X$ ist $g(\delta^+_E(v)) - g(\delta^-_E(v)) = f(\delta^+_E(v)) - g(\delta^-_E(v)) = b_v$ und für $v\in X$ gilt
+	\begin{align*}
 	g(\delta^+_E(v)) - g(\delta^-_E(v)) =& f'(\delta^+_{E[X]}(v))  - f'(\delta^-_{E[X]}(v))  \\
 	&+ f(\delta^+_E(v)\cap\delta^+_E(X)) - f(\delta^-_E(v)\cap\delta^-_E(X)) = b_v
 	\end{align*}
 
-	
 	Sei ein $s$-$v$-Pfad $P$ mit positivem Fluss gegeben.
 	Ist $v$ nicht in $X$, so hat $P$ nach Lemma~\ref{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q} Auslastung $l_v$.
 	Ist $v$ in $X$ enthalten, muss $P$ entlang Kanten innerhalb von $X$ laufen, da $g$ auf eingehenden Kanten von $X$ verschwindet.
