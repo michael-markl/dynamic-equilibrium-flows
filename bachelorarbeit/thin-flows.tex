@@ -471,9 +471,9 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung also $\max_{e\in P} f_e / u_e = q^*$.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor-thin-flow-alg-correct}
 	Seien ein $s$-Fluss $f$ minimaler Auslastung sowie ein dünnster Schnitt $X$ auf einem Netzwerk ohne zurücksetzende Kanten gegeben.
-	Ist $f'$ ein schmaler Fluss ohne Zurücksetzen auf der durch $X$ induzierten Teilinstanz, so ist \[
+	Ist $f'$ ein schmaler Fluss ohne Zurücksetzen auf der durch $X$ induzierten Teilinstanz, so ist $g := f' \sqcup f$ definiert durch \[
 		g_e := \begin{cases}
 			f'_e, & \text{falls $e\in E[X]$,} \\
 			f_e, & \text{falls $e\in E\setminus E[X]$,}
@@ -499,10 +499,13 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 \label{algorithm-computation-thin-flow-without-resetting}
 \begin{algorithmic}[1]
 	\Procedure{ThinFlow}{$V, E, u, b, s$}
+	\State $f \gets 0^E$
+	\State $(V', E', b') \gets (V, E, b)$
 	\While{$b_s \neq 0$}
-	\State Berechne $s$-Fluss $f'$ minimaler Auslastung und dünnsten Schnitt $X$
-	\State $f_{\mid E[X]} \gets f'_{\mid E[X]}$
-	\State $(V, E, b) \gets (V[X], E[X], b[X])$
+	\State Berechne auslastungsminimalen $s$-Fluss $f'$ und dünnsten Schnitt $X$
+	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$.
+	\State $f_{\mid E'\setminus E'[X]} \gets f'_{\mid E'\setminus E'[X]}$
+	\State $(V', E', b') \gets (V'[X], E'[X], b'[X])$
 	\EndWhile
 	\State\Return $f$
 	\EndProcedure
@@ -511,11 +514,25 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 
 Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
 
-\todo{
-	\begin{theorem}
-		Schmale Flüsse ohne Zurücksetzen können in $\bigO(xyz)$ Zeit berechnet werden können.
-	\end{theorem}
-}
+\begin{theorem}
+		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} berechnet schmale Flüsse ohne Zurücksetzen in einer Laufzeit von \todo{$\bigO(xyz)$}.
+\end{theorem}
+\begin{proof}
+	Für die Korrektheit des Algorithmus benutzt man Korollar~\ref{cor-thin-flow-alg-correct}:
+	Man prüfe die folgende Invariante der Schleife:
+	\glqq $f$ verschwindet auf $E'$ und ist $g$ ein schmaler Fluss auf $(V',E',b')$, so ist $g \sqcup f$ ein schmaler Fluss auf $(V, E, b)$.\grqq\ 
+	Zu Beginn gilt dies offenbar, da in diesem Fall $(V', E', b')$ mit $(V, E, b)$ übereinstimmt und $f$ mit Nullen initialisiert wurde.
+	Nun betrachte man die Invariante im Verlauf einer Iteration.
+	Seien dazu $(f^1, V^1, E^1, b^1)$ die Werte von $(f, V', E', b')$ zu Beginn der Iteration, für die die Invariante bereits gilt, und $(f^2, V^2, E^2, b^2)$ die Werte nach Ende der Iteration.
+	Dann sei $f'$ der berechnete auslastungsminimale Fluss auf $(V^1, E^1, b^1)$ und $(V^2, E^2, b^2)$ die durch den dünnsten Schnitt $X$ induzierte Teilinstanz von $(V^1, E^1, b^1)$.
+	Man nehme nun an, $g$ sei ein schmaler Fluss auf $(V^2, E^2, b^2)$.
+	Dann ist $g\sqcup f^2_{\mid E^1} = g \sqcup f'$ nach Korollar~\ref{cor-thin-flow-alg-correct} ein schmaler Fluss auf $(V^1, E^1, b^1)$ und aufgrund der Invariante ist $g \sqcup f^2 = (g \sqcup f') \sqcup f^1$ ein schmaler Fluss auf $(V, E, b)$.
+	Außerdem verschwindet $f^2$ auf $E_2$, da $f$ nur auf $E^1\setminus E^2$ verändert wird.
+	Terminiert die Schleife, so ist $b_s=0$, wodurch die Voraussetzung der Invariante
+	für den Nullfluss $f_{\mid E'}$ erfüllt ist, sodass $f$ ein schmaler Fluss ist.
+	
+	\todo{Terminierung & Dauer}
+\end{proof}
 
 
 \begin{example}
