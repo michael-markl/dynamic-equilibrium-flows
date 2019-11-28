@@ -522,7 +522,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	
 	\begin{figure}
 		\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
-		
+		\centering
 		\begin{subfigure}{\textwidth}
 			\begin{tikzpicture}[lul/.style={draw,
 				ellipse,
@@ -560,8 +560,9 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\node[color=blue] at (11,-0.5) {$X$};
 			\end{scope}
 			\end{tikzpicture}
+			\subcaption{Erste Iteration. Die Auslastung der Flaschenhalskanten beträgt $8$.}
 		\end{subfigure}
-	
+		\par\bigskip
 		\begin{subfigure}{\textwidth}
 			\begin{tikzpicture}[lul/.style={draw,
 				ellipse,
@@ -585,8 +586,8 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\path [-Latex] (0) edge[bend right] node[above] {$12/4$} (2);
 			\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
 			\path [-Latex] (1) edge node[right] {$0/2$} (2);
-			\path [-Latex] (1) edge[snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$10/2$} (3);
-			\path [-Latex] (2) edge[snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[left] {$10/2$} (3);
+			\path [-Latex] (1) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$10/2$} (3);
+			\path [-Latex] (2) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[left] {$10/2$} (3);
 			\path [-Latex] (3) edge node[above] {$0/1$} (4);
 			\path [-Latex] (3) edge node[above] {$8/2$} (5);
 			\end{scope}
@@ -596,9 +597,10 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\node[color=blue] at (6.25,-0.5) {$X$};
 			\end{scope}
 			\end{tikzpicture}
+			\subcaption{Zweite Iteration. Die Auslastung der Flaschenhalskanten beträgt $5$.}
 		\end{subfigure}
-	
-		\begin{subfigure}{\textwidth}
+		\par\bigskip
+		\begin{subfigure}{.45\columnwidth}
 			\begin{tikzpicture}[lul/.style={draw,
 				ellipse,
 				align=center,
@@ -606,8 +608,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 				outer sep=4pt,
 				text width=7mm,
 				minimum height=1.5cm
-			},
-			scale=1]
+			}]
 			
 			\newnode{0}{(0,2)}{$a$}{$32$}
 			\newnode{1}{(3,2)}{$b$}{$-10$}
@@ -615,8 +616,8 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\newnode{4}{(5,3)}{$e$}{$-10$}
 			
 			\begin{scope}[-Latex]
-			\path [-Latex] (0) edge[snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (1);
-			\path [-Latex] (0) edge[bend right,decorate, decoration=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (2);
+			\path [-Latex] (0) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (1);
+			\path [-Latex] (0) edge[bend right,decorate, decoration=snake, segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (2);
 			\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
 			\path [-Latex] (1) edge node[right] {$1/2$} (2);
 
@@ -627,9 +628,10 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\node[color=blue] at (0,0.6) {$X$};
 			\end{scope}
 			\end{tikzpicture}
-		\end{subfigure}
-	
-		\begin{subfigure}{\textwidth}
+			\subcaption{Dritte Iteration. Die Auslastung der Flaschenhalskanten beträgt $2{,}75$.}
+		\end{subfigure} \hfill
+		\begin{subfigure}{.45\columnwidth}
+			\centering
 			\begin{tikzpicture}[lul/.style={draw,
 				ellipse,
 				align=center,
@@ -644,7 +646,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\newnode{4}{(3,2)}{$e$}{$-10$}
 			
 			\begin{scope}[-Latex]
-			\path [-Latex] (0) edge[snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$10/4$} (4);
+			\path [-Latex] (0) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$10/4$} (4);
 			
 			\end{scope}
 			
@@ -653,7 +655,9 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			\node[color=blue] at (1,1) {$X$};
 			\end{scope}
 			\end{tikzpicture}
+			\subcaption{Vierte Iteration. Die Auslastung der Flaschenhalskante beträgt $2{,}5$.}
 		\end{subfigure}
 		
+		\caption{Algorithmus zur Bestimmung von schmalen Flüssen ohne Zurück\-setzen. Geschlängelte Kanten sind Flaschenhalskanten in den jeweiligen auslastungs\-minimalen Flüssen. Kanten $e$ sind mit $f_e/u_e$ und Knoten mit der Bezeichnung und der Balance beschriftet.}
 	\end{figure}	
 \end{example}
