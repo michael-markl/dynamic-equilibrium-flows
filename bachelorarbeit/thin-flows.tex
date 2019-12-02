@@ -503,7 +503,7 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	\State $(V', E', b') \gets (V, E, b)$
 	\While{$b_s \neq 0$}
 	\State Berechne auslastungsminimalen $s$-Fluss $f'$ und dünnsten Schnitt $X$
-	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$.
+	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$; melde Fehler, falls $f'$ nicht existiert.
 	\State $f_{\mid E'\setminus E'[X]} \gets f'_{\mid E'\setminus E'[X]}$
 	\State $(V', E', b') \gets (V'[X], E'[X], b'[X])$
 	\EndWhile
@@ -527,11 +527,14 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Dann sei $f'$ der berechnete auslastungsminimale Fluss auf $(V^1, E^1, b^1)$ und $(V^2, E^2, b^2)$ die durch den dünnsten Schnitt $X$ induzierte Teilinstanz von $(V^1, E^1, b^1)$.
 	Man nehme nun an, $g$ sei ein schmaler Fluss auf $(V^2, E^2, b^2)$.
 	Dann ist $g\sqcup f^2_{\mid E^1} = g \sqcup f'$ nach Korollar~\ref{cor-thin-flow-alg-correct} ein schmaler Fluss auf $(V^1, E^1, b^1)$ und aufgrund der Invariante ist $g \sqcup f^2 = (g \sqcup f') \sqcup f^1$ ein schmaler Fluss auf $(V, E, b)$.
-	Außerdem verschwindet $f^2$ auf $E_2$, da $f$ nur auf $E^1\setminus E^2$ verändert wird.
+	Außerdem verschwindet $f^2$ auf $E^2$, da $f$ nur auf $E^1\setminus E^2$ verändert wird.
 	Terminiert die Schleife, so ist $b_s=0$, wodurch die Voraussetzung der Invariante
 	für den Nullfluss $f_{\mid E'}$ erfüllt ist, sodass $f$ ein schmaler Fluss ist.
 	
-	\todo{Terminierung & Dauer}
+	Existiert kein $b$-Fluss auf $(V, E)$, so existiert auch kein auslastungsminimaler Fluss und der Algorithmus in Zeile~$5$ bricht mit einer Fehlermeldung ab.
+	Sonst terminiert der Algorithmus nach mindestens $n$ Iterationen, denn in jeder Iteration wird aus $V'$ mindestens ein Knoten entfernt.
+	Außerdem kann ein auslastungsminimaler $s$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
+	Daraus kann man nach \todo{add ref} in \todo{xyz Zeit} einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
 
 
