@@ -515,7 +515,8 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
 
 \begin{theorem}
-		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} berechnet schmale Flüsse ohne Zurücksetzen in einer Laufzeit von \todo{$\bigO(xyz)$}.
+		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} berechnet einen schmalen Fluss ohne Zurücksetzen oder bricht mit einer Fehlermeldung ab, falls kein $b$-Fluss existiert.
+		Er benötigt eine Laufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$.
 \end{theorem}
 \begin{proof}
 	Für die Korrektheit des Algorithmus benutzt man Korollar~\ref{cor-thin-flow-alg-correct}:
@@ -534,7 +535,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Existiert kein $b$-Fluss auf $(V, E)$, so existiert auch kein auslastungsminimaler Fluss und der Algorithmus in Zeile~$5$ bricht mit einer Fehlermeldung ab.
 	Sonst terminiert der Algorithmus nach mindestens $n$ Iterationen, denn in jeder Iteration wird aus $V'$ mindestens ein Knoten entfernt.
 	Außerdem kann ein auslastungsminimaler $s$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
-	Daraus kann man nach \todo{add ref} in \todo{xyz Zeit} einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
+	Daraus kann man nach~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
 
 
