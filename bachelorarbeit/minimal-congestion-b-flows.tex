@@ -328,10 +328,8 @@ Das nächste Lemma bildet in gewisser Weise die Rückrichtung von Lemma~\ref{lem
 	Eine ausgehende Kante $xy\in\delta^+_G(X)$ muss dann bzgl. $f$ Auslastung $q^*$ haben, da $x$ von $v$ in $G_{f}$ erreichbar ist und daher $xy$ nicht als Vorwärtskante in $G_f$ erscheinen kann; sonst wäre $y$ auch in $X$.
 	Die Auslastung einer eingehenden Kante $xy\in\delta^-_G(X)$ bzgl. $f$ muss jedoch verschwinden, da $xy$ nicht als Rückwärtskante in $G_f$ auftaucht.
 	
-	Nach Proposition~\ref{prop-min-bottlenecks-between-strong-comps} existiert ein auslastungsminimaler $b$-Fluss $\tilde{f}$ mit Flaschenhalskanten $E'$, dessen Residualgraph $G_{\tilde{f}}$ den gleichen Zusammenhangsgraph hat wie $G_f$.
-	Die Knoten in $X$ sind also gerade alle Knoten, die in $G_{\tilde{f}}$ von $v$ aus erreichbar sind.
-	Dann ist $vw$ eine ausgehende Kante von $X$, da sonst $w$ von $v$ aus in $G_{\tilde{f}}$ erreichbar wäre und mit $\overleftsmallarrow{vw}$ einen Kreis in $G_{\tilde{f}}$ bilden würde, der eine Rückwärtskante maximaler Auslastung benutzt, welchen es nach Lemma~\ref{lemma-no-circle-in-res-graph-inclus-min} nicht geben kann.
-	Also ist $\delta^+_G(X)\neq \emptyset$ und es gilt:
+	Dann ist $vw$ eine ausgehende Kante von $X$, da $w$ von $v$ aus in $G_f$ nicht erreichbar ist, weil $v$ und $w$ in unterschiedlichen Zusammenhangskomponenten von $G_f$ liegen und bereits die Kante $\overleftsmallarrow{vw}$ in $G_f$ existiert.
+	Also ist $\delta^+_G(X)$ nichtleer und es gilt:
 	\[
 	\frac{b(X)}{u(\delta^+_G(X))} = \frac{f(\delta^+_G(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} q^* = q^*.
 	\]
