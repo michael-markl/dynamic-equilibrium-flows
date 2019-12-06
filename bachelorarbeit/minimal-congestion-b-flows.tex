@@ -6,7 +6,7 @@ Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse.
 \begin{definition}[Auslastungsminimaler $b$-Fluss]
 	Sei ein $b$-Fluss $f$ auf einem Netzwerk ohne Schleifen mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
 	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e/u_e$ bezeichnet die \emph{Auslastung des Flusses $f$}.
-	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge) bezeichnet.
+	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge), eine Kante ohne Fluss mit \emph{Nullkante} bezeichnet.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
 \end{definition}
 
@@ -122,8 +122,10 @@ Zunächst wird ein hinreichendes Optimalitätskriterium für $b$-Flüsse vorgest
 \begin{lemma}\label{lemma-min-flow-criterion}
 	Ist $f$ ein $b$-Fluss in $(V, E, u)$, dessen Residualgraph keine gerichteten Kreise besitzt, die eine Flaschenhalskante als Rückwärtskante benutzen, so ist $f$ auslastungsminimal.
 	Ist $f'$ ein weiterer auslastungsminimaler Fluss, so sind die Flaschenhalskanten $E^*$ von $f$ auch Flaschenhalskanten von $f'$.
+	
+	Hat $G_f$ außerdem keine Kreise, die Nullkanten von $f$ als Vorwärtskanten benutzen, so sind die Nullkanten $E^0$ von $f$ auch Nullkanten von $f'$.
 
-	Man nennt $E^*$ die \emph{minimale Menge der Flaschenhalskanten bzgl. $(V, E, u, b)$.}
+	Man nennt $E^*$ die \emph{minimale Menge der Flaschenhalskanten} und $E^0$ die \emph{minimale Menge der Nullkanten bzgl. $(V, E, u, b)$}.
 \end{lemma}
 
 Um diese Aussage zu zeigen, benötigt man folgende Hilfsproposition:
@@ -164,6 +166,11 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Da $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
 	Da $g$ außerdem nur auf $E_f$ verläuft, enthält $E_f$ also den Zyklus $C_i$, der die Flaschenhalskante $e$ benutzt, was im Widerspruch zur Voraussetzung steht.
 	Also muss bereits $f'_e / u_e \geq f_e / u_e$ gelten, wodurch die Behauptung folgt.
+	
+	Man nehme nun weiter an, $G_f$ habe keine Zyklen, die Nullkanten von $f$ als Vorwärts\-kanten verwendet.
+	Angenommen, für eine Kante $e\in E^0$ gelte nun $0=f_e/u_e < f'_e/u_e$.
+	Dann ist $g_{\overrightsmallarrow{e}}$ positiv und es gibt wieder einen Zyklus $C_i$, der $\overrightsmallarrow{e}$ enthält.
+	Dies führt wieder zum Widerspruch, dass $G_f$ den Zyklus $C_i$ enthalten müsste, der aber eine Nullkante als Vorwärts\-kante verwendet.
 \end{proof}
 
 
@@ -178,27 +185,27 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ erreicht werden kann, wenn die Äquivalenzklasse von $w$ im Zusammenhangsgraph von der Äquivalenzklasse von $v$ erreicht werden kann.
 
 \begin{proposition}\label{prop-augment-min-con-flow-with-circuit}
-	Es sei $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ mit Flaschenhalskanten $E'$.
-	Weiter seien $C$ ein Kreis im Residualgraph $G_f$ und $E_C'$ die Menge der Flaschenhalskanten von $f$, die $C$ als Rückwärtskanten verwendet.
-	Dann existiert ein auslastungsminimaler $b$-Fluss $\tilde{f}$ mit Flaschenhalskanten $E' \setminus E_C'$, für den der Zusammenhangsgraph von $G_{\tilde{f}}$ mit dem Zusammenhangsgraph von $G_f$ übereinstimmt.
+	Es seien $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ und $C$ ein Kreis im Residualgraph $G_f$.
+	Weiter sei $E_C\subseteq E$ die Menge der Kanten, die als Rückwärts- oder Vorwärtskanten in $C$ verwendet werden.
+	
+	Dann kann man durch Augmentieren von $f$ entlang $C$ einen auslastungsminimalen $b$-Fluss $\tilde{f}$ erhalten, der jede Kante $e$ in $E_C$ mit $\tilde{f}_e/u_e \in (0, q^*)$ auslastet.
+	
+	Insbesondere hat $G_{\tilde{f}}$ den gleichen Zusammenhangsgraphen wie $G_f$.
 \end{proposition}
 \begin{proof}
 	\newcommand{\VK}{\text{VK}}
 	\newcommand{\RK}{\text{RK}}
 	Es sei $q^* > 0$ die Auslastung von $f$, $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
-	Es seien $C^1,\dots, C^k$ elementare Kreise, die die Kanten von $C$ überdecken, die also $\bigcup_{i\in [k]} E(C^i) = E(C)$ erfüllen.
 	
 	Man setze $\gamma_\VK := \min_{\overrightsmallarrow{e}\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
 	Weiter sei $\gamma_\RK := \min_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
-	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK  \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang jedes Kreises $C^i$ einen $b$-Fluss $\tilde{f}$.
+	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK  \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang $C$ einen $b$-Fluss $\tilde{f}$, wobei $k$ das maximale Vorkommen einer Kante in $C$ ist.
 	
-	Bezüglich $\tilde{f}$ haben dann sowohl alle Vorwärtskanten als auch alle Rückwärtskanten von $C$ eine geringere Auslastung als $q^*$.
-	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss, dessen Flaschenhalskanten gerade die Menge $E_1 \setminus E_C$ sind.
+	Bezüglich $\tilde{f}$ haben dann sowohl alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
+	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss.
 	
-	Außerdem sind die Kanten des Residualgraph von $\tilde{f}$ gegeben durch die Kanten von $G_f$ und zusätzlich den Kanten $\overrightsmallarrow{e}$ für Flaschenhalskanten $\overleftsmallarrow{e}\in C_{\RK}$ bzgl. $f$ in $C$ sowie Kanten $\overleftsmallarrow{e}$ für Kanten $e\in C_{\VK}$ mit $f_e = 0$.
-	Diese zusätzlichen Kanten können jedoch nicht dafür sorgen, dass verschiedene Zusammenhangskomponenten von $G_f$ zu einer Zusammenhangskomponente von $G_{\tilde{f}}$ verschmelzen, denn diese liegen in umgekehrter Richtung auf einem Kreis, der sowohl in $G_f$ als auch in $G_{\tilde{f}}$ auftaucht.
-	Daher sind die Zusammenhangsgraphen von $G_f$ und $G_{\tilde{f
-	}}$ gleich.
+	Da nach der Augmentierung der Kreis $C$ ebenfalls in $G_{\tilde{f}}$ ist, ändert sich am Zusammenhangsgraphen nichts:
+	Es entstehen durch die Augmentierung höchstens Kanten, die zwischen den Knoten des Kreises verlaufen.
 \end{proof}
 
 \begin{figure}
@@ -206,7 +213,7 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\tikzset{auto rotate/.style={auto=right,->,
+		\tikzset{auto rotate/.style={auto=right,-Latex,
 				to path={let \p1=(\tikztostart),\p2=(\tikztotarget),
 					\n1={atan2(\y2-\y1,\x2-\x1)},\n2={\n1-10},\n3={\n1+190}
 					in (\tikztostart.\n2) -- (\tikztotarget.\n3) \tikztonodes}}}
@@ -271,39 +278,40 @@ Das nächste Lemma bildet in gewisser Weise die Rückrichtung von Lemma~\ref{lem
 
 \begin{lemma}\label{lemma-no-circle-in-res-graph-inclus-min}
 	Sei $q^*$ die minimale Auslastung eines $b$-Flusses $f$ im Netzwerk $(V, E, u)$.
-	Ist die Menge $E^*$ der Flaschenhalskanten von $f$ minimal, so enthält der Residualgraph $G_f$ keine gerichteten Kreise, die eine Flaschenhals\-kante als Rückwärts\-kante benutzen.
+	Ist die Menge $E^*$ der Flaschenhalskanten von $f$ minimal, so enthält der Residualgraph $G_f$ keine Kreise, die eine Flaschenhals\-kante als Rückwärts\-kante benutzen.
+	
+	Ist die Menge $E^0$ der Nullkanten von $f$ minimal, so enthält $G_f$ keine Kreise, die eine Nullkante als Vorwärts\-kante benutzen.
 \end{lemma}
 \begin{proof}
 	Ist $q^* = 0$, so ist $f$ bereits der Nullfluss und $G_f$ ist ein kantenloser Graph.
 	Man betrachte also $q^* > 0$.
-	Angenommen, es existiere ein Kreis $C$, der mindestens eine Flaschenhalskante als Rückwärtskante enthält.
-	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss ohne die Flaschenhalskanten in $C$.
-	Dies ist jedoch ein Widerspruch zur Minimalität von $E^*$.
+	Angenommen, es existiere ein Kreis $C$, der eine Flaschenhalskante als Rückwärtskante oder eine Nullkante als Vorwärtskante enthält.
+	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss ohne die Flaschenhalskanten und Nullkanten in $C$.
+	Dies ist jedoch ein Widerspruch zur Minimalität von $E^*$ bzw. $E^0$.
 \end{proof}
 
 \todo{Irgendwo anmerken, was augmentieren heißt.}
 
 \todo{Change this to: Für jeden auslastungsminimalen $b$-Fluss hat der Residualgraph den gleichen Zusammenhangsgraphen. Kanten zwischen den Zusammenhangskomponenten in $G_f$ sind Rückwärtskanten der minimalen Menge an Flaschenhalskanten sowie Vorwärtskanten, die unter jedem auslastungsminimalen $b$-Fluss verschwinden.}
 \begin{proposition}\label{prop-min-bottlenecks-between-strong-comps}
-	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ im Netzwerk $(V, E, u)$.
-	Dann ist die Menge $E^*$ der Flaschenhalskanten von $f$, die als Rückwärtskanten zwischen Zusammenhangskomponenten von $G_f$ verlaufen, die minimale Menge an Flaschenhalskanten.
+	Seien $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ im Netzwerk $(V, E, u)$ und $E^*$ bzw. $E^0$ die minimale Menge der Flaschenhals- bzw. Nullkanten bzgl. $(V, E, u, b)$.
+	Dann sind die Kanten zwischen Zusammenhangskomponenten von $G_f$ gerade die Rückwärtskanten $\overleftsmallarrow{E^*}$ und die Vorwärtskanten $\overrightsmallarrow{E^0}$.
 	
-	Außerdem stimmt der Zusammenhangsgraph von $G_f$ mit dem des Residualgraphen eines jeden auslastungsminimalen $b$-Flusses mit Flaschenhalskanten $E'$ überein.
+	Insbesondere haben alle Residualgraphen auslastungsminimaler $b$-Flüsse den gleichen Zusammenhangsgraphen.
 \end{proposition}
 \begin{proof}
 	Es seien $Z_1,\dots, Z_k$ die Zusammenhangskomponenten des Residualgraphs $G_f$.
 	Für alle $i\in [k]$ sei $C_i$ ein Kreis, der alle Kanten, die innerhalb $Z_i$ verlaufen, abläuft.
-	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraph hat wie der von $f$, für den aber innerhalb der Zusammenhangskomponenten keine Flaschenhalskanten als Rückwärtskanten vorkommen.
-	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhalskanten.
+	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraph hat wie der von $f$, für den aber innerhalb der Zusammenhangskomponenten keine Flaschenhalskanten als Rückwärtskanten und keine Nullkanten als Vorwärtskanten vorkommen.
+	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhals- und Nullkanten.
+	Zwischen Zusammenhangskomponenten können keine weiteren Kanten mit Auslastung in $(0, q^*)$ liegen, da diese in beide Richtungen generiert würden und somit die Zusammenhangskomponenten verschmelzen lassen würden.
 	
-	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante verwendet, sodass $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} die minimale Menge an Flaschenhalskanten besitzt.
-	Dies sind gerade die Flaschenhalskanten von $f$ zwischen den Zusammenhangskomponenten.
+	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante oder eine Nullkante als Vorwärtskante verwendet, sodass die Menge der Flaschenhals- und Nullkanten von $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} minimal sind.
 	
-	Außerdem hat jeder auslastungsminimale $b$-Fluss $g$ zumindest die Flaschenhalskanten $E^*$.
-	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat.
-	Seien $v$ und $w$ in der gleichen Zusammenhangskomponente von $G_{\tilde{f}}$.
-	Dann existiert ein gerichteter Kreis $C$ in $G_f$, der $v$ und $w$ enthält, welcher keine Rückwärtskanten von $E^*$ benutzt.
-	
+	Sei nun ein beliebiger weiterer auslastungsminimaler $b$-Fluss $g$ gegeben.
+	Es bleibt zu zeigen, dass $g$ den gleichen Zusammenhangsgraphen wie $\tilde{f}$ besitzt.
+	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat, und dessen Flaschenhals- bzw. Nullkanten minimal sind.
+	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass sie auch den gleichen Zusammenhangsgraphen besitzen.
 \end{proof}
 
 \begin{lemma}\label{lemma-calc-sparsest-cut}
