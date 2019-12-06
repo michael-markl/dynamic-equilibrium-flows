@@ -53,6 +53,7 @@
 
 \usetikzlibrary{shapes,snakes}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
 
 
 \IfClass{article}{ % Optimize for screen
@@ -61,7 +62,7 @@
 
 \renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
 \floatname{algorithm}{Algorithmus}
-\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}TODO: #1}}
 
 \numberwithin{figure}{section}	% Abbildungsnummern in Section
 

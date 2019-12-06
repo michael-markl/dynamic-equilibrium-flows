@@ -535,7 +535,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Existiert kein $b$-Fluss auf $(V, E)$, so existiert auch kein auslastungsminimaler Fluss und der Algorithmus in Zeile~$5$ bricht mit einer Fehlermeldung ab.
 	Sonst terminiert der Algorithmus nach mindestens $n$ Iterationen, denn in jeder Iteration wird aus $V'$ mindestens ein Knoten entfernt.
 	Außerdem kann ein auslastungsminimaler $s$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
-	Daraus kann man nach~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
+	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
 
 
