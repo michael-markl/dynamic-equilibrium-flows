@@ -117,6 +117,23 @@ Zunächst betrachte man das folgende Beispiel.
 Im Residualgraph eines $b$-Flusses $f$ wird eine Kante also in beide Richtungen erstellt, falls die Auslastung durch $f$ echt zwischen $0$ und $q^*$ liegt. Fließt kein Fluss auf der Kante, so gibt es nur die Vorwärtskante, und handelt es sich um eine Flaschenhalskante, so existiert nur die Rückwärtskante.
 Abbildung~\todo{Add ref} zeigt den Residualgraphen für Beispiel~\ref{example-min-con-flow}.
 
+\todo{Kreis vs. Zyklus erklären}
+
+\begin{definition}[Augmentieren eines Flusses]
+	\newcommand{\VK}{\text{VK}}
+	\newcommand{\RK}{\text{RK}}
+	Seien $f$ ein $b$-Fluss und $C$ ein Kreis in seinem Residualgraph $G_f$.
+	Man setze \[
+	\gamma_{\max} := \min\left\{ \frac{f_e}{k_{\overleftsmallarrow{e}} - k_{\overrightsmallarrow{e}}} ~\middle|~ e\in E(C), k_{\overleftsmallarrow{e}} > k_{\overrightsmallarrow{e}} \right\},
+	\]
+	wobei $k_d$ die Anzahl der Vorkommen der Kante~$d$ in $C$ sei.
+	Für ein $\gamma\in [0, \gamma_{\max}]$ bezeichne~$g$, gegeben durch
+	\[
+		g_e := f_e + (k_{\overrightsmallarrow{e}} - k_{\overleftsmallarrow{e}}) \gamma \geq 0,
+	\]
+	den \emph{$b$-Fluss, der durch $\gamma$-Augmentieren von $f$ entlang $C$ entsteht}.
+\end{definition}
+
 Zunächst wird ein hinreichendes Optimalitätskriterium für $b$-Flüsse vorgestellt:
 
 \begin{lemma}\label{lemma-min-flow-criterion}
@@ -289,8 +306,6 @@ Das nächste Lemma bildet in gewisser Weise die Rückrichtung von Lemma~\ref{lem
 	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss ohne die Flaschenhalskanten und Nullkanten in $C$.
 	Dies ist jedoch ein Widerspruch zur Minimalität von $E^*$ bzw. $E^0$.
 \end{proof}
-
-\todo{Irgendwo anmerken, was augmentieren heißt.}
 
 \todo{Change this to: Für jeden auslastungsminimalen $b$-Fluss hat der Residualgraph den gleichen Zusammenhangsgraphen. Kanten zwischen den Zusammenhangskomponenten in $G_f$ sind Rückwärtskanten der minimalen Menge an Flaschenhalskanten sowie Vorwärtskanten, die unter jedem auslastungsminimalen $b$-Fluss verschwinden.}
 \begin{proposition}\label{prop-min-bottlenecks-between-strong-comps}
