@@ -221,8 +221,69 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 	Bezüglich $\tilde{f}$ haben dann sowohl alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss.
 	
-	Da nach der Augmentierung der Kreis $C$ ebenfalls in $G_{\tilde{f}}$ ist, ändert sich am Zusammenhangsgraphen nichts:
+	Da nach der Augmentierung der Kreis $C$ auch in $G_{\tilde{f}}$ liegt, ändert sich am Zusammenhangsgraphen nichts:
 	Es entstehen durch die Augmentierung höchstens Kanten, die zwischen den Knoten des Kreises verlaufen.
+\end{proof}
+\begin{lemma}\label{lemma-min-bottlenecks-between-strong-comps}
+	Für jeden $b$-Fluss $f$ minimaler Auslastung $q^* > 0$ gibt es einen auslastungsminimalen $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraphen hat wie der von $f$ und dessen Flaschenhals- und Nullkanten minimal sind.
+	
+	Dabei besteht die Menge der Vorwärtskanten bzw. die Menge der Rückwärtskanten zwischen Zusammenhangskomponenten von $G_f$ gerade aus den Vorwärtskanten der minimalen Nullkanten bzw. den Rückwärtskanten der minimalen Flaschenhalskanten.
+	
+	Insbesondere haben alle Residualgraphen auslastungsminimaler $b$-Flüsse den gleichen Zusammenhangsgraphen.
+\end{lemma}
+\begin{proof}
+	Es seien $Z_1,\dots, Z_k$ die Zusammenhangskomponenten des Residualgraphs $G_f$.
+	Für alle $i\in [k]$ sei $C_i$ ein Kreis, der alle Kanten, die innerhalb $Z_i$ verlaufen, abläuft.
+	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraph hat wie der von $f$, für den aber innerhalb der Zusammenhangskomponenten keine Flaschenhalskanten als Rückwärtskanten und keine Nullkanten als Vorwärtskanten vorkommen.
+	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhals- und Nullkanten.
+	Zwischen Zusammenhangskomponenten können keine weiteren Kanten mit Auslastung in $(0, q^*)$ liegen, da diese in beide Richtungen generiert würden und somit die Zusammenhangskomponenten verschmelzen lassen würden.
+	
+	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante oder eine Nullkante als Vorwärtskante verwendet, sodass die Menge der Flaschenhals- und Nullkanten von $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} minimal sind.
+	
+	Sei nun ein beliebiger weiterer auslastungsminimaler $b$-Fluss $g$ gegeben.
+	Es bleibt zu zeigen, dass $g$ den gleichen Zusammenhangsgraphen wie $\tilde{f}$ besitzt.
+	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat, und dessen Flaschenhals- bzw. Nullkanten minimal sind.
+	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass sie auch den gleichen Zusammenhangsgraphen besitzen.
+\end{proof}
+
+\todo{Zshgraphen azyklisch}
+\todo{Kanten parallel ok, aber oft als $vw$ bezeichnet}
+
+Dieses Lemma zeigt, dass jeder auslastungsminimale $b$-Fluss auf Kanten zwischen den Zusammenhangskomponenten identisch ist.
+In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man die Zusammenhangskomponenten des Residualgraphs des Flusses $x$ aus Beispiel~\ref{example-min-con-flow}.
+Der entsprechende Zusammenhangsgraph ist dann
+\begin{center}
+	\begin{tikzpicture}
+	\node[draw, circle] (z1) at (2,0) {$Z_1$};
+	\node[draw, circle] (z2) at (4,0) {$Z_2$};
+	\node[draw, circle] (z3) at (0,0) {$Z_3$};
+	\path[-Latex] (z3) edge (z1);
+	\path[-Latex] (z3) edge[bend left] (z2);
+	\end{tikzpicture}
+\end{center}
+und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hingegen sind die Kanten $(a,b)$ und $(h,f)$, die durch $x$ auch von Wert $4$ ausgelastet werden, nicht notwendigerweise Flaschenhalskanten: So kann man die Zyklen $(a,b,e,a)$ und $(f,h,i,f)$ augmentieren, um die Auslastung auf den beiden Kanten zu verringern.
+
+Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitätskriterium formuliert werden:
+
+\begin{theorem}\label{thm-optimal-criterion-min-con-flow}
+	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphs $G_f$ verläuft.
+	Gilt letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt.
+\end{theorem}
+\begin{proof}
+	Sei $f$ zunächst ein auslastungsminimaler $b$-Fluss.
+	Ist $q^* = 0$, so ist $f$ der Nullfluss.
+	Für positive $q^*$ verlaufen die minimalen Flaschenhalskanten nach Lemma~\ref{lemma-min-bottlenecks-between-strong-comps} als Rückwärtskanten zwischen Zusammenhangskomponenten des Residualgraphs $G_f$.
+	
+	Sei umgekehrt $\overleftsmallarrow{vw}$ eine Rückwärtskante zwischen zwei Zusammenhangskomponenten von $G_f$ und sei $X$ die Menge der von $v$ erreichbaren Knoten in $G_f$.
+	Eine ausgehende Kante $xy\in\delta^+_G(X)$ muss dann bzgl. $f$ Auslastung $c(f)$ haben, da $x$ von $v$ in $G_{f}$ erreichbar ist und daher $xy$ nicht als Vorwärtskante in $G_f$ erscheinen kann; sonst wäre $y$ auch in $X$.
+	Die Auslastung einer eingehenden Kante $xy\in\delta^-_G(X)$ bzgl. $f$ muss jedoch verschwinden, da $xy$ nicht als Rückwärtskante in $G_f$ auftaucht.
+	
+	Dann ist $vw$ eine ausgehende Kante von $X$, da $w$ von $v$ aus in $G_f$ nicht erreichbar ist, weil $v$ und $w$ in unterschiedlichen Zusammenhangskomponenten von $G_f$ liegen und bereits die Kante $\overleftsmallarrow{vw}$ in $G_f$ existiert.
+	Also ist $\delta^+_G(X)$ nichtleer und es gilt:
+	\[
+	\frac{b(X)}{u(\delta^+_G(X))} = \frac{f(\delta^+_G(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} c(f) = c(f).
+	\]
+	Aufgrund der schwachen Dualität ist $X$ nach Theorem~\ref{thm-weak-duality-min-con-flow} ein dünnster Schnitt.
 \end{proof}
 
 \begin{figure}
@@ -289,45 +350,8 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 		\end{tikzpicture}
 	\end{subfigure}
 	\caption{Der Residualgraph vom Fluss aus Abbildung~\ref{figure-min-con-example}. Vorwärtskanten sind durchgezogen, Rückwärtskanten gestrichelt. Zusammenhangskomponenten sind grau hinterlegt.}
+	\label{figure-min-con-example-residual-graph}
 \end{figure}
-
-Das nächste Lemma bildet in gewisser Weise die Rückrichtung von Lemma~\ref{lemma-min-flow-criterion}:
-
-\begin{lemma}\label{lemma-no-circle-in-res-graph-inclus-min}
-	Sei $q^*$ die minimale Auslastung eines $b$-Flusses $f$ im Netzwerk $(V, E, u)$.
-	Ist die Menge $E^*$ der Flaschenhalskanten von $f$ minimal, so enthält der Residualgraph $G_f$ keine Kreise, die eine Flaschenhals\-kante als Rückwärts\-kante benutzen.
-	
-	Ist die Menge $E^0$ der Nullkanten von $f$ minimal, so enthält $G_f$ keine Kreise, die eine Nullkante als Vorwärts\-kante benutzen.
-\end{lemma}
-\begin{proof}
-	Ist $q^* = 0$, so ist $f$ bereits der Nullfluss und $G_f$ ist ein kantenloser Graph.
-	Man betrachte also $q^* > 0$.
-	Angenommen, es existiere ein Kreis $C$, der eine Flaschenhalskante als Rückwärtskante oder eine Nullkante als Vorwärtskante enthält.
-	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss ohne die Flaschenhalskanten und Nullkanten in $C$.
-	Dies ist jedoch ein Widerspruch zur Minimalität von $E^*$ bzw. $E^0$.
-\end{proof}
-
-\todo{Change this to: Für jeden auslastungsminimalen $b$-Fluss hat der Residualgraph den gleichen Zusammenhangsgraphen. Kanten zwischen den Zusammenhangskomponenten in $G_f$ sind Rückwärtskanten der minimalen Menge an Flaschenhalskanten sowie Vorwärtskanten, die unter jedem auslastungsminimalen $b$-Fluss verschwinden.}
-\begin{proposition}\label{prop-min-bottlenecks-between-strong-comps}
-	Seien $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ im Netzwerk $(V, E, u)$ und $E^*$ bzw. $E^0$ die minimale Menge der Flaschenhals- bzw. Nullkanten bzgl. $(V, E, u, b)$.
-	Dann sind die Kanten zwischen Zusammenhangskomponenten von $G_f$ gerade die Rückwärtskanten $\overleftsmallarrow{E^*}$ und die Vorwärtskanten $\overrightsmallarrow{E^0}$.
-	
-	Insbesondere haben alle Residualgraphen auslastungsminimaler $b$-Flüsse den gleichen Zusammenhangsgraphen.
-\end{proposition}
-\begin{proof}
-	Es seien $Z_1,\dots, Z_k$ die Zusammenhangskomponenten des Residualgraphs $G_f$.
-	Für alle $i\in [k]$ sei $C_i$ ein Kreis, der alle Kanten, die innerhalb $Z_i$ verlaufen, abläuft.
-	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraph hat wie der von $f$, für den aber innerhalb der Zusammenhangskomponenten keine Flaschenhalskanten als Rückwärtskanten und keine Nullkanten als Vorwärtskanten vorkommen.
-	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhals- und Nullkanten.
-	Zwischen Zusammenhangskomponenten können keine weiteren Kanten mit Auslastung in $(0, q^*)$ liegen, da diese in beide Richtungen generiert würden und somit die Zusammenhangskomponenten verschmelzen lassen würden.
-	
-	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante oder eine Nullkante als Vorwärtskante verwendet, sodass die Menge der Flaschenhals- und Nullkanten von $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} minimal sind.
-	
-	Sei nun ein beliebiger weiterer auslastungsminimaler $b$-Fluss $g$ gegeben.
-	Es bleibt zu zeigen, dass $g$ den gleichen Zusammenhangsgraphen wie $\tilde{f}$ besitzt.
-	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat, und dessen Flaschenhals- bzw. Nullkanten minimal sind.
-	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass sie auch den gleichen Zusammenhangsgraphen besitzen.
-\end{proof}
 
 \begin{lemma}\label{lemma-calc-sparsest-cut}
 	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u)$ mit nichtleerer Kantenmenge $E$.
@@ -337,18 +361,9 @@ Das nächste Lemma bildet in gewisser Weise die Rückrichtung von Lemma~\ref{lem
 \begin{proof}
 	Ist $q^* = 0$, so ist $b$ bereits der Nullvektor und es kann jede einelementige Knotenmenge mit mindestens einer ausgehenden Kante verwendet werden.
 	Sonst berechne man in~$\bigO(n+m)$ Zeit zum Beispiel mit Tarjan's Algorithmus (siehe \todo{add cite}) die starken Zusammenhangskomponenten $Z_1, \dots, Z_k$ des Residualgraphen $G_f$.
-	Nach Proposition~\ref{prop-min-bottlenecks-between-strong-comps} sind die Flaschenhalskanten von $f$, die als Rückwärtskanten zwischen den Zusammenhangskomponenten von $G_f$ verlaufen, gerade die minimale Menge $E'$ der Flaschenhalskanten.
+	Nach Theorem~\ref{thm-optimal-criterion-min-con-flow} existiert eine Flaschenhalskante als Rückwärtskante zwischen den Zusammenhangskomponenten von $G_f$.
 	In $\bigO(m)$ Zeit identifiziere man eine solche Kante $\overleftsmallarrow{vw}$ mit $vw\in E'$ und sammle alle Knoten, die in $G_f$ von $v$ aus erreichbar sind, in der Menge $X$.
-	
-	Eine ausgehende Kante $xy\in\delta^+_G(X)$ muss dann bzgl. $f$ Auslastung $q^*$ haben, da $x$ von $v$ in $G_{f}$ erreichbar ist und daher $xy$ nicht als Vorwärtskante in $G_f$ erscheinen kann; sonst wäre $y$ auch in $X$.
-	Die Auslastung einer eingehenden Kante $xy\in\delta^-_G(X)$ bzgl. $f$ muss jedoch verschwinden, da $xy$ nicht als Rückwärtskante in $G_f$ auftaucht.
-	
-	Dann ist $vw$ eine ausgehende Kante von $X$, da $w$ von $v$ aus in $G_f$ nicht erreichbar ist, weil $v$ und $w$ in unterschiedlichen Zusammenhangskomponenten von $G_f$ liegen und bereits die Kante $\overleftsmallarrow{vw}$ in $G_f$ existiert.
-	Also ist $\delta^+_G(X)$ nichtleer und es gilt:
-	\[
-	\frac{b(X)}{u(\delta^+_G(X))} = \frac{f(\delta^+_G(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} q^* = q^*.
-	\]
-	Aufgrund der schwachen Dualität ist $X$ nach Theorem~\ref{thm-weak-duality-min-con-flow} ein dünnster Schnitt.
+	Dann ist $X$ ebenfalls nach Theorem~\ref{thm-optimal-criterion-min-con-flow} ein dünnster Schnitt.
 \end{proof}
 
 Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
