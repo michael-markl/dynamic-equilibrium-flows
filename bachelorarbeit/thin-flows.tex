@@ -60,7 +60,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	Seien ein $s$-Fluss $f$ in einem Netzwerk mit Zurück\-setzen auf $E_1$ und Ursprung $s$ sowie die durch $f$ induzierten Knotenauslastungen $l$ gegeben.
 	Der Fluss $f$ heißt \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
 	
-	Dabei nennt man das Tupel $(V, E, u, s, b, E_1)$ eine \emph{Instanz des $\problemThinFlow$ Problems}.
+	Existiert ein $s$-Fluss, so nennt man das Tupel $(V, E, u, s, b, E_1)$ eine \emph{Instanz von $\problemThinFlow$}.
 \end{definition}
 
 Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knotens $v$ gerade die Auslastung eines jeden $s$-$v$-Pfades mit positivem Fluss und $0$, falls kein solcher existiert.
@@ -69,6 +69,10 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Ronald Koch betrachtet in~\cite{Koch2012} allgemeinere schmale Flüsse: Dort ist das zugrundeliegende Netzwerk nicht als azyklisch vorausgesetzt.
 	Diese Einschränkung wird hier im Sinne von~\cite{Cominetti2015} beibehalten.
 \end{remark}
+
+\begin{example}
+	\todo{Add example text}
+\end{example}
 
 \begin{figure}
 	\centering
@@ -93,11 +97,11 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		
 		\begin{scope}[-Latex]
 		\path [-Latex] (0) edge node[above] {$4$} (1);
-		\path [-Latex] (0) edge[bend right] node[above] {$4$} (2);
+		\path [-Latex] (0) edge[bend right] node[above right] {$4$} (2);
 		\path [-Latex] (0) edge[bend left] node[above] {$4$} (4);
-		\path [-Latex] (1) edge node[right] {$2$} (2);
+		\path [-Latex] (1) edge node[above right] {$2$} (2);
 		\path [-Latex] (1) edge node[above] {$2$} (3);
-		\path [-Latex] (2) edge node[left] {$2$} (3);
+		\path [-Latex] (2) edge node[above left] {$2$} (3);
 		\path [-Latex] (3) edge node[above] {$1$} (4);
 		\path [-Latex] (3) edge node[above] {$2$} (5);
 		\path [-Latex] (4) edge node[above] {$1$} (6);
@@ -127,11 +131,11 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		
 		\begin{scope}[-Latex]
 		\path [-Latex] (0) edge node[above] {$11/4$} (1);
-		\path [-Latex] (0) edge[bend right] node[above] {$11/4$} (2);
+		\path [-Latex] (0) edge[bend right] node[above right] {$11/4$} (2);
 		\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
-		\path [-Latex] (1) edge node[right] {$1/2$} (2);
+		\path [-Latex] (1) edge node[above right] {$1/2$} (2);
 		\path [-Latex] (1) edge node[above] {$10/2$} (3);
-		\path [-Latex] (2) edge node[left] {$10/2$} (3);
+		\path [-Latex] (2) edge node[above left] {$10/2$} (3);
 		\path [-Latex] (3) edge node[above] {$0/1$} (4);
 		\path [-Latex] (3) edge node[above] {$8/2$} (5);
 		\path [-Latex] (4) edge node[above] {$8/1$} (6);
@@ -163,11 +167,11 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		
 		\begin{scope}[-Latex]
 		\path [-Latex] (0) edge node[above] {$12/4$} (1);
-		\path [-Latex] (0) edge[bend right] node[above] {$12/4$} (2);
+		\path [-Latex] (0) edge[bend right] node[above right] {$12/4$} (2);
 		\path [-Latex] (0) edge[bend left] node[above] {$8/4$} (4);
-		\path [-Latex] (1) edge node[right] {$1/2$} (2);
+		\path [-Latex] (1) edge node[above right] {$1/2$} (2);
 		\path [-Latex] (1) edge node[above] {$11/2$} (3);
-		\path [-Latex] (2) edge node[left] {$11/2$} (3);
+		\path [-Latex] (2) edge node[above left] {$11/2$} (3);
 		\path [Square-Latex] (3) edge node[above] {$2/1$} (4);
 		\path [-Latex] (3) edge node[above] {$8/2$} (5);
 		\path [-Latex] (4) edge node[above] {$8/1$} (6);
@@ -178,17 +182,18 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		\label{subfig-thin-flow-with-resetting}
 	\end{subfigure}
 \caption{Ein schmaler Fluss einmal ohne Zurücksetzen und einmal mit Zurücksetzen auf $(d,e)$.
-	In~\ref{subfig-thin-flow-without-resetting} und~\ref{subfig-thin-flow-with-resetting} hat die Kantenbeschriftung die Form $f_e/u_e$ und in den Knoten steht die Knotenauslastung.}
+	In den Abbildungen~\ref{subfig-thin-flow-without-resetting} und~\ref{subfig-thin-flow-with-resetting} hat die Kantenbeschriftung die Form $f_e/u_e$ und in den Knoten steht die Knotenauslastung.}
+\label{figure-thin-flow-example}
 \end{figure}
 
 \begin{lemma}\label{lemma-thin-flow-t-def}
 	Ein $s$-Fluss $f$ in einem Netzwerk mit Zurücksetzen auf $E_1$ und Ursprung $s$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
-		\item\label{def-thin-flow-source} $l_s = 0$,
-		\item\label{def-thin-flow-x-zero} $l_w \leq l_v$, \tabto{4.5cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
-		\item\label{def-thin-flow-x-positive} $l_w = \max\{ l_v, f_{vw} / u_{vw} \}$,  \tabto{4.5cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
-		\item\label{def-thin-flow-resetting-edge} $l_w = f_{vw} / u_{vw}$,  \tabto{4.5cm} für $vw\in E_1$,
-		\item\label{def-thin-flow-no-resetting-edge} $l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4.5cm} falls $\delta^-(w)\cap E_1 = \emptyset$.
+		\item\label{def-thin-flow-source} $\displaystyle l_s = 0$,
+		\item\label{def-thin-flow-x-zero} $\displaystyle l_w \leq l_v$, \tabto{4.5cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
+		\item\label{def-thin-flow-x-positive} $\displaystyle l_w = \max\left\{ l_v, \frac{f_{vw}}{u_{vw}} \right\}$,  \tabto{4.5cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
+		\item\label{def-thin-flow-resetting-edge} $\displaystyle l_w = \frac{f_{vw}}{u_{vw}}$,  \tabto{4.5cm} für $vw\in E_1$,
+		\item\label{def-thin-flow-no-resetting-edge} $\displaystyle l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4.5cm} für $w\in V\setminus \{ s \}$ mit $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
 	Außerdem gelten die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-zero} und~\ref{def-thin-flow-no-resetting-edge} bereits für die Knotenauslastungen von $f$, falls $f$ nur ein $s$-Fluss ist.
@@ -202,8 +207,8 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Für $vw\notin E_1$ bedeutet das gerade $l_w = \max\{ l_v, f_{vw}/u_{vw} \}$ also~\ref{def-thin-flow-x-positive}, und für $vw\in E_1$ zeigt das $l_w = f_{vw} / u_{vw}$.
 	Für~\ref{def-thin-flow-resetting-edge} bleibt der Fall $f_{vw} = 0$ zu prüfen:
 	Dann ist aber $l_w = \min_{uw\in\delta^-(w)} \rho_{uw}(l_u, f_{uw}) = f_{vw} / u_{vw} = 0$.
-	Zuletzt betrachte man den Fall, dass $w$ keine eingehende zurücksetzende Kante hat.
-	Dann folgt aber bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
+	Zuletzt betrachte man den Fall, dass $w\neq s$ keine eingehende zurücksetzende Kante hat.
+	Da $w$ von $s$ aus erreichbar ist, hat $w$ mindestens eine eingehende Kante und es folgt bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
 	
 	Sei nun umgekehrt $l\in\R_{\geq 0}^V$ eine Knotenbewertung, die~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt.
 	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von  $f$ ist.
@@ -291,10 +296,10 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 		\node[draw, circle] (T) at (6,2) {$t$};
 		
 		\path [->] (S) edge node[above] {$2$} (U);
-		\path [->] (U) edge node[above] {$1$} (V);
-		\path [->] (U) edge node[below] {$1$} (W);
-		\path [->] (V) edge node[above] {$1$} (T);
-		\path [->] (W) edge node[below] {$1$} (T);
+		\path [->] (U) edge node[above left] {$1$} (V);
+		\path [->] (U) edge node[below left] {$1$} (W);
+		\path [->] (V) edge node[above right] {$1$} (T);
+		\path [->] (W) edge node[below right] {$1$} (T);
 		\end{tikzpicture}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
@@ -306,10 +311,10 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 		\node[draw, circle] (T) at (6,2) {$t$};
 		
 		\path [->] (S) edge node[above] {$2$} (U);
-		\path [->] (U) edge node[above] {$2$} (V);
-		\path [->] (U) edge node[below] {$0$} (W);
-		\path [->] (V) edge node[above] {$2$} (T);
-		\path [->] (W) edge node[below] {$0$} (T);
+		\path [->] (U) edge node[above left] {$2$} (V);
+		\path [->] (U) edge node[below left] {$0$} (W);
+		\path [->] (V) edge node[above right] {$2$} (T);
+		\path [->] (W) edge node[below right] {$0$} (T);
 		\end{tikzpicture}
 	\end{subfigure}
 	\caption{Zwei verschiedene schmale Flüsse derselben Instanz ohne Zurück\-setzen. Auf den Kanten steht der Flusswert; die Kapazitäten sind allesamt $1$.}
@@ -328,8 +333,8 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 	Im Fall $l_v > l_w$ muss $f_{vw} = 0$ gelten, da sonst $l_w=\max\{ l_v, f_e/u_e \}$ gelten würde.
 \end{proof}
 
-\begin{theorem}[Existenz schmaler Flüsse]\label{thm-existence-thin-flow}
-	Für jede Instanz von $\problemThinFlow$ existiert ein schmaler Fluss, falls im zugehörigen Netzwerk ein $s$-Fluss existiert.
+\begin{theorem}\label{thm-existence-thin-flow}
+	Für jede Instanz von $\problemThinFlow$ existiert ein schmaler Fluss.
 \end{theorem}
 
 Um die Existenz zu beweisen, benötigen wir zunächst den Fixpunktsatz von Kakutani.
@@ -375,45 +380,74 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 
 \section{Effiziente Berechnung schmaler Flüsse}
 
+Dieser Abschnitt diskutiert die Komplexität der Berechnung schmaler Flüsse.
+Dazu schränken wir uns wie bei der Berechnung auslastungsminimaler Flüsse zunächst wieder auf solche mit rationalen Koeffizienten ein und erhalten das folgende Problem:
+
+\newcommand{\probTFwR}{\textit{\textsc{(TFwR)}}}
+
+\begin{centering}
+	\begin{framed}
+		\emph{Thin Flow with Resetting \probTFwR} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
+			{\bfseries Output}: &Schmaler Fluss $f$ mit Zurücksetzen auf $E_1$
+		\end{tabular}
+	\end{framed}
+\end{centering}
+
 Die Existenz schmaler Flüsse mit Zurücksetzen aus Theorem~\ref{thm-existence-thin-flow} suggeriert bereits einen exponentiellen Algorithmus, um einen solchen Fluss mit Wert $d$ zu berechnen:
-Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w' = \rho_{vw}(l_v', x_{vw}')$ erfüllen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die $\max\{ l_v', x_{vw}/u_{vw}\} = \sigma_{vw} l_v' + (1-\sigma_{vw}) x_{vw}/u_{vw}$ erfüllt.
+Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen sollen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die $\max\{ l_v, f_{vw}/u_{vw}\} = \sigma_{vw} l_v + (1-\sigma_{vw}) f_{vw}/u_{vw}$ erfüllen soll.
+Insbesondere sollen in $(V, E')$ immer noch alle Knoten von $s$ aus erreichbar sein.
 Dann suche man einen zulässigen Punkt in folgendem Polyeder:
 \begin{align*}
-&	(x', l') \in \R_{\geq 0}^{E'\times V} \\
+	& (f, l) \in \R_{\geq 0}^{E + V} \\[0.3em]
 	\text{u.d.N.}\quad &
-	x'(\delta^+(v)) - x'(\delta^-(v)) =
-		\begin{cases}
-			d, & \text{falls $v=s$},\\
-			0, & \text{sonst,} 
-		\end{cases} & \text{für $v\in V\setminus\{t \}$,} \\
-	& l'_s = 0, \\
-	& \begin{array}{@{}l}
-		l_w' = \sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw}\\
-		\sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw} \geq x'_{vw}/u_{vw}\\
-		\sigma_{vw} l_v' + (1-\sigma_{vw}) x'_{vw}/u_{vw} \geq l_v'
-	\end{array}
-	& \text{für $vw\in E'\setminus E_1$},\\
-	& l_w' = x'_{vw}/u_{vw} & \text{für $vw\in E_1$.}
+	f(\delta^+(v)) - f(\delta^-(v)) = b_v& \text{für $v\in V$,} \\[0.3em]
+	& l_s = 0, \\[0.3em]
+	&\mathopen{}\left.\begin{array}{@{}l}
+		l_w = \sigma_{vw} l_v + (1-\sigma_{vw}) \frac{f_{vw}}{u_{vw}},\\[0.4em]
+		\sigma_{vw} l_v + (1-\sigma_{vw}) \frac{f_{vw}}{u_{vw}} \geq \frac{f_{vw}}{u_{vw}},\\[0.4em]
+		\sigma_{vw} l_v + (1-\sigma_{vw}) \frac{f_{vw}}{u_{vw}} \geq l_v,
+	\end{array} \right\}\mathclose{}
+	& \text{für $vw\in E'\setminus E_1$},\\[0.3em]
+	& l_w = \frac{f_{vw}}{u_{vw}}, & \text{für $vw\in E_1$,} \\[0.3em]
+	& \mathopen{}\left.\begin{array}{@{}l}
+	f_{vw} = 0,\\[0.4em]
+	l_w \leq l_v,
+	\end{array} \right\}\mathclose{} & \text{für $vw\in E\setminus E'$.}
 \end{align*}
-\todo{Genauerer Beweis}
+
+Existiert solch ein Punkt $(f, l)$, so ist $f$ ein schmaler Fluss mit Zurücksetzen auf $E_1$ mit zugehöriger Knotenbewertung $l$:
+Die Bedingung für Kanten $vw$ in $E'\setminus E_1$ lässt sich zusammenfassen zu $l_w = \max \{ l_v, f_{vw}/u_{vw} \}$.
+Man prüfe die Bedingung aus Lemma~\ref{lemma-thin-flow-t-def}.
+Dabei folgt~\ref{def-thin-flow-source} sofort.
+Für Kanten $vw\in E\setminus E_1$ mit $f_{vw} = 0$ gilt $l_w \leq l_v$ mit Fallunterscheidung nach $vw\in E'$, also gilt~\ref{def-thin-flow-x-zero}.
+Auch~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} folgen sofort.
+Für~\ref{def-thin-flow-no-resetting-edge} nehme man also an, dass ein Knoten $w\neq s$ keine eingehenden Kanten in $E_1$ hat.
+Da $w$ von $s$ aus in $(V, E')$ erreichbar ist, hat $w$ mindestens eine eingehende Kante $vw$ in $E'$, für die $l_w = \max\{ l_v, f_{vw}/u_{vw} \} \geq \min_{uw\in\delta^-(w)} l_u$ gilt.
+Also ist auch~\ref{def-thin-flow-no-resetting-edge} erfüllt und $f$ ist ein schmaler Fluss mit Zurücksetzen auf $E_1$.
+
+Setzt man andersherum für einen schmalen Fluss $f$ mit Knotenauslastung $l$ die Menge $E'$ als diejenigen Kante, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen, und $\sigma_{vw}$ als $1$, falls $l_v \geq f_{vw}/u_{vw}$ gilt, und sonst als $0$, so ist $(f, l)$ eine zulässiger Punkt im oben definierten Polyeder.
+Dies kann leicht durch Heranziehen von Lemma~\ref{lemma-equivalent-thin-flow} eingesehen werden.
 
 \newcommand{\TFNP}{\mathbf{TFNP}}
 
-Existiert solch ein Punkt $(x', l')$, so ist $x'$ nach Lemma~\ref{lemma-equivalent-thin-flow} ein schmaler Fluss mit Zurücksetzen auf $E_1$ mit zugehöriger Knotenbewertung $l'$.
-Außerdem muss aufgrund der Existenz eines schmalen Flusses mindestens eine Wahl von $E'$ und $\sigma$ existieren, sodass der zugehörige Polyeder nichtleer ist.
-\todo{Habe ich hier nicht das Problem, dass ich das nur für $\Q$ in polynomieller Zeit berechnen kann?}
-Die Zulässigkeit eines solchen Polyeders kann in polynomieller Zeit beispielsweise durch die Ellipsoidmethode ermittelt werden. 
-Daher liegt das Problem, zu einem Netzwerk $(V, E, u, s, t)$ einen schmalen $d$-Fluss mit Zurücksetzen auf $E_1\subseteq E$ zu finden, in der Komplexitätsklasse $\TFNP$:
+Die Zulässigkeit eines solchen Polyeders kann in polynomieller Zeit beispielsweise durch die Ellipsoidmethode \todo{add ref to search of rationals} ermittelt werden.
+Da nach Theorem~\ref{thm-existence-thin-flow} für jede \problemThinFlow\ Instanz ein schmaler Fluss mit Zurücksetzen existiert, liegt das Problem \probTFwR\ in der Komplexitätsklasse $\TFNP$:
 
 \begin{definition}[Komplexitätsklasse $\TFNP$]
-	Eine Relation $P(x,y)$ liegt in der Komplexitätsklasse $\TFNP$ genau dann, wenn es einen deterministischen, polynomiellen Algorithmus gibt, der entscheidet, ob $P(x,y)$ für zwei Kandidaten $x$ und $y$ gilt, und wenn für alle $x$ ein Kandidat $y$ existiert, dessen Kodierung polynomielle Größe in der Kodierungslänge von $x$ besitzt, sodass $P(x, y)$ gilt.
+	Eine Relation $P(x,y)$ liegt in der Komplexitätsklasse $\TFNP$ (engl. Total Function Nondeterministic Polynomial) genau dann, wenn es einen deterministischen, polynomiellen Algorithmus gibt, der entscheidet, ob $P(x,y)$ für zwei Kandidaten $x$ und $y$ gilt, und wenn für alle $x$ ein Kandidat $y$ existiert, dessen Kodierung polynomielle Größe in der Kodierungslänge von $x$ besitzt, sodass $P(x, y)$ gilt.
 \end{definition}
+
+In den folgenden Unterkapiteln soll diskutiert werden, ob es bessere Abschätzungen für die Komplexität von \probTFwR\ gibt.
+
+\subsection{Berechnung schmaler Flüsse ohne Zurücksetzen}
 
 In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
 
 \begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
-	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
+	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für  $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
 \begin{proof}
 	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
@@ -501,9 +535,9 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	\Procedure{ThinFlow}{$V, E, u, b, s$}
 	\State $f \gets 0^E$
 	\State $(V', E', b') \gets (V, E, b)$
-	\While{$b_s \neq 0$}
+	\While{$b'_s \neq 0$}
 	\State Berechne auslastungsminimalen $s$-Fluss $f'$ und dünnsten Schnitt $X$
-	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$; melde Fehler, falls $f'$ nicht existiert.
+	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$. Melde Fehler, falls $f'$ nicht existiert.
 	\State $f_{\mid E'\setminus E'[X]} \gets f'_{\mid E'\setminus E'[X]}$
 	\State $(V', E', b') \gets (V'[X], E'[X], b'[X])$
 	\EndWhile
@@ -540,8 +574,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 
 
 \begin{example}
-	
-	\begin{figure}
+		\begin{figure}
 		\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
 		\centering
 		\begin{subfigure}{\textwidth}
@@ -565,11 +598,11 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			
 			\begin{scope}[-Latex]
 			\path [-Latex] (0) edge node[above] {$10/4$} (1);
-			\path [-Latex] (0) edge[bend right] node[above] {$4/4$} (2);
+			\path [-Latex] (0) edge[bend right] node[above right] {$4/4$} (2);
 			\path [-Latex] (0) edge[bend left] node[above] {$18/4$} (4);
-			\path [-Latex] (1) edge node[right] {$0/2$} (2);
+			\path [-Latex] (1) edge node[above right] {$0/2$} (2);
 			\path [-Latex] (1) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$16/2$} (3);
-			\path [-Latex] (2) edge node[left] {$4/2$} (3);
+			\path [-Latex] (2) edge node[above left] {$4/2$} (3);
 			\path [-Latex] (3) edge node[above] {$0/1$} (4);
 			\path [-Latex] (3) edge node[above] {$8/2$} (5);
 			\path [-Latex] (4) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$8/1$} (6);
@@ -578,10 +611,11 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			
 			\begin{scope}
 			\draw[dashed, color=blue] (11.5,-1) -- (11.5, 4.5);
-			\node[color=blue] at (11,-0.5) {$X$};
+			\node[color=blue] at (11,-0.5) {$X^1$};
 			\end{scope}
 			\end{tikzpicture}
 			\subcaption{Erste Iteration. Die Auslastung der Flaschenhalskanten beträgt $8$.}
+			\label{subfig-thin-flow-first-iteration}
 		\end{subfigure}
 		\par\bigskip
 		\begin{subfigure}{\textwidth}
@@ -604,21 +638,22 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			
 			\begin{scope}[-Latex]
 			\path [-Latex] (0) edge node[above] {$10/4$} (1);
-			\path [-Latex] (0) edge[bend right] node[above] {$12/4$} (2);
+			\path [-Latex] (0) edge[bend right] node[above right] {$12/4$} (2);
 			\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
-			\path [-Latex] (1) edge node[right] {$0/2$} (2);
+			\path [-Latex] (1) edge node[above right] {$0/2$} (2);
 			\path [-Latex] (1) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$10/2$} (3);
-			\path [-Latex] (2) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[left] {$10/2$} (3);
+			\path [-Latex] (2) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above left] {$10/2$} (3);
 			\path [-Latex] (3) edge node[above] {$0/1$} (4);
 			\path [-Latex] (3) edge node[above] {$8/2$} (5);
 			\end{scope}
 			
 			\begin{scope}
 			\draw[dashed, color=blue, rounded corners=5mm] (6.75,-1) -- (5.5, 3.75) -- (12, 1.25);
-			\node[color=blue] at (6.25,-0.5) {$X$};
+			\node[color=blue] at (6.25,-0.5) {$X^2$};
 			\end{scope}
 			\end{tikzpicture}
 			\subcaption{Zweite Iteration. Die Auslastung der Flaschenhalskanten beträgt $5$.}
+			\label{subfig-thin-flow-second-iteration}
 		\end{subfigure}
 		\par\bigskip
 		\begin{subfigure}{.45\columnwidth}
@@ -638,18 +673,19 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			
 			\begin{scope}[-Latex]
 			\path [-Latex] (0) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (1);
-			\path [-Latex] (0) edge[bend right,decorate, decoration=snake, segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$11/4$} (2);
-			\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
-			\path [-Latex] (1) edge node[right] {$1/2$} (2);
-
+			\path [-Latex] (0) edge[bend right,decorate, decoration=snake, segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above right] {$11/4$} (2);
+			\path [-Latex] (0) edge[bend left] node[above right] {$10/4$} (4);
+			\path [-Latex] (1) edge node[above right] {$1/2$} (2);
+			
 			\end{scope}
 			
 			\begin{scope}
 			\draw[dashed, color=blue, rounded corners=5mm] (0, 0) -- (3, 3.5) -- (6, 0.5);
-			\node[color=blue] at (0,0.6) {$X$};
+			\node[color=blue] at (0,0.6) {$X^3$};
 			\end{scope}
 			\end{tikzpicture}
 			\subcaption{Dritte Iteration. Die Auslastung der Flaschenhalskanten beträgt $2{,}75$.}
+			\label{subfig-thin-flow-third-iteration}
 		\end{subfigure} \hfill
 		\begin{subfigure}{.45\columnwidth}
 			\centering
@@ -673,12 +709,31 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 			
 			\begin{scope}
 			\draw[dashed, color=blue, rounded corners=5mm] (1.5, 0.5) -- (1.5, 3.5);
-			\node[color=blue] at (1,1) {$X$};
+			\node[color=blue] at (1,1) {$X^4$};
 			\end{scope}
 			\end{tikzpicture}
 			\subcaption{Vierte Iteration. Die Auslastung der Flaschenhalskante beträgt $2{,}5$.}
+			\label{subfig-thin-flow-forth-iteration}
 		\end{subfigure}
 		
 		\caption{Algorithmus zur Bestimmung von schmalen Flüssen ohne Zurück\-setzen. Geschlängelte Kanten sind Flaschenhalskanten in den jeweiligen auslastungs\-minimalen Flüssen. Kanten $e$ sind mit $f_e/u_e$ und Knoten mit der Bezeichnung und der Balance beschriftet.}
+		\label{figure-algorithm-thin-flow-without-resetting}
 	\end{figure}	
+	
+	In Abbildung~\ref{figure-algorithm-thin-flow-without-resetting} sieht man den Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} in Aktion.
+	Dabei wird als Eingabeinstanz der Graph aus Abbildung~\ref{figure-thin-flow-example} verwendet.
+	
+	Der erste Schritt besteht darin, in der ersten Iteration einen auslastungsminimalen $b$-Fluss sowie einen dünnsten Schnitt auf dem Ursprungsnetzwerk zu berechnen.
+	Dabei erhält man den $b$-Fluss in Abbildung~\ref{subfig-thin-flow-first-iteration} mit dem Schnitt $X^1:= V \setminus \{ g \}$ bei Auslastung $q^1 := 8$.
+	Zu diesem Zeitpunkt weiß man bereits, dass der Fluss auf allen Kanten, die nicht innerhalb von $X^1$ verlaufen, hier $(e,g)$ und $(f,g)$, bereits in den entstehenden schmalen Fluss ohne Zurücksetzen übernommen werden können.
+	Alle ausgehenden Kanten von $X^1$ haben nämlich die maximale Auslastung $q^1$, sodass auch schon die Knotenauslastung aller Knoten außerhalb $X^1$, hier die Auslastung von $g$, gerade $q^1$ ist.
+
+	Daher wird nun der Graph auf die von $X$ induzierte Teilinstanz reduziert:
+	Dabei wird die Balance der Knoten $e$ und $f$ wegen der entfernten Kanten $(e,g)$ und $(f,g)$ um jeweils $8$ reduziert und man sucht jetzt nach einem schmalen Fluss ohne Zurücksetzen auf dieser Teilinstanz.
+	Ein auslastungsminimaler Fluss $f^2$ und der zugehörige dünnste Schnitt $X^2 = \{ a, b, c, e \}$ bei Auslastung $q^2 = 5$ sind in Abbildung~\ref{subfig-thin-flow-second-iteration} zu sehen.
+	Hier sieht man außerdem, dass eingehende Kanten in den dünnsten Schnitt bereits Nullkanten sind -- hier betrifft es die Kante $(d,e)$.
+	Die Knotenauslastung auf $d$ und $f$ beträgt damit gerade $q^2=5$.
+	
+	Führt man dies im selben Schema in Iteration drei und vier wie in den Abbildungen~\ref{subfig-thin-flow-third-iteration} und~\ref{subfig-thin-flow-forth-iteration} zu sehen weiter, bemerkt man, dass das Angebot von $s$ nach Iteration drei bereits um $22$ verringert wurde und nach Iteration vier gänzlich verschwunden ist.
+	Der berechnete schmale Fluss ohne Zurücksetzen ist schließlich in Abbildung~\ref{subfig-thin-flow-without-resetting} zu sehen.
 \end{example}
