@@ -2,7 +2,7 @@
 %\renewcommand*\DocType{article} % Uncomment for screen optimization
 
 \newcommand*\ClassList{scrreprt,article}
-\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage]{generalclass}
+\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage, headsepline, twoside]{generalclass}
 
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
@@ -36,6 +36,7 @@
 \usepackage{subcaption}                 % Beschriftungen für Unterteilung
 \usepackage{tikz}
 \usepackage[chapter]{algorithm}
+%\usepackage{showframe}
 
 \usepackage{algpseudocode}
 % Interaktive Referenzen, und PDF-Keys
@@ -43,7 +44,7 @@
 \usepackage[pagebackref,pdftex, plainpages=false]{hyperref} % Rückreferenz im Literaturverzeichnis, Treiber für ps zu pdf ; für direkt nach pdf: pdftex
 \usepackage{enumitem}
 
-\title{Nash Gleichgewichte in Dynamischen Flüssen}
+\title{Berechnung von Nash-Gleichgewichten in dynamischen Flüssen}
 \date{\todo{Get it done!}}
 \author{Michael Markl}
 
@@ -92,9 +93,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments
 \begin{document}
-	\todo{Papadimitriou Bib eintrag search for rationals}
-	\todo{Zitat Goldberg-Tarjan}
-	\todo{Hinweise zu kombinatorischen Berechnungen auslastungsminimaler Flüsse}
 \ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
 \include{bachelorarbeit/titlepage}
 
@@ -112,6 +110,10 @@
 \input{bachelorarbeit/thin-flows}
 \input{bachelorarbeit/nash-flow-extension}
 
+
+\todo{Papadimitriou Bib eintrag search for rationals}
+\todo{Zitat Goldberg-Tarjan}
+\todo{Hinweise zu kombinatorischen Berechnungen auslastungsminimaler Flüsse}
 
 \clearpage          % neue Seite für Literaturverzeichnis
 \nocite*
