@@ -67,10 +67,6 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Diese Einschränkung wird hier im Sinne von~\cite{Cominetti2015} beibehalten.
 \end{remark}
 
-\begin{example}
-	\todo{Add example text}
-\end{example}
-
 \begin{figure}
 	\centering
 	\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
@@ -105,7 +101,8 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		\path [-Latex] (5) edge node[above] {$1$} (6);
 		\end{scope}
 		\end{tikzpicture}
-		\subcaption{Der Ursprungsgraph. Die Kanten $e$ sind mit Kapazitäten $u_e$ und die Knoten $v$ mit einem Bezeichner $v$ und einer Balance $b_v$ beschriftet.}
+		\subcaption{Das Netzwerk. Die Kanten $e$ sind mit Kapazitäten $u_e$ und die Knoten $v$ mit einem Bezeichner $v$ und einer Balance $b_v$ beschriftet.}
+		\label{subfig-thin-flow-example-network}
 	\end{subfigure}
 	\par\bigskip
 	\begin{subfigure}{\textwidth}
@@ -178,10 +175,32 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		\subcaption{Ein schmaler Fluss mit Zurücksetzen auf $(d,e)$.}
 		\label{subfig-thin-flow-with-resetting}
 	\end{subfigure}
-\caption{Ein schmaler Fluss einmal ohne Zurücksetzen und einmal mit Zurücksetzen auf $(d,e)$.
-	In den Abbildungen~\ref{subfig-thin-flow-without-resetting} und~\ref{subfig-thin-flow-with-resetting} hat die Kantenbeschriftung die Form $f_e/u_e$ und in den Knoten steht die Knotenauslastung.}
-\label{figure-thin-flow-example}
+	\caption{Ein schmaler Fluss einmal ohne Zurücksetzen und einmal mit Zurücksetzen auf $(d,e)$.
+		In den Abbildungen~\ref{subfig-thin-flow-without-resetting} und~\ref{subfig-thin-flow-with-resetting} sind die Kanten mit der Auslastung der Form $x_e/u_e$ und die Knoten mit der Knotenauslastung beschriftet.}
+	\label{figure-thin-flow-example}
 \end{figure}
+
+\begin{example}
+	In Abbildung~\ref{figure-thin-flow-example} ist ein Beispiel eines schmalen Flusses abgebildet.
+	Die Kapazitäten der Kanten und die Balancen der Knoten des Ursprungsnetzwerk sind dabei in Abbildung~\ref{subfig-thin-flow-example-network} zu erkennen.
+	Hervorzuheben ist, dass die Knoten $g$ mit Wert $16$ die größte und $d$ mit Wert $12$ die zweitgrößte Nachfrage haben.
+	Außerdem haben die beiden einzigen Kanten $(e,g)$ und $(f,g)$, die zu $g$ führen nur eine Kapazität von $1$.
+	
+	Betrachtet man zunächst den Fall ohne zurücksetzende Kanten, so stellt man fest, dass ein zugehöriger schmaler Fluss $x$ wie in Abbildung~\ref{subfig-thin-flow-without-resetting} diese beiden Kanten gleichmäßig auslasten muss:
+	Die Auslastungen aller flusstragenden $a$-$g$-Pfade, egal ob sie über $e$ oder über $f$ zu $g$ gelangen, müssen in einem schmalen Fluss übereinstimmen.
+	Aufgrund der hohen Nachfrage von $g$ und der geringen Kapazität seiner eingehenden Kanten, bestimmen diese letzten beiden Kanten die Auslastung jedes $a$-$g$-Pfades.
+	
+	Außerdem fällt auf, dass die Kante $(d,e)$ nicht genutzt wird.
+	Auch das ist nicht besonders verwunderlich:
+	Würde man Fluss von der Kante $(a, e)$ entfernen und stattdessen entlang eines Pfads $P$ über $d$ zu $e$ schicken, so hätte $P$ eine Auslastung von mindestens $5$, da jeder Pfad nach $d$ bereits Auslastung $5$ hatte.
+	Weil aber $e$ aufgrund der Kante $(a,e)$ eine kleiner Auslastung als $2{,}5$ hat, kann der entstehende Fluss kein schmaler Fluss sein.
+	Später in diesem Kapitel sehen wir, dass eine Kante, die zu einem Knoten niedrigerer Auslastung führt, in keinem schmalen Fluss ohne Zurücksetzen genutzt wird.
+	
+	Setzt man jedoch die Kante $(d, e)$ als zurücksetzende Kante voraus, so ist der Fluss aus Abbildung~\ref{subfig-thin-flow-without-resetting} kein schmaler Fluss auf dieser Instanz:
+	Ein Pfad, der über $d$ nach $e$ verläuft, hat darin Auslastung $0$, da die letzte Kante des Pfades die Auslastung auf die eigene, also auf $0$, zurücksetzt.
+	Insbesondere hat $e$ eine Auslastung von $0$, jedoch hat der $a$-$e$-Pfad $(a, e)$ Auslastung $2{,}5$, sodass es sich nicht um einen schmalen Fluss handeln kann.
+	Ein schmaler Fluss mit Zurücksetzen auf $(d, e)$ schickt dagegen -- wie in Abbildung~\ref{subfig-thin-flow-with-resetting} zu sehen -- $2$ Flusseinheiten über $d$ zu $e$, sodass $e$ wie die Kante $(a,e)$ Auslastung $2$ hat.
+\end{example}
 
 \begin{lemma}\label{lemma-thin-flow-t-def}
 	Ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurücksetzen auf $E_1$ ist genau dann ein schmaler Fluss mit Zurücksetzen auf $E_1$, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
@@ -193,7 +212,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 		\item\label{def-thin-flow-no-resetting-edge} $\displaystyle l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4.5cm} für $w\in V\setminus \{ s \}$ mit $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
-	Außerdem gelten die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-zero} und~\ref{def-thin-flow-no-resetting-edge} bereits für die Knotenauslastungen von $f$, falls $f$ nur ein $b$-Fluss ist.
+	Außerdem gelten die Bedingungen~\ref{def-thin-flow-source}, \ref{def-thin-flow-x-zero} und~\ref{def-thin-flow-no-resetting-edge} bereits für die Knotenauslastungen von $f$, falls $f$ ein beliebiger $b$-Fluss ist.
 \end{lemma}
 \begin{proof}
 	Sei $f$ ein schmaler Fluss mit Zurücksetzen auf $E_1$ und sei $l\in\R_{\geq 0}^V$ die Knotenauslastung von $f$.
