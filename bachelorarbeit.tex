@@ -2,7 +2,7 @@
 %\renewcommand*\DocType{article} % Uncomment for screen optimization
 
 \newcommand*\ClassList{scrreprt,article}
-\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage, headsepline, twoside]{generalclass}
+\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage,twoside, headsepline,openleft]{generalclass}
 
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
@@ -60,6 +60,8 @@
 \IfClass{article}{ % Optimize for screen
 	\geometry{papersize={160mm,161.5mm},margin=5mm} 
 }
+\geometry{left=3.5cm, right=3.5cm, top=3.5cm, bottom=4cm}
+
 
 \renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
 \floatname{algorithm}{Algorithmus}
@@ -94,15 +96,16 @@
 % Start des Dokuments
 \begin{document}
 \ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
+\pagestyle{empty}
 \include{bachelorarbeit/titlepage}
+\cleardoublepage
 
-\thispagestyle{empty}
 \tableofcontents        % Inhaltsverzeichnis
-%\listoffigures         % Abbildungsverzeichnis (eventuell einfügen)
+\thispagestyle{empty}
 %\listoftables          % Tabellenverzeichnis (eventuell einfügen)
-\setcounter{page}{0}    % Eigentlicher Inhalt beginnt auf Seite 1
-\clearpage              % neue Seite für eigentlichen Inhalt
-
+\cleardoublepage              % neue Seite für eigentlichen Inhalt
+\pagestyle{headings}
+\setcounter{page}{1}    % Eigentlicher Inhalt beginnt auf Seite 1
 \input{bachelorarbeit/introduction}
 \input{bachelorarbeit/dynamic-flows}
 \input{bachelorarbeit/nash-flows}
