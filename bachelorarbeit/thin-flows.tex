@@ -184,7 +184,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	In Abbildung~\ref{figure-thin-flow-example} ist ein Beispiel eines schmalen Flusses abgebildet.
 	Die Kapazitäten der Kanten und die Balancen der Knoten des Ursprungsnetzwerk sind dabei in Abbildung~\ref{subfig-thin-flow-example-network} zu erkennen.
 	Hervorzuheben ist, dass die Knoten $g$ mit Wert $16$ die größte und $d$ mit Wert $12$ die zweitgrößte Nachfrage haben.
-	Außerdem haben die beiden einzigen Kanten $(e,g)$ und $(f,g)$, die zu $g$ führen nur eine Kapazität von $1$.
+	Außerdem haben die beiden einzigen Kanten $(e,g)$ und $(f,g)$, die zu $g$ führen, nur eine Kapazität von $1$.
 	
 	Betrachtet man zunächst den Fall ohne zurücksetzende Kanten, so stellt man fest, dass ein zugehöriger schmaler Fluss $x$ wie in Abbildung~\ref{subfig-thin-flow-without-resetting} diese beiden Kanten gleichmäßig auslasten muss:
 	Die Auslastungen aller flusstragenden $a$-$g$-Pfade, egal ob sie über $e$ oder über $f$ zu $g$ gelangen, müssen in einem schmalen Fluss übereinstimmen.
@@ -250,8 +250,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 }
 
 \begin{lemma}\label{lemma-equivalent-thin-flow}
-	In einer \problemThinFlow\ Instanz ist ein $b$-Fluss $f$ genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $f_{vw}= 0$ für alle $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$ gilt.
-	Dabei sei $l\in\R_{\geq 0}^V$ die Knotenauslastung von $f$.
+	In einer \problemThinFlow\ Instanz ist ein $b$-Fluss $f$ mit Knotenauslastung $l$ genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $f_{vw}= 0$ für alle Kanten $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$ gilt.
 \end{lemma}
 \begin{proof}
 	Angenommen, $f$ sei ein schmaler Fluss mit Zurücksetzen auf $E_1$.
@@ -261,8 +260,12 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Der Rest folgt dann mit Lemma~\ref{lemma-thin-flow-t-def}.
 	Ist $vw\notin E_1$ mit $f_{vw}>0$, so gilt $l_w = \rho_{vw}(l_v, f_{vw})$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
 	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $f_{vw}>0$: Hier folgt wieder $l_w = \rho_{vw}(l_v, f_{vw})$.
+	\todo{u statt tilde}
 	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}, f_{\tilde{v}w}) = 0$.
 \end{proof}
+
+Mit anderen Worten: Eine Kante wird nur genutzt, falls die Auslastungs\-über\-tra\-gung durch die Kante gerade die Auslastung des Zielknotens ist.
+Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{prop-congestion-labels-dijkstra} bereits eine untere Schranke an die Knotenauslastung ist.
 
 \todo{Vlt im folgenden Korollar auch/oder Gleichheit zu $\max f_e/u_e$ zeigen}
 \begin{corollary}
@@ -279,24 +282,28 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 \end{proof}
 
 \begin{lemma}[Eindeutigkeit der Knotenauslastung]\label{lemma-node-congestion-unique}
-	Seien ein $s$-Netzwerk mit Versorgungsrate $d\in\R_{\geq 0}$ sowie $E_1\subseteq E$ gegeben.
+	Seien ein $s$-Netzwerk mit zurücksetzenden Kanten $E_1\subseteq E$ gegeben.
 	Dann sind die Knotenauslastungen aller normierter schmaler Flüsse mit Zurücksetzen auf $E_1$ identisch.
 \end{lemma}
 \begin{proof}
-	Angenommen, es existieren zwei normierte schmale Flüsse $x'$ und $y'$ mit Zurück\-setzen auf $E_1$ mit unterschiedlichen Knotenauslastungen $l'\neq h'$.
-	Dann ist oBdA. die Menge $S:=\{ v\in V \mid l_v' > h_v' \}$ nichtleer.
-	Da $x'$ und $y'$ beide $b$-Flüsse sind, gilt 
+	Angenommen, es existieren zwei normierte schmale Flüsse $f$ und $g$ mit Zurück\-setzen auf $E_1$ und unterschiedlichen Knotenauslastungen $l\neq h$.
+	Dann ist ohne Beschränkung der Allgemeinheit die Menge $S:=\{ v\in V \mid l_v > h_v \}$ nichtleer.
+	Da $f$ und $g$ jeweils $b$-Flüsse sind, gilt 
 	\begin{equation}\label{proof-uniqueness-labels-eq}
-	\sum_{e\in \delta^+(S)} x'_e - \sum_{e\in\delta^-(S)} x'_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} y_e' - \sum_{e\in\delta^-(S)} y_e'.
+	\sum_{e\in \delta^+(S)} f_e - \sum_{e\in\delta^-(S)} f_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} g_e - \sum_{e\in\delta^-(S)} g_e.
 	\end{equation}
-	Für Kanten $vw\in \delta^+(S)$ gilt $x_e' \leq y_e'$, da für $x_e' > y_e'$ Lemma~\ref{lemma-equivalent-thin-flow} und $v\in S$ die Ungleichung $l_w' = \rho_{vw}(l_v', x_{vw}') > \rho_{vw}(h_v', y_{vw}')\geq h_w'$ implizieren würden, welche jedoch im Widerspruch zu $w\notin S$ steht.
-	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $x_e' \geq y_e'$, weil sonst $l_w' \leq \rho_{vw}(l_v', x_{vw}') \leq \rho_{vw}(h_v', y_{vw}') = h_w'$ wegen $v\notin S$ gelten würde, was $w\in S$ widerspricht.
-	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $x_e = y_e$ für alle $e\in \delta(S):=\delta^-(S) \cup \delta^+(S)$.
-	Für $vw\in \delta^-(S)$ ist dann $y_e'=x_e'=0$, da für $y_e'=x_e'>0$ wieder mit $v\notin S$ die Ungleichung $l_w' = \rho_{vw}(l_v, x_{vw}')\leq \rho_{vw}(h_v, y_{vw}')=h_w'$ der Bedingung $w\in S$ widerspricht.
+	Für aus $S$ herausgehende Kanten $vw\in \delta^+(S)$ gilt $f_e \leq g_e$, denn angenommen es gelte $f_e > g_e$, folgt mit Lemma~\ref{lemma-equivalent-thin-flow} und $v\in S$ die Ungleichung 
+	\[l_w = \rho_{vw}(l_v, f_{vw}) > \rho_{vw}(h_v, g_{vw})\geq h_w,\]
+	welche jedoch im Widerspruch zu $w\notin S$ steht.
+	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $f_e \geq g_e$, weil sonst wegen $v\notin S$ die Ungleichung
+	\[l_w \leq \rho_{vw}(l_v, f_{vw}) \leq \rho_{vw}(h_v, g_{vw}) = h_w\]
+	gelten würde, was $w\in S$ widerspricht.
+	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $f_e = g_e$ für alle $e\in \delta(S):=\delta^-(S) \cup \delta^+(S)$.
+	Für $vw\in \delta^-(S)$ ist dann $g_e=f_e=0$, da für $g_e=f_e>0$ wieder mit $v\notin S$ die Ungleichung $l_w = \rho_{vw}(l_v, f_{vw})\leq \rho_{vw}(h_v, g_{vw})=h_w$ der Bedingung $w\in S$ widerspricht.
 	
 	Aufgrund der Azyklizität existiert ein Knoten $w\in S$ mit $\delta^-(w)\subseteq \delta^-(S)$.
-	Eingehende Kanten von $w$ sind daher nicht in $E_1$ enthalten, da für solch eine Kante $\rho_{vw}(l_v', x_e') = 0 = \rho_{vw}(l_v', y_e')$ gelten würde, sodass $l_w' = 0 = h_w'$ der Voraussetzung $w\in S$ widerspricht.
-	Daher ist $l_w' = \min_{vw\in \delta^-(w)} l_v'$ und $h_w' = \min_{vw\in\delta^-(w)} h_v'$, was den Widerspruch $l_w' \leq h_w'$ impliziert.
+	Eingehende Kanten von $w$ sind daher nicht in $E_1$ enthalten, da für solch eine Kante $\rho_{vw}(l_v, f_e) = 0 = \rho_{vw}(l_v, g_e)$ gelten würde, sodass $l_w = 0 = h_w$ der Voraussetzung $w\in S$ widerspricht.
+	Daher ist $l_w = \min_{vw\in \delta^-(w)} l_v$ und $h_w = \min_{vw\in\delta^-(w)} h_v$, was den Widerspruch $l_w \leq h_w$ impliziert.
 \end{proof}
 
 Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurück\-setzende Kanten --, wie man leicht in Abbildung~\ref{figure-thin-flows-not-unique} erkennen kann, jedoch ist der Fluss auf einigen Kanten eindeutig:
@@ -344,8 +351,8 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 	 Dabei ist $(l_v)_{v\in V}$ die eindeutige Knotenauslastung.
 \end{corollary}
 \begin{proof}
-	Da nach Lemma~\ref{lemma-node-congestion-unique} die Knotenauslastung $(l_v)_{v\in V}$ für jeden schmalen Fluss $f$ eindeutig ist, gilt $f_{vw} = u_{vw} l_w$ für $vw\in E_1$ nach~\ref{def-thin-flow-resetting-edge}.
-	Für $vw\notin E_1$ betrachte man zunächst den Fall $l_v < l_w$.
+	Da nach Lemma~\ref{lemma-node-congestion-unique} die Knotenauslastung $(l_v)_{v\in V}$ für jeden schmalen Fluss $f$ eindeutig ist, gilt $f_{vw} = u_{vw} l_w$ für zurücksetzende Kanten $vw$ nach~\ref{def-thin-flow-resetting-edge}.
+	Für eine nicht-zurücksetzende Kante $vw\notin E_1$ betrachte man zunächst den Fall $l_v < l_w$.
 	Nach Definition gilt $l_w \leq \max \{ l_v, f_{vw}/u_{vw} \}$, sodass man $f_{vw}/u_{vw} > l_v \geq 0$ folgern kann.
 	Nach Lemma~\ref{lemma-equivalent-thin-flow} gilt also $f_{vw} = l_w u_{vw}$.
 	Im Fall $l_v > l_w$ muss $f_{vw} = 0$ gelten, da sonst $l_w=\max\{ l_v, f_e/u_e \}$ gelten würde.
