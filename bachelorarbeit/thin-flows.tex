@@ -6,9 +6,10 @@
 Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 
 \begin{definition}[$s$-Netzwerk mit Zurücksetzen]
-	Ein \emph{$s$-Netzwerk} ist ein azyklisches Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$, der $b_v\leq 0$ für alle $v\in V\setminus \{ s \}$ erfüllt.
+	Ein \emph{$s$-Netzwerk} ist ein azyklisches Netzwerk $(V, E, u)$, in dem alle Knoten von $s$ aus erreicht werden können.
+	Ist ein Balancevektor $b\in\R^V$ gegeben, so erfüllt er $b_v\leq 0$ für alle $v\in V\setminus \{ s \}$.
 	
-	Stattet man ein $s$-Netzwerk mit \emph{zurücksetzenden Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.
+\todo{	Stattet man ein $s$-Netzwerk mit \emph{zurücksetzenden Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.}
 \end{definition}
 
 \begin{definition}[Auslastung]
@@ -346,7 +347,7 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 	\label{figure-thin-flows-not-unique}
 \end{figure}
 
-\begin{corollary}[Eindeutigkeit schmaler Flüsse]
+\begin{corollary}[Eindeutigkeit schmaler Flüsse]\label{corollary-thin-flows-uniqueness-on-some-edges}
 	 Für eine Instanz von~$\problemThinFlow$ sind alle Lösungen auf den zurück\-setzen\-den Kanten sowie auf Kanten $vw$ mit $l_v \neq l_w$ identisch.
 	 Dabei ist $(l_v)_{v\in V}$ die eindeutige Knotenauslastung.
 \end{corollary}
@@ -403,7 +404,7 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	Daher existiert nach dem Fixpunktsatz von Kakutani~\ref{satz-kakutani} ein Fixpunkt von $\Gamma$, welcher nach Lemma~\ref{lemma-equivalent-thin-flow} ein schmaler Fluss mit Zurücksetzen auf $E_1$ ist.
 \end{proof}
 
-\section{Effiziente Berechnung schmaler Flüsse}
+\section{Berechnung schmaler Flüsse}
 
 Dieser Abschnitt diskutiert die Komplexität der Berechnung schmaler Flüsse.
 Dazu schränken wir uns wie bei der Berechnung auslastungsminimaler Flüsse zunächst wieder auf solche mit rationalen Koeffizienten ein und erhalten das folgende Problem:
@@ -460,8 +461,14 @@ Dies kann leicht durch Heranziehen von Lemma~\ref{lemma-equivalent-thin-flow} ei
 Die Zulässigkeit eines solchen Polyeders kann in polynomieller Zeit beispielsweise durch die Ellipsoidmethode \todo{add ref to search of rationals} ermittelt werden.
 Da nach Theorem~\ref{thm-existence-thin-flow} für jede \problemThinFlow\ Instanz ein schmaler Fluss mit Zurücksetzen existiert, liegt das Problem \probTFwR\ in der Komplexitätsklasse $\TFNP$:
 
+\begin{definition}[Suchproblem]
+	Ein \emph{Suchproblem $\Pi$} ist eine Relation $\Pi\subseteq X \times Y$ zusammen mit der Problemstellung zu einer \emph{Instanz} $x\in X$ eine \emph{Lösung} $y\in Y$ mit $(x,y)\in \Pi$ zu ermitteln.
+	
+	Ein Suchproblem $\Pi\subseteq X\times Y$ heißt \emph{polynomiell reduzierbar} auf ein Suchproblem $\Pi'\subseteq X'\times Y'$, falls es zwei polynomiell berechnbare Funktionen $f: X\rightarrow X'$ und $g: Y\rightarrow Y'$ gibt, sodass $g(y)$ eine Lösung der Instanz $f(x)$ von $\Pi'$ für jede Lösung $y$ einer Instanz $x$ von $\Pi$ ist, d.h.
+	\[ (x,y) \in \Pi \implies (f(x), g(y)) \in \Pi'.\]
+\end{definition}
 \begin{definition}[Komplexitätsklasse $\TFNP$]
-	Eine Relation $P(x,y)$ liegt in der Komplexitätsklasse $\TFNP$ (engl. Total Function Nondeterministic Polynomial) genau dann, wenn es einen deterministischen, polynomiellen Algorithmus gibt, der entscheidet, ob $P(x,y)$ für zwei Kandidaten $x$ und $y$ gilt, und wenn für alle $x$ ein Kandidat $y$ existiert, dessen Kodierung polynomielle Größe in der Kodierungslänge von $x$ besitzt, sodass $P(x, y)$ gilt.
+	Ein Suchproblem $\Pi\subseteq X \times Y$ liegt genau dann in der Komplexitätsklasse $\TFNP$ (engl. Total Function Nondeterministic Polynomial), wenn es einen deterministischen, polynomiellen Algorithmus gibt, der entscheidet, ob $(x,y) \in \Pi$ für beliebige $x\in X$ und $y\in Y$ gilt, und wenn für alle $x\in X$ ein $y\in Y$ existiert, dessen Kodierung polynomielle Größe in der Kodierungslänge von $x$ besitzt, sodass $(x, y) \in \Pi$ gilt.
 \end{definition}
 
 In den folgenden Unterkapiteln soll diskutiert werden, ob es bessere Abschätzungen für die Komplexität von \probTFwR\ gibt.
@@ -764,3 +771,123 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Führt man dies im selben Schema in Iteration drei und vier wie in den Abbildungen~\ref{subfig-thin-flow-third-iteration} und~\ref{subfig-thin-flow-forth-iteration} zu sehen weiter, bemerkt man, dass das Angebot von $s$ nach Iteration drei bereits um $22$ verringert wurde und nach Iteration vier gänzlich verschwunden ist.
 	Der berechnete schmale Fluss ohne Zurücksetzen ist schließlich in Abbildung~\ref{subfig-thin-flow-without-resetting} zu sehen.
 \end{example}
+
+\subsection{Berechnung schmaler Flüsse mit Zurücksetzen}
+
+\newcommand{\PPAD}{\textbf{PPAD}}
+\newcommand{\EndOfTheLine}{\textit{\textsc{EndOfTheLine}}}
+
+Nachdem im letzten Abschnitt herausgearbeitet wurde, dass schmale Flüsse ohne Zurücksetzen in polynomieller Zeit ermittelbar sind, wird in diesem Abschnitt die Problemstellung wieder allgemein mit zurücksetzenden Kanten betrachtet.
+In Theorem~\ref{thm-existence-thin-flow} wurde bereits die Existenz solcher Flüsse gezeigt.
+Die Tatsache, dass im Beweis dieses Theorems der Fixpunktsatz von Kakutani benutzt wird, kann Aufschluss darüber geben, in welcher Komplexitätsklasse das untersuchte Problem liegt:
+Papadimitriou hat~1992 in~\cite{PPAD1994} unter Anderem die Komplexitätsklasse $\PPAD$ eingeführt, da die Komplexität vieler Probleme mit ähnlichem Existenzbeweis sich nicht in eine der bestehenden Klassen eingliedern ließ.
+
+Die Abkürzung $\PPAD$ ist kurz für \glqq Polynomial Parity Argument on Directed Graphs\grqq.
+Das Paritätsargument beruht dabei darauf, dass für jeden gerichteten Graphen mit einem unbalancierten Knoten, d.h. einem Knoten, dessen Eingangsgrad ungleich seines Ausgangsgrad ist, ein weiterer unbalancierter Knoten existiert.
+Dies folgt leicht aus der Gradgleichung
+\[
+	2 \abs{E} = \sum_{v\in V} ( d^+(v) + d^-(v) ),
+\]
+denn gäbe es sonst keinen weiteren unbalancierten Knoten, so wäre der rechte Teil der Gleichung ungerade, der linke jedoch gerade.
+Für die Definition von~$\PPAD$ führt man zunächst das sogenannte \EndOfTheLine-Problem ein.
+Der Eingangs- und Ausgangsgrad jedes Knotens eines gerichteten Graphs sei dabei maximal $1$.
+Ein Knoten mit Eingangsgrad $0$ und Ausgangsgrad $1$ heiße dann \emph{Quelle} und ein Knoten mit Eingangsgrad $1$ und Ausgangsgrad $0$ heiße \emph{Senke}.
+Das Problem besteht nun darin, ausgehend von einer Quelle eine Senke oder eine weitere Quelle zu finden.
+Die einfachste Lösung wäre hier natürlich, ausgehend von der Quelle solange den ausgehenden Kanten zu folgen bis man an einer Senke angelangt.
+Jedoch betrachtet man hier Graphen, die exponentiell in der Eingabe wachsen können:
+
+Knoten in diesem Graphen sind repräsentiert durch $n$ Bits in der Knotenmenge $V:=\{ 0,1 \}^n$ oder durch die Zahlen $V := \{ 0, \dots, 2^n -1 \}$.
+Kanten werden dann kodiert mittels einer Nachfolger-Funktion $S: V\rightarrow V\cupdot \{ \varepsilon \}$ und einer Vorgänger-Funktion $P: V\rightarrow V \cupdot \{ \varepsilon \}$, die jeweils polynomiell berechenbar sind und die Eigenschaft $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ erfüllen.
+Eine Kante $(x,y)$ zwischen zwei Knoten $x,y \in V$ soll also genau dann existieren, wenn $S(x) = y$ und $P(y) = x$ erfüllt sind.
+Ein Knoten $x$ ist also eine Quelle oder eine Senke, wenn er entweder keinen Vorgänger oder keinen Nachfolger, d.h. wenn entweder $P(x)$ oder $S(x)$ gerade $\varepsilon$ ist.
+Mit diesen Grundlagen kann das Problem nun formalisiert werden:
+\begin{center}
+	\begin{framed}
+		\emph{\EndOfTheLine} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &Polynomiell berechenbare Funktionen $S,P: V\rightarrow V\cupdot \{ \varepsilon \}$ mit\\
+			& $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ und
+			$P(0) = \varepsilon \neq S(0)$. \\
+			{\bfseries Output}: & Ein Knoten $x\neq 0$ mit $\{ P(x), S(x) \} \subsetneq \{ \varepsilon \}$.
+		\end{tabular}
+	\end{framed}
+\end{center}
+
+Aufbauend auf diesem Problem formuliert man nun die Komplexitätsklasse~$\PPAD$:
+\begin{definition}
+	Die Komplexitätsklasse $\PPAD$ enthält alle Suchprobleme, die sich polynomiell auf~\EndOfTheLine\ reduzieren lassen.
+\end{definition}
+
+Per Definition ist also das Problem \EndOfTheLine~vollständig in \PPAD.
+Goldberg und Hollender zeigen in~\cite[Theorem 15]{hairyball}, dass auch die allgemeinere Variante, also gegeben eines unbalancierten Knotens einen weiteren unbalancierten Knoten zu finden, vollständig in $\PPAD$ ist.
+
+Es stellt sich zudem heraus, dass die Klasse~$\PPAD$ schwache Approximationen von Fixpunkten, die durch verschiedene Fixpunktsätze bewiesen werden können, erlaubt.
+Der Brouwer'sche Fixpunktsatz besagt, dass jede stetige Funktion $f$ von einer nichtleeren, kompakten und konvexen Teilmenge des $R^n$ in sich selbst einen Fixpunkt $x$ mit $f(x) = x$ hat.
+Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig in \PPAD:
+\newcommand{\Brouwer}{\textsc{Brouwer}}
+\begin{center}
+	\begin{framed}
+		\emph{\Brouwer} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &Polynomiell berechenbare Funktion $F: [0,1]^m \rightarrow [0, 1]^m$,\\
+			& eine Konstante $K$ mit $\norm{F(x) - F(y)}_\infty \leq K \norm{x - y}_\infty$\\
+			&für alle $x,y\in[0,1]^m$ sowie die Genauigkeit $\varepsilon$.\\
+			{\bfseries Output}: & Ein Punkt $x\in[0,1]^m$ mit $\norm{F(x) - x}_\infty \leq \varepsilon$.
+		\end{tabular}
+	\end{framed}
+\end{center}
+
+Papadimitriou gibt in~\cite{PPAD1994} auch an, dass eine Version des Fixpunktsatzes von Kakutani ebenfalls in~\PPAD\ liegt.
+Dies wird in~\cite{Cominetti2015} aufgegriffen und damit begründet, dass die Berechnung eines schmalen Flusses mit Zurücksetzen ebenfalls in dieser Komplexitätsklasse liegt.
+Allerdings gibt Papadimitriou wenig Details, welche konkrete Version davon in \PPAD\ liegt.
+Auch die Kodierung einer Korrespondenz, d.h. einer mengenwertigen Funktion, wie sie im Fixpunktsatz von Kakutani benutzt wird, ist nicht offensichtlich.
+Daher wird dies als Vermutung festgehalten:
+
+\begin{conjecture}
+	Das Problem~\probTFwR\ der Berechnung eines schmalen Flusses mit Zurücksetzen liegt in~\PPAD.
+\end{conjecture}
+
+Nichtsdestotrotz wird im weiteren Verlauf dieses Abschnitts der Zusammenhang zwischen schmalen Flüssen mit Zurücksetzen und schmalen Flüssen ohne Zurücksetzen erarbeitet, um einen Kandidaten für die Anwendung des Brouwerschen Suchproblems zu finden.
+\todo{Add cite to }
+Dazu wird mit der Transformierung eines Netzwerks mit zurücksetzenden Kanten zu seinem verankerten Netzwerk ohne zurücksetzende Kanten begonnen:
+
+\begin{definition}[Verankertes Netzwerk]
+	Sei ein $s$-Netzwerk $\mathcal{N}$ mit Zurücksetzen auf $E_1$ gegeben.
+	Das \emph{verankerte Netzwerk $\mathcal{N}'$ von $\mathcal{N}$} entstehe aus dem Umbiegen jeder zurücksetzenden Kante $e\in E_1$, sodass diese in $s$ statt in $\tail(e)$ startet.
+	Die umgebogene Kante $e_s$ wird als die \emph{verankerte Kante von $e$} bezeichnet und soll die gleiche Kapazität haben wie $e$, jedoch keine zurücksetzende Kante sein.
+\end{definition}
+
+Dieses Konzept verhilft zur folgenden Einsicht:
+\begin{lemma}\label{lemma-thin-flows-anchored-networks}
+	Seien $\mathcal{N}:= (V, E, u, s, E_1)$ ein zurücksetzendes $s$-Netzwerk und $\mathcal{N}'$ sein verankertes Netzwerk.
+	Seien $f$ ein Fluss auf $\mathcal{N}$ und $f'$ ein Fluss auf $\mathcal{N}'$, der aus $f$ durch Übernehmen des Flusses der zurücksetzenden auf die verankerten Kanten entsteht.
+	Dann stimmen die Knotenauslastungen beider schmalen Flüsse überein und
+	$f$ ist genau dann ein schmaler $b$-Fluss mit Zurücksetzen auf $E_1$ in $\mathcal{N}$, wenn $f'$ ein schmaler $b'$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ ist, wobei $b'$ gegeben ist durch
+	\[
+		b_s' = b_s + f(E_1) \text{~~ und ~~} b_v' = b_v - f(\delta^+(v)\cap E_1) \text{~~ für alle $v\in V\setminus \{s \}$}.
+	\]
+\end{lemma}
+\begin{proof}
+	Zunächst vergewissere man sich, dass $f$ und $f'$ die gleichen Knotenauslastungen erzeugen:
+	Ein $s$-$v$-Pfad $P$, der keine zurücksetzende bzw. verankerte Kante benutzt, existiert in beiden Netzwerken und hat bzgl. $f$ und $f'$ die gleiche Auslastung.
+	Ist $P$ jedoch ein Pfad in $\mathcal{N}$, der eine zurücksetzende Kante verwendet, so betrachte man den Teilpfad ab der letzten zurücksetzenden Kante in $P$ und ersetze die zurücksetzende mit der verankerten Kante.
+	Dann erhält man einen Pfad in $\mathcal{N}'$, der die gleiche Auslastung wie $P$ hat.
+	Ist andersherum $P$ ein Pfad in $\mathcal{N}'$, der eine verankerte Kante verwendet, so ersetze man diese mit der zugehörigen zurücksetzenden Kante $uw$ und hänge den entstehenden Pfad an einen beliebigen $s$-$u$-Pfad an.
+	Wieder erhält man einen Pfad in $\mathcal{N}$, der die gleiche Auslastung wie $P$ hat.
+	
+	Per Konstruktion ist außerdem $f$ ein $b$-Fluss genau dann, wenn $f'$ ein $b'$ Fluss ist.
+	Für die restliche Aussage nutzen das Kriterium für schmale Flüsse aus Lemma~\ref{lemma-thin-flow-t-def} und zeigen jeweils die Eigenschaften~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} für die zurücksetzenden bzw. verankerten Kanten.
+	Sei nun zunächst $f$ ein schmaler Fluss in $\mathcal{N}$ und $vw_s$ eine verankerte Kante in $\mathcal{N'}$ mit $f'_{vw_s} > 0$.
+	Dann gilt~\ref{def-thin-flow-x-positive} für $vw_s$ wegen
+	\[ l_w = f_{vw}/u_{vw} = f'_{vw_s}/u'_{vw_s} = \max\{ l_s, f'_{vw_s}/u'_{vw_s} \} \]
+	nach~\ref{def-thin-flow-resetting-edge} für $vw$.
+	Seien umgekehrt $f'$ ein schmaler Fluss in $\mathcal{N}'$ und $vw$ eine zurücksetzende Kante in $\mathcal{N}$.
+	Ist $f_{vw} = 0$, so gilt $l_w \leq l_s = 0 = f_{vw}/u_{vw}$ wegen~\ref{def-thin-flow-x-zero} für $vw_s$.
+	Sonst gilt~\ref{def-thin-flow-resetting-edge} für $vw$ aufgrund von~\ref{def-thin-flow-x-positive} für $vw_s$:
+	\[
+		l_w = \max \{ l_s, f'_{vw_s}/u'_{vw_s} \} = f_{vw} / u_{vw}.
+	\]
+\end{proof}
+
+Man erkennt nun, dass man das Bestimmen eines schmalen Flusses mit Zurücksetzen auf das Bestimmen seines Wertes auf den zurücksetzenden Kanten reduzieren kann:
+Weiß man nämlich die Werte eines schmalen Flusses auf den zurücksetzenden Kanten -- welche nach Korollar~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig sind --, so kann man einen schmalen Fluss ohne Zurücksetzen auf dem verankerten Netzwerk mit Balancen $b'$ wie in Lemma~\ref{lemma-thin-flows-anchored-networks}, um so einen schmalen Fluss auf dem ursprünglichen Netzwerk zu erhalten.
