@@ -1,13 +1,50 @@
-\section{Erweiterung dynamischer Nash-Flüsse}\label{sec-nash-flow-extension}
+\section{Berechnung dynamischer Nash-Flüsse mit schmalen Flüssen}\label{sec-nash-flow-extension}
+In diesem Abschnitt soll es nun darum gehen, den Zusammenhang zwischen dynamischen Nash-Flüssen und schmalen Flüssen mit Zurücksetzen aufzuzeigen.
+Danach wird kurz auf die Existenz dynamischer Nash-Flüsse und deren Berechnung bei konstanter Einflussrate in das Netzwerk eingegangen.
+Dazu wird wieder die Notation aus den Kapiteln~\ref{sec-dynamic-flows} und~\ref{sec-nash-flows} verwendet.
 
-Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen schmalen Fluss mit Zurücksetzen induziert.
+Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation verwendet:
+
+\begin{definition}[Normierter schmaler Fluss]
+	Seien ein $s$-Netzwerk $\mathcal{N}$ und ein $b$-Fluss $f$ gegeben.
+	Für einen $s$-$v$-Pfad $P=(e_1, \dots, e_k)$ bezeichnet die \emph{normierte Auslastung von $P$} die Verkettung $\rho_{e_k}(\cdot, f_{e_k}) \circ \cdots \circ \rho_{e_1}(\cdot, f_{e_1})(1)$.
+	Die zu $f$ gehörige \emph{normierte Knotenauslastung} $l\in\R^V$ ist für jeden Knoten $v\in V$ die minimale Auslastung eines $s$-$v$-Pfades.
+	Dann heißt $f$ ein \emph{normierter $b_s$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
+\end{definition}
+
+Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohne großen Aufwand übertragen lassen:
+
+\begin{proposition}
+	Es sei ein $b$-Fluss $f$ in einem $s$-Netzwerk $\mathcal{N}$ gegeben.
+	Man erhalte das Netzwerk $\mathcal{N}'$ aus $\mathcal{N}$, indem man einen zusätzlichen Knoten $s'$ mit Balance $b'_{s'} := b_s$ zusammen mit einer Kante $(s, s')$ mit Kapazität $b_s$ hinzufügt und Angebot von $s$ mit $b'_s = 0$ entfernt.
+	Ergänzt man $f$ durch den Flusswert $b_s$ auf der Kante $(s', s)$, so erhält man den $b'$-Fluss $f'$.
+	
+	Dann ist die normierte Auslastung jedes $s$-$v$-Pfads $P$ in $\mathcal{N}$ gerade die Auslastung des $s'$-$v$-Pfads $P'$ in $\mathcal{N}'$, der vor dem Pfad $P$ noch die Kante $(s', s)$ benutzt.
+	Insbesondere ist $f$ genau dann ein normierte schmaler Fluss in $\mathcal{N}$, wenn $f'$ ein schmaler Fluss in $\mathcal{N'}$ ist.
+\end{proposition}
+
+Daher können normierte schmale Flüsse durch die Bestimmung eines nicht-normierten schmalen Flusses ermittelt werden.
+Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Veränderung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source} -- also $l_s = 0$ -- jetzt $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
+
+Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen normierten schmalen Fluss mit Zurücksetzen induziert.
 Die Voraussetzung, dass hierbei die entsprechenden Ableitungen existieren, kann man dadurch rechtfertigen, dass nach \cite[Folgerung~4.12~b)]{Elstrodt2011Abs} absolut stetige Funktionen fast überall differenzierbar sind.
-Zudem gilt nach \cite[Aufgabe~4.10]{Elstrodt2011Abs} die Substitutionsregel für absolut stetige Funktionen, wodurch $\int_{l_v(\theta_1)}^{l_v(\theta_2)} f_{vw}^+(t) \diff t = \int_{\theta_1}^{\theta_2} f_{vw}^+(l_v(t)) l_v'(t) \diff t$ gefolgert werden kann.
-Daher gilt auch $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta)$ bzw. analog $x_{vw}'(\theta) = f_{vw}^-(l_w(\theta)) l_w'(\theta)$ für fast alle $\theta\in\R$.
+Zudem gilt nach \cite[Aufgabe~4.10]{Elstrodt2011Abs} die Substitutionsregel für absolut stetige Funktionen, wodurch
+\[ 
+\int_{l_v(\theta_1)}^{l_v(\theta_2)} f_{vw}^+(t) \diff t = \int_{\theta_1}^{\theta_2} f_{vw}^+(l_v(t)) l_v'(t) \diff t
+\]
+gefolgert werden kann.
+Daher gilt auch für fast alle $\theta\in\R$:
+\[ 
+x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x_{vw}'(\theta) = f_{vw}^-(l_w(\theta)) l_w'(\theta).
+\]
 
 \begin{theorem}
-	Seien ein dynamischer Nash-Fluss $f$ im Graphen $(V,E)$ sowie $\theta\in\R$ gegeben.
-	Existieren die Ableitungen $x_{vw}'(\theta)$ und $l_v'(\theta)$ mit $x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)$ für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ bei Versorgungsrate $d(\theta)$.
+	Seien ein dynamischer Nash-Fluss $f$ im Graphen $(V,E)$ sowie ein Zeitpunkt $\theta\in\R$ gegeben.
+	Existieren die Ableitungen $x_{vw}'(\theta)$ und $l_v'(\theta)$ mit 
+	\[
+	x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)
+	\]
+	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ bei Versorgungsrate $d(\theta)$.
 	Als Knotenbewertung dienen dazu die Ableitungen $(l_v'(\theta))_{v\in V}$.
 \end{theorem}
 \begin{proof}
