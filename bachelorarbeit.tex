@@ -2,13 +2,14 @@
 %\renewcommand*\DocType{article} % Uncomment for screen optimization
 
 \newcommand*\ClassList{scrreprt,article}
-\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage,twoside, headsepline,openleft]{generalclass}
+\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage,twoside, headsepline]{generalclass}
 
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 \usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
 % Mathematische Zeichensätze und Umgebungen
 \usepackage{amsfonts, amssymb}	        % Definition einer Liste mathematischer Fontbefehle und Symbole
+
 \usepackage[intlimits,sumlimits]{amsmath} % Integral-/Summationsgrenzen über/unter Zeichen
 \usepackage{tabto}
 \usepackage{mathabx}
@@ -73,6 +74,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\cupdot}{\dot\cup}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 \newcommand{\bigO}{\mathcal{O}}
 \renewcommand{\]}{\end{equation*}}
