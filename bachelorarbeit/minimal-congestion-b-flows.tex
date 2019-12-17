@@ -259,6 +259,7 @@ Der entsprechende Zusammenhangsgraph ist dann
 	\node[draw, circle] (z3) at (0,0) {$Z_3$};
 	\path[-Latex] (z3) edge (z1);
 	\path[-Latex] (z3) edge[bend left] (z2);
+	\path[-Latex] (z1) edge (z2);
 	\end{tikzpicture}
 \end{center}
 und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hingegen sind die Kanten $(a,b)$ und $(h,f)$, die durch $x$ auch von Wert $4$ ausgelastet werden, nicht notwendigerweise Flaschenhalskanten: So kann man die Zyklen $(a,b,e,a)$ und $(f,h,i,f)$ augmentieren, um die Auslastung auf den beiden Kanten zu verringern.
