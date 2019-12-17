@@ -879,15 +879,94 @@ Dieses Konzept verhilft zur folgenden Einsicht:
 	Für die restliche Aussage nutzen das Kriterium für schmale Flüsse aus Lemma~\ref{lemma-thin-flow-t-def} und zeigen jeweils die Eigenschaften~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} für die zurücksetzenden bzw. verankerten Kanten.
 	Sei nun zunächst $f$ ein schmaler Fluss in $\mathcal{N}$ und $vw_s$ eine verankerte Kante in $\mathcal{N'}$ mit $f'_{vw_s} > 0$.
 	Dann gilt~\ref{def-thin-flow-x-positive} für $vw_s$ wegen
-	\[ l_w = f_{vw}/u_{vw} = f'_{vw_s}/u'_{vw_s} = \max\{ l_s, f'_{vw_s}/u'_{vw_s} \} \]
+	\[ l_w = \frac{f_{vw}}{u_{vw}} = \frac{f'_{vw_s}}{u'_{vw_s}} = \max\left\{ l_s, \frac{f'_{vw_s}}{u'_{vw_s}} \right\} \]
 	nach~\ref{def-thin-flow-resetting-edge} für $vw$.
-	Seien umgekehrt $f'$ ein schmaler Fluss in $\mathcal{N}'$ und $vw$ eine zurücksetzende Kante in $\mathcal{N}$.
+	Seien umgekehrt $f'$ ein schmaler Fluss in $\mathcal{N}'$ und $vw$ eine zurück\-setzende Kante in $\mathcal{N}$.
 	Ist $f_{vw} = 0$, so gilt $l_w \leq l_s = 0 = f_{vw}/u_{vw}$ wegen~\ref{def-thin-flow-x-zero} für $vw_s$.
 	Sonst gilt~\ref{def-thin-flow-resetting-edge} für $vw$ aufgrund von~\ref{def-thin-flow-x-positive} für $vw_s$:
 	\[
-		l_w = \max \{ l_s, f'_{vw_s}/u'_{vw_s} \} = f_{vw} / u_{vw}.
+		l_w = \max\left\{ l_s, \frac{f'_{vw_s}}{u'_{vw_s}} \right\} = \frac{f_{vw}}{u_{vw}}.
 	\]
 \end{proof}
 
 Man erkennt nun, dass man das Bestimmen eines schmalen Flusses mit Zurücksetzen auf das Bestimmen seines Wertes auf den zurücksetzenden Kanten reduzieren kann:
-Weiß man nämlich die Werte eines schmalen Flusses auf den zurücksetzenden Kanten -- welche nach Korollar~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig sind --, so kann man einen schmalen Fluss ohne Zurücksetzen auf dem verankerten Netzwerk mit Balancen $b'$ wie in Lemma~\ref{lemma-thin-flows-anchored-networks}, um so einen schmalen Fluss auf dem ursprünglichen Netzwerk zu erhalten.
+Weiß man nämlich die Werte eines schmalen Flusses auf den zurücksetzenden Kanten -- welche nach Korollar~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig sind --, so kann man einen schmalen Fluss ohne Zurücksetzen auf dem verankerten Netzwerk mit Balancen $b'$ wie in Lemma~\ref{lemma-thin-flows-anchored-networks} berechnen, um so einen schmalen Fluss auf dem ursprünglichen Netzwerk zu erhalten.
+Dies verhilft uns auch zu einem Kandidaten für die Fixpunktiteration nach Brouwer:
+
+\begin{definition}\label{def-sigma}
+	Für eine \problemThinFlow Instanz $\mathcal{N}:=(V, E, u, s, b, E_1)$ sei $\Sigma\subseteq \R^{E_1}$ die Menge aller Werte, die ein $b$-Fluss in $\mathcal{N}$ auf den Kanten $E_1$ annehmen kann, und $\mathcal{N}'$ sei das verankerte Netzwerk von $\mathcal{N}$.
+	Dann bezeichne $\Phi: \Sigma \rightarrow \Sigma$ die Funktion, die einem Vektor $f\in\Sigma$ die Werte der verankerten Kanten eines schmalen $b'$-Flusses ohne Zurücksetzen in~$\mathcal{N}'$ bei Balancen $b'$ mit
+	\[
+	b'_s := b_s + f(E_1) \text{~~~ und ~~~} b'_v := b_v - f( \delta^+(v)\cap E_1) \text{~~~ für alle $v\in V\setminus \{ s \}$}
+	\]
+	zuweist.
+\end{definition}
+
+Zunächst bemerke man, dass $\Phi$ wohldefiniert und eindeutig ist:
+Einen schmalen $b'$-Fluss auf $\mathcal{N}'$ kann man auch als $b$-Fluss auf $\mathcal{N}$ interpretieren, wobei die Flusswerte von den verankerten  Kanten auf die zurücksetzenden Kanten übertragen werden; insbesondere liegt der Zielbereich von $\Phi$ tatsächlich in $\Sigma$.
+Da jeder schmale Fluss $f$ in $\mathcal{N}'$ im Sinne von Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss auf $\mathcal{N}$ mit Zurücksetzen auf $E_1$ und geeigneten Balancen ist und der Fluss auf zurücksetzenden Kanten nach~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig ist, ist auch der Fluss auf den verankerten Kanten eindeutig.
+
+Außerdem ist die Menge $\Sigma$ nichtleer, kompakt und konvex, da sie eine Projektion des nichtleeren Polytops $\{ f \mid \text{$f$ ist $b$-Fluss} \}$ auf $E_1$ ist.
+Wir betrachten nun die Fixpunkte von $\Phi$:
+\begin{proposition}
+	Die Funktion $\Phi$ hat auf $\Sigma$ genau einen Fixpunkt $x$, wobei $x$ aus den Werten der zurücksetzenden Kanten eines schmalen $b$-Flusses in~$\mathcal{N}$ besteht.
+\end{proposition}
+\begin{proof}
+	Man folgert dies leicht aus Lemma~\ref{lemma-thin-flows-anchored-networks}:
+	Es ist $x$ genau dann ein Fixpunkt von $\Phi$, wenn ein schmaler $b'$-Fluss $f$ ohne Zurücksetzen auf $\mathcal{N}'$, der auf den verankerten Kanten $x$ entspricht, existiert, wobei $b'$ der Vektor wie in Definition~\ref{def-sigma} ist, welcher nach Lemma~\ref{lemma-thin-flows-anchored-networks} bereits ein schmaler Fluss mit Zurücksetzen auf $\mathcal{N}$ ist.	
+\end{proof}
+
+Koch gelangt mittels einer Sensitivitätsanalyse von schmalen Flüssen ohne Zurück\-setzen zu folgendem Theorem in ~\cite[Theorem 6.53]{Koch2012}:
+\begin{theorem}\label{thm-thin-flow-sensitivity-analysis}
+	Seien zwei schmale Flüsse $f$ und $\tilde{f}$ ohne Zurücksetzen bzgl. den Balancen $b$ und $\tilde{b}$ mit $b_v \leq \tilde{b}_v$ für alle $v\in V \setminus \{ s \}$ gegeben.
+	Dann gilt $\tilde{f}_e \geq f_e$ für alle $e\in E$ und $\tilde{f}_e - f_e \leq \tilde{b}_s - b_s$ für alle Kanten $e\in\delta^+(s)$.
+\end{theorem}
+
+Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
+\begin{corollary}
+	Für eine $\problemThinFlow$ Instanz ist $\Phi$ eine stetige Funktion mit Lipschitzkonstante $\abs{E_1}$ bzgl. der Maximumsnorm.
+\end{corollary}
+\begin{proof}
+	Seien $x$, $y$ aus $\Sigma$ gegeben.
+	Man zeige $ \norm{\Phi(x) - \Phi(y)}_\infty \leq \abs{E_1} \norm{x- y}_\infty $.
+	
+	Seien für $h\in \{ x,y \}$ die Balancen $b_s^h := b_s + h(E_1)$ und $b_v^h:= b_v - h(\delta^+_\mathcal{N}(v) \cap E_1)$ für $v\in V\setminus\{ s\}$ gegeben.
+	Man definiere weiter die Balancen $b_v^z := \min \{ b_v^x, b_v^y \}$ für alle $v\in V\setminus \{ s\}$ und $b_s^z:=-\sum_{v\in V\setminus \{ s\}} b_v^z$.
+	Sei $f^h$ ein schmaler $b^h$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ für $h\in \{x, y, z\}$.
+	Dann ist $f^h_{\mid E_1} = \Phi(h)$ für $h\in \{x,y \}$ und nach Theorem~\ref{thm-thin-flow-sensitivity-analysis} gilt für alle $e\in E_1$:
+	\[
+		0\leq f_e^z - f_e^h \leq b_s^z - b_s^x = - \sum_{v\in V\setminus\{ s\}} (b_v^z + b_v^x)
+	\]
+	Daraus lässt sich für alle Kanten $e\in E_1$ mit der Dreicksungleichung folgern:
+	\begin{align*}
+		\abs{f_e^x - f_e^y} &\leq \sum_{v\in V\setminus\{s \}} (b_v^x - b_v^z + b_v^y - b_v^z) = \sum_{v\in V\setminus\{s\}} \abs{b_v^x - b_v^y}\\
+		& = \sum_{v\in V\setminus\{s\}} \abs{ x(\delta^+_\mathcal{N}(v) \cap E_1) - y(\delta^+_\mathcal{N}(v) \cap E_1)} \\
+		&\leq \sum_{v\in V\setminus\{ s\}} \sum_{e\in\delta^+_\mathcal{N}(v)\cap E_1} \abs{x_e - y_e} = \sum_{e\in E_1} \abs{x_e - y_e} \leq \abs{E_1} \norm{x-y}_\infty.
+	\end{align*}
+\end{proof}
+
+Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anstreben, das folgende Problem einer schwachen Approximation darauf zu reduzieren:
+
+\newcommand{\epsTFwR}{\textsc{$\varepsilon$-TFwR}}
+\begin{center}
+	\begin{framed}
+		\emph{\epsTFwR} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
+			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ mit $\norm{b' - b}_\infty \leq \varepsilon$
+		\end{tabular}
+	\end{framed}
+\end{center}
+
+Ist für das Problem~\Brouwer\ als Eingabe auch eine Funktion erlaubt, die auf einem Polytop in Normalform definiert ist, so erhält man bei Eingabe der Funktion $\Phi$ und Genauigkeit $\varepsilon/\abs{E_1}$ einen Vektor $f\in\Sigma$ mit $\norm{\Phi(f) - f}_\infty \leq \varepsilon / \abs{E_1}$.
+In polynomieller Zeit kann man dann einen schmalen Fluss $g$ ohne Zurücksetzen im verankerten Netzwerk bei Balancen $b'$ mit $b_s' = b_s + f(E_1)$ und $b_v' = b_v - f(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{ s \}$ berechnen.
+Dieser ist nach Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss mit Zurücksetzen im ursprünglichen Netzwerk bei Balancen $b''$ mit $b_s'' = b_s + (f-g)(E_1)$ und $b_v'' = b_v + (f-g)(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{s\}$.
+Insbesondere gilt also:
+\[ 
+	\norm{ b - b''}_\infty \leq \sum_{e \in E_1} \abs{f_e - g_e} \leq \varepsilon.
+\]
+
+Ob das Problem~\Brouwer\ dahingehend verallgemeinert werden kann, dass als Definitionsbereich ein allgemeines Polytop in Normalform verwendet werden kann, bleibt an dieser Stelle jedoch offen.
+Da wir außerdem schon gesehen haben, dass bei Eingabe einer rationalen \problemThinFlow\ Instanz eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch \probTFwR\ in \PPAD\ liegt.
+Beides könnte durch eine Anpassung der Triangulation, die bei der Reduktion von~\Brouwer\ auf eine Version des Lemma von Sperner -- welche selbst vollständig in $\PPAD$ liegt -- gebildet wird, erreicht werden.
+Dabei könnten außerdem die Erkenntnisse aus Abschnitt~\ref{sec-rational-search}, der Einblicke in die exakte Suche rationaler Zahlen gibt, hilfreich sein.
