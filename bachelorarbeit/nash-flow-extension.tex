@@ -163,8 +163,8 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	\end{enumerate}
 \end{theorem}
 \begin{proof}
-	\begin{description}
-		\item[Zu $(i)$:]
+	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=0.5cm]
+		\item[Zu] $(i)$:
 		
 		Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt mit Voraussetzung~(\ref{equation-alpha-queuing-edge})
 		\[
@@ -179,7 +179,8 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\]
 		Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
 		
-		\item[Zu $(ii)$:]
+		\item[Zu] $(ii)$:
+		
 		Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
 		Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $V\setminus \{ s, t \}$ erfüllt.
 		Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da sonst $\tilde{f}_e$ mit $f_e$ übereinstimmt und $f$ bereits zulässig ist.
@@ -196,65 +197,92 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		Daraus folgt die Aussage, da $\theta + \tau_{vw}\leq l_w(T) + \gamma l_w'$ nach (i) erfüllt ist.
 		Für alle $\theta > l_v(T)+\alpha l_v'$ gilt 
 		\[\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw}).\]
-		
-		\todo{Hier weitermachen}
-		
 		Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. Warteschlangen sollen mit der Kantenkapazität abgebaut werden.
 		Sei also $\tilde{q}_{vw}(\theta)$ positiv.
-		Nach (i) ist $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw}) = u_{vw}$ für $\theta\leq l_v(T)$.
+		Nach $(i)$ gilt
+		\[
+		\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw}) = u_{vw}
+		\]
+		für $\theta\leq l_v(T)$.
 		Ist $\theta > l_v(T)$, so unterscheide man, ob die Warteschlange von $vw$ zur Zeit $l_v(T)$ positiv ist:
-		Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}, und ohne Einschränkung gelte $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} und Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
-		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt $\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'$ nach (i).
+		Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}, und ohne Einschränkung gilt $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} und Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
+		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt nach $(i)$:
+		\[
+		\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'.
+		\]
 		Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
-		Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt $0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'$. Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.	
+		Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
+		\[
+		0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'.
+		\]
+		Insbesondere ist also $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ und auch hier gilt \[
+		\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}.
+		\]
 		Nun betrachte man Kanten $vw$, die zum Zeitpunkt $l_v(T)$ keine Warteschlange haben.
 		Nach~\ref{def-thin-flow-x-positive} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
-		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so ist $\theta+\tau_{vw}$ in $[l_w(T), l_w(T) + \alpha l_w']$ enthalten und es gilt $0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'$.
+		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so ist $\theta+\tau_{vw}$ in $[l_w(T), l_w(T) + \alpha l_w']$ enthalten und es gilt
+		\[
+		0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'.
+		\]
 		Daher ist $l_w' > l_v'$ und es müssen $l_w' = x_{vw}'/u_{vw}$ und $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$ gelten.
-		Für $\theta > l_v(T) + \alpha l_v'$ gilt $\theta + \tau_{vw} > l_w(T) + \alpha l_v'$ und $0 < \tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta - l_v(T) \}x_{vw}'/l_w'$.
+		Für $\theta > l_v(T) + \alpha l_v'$ gilt $\theta + \tau_{vw} > l_w(T) + \alpha l_v'$ und dadurch gilt
+		\[
+		0 < \tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta - l_v(T) \}x_{vw}'/l_w'.
+		\]
 		Insbesondere ist $\theta - l_v(T) < \alpha l_w'$, was äquivalent zu $\theta + \tau_{vw} < l_w(T) + \alpha l_w'$ ist.
-		Nun kann man $l_v' < l_w'$ folgern, was $l_w' = x_{vw}'/u_{vw}$ impliziert.
+		Nun kann man $l_v' < l_w'$ folgern, was wiederum $l_w' = x_{vw}'/u_{vw}$ impliziert.
 		Damit gilt $\tilde{f}^-(\theta + \tau_{vw}) = u_{vw}$.
-	\end{description}
-	
-	
-	
-	Um Aussage (iii) zu zeigen, bemerke man, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da $\tilde{T}_{vw}(\theta) = T_{vw}(\theta)$ für $\theta\leq T$ nach (i) gilt.
-	Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$  das System:
-	Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_s' = \theta$.
-	Für $w\neq s$ ist $l_w(T) + (\theta - T) l_w'$ eine untere Schranke für zur Zeit $T$ inaktive Kanten $vw$:
-	Zunächst zeige man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{vw}$:
-	Ist $l_w' \leq l_v'$, so gilt dies bereits, da $vw$ zur Zeit $l_v(T)$ keine Warteschlange hat.
-	Für $l_w' \geq l_v'$ gilt $l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}$ mit der zusätzlichen Voraussetzung an~$\alpha$.
-	Demnach ist also $l_w(T) + (\theta - T) l_w' \leq l_v(T) + (\theta - T) l_v' + \tau_{vw} \leq \tilde{T}_{vw}(l_v(T) + (\theta - T) l_v')$.
-	
-	Im nächsten Schritt zeige man $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_w'$ für Kanten $vw\in E_T$, für die $x_{vw}'$ positiv ist oder deren Warteschlange zur Zeit $l_v(T)$ positiv ist:
-	Für $x_{vw}' > 0$ impliziert~(ii) zusammen mit Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
-	Für $vw\in E_1$ mit $x_{vw}'=0$ gilt $l_w' = x_{vw}' / u_{vw} = 0$ nach~\ref{def-thin-flow-resetting-edge}.
-	Entsprechend erfüllt die Warteschlange
-	\begin{align*}
-	\tilde{z}_{vw}(l_v(T) + (\theta - T)l_v') - z_{vw}(l_v(T)) &= (\theta - T) x_{vw}' - \int_{l_v(T) + \tau_{vw}}^{l_v(T) + (\theta - T) l_v' + \tau_{vw}} f_e^-(t) \diff t \\
-	&= (\theta - T) (x_{vw}' -l_v' u_{vw}),
-	\end{align*}
-	da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
-	Daher ist $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) = l_w(T) + (\theta - T) l_w'$.
-	
-	Zuletzt betrachte man aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
-	Hier gilt $l_w(T) = l_v(T) + \tau_{vw}$ und $l_w' \leq l_v'$ nach~\ref{def-thin-flow-x-zero}.
-	Außerdem ist $z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0$, wodurch man $\tilde{T}_{vw}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \geq l_w(T) + (\theta - T) l_w'$ folgern kann.
-	Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
-	Daher ist $l_w(T)+(\theta - T) l_w'$ nicht nur eine untere Schranke, sondern tatsächlich das Minimum.
-	
-	Um nun zu erkennen, dass $\tilde{f}$ ein Nash-Fluss ist, zeige man Bedingung~(ii) aus Theorem~\ref{thm-equivalencies-nash-flow}, d.h. $\forall e\in E, \theta\in\R: \tilde{x}_e^+(\theta) = \tilde{x}_e^-(\theta)$.
-	Für $\theta \leq T$ gilt $\tilde{x}_e^+(\theta) = x_e^+(\theta) = x_e^-(\theta) = \tilde{x}_e^-(\theta)$ für alle Kanten $e\in E$.
-	Des Weiteren gilt $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T) = \tilde{x}_e^-(T) = \tilde{x}_e^-(\theta)$ für Kanten mit $x_{e}' = 0$ und $\theta > T$.
-	Für $\theta$ zwischen $T$ und $T+\alpha$ liefert~(ii) die Behauptung.
-	Für $\theta > T+\alpha$ ist schließlich $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T + \alpha) = \tilde{x}_e^-(T+\alpha) = \tilde{x}_e^-(\theta)$.
+		
+		\item[Zu] $(iii)$:
+		
+		Man bemerke, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da hier $\tilde{T}_{vw}(\theta)$ und $T_{vw}(\theta)$ nach $(i)$ übereinstimmen.
+		Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$ das System:
+		Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_s' = \theta$.
+		Für $w\neq s$ ist $l_w(T) + (\theta - T) l_w'$ eine untere Schranke an $\tilde{T}_{vw}(l_v(T) + (\theta - T) l_v')$ für zur Zeit $T$ inaktive Kanten $vw$:
+		Zunächst zeige man $l_w(T) + (\theta - T)l_w' \leq l_v(T) + (\theta - T)l_v' + \tau_{vw}$:
+		Ist $l_w' \leq l_v'$, so gilt dies bereits, da $vw$ zur Zeit $l_v(T)$ keine Warteschlange hat.
+		Für $l_w' \geq l_v'$ gilt mit der zusätzlichen Voraussetzung~(\ref{equation-alpha-inactive-edge}):
+		\[
+		l_w(T) - l_v(T) + (\theta - T) (l_w' - l_v') \leq l_w(T) - l_v(T) + \alpha (l_w' - l_v') \leq \tau_{vw}.
+		\]
+		Demnach ist also $l_w(T) + (\theta - T) l_w' \leq l_v(T) + (\theta - T) l_v' + \tau_{vw} \leq \tilde{T}_{vw}(l_v(T) + (\theta - T) l_v')$.
+		
+		Im nächsten Schritt zeige man $\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') = l_w(T) + (\theta - T) l_w'$ für Kanten $vw\in E_T$, für die $x_{vw}'$ positiv ist oder deren Warteschlange zur Zeit $l_v(T)$ positiv ist:
+		Für $x_{vw}' > 0$ impliziert~$(ii)$ zusammen mit Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} bereits $\tilde{T}_{vw}(l_v(T) + (\theta-T)l_v') = l_w(T) + (\theta - T) l_w'$.
+		Für $vw\in E_1$ mit $x_{vw}'=0$ gilt jedoch $l_w' = x_{vw}' / u_{vw} = 0$ nach~\ref{def-thin-flow-resetting-edge}.
+		Entsprechend erfüllt die Warteschlange
+		\begin{align*}
+		\tilde{z}_{vw}(l_v(T) + (\theta - T)l_v') - z_{vw}(l_v(T)) &= (\theta - T) x_{vw}' - \int_{l_v(T) + \tau_{vw}}^{l_v(T) + (\theta - T) l_v' + \tau_{vw}} f_e^-(t) \diff t \\
+		&= (\theta - T) (x_{vw}' -l_v' u_{vw}),
+		\end{align*}
+		da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
+		Damit folgt
+		\begin{align*}
+		\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') &= l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) \\
+		&= l_w(T) + (\theta - T) l_w'.
+		\end{align*}
+		Zuletzt betrachte man aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
+		Für diese Kanten gelten $l_w(T) = l_v(T) + \tau_{vw}$ und $l_w' \leq l_v'$ nach~\ref{def-thin-flow-x-zero}.
+		Außerdem ist 
+		\[
+		z_{vw}(l_v(T) + (\theta - T) l_v') = F_{vw}^+(l_v(T)) - F_{vw}^-(l_w(T)) = 0,
+		\]
+		wodurch man $\tilde{T}_{vw}(l_v(T) + (\theta - T) l_v') = l_w(T) + (\theta - T)l_v' \geq l_w(T) + (\theta - T) l_w'$ folgern kann.
+		Dabei gilt sogar Gleichheit nach~\ref{def-thin-flow-no-resetting-edge}, falls $w$ keine eingehende Kante mit positiver Warteschlange hat.
+		Daher ist $l_w(T)+(\theta - T) l_w'$ nicht nur eine untere Schranke, sondern auch das Minimum an $\tilde{T}_{vw}(l_v(T) + (\theta - T) l_v')$ für alle $vw\in \delta^-(w)$.
+		
+		Um nun zu erkennen, dass $\tilde{f}$ ein Nash-Fluss ist, zeige man Bedingung~$(ii)$ aus Theorem~\ref{thm-equivalencies-nash-flow}, d.h. man zeige $\tilde{x}_e^+(\theta) = \tilde{x}_e^-(\theta)$ für alle Kanten $e$ und Zeitpunkte $\theta$.
+		Für $\theta \leq T$ gilt $\tilde{x}_e^+(\theta) = x_e^+(\theta) = x_e^-(\theta) = \tilde{x}_e^-(\theta)$ für alle Kanten $e\in E$.
+		Des Weiteren gilt $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T) = \tilde{x}_e^-(T) = \tilde{x}_e^-(\theta)$ für Kanten mit $x_{e}' = 0$ und $\theta > T$.
+		Für $\theta$ zwischen $T$ und $T+\alpha$ liefert~$(ii)$ die Behauptung.
+		Für $\theta > T+\alpha$ gilt schließlich $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T + \alpha) = \tilde{x}_e^-(T+\alpha) = \tilde{x}_e^-(\theta)$.
+\end{description}
 \end{proof}
 
 Der Abschnitt wird mit der Fortsetzung zu Bemerkung~\ref{remark-thin-flow} abgeschlossen.
 \begin{remark}[Fortsetzung von Bemerkung~\ref{remark-thin-flow}]\label{remark-thin-flow-part-2}
 	Es soll erörtert werden, warum die Bedingung~\ref{def-thin-flow-no-resetting-edge}, die hier im Vergleich zu~\cite[Definition~6]{Koch2011} hinzugezogen wurde, für die Korrektheit von Theorem~\ref{thm-alpha-extension-is-nash-flow} benötigt wird:
+	Dies wird genutzt, damit die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	
 	Man betrachte den dynamischen Nullfluss im Netzwerk aus Abbildung~\ref{figure-labels} mit Zeithorizont $0$.
 	Die Kanten $st$ und $sv$ sind aktiv, wohingegen die Kante $vt$ inaktiv ist.

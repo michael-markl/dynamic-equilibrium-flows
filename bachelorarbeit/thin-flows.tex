@@ -239,16 +239,9 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 
 \begin{remark}\label{remark-thin-flow}
 	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-	Diese ist nötig, um im Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu zeigen, dass die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
-	Ohne diese Bedingung würde dies nämlich nicht gelten, wie man in Bemerkung~\ref{remark-thin-flow-part-2} erörtert wird.
+	Diese ist nötig, um den Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu geben, der in \cite{Koch2011} als Theorem~3 geführt wird.
+	Dies wird in Bemerkung~\ref{remark-thin-flow-part-2} weiter erörtert.
 \end{remark}
-\todo{
-	Introduce network inflow with normalized thin-flows
-	\begin{definition}[Schmaler Fluss]\label{def-thin-flow}
-		Der Fluss $x'$ heißt \emph{normiert}, falls $F=d$ gilt.
-		Ist $E_1$ nichtleer, so heißt $x'$ \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, sonst heißt $x'$ \emph{schmaler Fluss ohne Zurücksetzen}.
-	\end{definition}
-}
 
 \begin{lemma}\label{lemma-equivalent-thin-flow}
 	In einer \problemThinFlow\ Instanz ist ein $b$-Fluss $f$ mit Knotenauslastung $l$ genau dann ein schmaler Fluss mit Zurück\-setzen auf $E_1$, wenn $f_{vw}= 0$ für alle Kanten $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$ gilt.
