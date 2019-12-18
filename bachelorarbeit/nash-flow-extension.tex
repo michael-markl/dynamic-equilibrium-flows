@@ -123,7 +123,7 @@ Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizon
 \end{proof}
 
 \begin{definition}[$\alpha$-Erweiterung]
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf den Kanten mit Warteschlange $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ der aktiven Kanten und ein $\alpha > 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf den Kanten mit Warteschlange $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ der aktiven Kanten und ein $\alpha \geq 0$ gegeben.
 	
 	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
 	\begin{align*}
@@ -323,3 +323,36 @@ Weiter kann man zeigen, dass man das $\alpha$ in Theorem~\ref{thm-alpha-extensio
 	
 	Da alle diese oberen Schranken positiv sind, ist auch das Infimum $\alpha^*$ dieser Werte positiv.
 \end{proof}
+
+Dies hat Koch in~\cite{Koch2011} genutzt, um einen Algorithmus zur Berechnung von dynamischen Nash-Flüssen mit konstanter Netzwerkeinflussrate vorzuschlagen:
+Ausgehend vom dynamischen Nullfluss mit Zeithorizont $0$ wird der Fluss nach und nach mit normierten schmalen Flüssen um einen möglichst großen Zeitraum $\alpha$ erweitert.
+
+Ob dieser Algorithmus jedoch terminiert in dem Sinne, dass irgendwann ein $\alpha$ beliebig groß gewählt werden kann und somit der dynamische Nash-Fluss ab einem Zeitpunkt $T$ konstant gewählt werden kann, ist eine bisher unbeantwortete Frage.
+Cominetti, Correa und Olver beantworten Teile der Frage in~\cite{CominettiExample}:
+Übersteigt die minimale Warteschlangenkapazität $\sum_{e\in\delta^+(S)} u_e$ eines $s$-$t$-Schnitts den konstanten Netzwerkzufluss $d$ nicht, so erreicht ein dynamischer Nash-Fluss schließlich einen stabilen Zustand, ab dem der Fluss konstant ist.
+Ob dieser Zustand jedoch durch endlich viele $\alpha$-Erweiterungen berechnet werden kann, bleibt ungeklärt.
+Jedoch geben die Autoren ein Beispiel, in dem erst in der Größe des Graphen exponentiell viele $\alpha$-Erweiterungen zu einem stabilen Zustand führen.
+
+Unter Benutzung des Lemmas von Zorn kann man jedoch die Existenz von dynamischen Nash-Flüssen mit konstantem Netzwerkzufluss zeigen:
+
+\begin{theorem}
+	Für einen konstanten Netzwerkzufluss $d\in\R_{\geq 0}$ existiert ein dynamischer Nash-Fluss.
+\end{theorem}
+\begin{proof}
+	Man betrachte auf der Menge $M$ aller dynamischer Nash-Flüsse mit Zeithorizont $T$, wobei $T=\infty$ zugelassen wird, und Netzwerkzufluss $d$ die folgende Ordnung $\preceq\subseteq M\times M$:
+	Für zwei dynamische Nash-Flüsse $f$ bzw. $g$ mit Zeithorizont $T^1$ bzw. $T^2$ gelte genau dann $(f, T^1)\preceq (g, T^2)$, wenn $T^1 \leq T^2$ gilt und $g^+_{vw}$ mit $f^+_{vw}$ bzw. $g^-_{vw}$ mit $f^-_{vw}$ auf $(-\infty, l_v(T^1)$ bzw. $(-\infty, l_w(T^1))$ für alle Kanten $vw$ übereinstimmen, wobei $l_v$ die früheste Ankunftszeit bzgl. $f$ an einem Knoten $v$ sein soll.
+	Sei nun eine aufsteigende Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ gegeben.
+	Man bemerke, dass für $i\leq j$ die frühesten Ankunftszeiten der Flüsse $f^i$ und $f^j$ auf $(-\infty, T^i)$ übereinstimmen.
+	
+	Man definiere nun $T^* := \lim_{i\in\N} T^i$ sowie die Ankunftszeit $l_v(\theta)$ an einem Knoten $v$ zur Zeit $\theta\in(-\infty, T^*)$, die von einem Fluss $f^i$ der Kette mit $T^i \geq \theta$ angenommen wird.
+	Sei außerdem $l_v(T^*) := \lim_{i\in\N} l_v(T^i)$.
+	Definiert man nun $f$ als den Fluss, dessen Zuflussrate $f_{vw}^+$ für $\theta<l_v(T^*)$ den Wert von $f^{i+}_{vw}(\theta)$ eines $i\in\N$ mit $l_v(T^i) > l_v(\theta)$ hat und für $\theta \geq l_v(T^*)$ den Wert $0$ hat, sowie dessen Abflussrate $f_{vw}^-$ für $\theta<l_w(T^*)$ den Wert von $f^{i-}_{vw}(\theta)$ eines $i\in\N$ mit $l_w(T^i) > l_w(\theta)$ hat und für $\theta \geq l_w(T^*)$ den Wert $0$ hat.
+	Dann ist $f$ nicht nur ein zulässiger Fluss, sondern sogar ein dynamischer Nash-Fluss mit Zeithorizont $T^*$.
+	Somit folgt, dass $(f, T^*)$ eine obere Schranke der Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ ist.
+	Nach dem Lemma von Zorn besitzt die Ordnung $\preceq$ ein maximales Element $(f, T^*)$.
+	Dann muss $T^*$ aber bereits unendlich sein, da man durch eine $\alpha$-Erweiterung von $f$ mit $\alpha > 0$ sonst einen dynamischen Nash-Fluss $(\tilde{f}, T^* + \alpha)$ erhält, für den $(\tilde{f}, T^* + \alpha) \npreceq (f, T^*)$ gelten würde.
+\end{proof}
+
+Mit der gleichen Argumentation kann man auch zeigen, dass auch für jeden rechts-konstanten Netzwerkzufluss ein dynamischer Nash-Fluss existiert:
+Dabei muss lediglich $T^* + \alpha$ noch vor der nächsten Sprungstelle liegen.
+Cominetti u. a. zeigen in \cite{Cominetti2015} sogar die Existenz für Netzwerke mit $\tau_e > 0$ für alle $e\in E$, bei denen der Netzwerkzufluss eine beliebige Funktion in $L^p(0,T)$ ist.
