@@ -1,23 +1,40 @@
 
 \thispagestyle{empty}
+\newcommand{\Universitat}{Universität Augsburg}
 \begin{titlepage}
-	\makeatletter
-	\centering
-	{\scshape\LARGE Bachelorarbeit \par}
-	\vspace{1cm}
-
-	\vspace{1.5cm}
-	{\huge\bfseries \@title\par}
-	\vspace{2cm}
-	{\Large\textsc{\@author}\par}
-	\vfill
-	\includegraphics[width=0.7\textwidth]{bachelorarbeit/logo}\par\vspace{1cm}
-	betreut durch\par
-	Prof. Dr. Tobias \textsc{Harks}
+  	\begin{center}
+		\Large \textbf{\Universitat} \\
+		\uni \\
+		\lehrstuhl \\
+	\end{center}
+	\vspace*{1em}
+	\begin{center}
+		\includegraphics[width=5cm,height=5cm]{UNI}
+	\end{center}
 	
-	\vfill
+	\vspace*{1em}
 	
-	% Bottom of the page
-	{\large \@date\par}
-	\makeatother
+	\begin{center}
+		\Huge\textsc{Bachelorarbeit}
+	\end{center}
+	
+	\vspace*{1cm}
+	\ownline
+	\begin{center}
+		\begingroup\doublespacing
+		{\LARGE \textbf{\thema}}\par
+		\endgroup
+	\end{center}
+	\ownline
+    \vfill
+    {\setlength{\tabcolsep}{12pt}
+   	\centering
+	\begin{tabular}{ll}
+		Betreuer: & Prof. Dr. Tobias Harks\\
+		Zweitgutachter: & Prof. Dr. Mirjam Dür\\[1em]
+		Vorgelegt von: & Michael Markl\\
+		Matrikelnummer: & 1474802\\
+		Abgabetermin: & \todo{Get it done!}
+	\end{tabular}\par  
+	}
 \end{titlepage}
