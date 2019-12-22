@@ -1,7 +1,7 @@
 \section{Berechnung dynamischer Nash-Flüsse mit schmalen Flüssen}\label{sec-nash-flow-extension}
 In diesem Abschnitt soll es nun darum gehen, den Zusammenhang zwischen dynamischen Nash-Flüssen und schmalen Flüssen mit Zurücksetzen aufzuzeigen.
 Danach wird kurz auf die Existenz dynamischer Nash-Flüsse und deren Berechnung bei konstanter Einflussrate in das Netzwerk eingegangen.
-Dazu wird wieder die Notation aus den Kapiteln~\ref{sec-dynamic-flows} und~\ref{sec-nash-flows} verwendet.
+Dazu wird wieder die Notation aus den Kapiteln~\ref{chapter-dynamic-flows} und~\ref{chapter-nash-flows} verwendet.
 
 Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation verwendet:
 
@@ -23,8 +23,8 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohn
 	Insbesondere ist $f$ genau dann ein normierte schmaler Fluss in $\mathcal{N}$, wenn $f'$ ein schmaler Fluss in $\mathcal{N'}$ ist.
 \end{proposition}
 
-Daher können normierte schmale Flüsse durch die Bestimmung eines nicht-normierten schmalen Flusses ermittelt werden.
-Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Veränderung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source} -- also $l_s = 0$ -- jetzt $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
+Daher können normierte schmale Flüsse durch die Bestimmung eines nicht-normier\-ten schmalen Flusses ermittelt werden.
+Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Verän\-derung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source} -- also $l_s = 0$ -- jetzt $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen normierten schmalen Fluss mit Zurücksetzen induziert.
 Die Voraussetzung, dass hierbei die entsprechenden Ableitungen existieren, kann man dadurch rechtfertigen, dass nach \cite[Folgerung~4.12~b)]{Elstrodt2011Abs} absolut stetige Funktionen fast überall differenzierbar sind.
@@ -339,7 +339,7 @@ Unter Benutzung des Lemmas von Zorn kann man jedoch die Existenz von dynamischen
 	Für einen konstanten Netzwerkzufluss $d\in\R_{\geq 0}$ existiert ein dynamischer Nash-Fluss.
 \end{theorem}
 \begin{proof}
-	Man betrachte auf der Menge $M$ aller dynamischer Nash-Flüsse mit Zeithorizont $T$, wobei $T=\infty$ zugelassen wird, und Netzwerkzufluss $d$ die folgende Ordnung $\preceq\subseteq M\times M$:
+	Man betrachte auf der Menge aller dynamischer Nash-Flüsse mit Zeithorizont $T$, wobei $T=\infty$ zugelassen wird, und Netzwerkzufluss $d$ die folgende Ordnung~$\preceq$:
 	Für zwei dynamische Nash-Flüsse $f$ bzw. $g$ mit Zeithorizont $T^1$ bzw. $T^2$ gelte genau dann $(f, T^1)\preceq (g, T^2)$, wenn $T^1 \leq T^2$ gilt und $g^+_{vw}$ mit $f^+_{vw}$ bzw. $g^-_{vw}$ mit $f^-_{vw}$ auf $(-\infty, l_v(T^1)$ bzw. $(-\infty, l_w(T^1))$ für alle Kanten $vw$ übereinstimmen, wobei $l_v$ die früheste Ankunftszeit bzgl. $f$ an einem Knoten $v$ sein soll.
 	Sei nun eine aufsteigende Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ gegeben.
 	Man bemerke, dass für $i\leq j$ die frühesten Ankunftszeiten der Flüsse $f^i$ und $f^j$ auf $(-\infty, T^i)$ übereinstimmen.

@@ -1,12 +1,35 @@
 \chapter{Einführung}\label{introduction}
 
-Routenplanungsspiele spielen in der Analyse und Optimierung von Verkehrs- und Kommunikationsnetzwerken eine große Rolle.
+Routenplanungsspiele haben in der Analyse und Optimierung von Verkehrs- und Kommunikationsnetzwerken eine große Bedeutung.
 Bei der Modellierung solcher Netzwerke wurden dabei in der Vergangenheit häufig statische Flüsse zu Rate gezogen, welche jedoch nicht abbilden können, wie sich Veränderungen des Flusses im Laufe der Zeit innerhalb des Netzwerks, wie sie beispielsweise in Straßennetzen auftreten, auf das System auswirken.
+Daher geht man zu dynamischen Flüssen (engl. flows over time) über, welche den zeitlichen Verlauf der Kantenbelegung erfassen.
 
-Im Artikel \glqq Nash Equilibria and the Price of Anarchy for Flows over Time\grqq\ \cite{Koch2011} der Autoren Ronald Koch und Martin Skutella werden daher Routenplanungsspiele auf dynamischen Flüssen (engl. flow over time) betrachtet, die hier dem deterministischen Warte\-schlangen-Modell (engl. deterministic queuing model) entsprechen.
-Jedes Partikel im Fluss entspricht dabei einem Spieler, der seine Entscheidungen selbst egoistisch trifft und versucht seine eigene Ankunftszeit zu minimieren.
-Dies wird auch Selfish Routing genannt.
-Zudem schreibt man den Spielern hier zu, während ihrer Entscheidungsfindung der zu wählenden Route bereits den zukünftigen Flussverlauf und damit künftige Wartezeiten jeder Kante zu kennen.
+In dieser Arbeit unterwirft man dynamische Flüsse dem Modell der deterministischen Warteschlangen (engl. deterministic queuing model):
+Sobald Partikel eine Kante durchlaufen möchten, reihen sich diese zunächst in eine Warteschlange der Kante ein, die mit einer gewissen Kapazität abgearbeitet wird, um dann nach einer zusätzlichen Verzögerung am Zielknoten anzukommen.
+Dabei kann man sich die Kanten eines Netzwerk als Transportbänder vorstellen, die eine bestimmte Kapazität und eine bestimmte Verzögerung haben.
+Die Kapazität entspricht der Breite des Bands, welche die Gütermenge, die das Band pro Zeiteinheit transportieren kann,  beschränkt, und die Verzögerung entspricht der Transportzeit, die das Band benötigt, um Güter vom Startknoten zum Zielknoten zu tragen.
+Weiter gibt es im Netzwerk eine Quelle, also einen Knoten, an dem kontinuierlich Partikel entstehen, und eine Senke, in dem Partikel aus dem Netzwerk abfließen.
 
-Diese Arbeit gibt in den Abschnitten~\ref{sec-dynamic-flows} und~\ref{sec-travel-times} eine formale Definition dynamischer Flüsse und des Warteschlangenmodells in diesem Szenario und formuliert eine Charakterisierung von Nash Gleichgewichten im Kontext dynamischer Flüsse in Abschnitt~\ref{sec-nash-flows}.
-In Abschnitt~\ref{sec-thin-flows} wird schließlich eine Klasse von statischen Flüssen eingeführt, die verwendet wird, um bereits bestehende dynamische Nash-Flüsse mit Zeithorizont zu erweitern.
+Diesen Flüssen gibt man nun die folgende spieltheoretische Interpretation:
+Jedes infinitesimal kleine Partikel, das in einem Fluss an der Quelle zu einem bestimmten Zeitpunkt entsteht, wird als Spieler in einem nicht-atomaren Auslastungsspiel interpretiert:
+Dabei verfolgt jeder Spieler das Ziel, in möglichst kurzer Zeit nach Erscheinen an der Quelle zur Senke des Netzwerks zu gelangen.
+Jeder Spieler besitzt dabei bereits zur Zeit seines Entstehens über alle nötigen Informationen, die seine tatsächliche Ankunftszeit an der Senke beeinflussen - das heißt, er weiß über den künftigen Verlauf der Warteschlangen an den Kanten Bescheid --, und kann diese nutzen um einen tatsächlich zur aktuellen Zeit kürzesten Quelle-Senke-Pfad zu ermitteln.
+Da es sich bei den Spielern um infinitesimal kleine Partikel handelt, verändert sich der dynamische Fluss durch die Entscheidung eines einzelnen Partikels nicht.
+
+Ein Nash-Gleichgewicht wird für eine endliche Anzahl an Spielern für gewöhnlich als eine Strategiewahl charakterisiert, in der kein Spieler seine Strategie bei Beibehalten der Wahl der anderen Spieler ändern kann, um seine eigenen Kosten echt zu verringern.
+Im Fall dynamischer Flüsse wird dieser Begriff etwas aufgeweicht:
+So wird ein dynamischer Fluss ein Nash-Gleichgewicht genannt, falls eine Kante 
+fast nur zu Zeitpunkten genutzt wird, zu denen die Kante den Zielknoten unter allen Pfaden in der kürzest-möglichen Zeit erreicht.
+
+Diese Arbeit gibt zunächst eine formale Definition von dynamischen Flüssen in Kapitel~\ref{chapter-dynamic-flows} sowie eine Charakterisierung von Nash-Gleichgewichten in Kapitel~\ref{chapter-nash-flows}.
+Danach widmet sie sich der Berechnung ebensolcher Gleichgewichte für den Fall, dass der Netzwerkzufluss an der Quelle konstant ist.
+Dazu werden jedoch einige Kenntnisse über zwei Klassen von statischen Flüssen benötigt:
+So werden in Kapitel~\ref{chapter-min-con-flows} zunächst Resultate der Analyse von auslastungsminimalen Flüssen zusammengetragen:
+Dies sind $b$-Flüsse, die die maximale Auslastung aller Kanten, d.h. das Verhältnis von Fluss und Kapazität einer Kante, minimieren.
+Es wird gezeigt, dass das dazu duale Problem ist, einen sogenannten dünnsten Schnitt zu finden, der das Verhältnis vom Nettoangebot und der Kapazität der ausgehenden Kanten des Schnittes maximiert.
+Außerdem wird ein Verfahren vorgestellt, mit dem man auslastungsminimale Flüsse in polynomieller Zeit exakt bestimmen kann.
+Weiter führt die Analyse der Ableitung dynamischer Nash-Flüssen zum Konzept sogenannter schmaler Flüsse, die in Kapitel~\ref{chapter-thin-flows}.
+Dies sind $b$-Flüsse in einem Netzwerk mit einer einzigen Quelle $s$ und sogenannten zurücksetzenden Kanten, in denen alle $s$-$v$-Pfade, die in der Quelle starten und positiven Fluss haben, minimale Auslastung haben.
+Nach einer Charakterisierung dieser Flüsse wird ein polynomieller Algorithmus erarbeitet, der schmale Flüsse in Netzwerken ohne zurücksetzende Kanten berechnet.
+Außerdem wird diskutiert, ob das allgemeine Problem mit zurücksetzenden Kanten in der Komplexitätsklasse \PPAD\ liegt.
+Schließlich leitet man mithilfe der Existenz solcher schmaler Flüsse ein mögliches Verfahren ab, mit dem Nash-Flüsse bei konstantem Netzwerkzufluss berechnet werden sollen.

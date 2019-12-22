@@ -1,4 +1,4 @@
-\chapter{Dynamische Nash-Flüsse}\label{sec-nash-flows}
+\chapter{Dynamische Nash-Flüsse}\label{chapter-nash-flows}
 
 Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
 Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$, an der Senke ankommen.
@@ -16,8 +16,10 @@ Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Defi
 \end{definition}
 
 \begin{remark}\label{remark-x^-leqx^+}
-	In einem zulässigen Fluss ist $x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta)$
-	nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^-$.
+	In einem zulässigen Fluss gilt nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-det-outflow} und mit der Monotonie von $F_{vw}^-$ bereits 
+	\[
+	x_{vw}^-(\theta) = F_{vw}^-(l_w(\theta)) \leq F_{vw}^-(T_{vw}(l_v(\theta)))=F_{vw}^+(l_v(\theta)) = x_{vw}^+(\theta).
+	\]
 \end{remark}
 
 \begin{lemma}\label{lemma-balance-0}
@@ -156,7 +158,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt, welches Nash-Gleichgewichte in dynamischen Flüssen charakterisiert:
 
 \begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
-	Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
+	Ist $f$ ein zu\-läs\-siger dynamischer Fluss, so sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
 		\item Für alle Kanten $e\in E$ und zu jeder Zeit $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.

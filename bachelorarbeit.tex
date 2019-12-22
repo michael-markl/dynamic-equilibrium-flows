@@ -4,7 +4,7 @@
 \newcommand*\ClassList{scrreprt,article}
 \documentclass[\DocType, paper=a4,fontsize=11pt,titlepage,twoside, headsepline]{generalclass}
 
-\usepackage{framed}
+\usepackage[nobreak,align=center]{mdframed}
 \usepackage[utf8]{inputenc}
 \usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
 % Mathematische Zeichensätze und Umgebungen
@@ -38,7 +38,9 @@
 \usepackage{tikz}
 \usepackage[chapter]{algorithm}
 \usepackage{setspace}
+\usepackage[export]{adjustbox}
 %\usepackage{showframe}
+\usepackage{todonotes}
 
 \usepackage{algpseudocode}
 % Interaktive Referenzen, und PDF-Keys
@@ -67,7 +69,7 @@
 
 \renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
 \floatname{algorithm}{Algorithmus}
-\newcommand{\todo}[1]{{\color{red}TODO: #1}}
+%\renewcommand{\todo}[1]{\todo{\color{red}TODO: #1}}
 
 \numberwithin{figure}{section}	% Abbildungsnummern in Section
 
@@ -76,9 +78,11 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\cupdot}{\dot\cup}
+\newcommand{\PPAD}{\textbf{PPAD}}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 \newcommand{\bigO}{\mathcal{O}}
 \renewcommand{\]}{\end{equation*}}
+
 
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}

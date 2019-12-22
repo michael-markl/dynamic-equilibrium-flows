@@ -194,8 +194,8 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Schließlich erhält man eine niedrigste obere Schranke $x_r/y_r$ an $x$ in $F_{2^n}$.
  	Da eine Darstellung von $x$ selbst in $F_{2^n}$ existiert, muss $x_r/y_r$ also bereits mit $x$ übereinstimmen.
  	
- 	Es bleibt die Analyse der Laufzeit.
- 	Wie bereits argumentiert, werden $\bigO(\log M)$ Runden genutzt.
+ 	Es verbleibt die Analyse der Laufzeit.
+ 	Wie bereits argumentiert wurde, werden $\bigO(\log M)$ Runden genutzt.
  	Wird in einer Runde nur Fall~1 oder Fall~2 betrachtet, so werden nur konstant viele Vergleiche und Operationen benötigt.
  	Jedoch braucht eine einzelne Ausführung von Fall~3 aufgrund der binären Suche unter Umständen $\bigO(\log M)$ viele Vergleiche.
  	Hier hilft eine genauere Analyse der akkumulierten Anzahl von Vergleichen, die durch Fall~3 ausgelöst werden.
@@ -219,7 +219,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  \end{proof}
 
 \begin{theorem}\label{theorem-find-rational}
-	Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 2M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $8M$ bestimmt werden.
+	Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 8M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $8M$ bestimmt werden.
 \end{theorem}
 \begin{proof}
 	\newcommand{\lowx}{\lfloor x \rfloor}

@@ -43,7 +43,7 @@ Man kann sich die Kanten also als Transportbänder vorstellen, deren Breite die 
 Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
 
 \begin{definition}[Zulässiger dynamischer Fluss]
-	Ein dynamischer Fluss $f=(f^+, f^-)$ heißt \emph{zulässig}, falls er die folgenden Eigenschaften erfüllt:
+	Ein dynamischer Fluss $f$ heißt \emph{zulässig}, falls er die folgenden Eigenschaften erfüllt:
 	\begin{enumerate}[label=(F\arabic*)]
 		\item\label{def-feasible-flow-capacity} Keine Abflussrate übersteigt die Kapazität, d.h. $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
 		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$

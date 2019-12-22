@@ -1,4 +1,4 @@
-\chapter{Schmale Flüsse mit Zurücksetzen}\label{sec-thin-flows}
+\chapter{Schmale Flüsse mit Zurücksetzen}\label{chapter-thin-flows}
 \newcommand*{\PlH}{\makebox[1ex]{\textbf{$\cdot$}}}
 
 \section{Definition und Eigenschaften}
@@ -405,15 +405,18 @@ Dazu schränken wir uns wie bei der Berechnung auslastungsminimaler Flüsse zun�
 
 \newcommand{\probTFwR}{\textit{\textsc{(TFwR)}}}
 
-\begin{centering}
-	\begin{framed}
+\newcommand{\probTFwoR}{\textit{\textsc{(TFwoR)}}}
+
+\begin{center}
+	\begin{mdframed}
+		\centering
 		\emph{Thin Flow with Resetting \probTFwR} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
 			{\bfseries Output}: &Schmaler Fluss $f$ mit Zurücksetzen auf $E_1$
 		\end{tabular}
-	\end{framed}
-\end{centering}
+	\end{mdframed}
+\end{center}
 
 Die Existenz schmaler Flüsse mit Zurücksetzen aus Theorem~\ref{thm-existence-thin-flow} suggeriert bereits einen exponentiellen Algorithmus, um einen solchen Fluss mit Wert $d$ zu berechnen:
 Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen sollen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die $\max\{ l_v, f_{vw}/u_{vw}\} = \sigma_{vw} l_v + (1-\sigma_{vw}) f_{vw}/u_{vw}$ erfüllen soll.
@@ -469,16 +472,31 @@ In den folgenden Unterkapiteln soll diskutiert werden, ob es bessere Abschätzun
 
 \subsection{Berechnung schmaler Flüsse ohne Zurücksetzen}
 
-In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
+Man betrachte zunächst einen Spezialfall des Problems:
+Dabei soll es um die Bestimmung von schmalen Flüssen in Netzwerken ohne zurücksetzende Kanten gehen.
+Daraus entsteht die folgende Problemformulierung:
 
-\todo{Add problem}
+\begin{center}
+	\begin{mdframed}
+		\centering
+		\emph{Thin Flow without Resetting \probTFwoR} \\[1em]
+		\begin{tabular}{rl}
+			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1=\emptyset)$\\
+			{\bfseries Output}: &Schmaler Fluss $f$ ohne Zurücksetzen
+		\end{tabular}
+	\end{mdframed}
+\end{center}
+
+In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
+Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Flüssen erarbeitet:
+\todo{Add cite}
 
 \begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
 	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für  $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
 \begin{proof}
-	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
+	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, so ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
 	
 	Sei also $q>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
 	Nach Korollar~\ref{cor-thin-flows-max-node-label-equals-max-edge-label} genügt es zu
@@ -578,7 +596,7 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
 
 \begin{theorem}
-		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwR\ und berechnet einen schmalen Fluss ohne Zurücksetzen in einer Laufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$.
+		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwoR\ und berechnet einen schmalen Fluss ohne Zurücksetzen in einer Laufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$.
 \end{theorem}
 \begin{proof}
 	Für die Korrektheit des Algorithmus benutzt man Korollar~\ref{cor-thin-flow-alg-correct}:
@@ -599,7 +617,6 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Außerdem kann ein auslastungsminimaler $b$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
 	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
-
 
 \begin{example}
 		\begin{figure}
@@ -768,7 +785,6 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 
 \subsection{Berechnung schmaler Flüsse mit Zurücksetzen}
 
-\newcommand{\PPAD}{\textbf{PPAD}}
 \newcommand{\EndOfTheLine}{\textit{\textsc{EndOfTheLine}}}
 
 Nachdem im letzten Abschnitt herausgearbeitet wurde, dass schmale Flüsse ohne Zurücksetzen in polynomieller Zeit ermittelbar sind, wird in diesem Abschnitt die Problemstellung wieder allgemein mit zurücksetzenden Kanten betrachtet.
@@ -796,7 +812,8 @@ Eine Kante $(x,y)$ zwischen zwei Knoten $x,y \in V$ soll also genau dann existie
 Ein Knoten $x$ ist also eine Quelle oder eine Senke, wenn er entweder keinen Vorgänger oder keinen Nachfolger, d.h. wenn entweder $P(x)$ oder $S(x)$ gerade $\varepsilon$ ist.
 Mit diesen Grundlagen kann das Problem nun formalisiert werden:
 \begin{center}
-	\begin{framed}
+	\begin{mdframed}
+		\centering
 		\emph{\EndOfTheLine} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &Polynomiell berechenbare Funktionen $S,P: V\rightarrow V\cupdot \{ \varepsilon \}$ mit\\
@@ -804,10 +821,11 @@ Mit diesen Grundlagen kann das Problem nun formalisiert werden:
 			$P(0) = \varepsilon \neq S(0)$. \\
 			{\bfseries Output}: & Ein Knoten $x\neq 0$ mit $\{ P(x), S(x) \} \subsetneq \{ \varepsilon \}$.
 		\end{tabular}
-	\end{framed}
+	\end{mdframed}
 \end{center}
 
 Aufbauend auf diesem Problem formuliert man nun die Komplexitätsklasse~$\PPAD$:
+
 \begin{definition}
 	Die Komplexitätsklasse $\PPAD$ enthält alle Suchprobleme, die sich polynomiell auf~\EndOfTheLine\ reduzieren lassen.
 \end{definition}
@@ -818,9 +836,11 @@ Goldberg und Hollender zeigen in~\cite[Theorem 15]{hairyball}, dass auch die all
 Es stellt sich zudem heraus, dass die Klasse~$\PPAD$ schwache Approximationen von Fixpunkten, die durch verschiedene Fixpunktsätze bewiesen werden können, erlaubt.
 Der Brouwer'sche Fixpunktsatz besagt, dass jede stetige Funktion $f$ von einer nichtleeren, kompakten und konvexen Teilmenge des $R^n$ in sich selbst einen Fixpunkt $x$ mit $f(x) = x$ hat.
 Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig in \PPAD:
+
 \newcommand{\Brouwer}{\textsc{Brouwer}}
 \begin{center}
-	\begin{framed}
+	\begin{mdframed}
+		\centering
 		\emph{\Brouwer} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &Polynomiell berechenbare Funktion $F: [0,1]^m \rightarrow [0, 1]^m$,\\
@@ -828,7 +848,7 @@ Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig 
 			&für alle $x,y\in[0,1]^m$ sowie die Genauigkeit $\varepsilon$.\\
 			{\bfseries Output}: & Ein Punkt $x\in[0,1]^m$ mit $\norm{F(x) - x}_\infty \leq \varepsilon$.
 		\end{tabular}
-	\end{framed}
+	\end{mdframed}
 \end{center}
 
 Papadimitriou gibt in~\cite{PPAD1994} auch an, dass eine Version des Fixpunktsatzes von Kakutani ebenfalls in~\PPAD\ liegt.
@@ -943,13 +963,14 @@ Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anst
 
 \newcommand{\epsTFwR}{\textsc{$\varepsilon$-TFwR}}
 \begin{center}
-	\begin{framed}
+	\begin{mdframed}
+		\centering
 		\emph{\epsTFwR} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
 			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ mit $\norm{b' - b}_\infty \leq \varepsilon$
 		\end{tabular}
-	\end{framed}
+	\end{mdframed}
 \end{center}
 
 Ist für das Problem~\Brouwer\ als Eingabe auch eine Funktion erlaubt, die auf einem Polytop in Normalform definiert ist, so erhält man bei Eingabe der Funktion $\Phi$ und Genauigkeit $\varepsilon/\abs{E_1}$ einen Vektor $f\in\Sigma$ mit $\norm{\Phi(f) - f}_\infty \leq \varepsilon / \abs{E_1}$.
@@ -961,6 +982,6 @@ Insbesondere gilt also:
 \]
 
 Ob das Problem~\Brouwer\ dahingehend verallgemeinert werden kann, dass als Definitionsbereich ein allgemeines Polytop in Normalform verwendet werden kann, bleibt an dieser Stelle jedoch offen.
-Da wir außerdem schon gesehen haben, dass bei Eingabe einer rationalen \problemThinFlow\ Instanz eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch \probTFwR\ in \PPAD\ liegt.
+Da wir außerdem schon gesehen haben, dass bei Eingabe einer rationalen \problemThinFlow\ Instanz eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch die exakte Version \probTFwR\ in \PPAD\ liegt.
 Beides könnte durch eine Anpassung der Triangulation, die bei der Reduktion von~\Brouwer\ auf eine Version des Lemma von Sperner -- welche selbst vollständig in $\PPAD$ liegt -- gebildet wird, erreicht werden.
 Dabei könnten außerdem die Erkenntnisse aus Abschnitt~\ref{sec-rational-search}, der Einblicke in die exakte Suche rationaler Zahlen gibt, hilfreich sein.
