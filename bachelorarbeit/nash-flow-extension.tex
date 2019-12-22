@@ -22,8 +22,12 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohn
 	Dann ist die normierte Auslastung jedes $s$-$v$-Pfads $P$ in $\mathcal{N}$ gerade die Auslastung des $s'$-$v$-Pfads $P'$ in $\mathcal{N}'$, der vor dem Pfad $P$ noch die Kante $(s', s)$ benutzt.
 	Insbesondere ist $f$ genau dann ein normierte schmaler Fluss in $\mathcal{N}$, wenn $f'$ ein schmaler Fluss in $\mathcal{N'}$ ist.
 \end{proposition}
+\begin{proof}
+	Die Kante $(s', s)$ hat für jeden $b'$-Fluss Auslastung $1$.
+	Daher ist die normierte Auslastung eines $s$-$v$-Pfades gerade die  Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad.
+\end{proof}
 
-Daher können normierte schmale Flüsse durch die Bestimmung eines nicht-normier\-ten schmalen Flusses ermittelt werden.
+Dadurch können normierte schmale Flüsse durch die Bestimmung nicht-normier\-ter schmalen Flusses ermittelt werden.
 Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Verän\-derung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source} -- also $l_s = 0$ -- jetzt $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen normierten schmalen Fluss mit Zurücksetzen induziert.
@@ -44,7 +48,7 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 	\[
 	x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)
 	\]
-	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurücksetzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ von Wert $d(\theta)$.
+	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurück\-setzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ von Wert $d(\theta)$.
 	Dabei sind die Ableitungen $(l_v'(\theta))_{v\in V}$ die normierten Knotenauslastungen.
 \end{theorem}
 \todo{Beweis nochmal durchgehen}

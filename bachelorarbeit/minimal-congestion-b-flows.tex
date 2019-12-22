@@ -246,7 +246,6 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 \end{proof}
 
 \todo{Zshgraphen azyklisch}
-\todo{Kanten parallel ok, aber oft als $vw$ bezeichnet}
 
 Dieses Lemma zeigt, dass jeder auslastungsminimale $b$-Fluss auf Kanten zwischen den Zusammenhangskomponenten identisch ist.
 In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man die Zusammenhangskomponenten des Residualgraphs des Flusses $x$ aus Beispiel~\ref{example-min-con-flow}.
@@ -263,7 +262,7 @@ Der entsprechende Zusammenhangsgraph ist dann
 \end{center}
 und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hingegen sind die Kanten $(a,b)$ und $(h,f)$, die durch $x$ auch von Wert $4$ ausgelastet werden, nicht notwendigerweise Flaschenhalskanten: So kann man die Zyklen $(a,b,e,a)$ und $(f,h,i,f)$ augmentieren, um die Auslastung auf den beiden Kanten zu verringern.
 
-Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitätskriterium formuliert werden:
+Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-kriterium formuliert werden:
 
 \begin{theorem}\label{thm-optimal-criterion-min-con-flow}
 	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphs $G_f$ verläuft.
@@ -408,7 +407,7 @@ Dazu betrachtet man ebenfalls den Residualgraph, allerdings mit einem kleinen Un
 Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $\sum_{e\in C} c_e < 0$ (\todo{Add cite}).
 
 Eine Herangehensweise für das Finden eines kostenminimalen Flusses ist es, ausgehend von einem beliebigen $b$-Fluss iterativ Zyklen im Residualgraph durch Augmentieren zu entfernen.
-Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} mit einem kostenminimalen $b$-Fluss nach $\bigO(nm^2\log n)$ Iterationen mit einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Theoreme~3.9, 3.10]{Goldberg1989}).
+Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} nach $\bigO(nm^2\log n)$ Iterationen mit einem kostenminimalen $b$-Fluss bei einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Theoreme~3.9, 3.10]{Goldberg1989}).
 Verfolgt man den gleichen Ansatz für die Berechnung eines auslastungsminimalen Flusses, erhält man den Algorithmus~\ref{algorithm-cycle-cancelling}.
 \begin{algorithm}
 	\caption{Cycle-Cancelling-Algorithmus}
@@ -509,7 +508,7 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 
 Die Laufzeit eines Programms $\mathcal{A}$ bei Eingabe einer Instanz $\mathcal{I}$ einer Problemklasse $\Pi$ ist dann die Summe der Zeitaufwände der einzelnen Instruktionen, die während der Ausführung des Programms bei Eingabe $\mathcal{I}$ durchlaufen werden.
 
-\include{bachelorarbeit/efficient-search-rationals}
+\input{bachelorarbeit/efficient-search-rationals}
 
 \subsection{Berechnung mittels LP-Formulierung}
 

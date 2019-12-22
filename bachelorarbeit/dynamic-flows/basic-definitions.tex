@@ -1,24 +1,41 @@
 
 \section{Grundlegende Definitionen}
 
-Zunächst werden einige grundlegende Begriffe eingeführt:
+Zunächst werden einige grundlegende Begriffe eingeführt.
+In der gesamten Arbeit werden grundsätzlich nur gerichtete Graphen mit endlicher Knoten- und Kantenmenge betrachtet.
+Dabei bezeichne $\tail(e)$ den Start- und $\head(e)$ den Zielknoten einer Kante $e$.
+Außerdem sind parallele Kanten zwischen Knoten stets erlaubt, obwohl häufig die vereinfachte Schreibweise $vw:=(v,w):=e$ mit $v=\tail(e)$ und $w=\head(e)$ benutzt wird.
 
-\begin{definition}[Netzwerk]
-	Ein \emph{Netzwerk} $(V, E, u, s, t, \tau)$ ist ein gerichteter, endlicher Graph $(V,E)$ mit Ursprung $s\in V$, also ein Graph in dem $s$ alle Knoten in $V$ erreicht.
-	Dabei heißen $s$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
-	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\sum_{e\in C}\tau_e$ haben.
+Für eine Menge $X$ an Knoten bezeichne $\delta^+(X):= \{ e\in E \mid \tail(e) \in X \notni \head(e) \}$ die Menge der ausgehenden Kanten von~$X$ und analog bezeichne $\delta^-(X)$ die Menge der eingehenden Kanten in~$X$.
+Ist der zugehörige Graph unklar, so schreibt man $\delta^+_M(X)$ bzw. $\delta^-_M(x)$ für ein Netzwerk, Graph oder eine Kantenmenge $M$.
+Für die ausgehenden oder eingehenden Kanten eines einzelnen Knotens schreibt man verkürzend $\delta^+(v)$ bzw. $\delta^-(v)$.
+
+Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ eine Knotenbewertung, so schreibt man meist $f_e$ statt $f(e)$ und $b_v$ statt $b(v)$ und für Teilmengen $E'\subseteq E$ und $V'\subseteq V$ abkürzend
+\[ 
+	f(E'):= \sum_{e \in E'} f_e \text{~~~ und ~~~} b(V'):=\sum_{v\in V'} b_v.
+\]
+
+\begin{definition}[Dynamisches Netzwerk]
+	Ein \emph{Netzwerk} $(V, E, u, s, t, \tau)$ ist ein gerichteter Graph $(V,E)$, in dem $s$ alle Knoten in $V$ erreicht.
+	Dabei heißen $s\in V$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
+	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
 \end{definition}
-
-\begin{definition}[statischer Fluss]
+\todo{colonequals verwenden}
+\begin{definition}[Statischer Fluss]
 	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
-	Existieren zwei Knoten $s,t\in V$, sodass
-	$$ \sum_{e\in\delta^+(v)} f_e - \sum_{e\in\delta^-(v)} f_e$$ für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f):=\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
+	Sein \emph{Balancevektor $b\in \R^V$} ist gegeben durch
+	\[ b_v := f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
+	Man nennt $f$ auch einen \emph{$b$-Fluss}.
+	Gibt es zwei Knoten $s$ und $t$, sodass $b_v$
+	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f):=\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
 \end{definition}
 
-Man bemerke, dass hier ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
+Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
+
+
 
 \begin{definition}
-	Der Funktionenraum $\mathfrak{F}_0$ sei die Menge aller Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind, also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ erfüllen, und auf der negativen Achse verschwinden, das heißt, es gilt $g(t)=0$ für $t<0$.
+	Der Raum $\mathfrak{F}_0$ sei die Menge der Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind und auf der negativen Achse verschwinden, die also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ und $g(t)=0$ für $t<0$ erfüllen.
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
@@ -33,13 +50,9 @@ Man bemerke, dass hier ein statischer Fluss keine Kapazitätsbedingung erfüllen
 \end{definition}
 
 Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, die an einer Kante $e$ ankommen, verhalten sollen:
-Nachdem sie zur Zeit $\theta$ die Kante betreten haben, müssen sie sich zunächst in eine Warteschlange einreihen, welche mit der Kapazität $u_e$ nach dem FIFO-Prinzip abgebaut wird.
+Nachdem sie zur Zeit $\theta$ die Kante betreten haben, müssen sie sich zunächst in eine Warteschlange einreihen, welche mit der Kapazität $u_e$ nach dem FIFO-Prinzip (First-In-First-Out-Prinzip) abgebaut wird.
 Nachdem diese Wartezeit $q_e(\theta)$ vorüber ist, vergeht eine weitere konstante Verzögerungszeit $\tau_e$, bevor sie wieder aus der Kante austreten.
 Des Weiteren müssen sich die Partikel bereits sofort bei der Ankunft an einem Knoten entscheiden, in welche Kante sie eintreten wollen, und können nicht an einem Knoten verweilen.
-
-Man kann sich die Kanten also als Transportbänder vorstellen, deren Breite die Transportkapazität bestimmt und deren Länge die Verzögerungszeit darstellt.
-Über\-schreiten die Güter die Kapazität, so bildet sich eine Warteschlange vor dem Band.
-
 Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
 
 \begin{definition}[Zulässiger dynamischer Fluss]

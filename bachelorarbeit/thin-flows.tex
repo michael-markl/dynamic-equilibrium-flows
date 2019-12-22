@@ -9,11 +9,11 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 	Ein \emph{$s$-Netzwerk} ist ein azyklisches Netzwerk $(V, E, u)$, in dem alle Knoten von $s$ aus erreicht werden können.
 	Ist ein Balancevektor $b\in\R^V$ gegeben, so erfüllt er $b_v\leq 0$ für alle $v\in V\setminus \{ s \}$.
 	
-\todo{	Stattet man ein $s$-Netzwerk mit \emph{zurücksetzenden Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.}
+    Stattet man ein $s$-Netzwerk mit einer Menge \emph{zurücksetzender Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.
 \end{definition}
 
 \begin{definition}[Auslastung]
-	Sei ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurücksetzen auf $E_1$ gegeben.
+	Sei ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurück\-setzen auf $E_1$ gegeben.
 	Dann bezeichnet $f_e/u_e$ die \emph{Auslastung einer Kante $e$ durch $f$}.
 	Die \emph{Auslastungsübertragung einer Kante $vw$} ist gegeben durch \[ \rho_{vw}(l_v, f_{vw}) := \begin{cases}
 		\max\{ l_v, f_{vw} / u_{vw} \}, & \text{falls $vw\notin E_1$,}\\
@@ -488,8 +488,8 @@ Daraus entsteht die folgende Problemformulierung:
 \end{center}
 
 In diesem Abschnitt wird ein polynomieller Algorithmus zur Berechnung von schmalen Flüssen ohne Zurücksetzen vorgestellt.
+Dieser wurde~\cite{Koch2012} entnommen.
 Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Flüssen erarbeitet:
-\todo{Add cite}
 
 \begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
@@ -516,7 +516,7 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 \] definiert ist.
 \end{definition}
 
-Man bemerke, dass $b[X]_v \leq b_v$ für $v\in X$ erfüllt und $b[X]$ ein zulässiger Balancevektor ist: \[
+Man bemerke, dass $X$ die Ungleichung $b[X] \leq b$  komponentenweise erfüllt und $b[X]$ ein zulässiger Balancevektor ist: \[
 	\sum_{v\in X} b[X]_v = b(X) - u(\delta^+_E(X)) q = 0
 \]
 
@@ -617,6 +617,8 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Außerdem kann ein auslastungsminimaler $b$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
 	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
+
+Die Funktionsweise des Algorithmus' soll durch das folgende Beispiel illustriert werden:
 
 \begin{example}
 		\begin{figure}
@@ -785,7 +787,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 
 \subsection{Berechnung schmaler Flüsse mit Zurücksetzen}
 
-\newcommand{\EndOfTheLine}{\textit{\textsc{EndOfTheLine}}}
+\newcommand{\EndOfTheLine}{\textit{\textsc{EndOfALine}}}
 
 Nachdem im letzten Abschnitt herausgearbeitet wurde, dass schmale Flüsse ohne Zurücksetzen in polynomieller Zeit ermittelbar sind, wird in diesem Abschnitt die Problemstellung wieder allgemein mit zurücksetzenden Kanten betrachtet.
 In Theorem~\ref{thm-existence-thin-flow} wurde bereits die Existenz solcher Flüsse gezeigt.
@@ -818,7 +820,8 @@ Mit diesen Grundlagen kann das Problem nun formalisiert werden:
 		\begin{tabular}{rl}
 			{\bfseries Input}: &Polynomiell berechenbare Funktionen $S,P: V\rightarrow V\cupdot \{ \varepsilon \}$ mit\\
 			& $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ und
-			$P(0) = \varepsilon \neq S(0)$. \\
+			$P(0) = \varepsilon \neq S(0)$ sowie \\
+			& eine Zahl $n\in\N$ mit $V = \{ 0, 1 \}^n$.\\
 			{\bfseries Output}: & Ein Knoten $x\neq 0$ mit $\{ P(x), S(x) \} \subsetneq \{ \varepsilon \}$.
 		\end{tabular}
 	\end{mdframed}
@@ -838,6 +841,7 @@ Der Brouwer'sche Fixpunktsatz besagt, dass jede stetige Funktion $f$ von einer n
 Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig in \PPAD:
 
 \newcommand{\Brouwer}{\textsc{Brouwer}}
+
 \begin{center}
 	\begin{mdframed}
 		\centering
@@ -861,9 +865,9 @@ Daher wird dies als Vermutung festgehalten:
 	Das Problem~\probTFwR\ der Berechnung eines schmalen Flusses mit Zurücksetzen liegt in~\PPAD.
 \end{conjecture}
 
-Nichtsdestotrotz wird im weiteren Verlauf dieses Abschnitts der Zusammenhang zwischen schmalen Flüssen mit Zurücksetzen und schmalen Flüssen ohne Zurücksetzen erarbeitet, um einen Kandidaten für die Anwendung des Brouwerschen Suchproblems zu finden.
+Nichtsdestotrotz wird im weiteren Verlauf dieses Abschnitts der Zusammenhang zwischen schmalen Flüssen mit Zurück\-setzen und schmalen Flüssen ohne Zurück\-setzen erarbeitet, um einen Kandidaten für die Anwendung des Brouwerschen Suchproblems zu finden.
 \todo{Add cite to }
-Dazu wird mit der Transformierung eines Netzwerks mit zurücksetzenden Kanten zu seinem verankerten Netzwerk ohne zurücksetzende Kanten begonnen:
+Dazu wird mit der Transformierung eines Netzwerks mit zurück\-setzenden Kanten zu seinem verankerten Netzwerk ohne zurücksetzende Kanten begonnen:
 
 \begin{definition}[Verankertes Netzwerk]
 	Sei ein $s$-Netzwerk $\mathcal{N}$ mit Zurücksetzen auf $E_1$ gegeben.
