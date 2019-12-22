@@ -4,15 +4,15 @@
 Zunächst werden einige grundlegende Begriffe eingeführt.
 In der gesamten Arbeit werden grundsätzlich nur gerichtete Graphen mit endlicher Knoten- und Kantenmenge betrachtet.
 Dabei bezeichne $\tail(e)$ den Start- und $\head(e)$ den Zielknoten einer Kante $e$.
-Außerdem sind parallele Kanten zwischen Knoten stets erlaubt, obwohl häufig die vereinfachte Schreibweise $vw:=(v,w):=e$ mit $v=\tail(e)$ und $w=\head(e)$ benutzt wird.
+Außerdem sind parallele Kanten zwischen Knoten stets erlaubt, obwohl häufig die vereinfachte Schreibweise $vw\coloneq (v,w)\coloneq e$ mit $v=\tail(e)$ und $w=\head(e)$ benutzt wird.
 
-Für eine Menge $X$ an Knoten bezeichne $\delta^+(X):= \{ e\in E \mid \tail(e) \in X \notni \head(e) \}$ die Menge der ausgehenden Kanten von~$X$ und analog bezeichne $\delta^-(X)$ die Menge der eingehenden Kanten in~$X$.
+Für eine Menge $X$ an Knoten bezeichne $\delta^+(X)\coloneq \{ e\in E \mid \tail(e) \in X \notni \head(e) \}$ die Menge der ausgehenden Kanten von~$X$ und analog bezeichne $\delta^-(X)$ die Menge der eingehenden Kanten in~$X$.
 Ist der zugehörige Graph unklar, so schreibt man $\delta^+_M(X)$ bzw. $\delta^-_M(x)$ für ein Netzwerk, Graph oder eine Kantenmenge $M$.
 Für die ausgehenden oder eingehenden Kanten eines einzelnen Knotens schreibt man verkürzend $\delta^+(v)$ bzw. $\delta^-(v)$.
 
 Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ eine Knotenbewertung, so schreibt man meist $f_e$ statt $f(e)$ und $b_v$ statt $b(v)$ und für Teilmengen $E'\subseteq E$ und $V'\subseteq V$ abkürzend
 \[ 
-	f(E'):= \sum_{e \in E'} f_e \text{~~~ und ~~~} b(V'):=\sum_{v\in V'} b_v.
+	f(E')\coloneq \sum_{e \in E'} f_e \text{~~~ und ~~~} b(V')\coloneq\sum_{v\in V'} b_v.
 \]
 
 \begin{definition}[Dynamisches Netzwerk]
@@ -24,10 +24,10 @@ Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ 
 \begin{definition}[Statischer Fluss]
 	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
 	Sein \emph{Balancevektor $b\in \R^V$} ist gegeben durch
-	\[ b_v := f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
+	\[ b_v \coloneq f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
 	Man nennt $f$ auch einen \emph{$b$-Fluss}.
 	Gibt es zwei Knoten $s$ und $t$, sodass $b_v$
-	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f):=\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
+	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f)\coloneq\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
 \end{definition}
 
 Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
@@ -42,11 +42,11 @@ Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss
 	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
 	Dabei bezeichnen $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$}.
 	
-	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta):=\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta):=\int_0^\theta f^-_e(t) \diff t<\infty$.
+	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta)\coloneq\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta)\coloneq\int_0^\theta f^-_e(t) \diff t<\infty$.
 	
-	Die \emph{(Länge der) Warteschlange $z_e(\theta)$ und die Wartezeit $q_e(\theta)$ an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$} seien gegeben durch $z_e(\theta):= F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und $q_e(\theta) := z_e(\theta) / u_e$.
+	Die \emph{(Länge der) Warteschlange $z_e(\theta)$ und die Wartezeit $q_e(\theta)$ an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$} seien gegeben durch $z_e(\theta)\coloneq F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und $q_e(\theta) \coloneq z_e(\theta) / u_e$.
 	
-	Man beschreibe die \emph{Austrittszeit $T_e(\theta)$ aus einer Kante $e\in E$ bei Eintrittszeit $\theta$}, zu der ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta):=\theta + q_e(\theta) + \tau_e$.
+	Man beschreibe die \emph{Austrittszeit $T_e(\theta)$ aus einer Kante $e\in E$ bei Eintrittszeit $\theta$}, zu der ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta)\coloneq\theta + q_e(\theta) + \tau_e$.
 \end{definition}
 
 Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, die an einer Kante $e$ ankommen, verhalten sollen:

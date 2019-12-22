@@ -3,11 +3,11 @@
 In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten eingeführt und erörtert, wann eine Kante $vw$ in einem kürzesten $s$-$w$-Pfad liegt.
 
 \begin{definition}
-	Für einen dynamischen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta):=T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
+	Für einen dynamischen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta)\coloneq T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
 	
 	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
-	Dann ist die früheste Ankunft eines Partikels, das zur Zeit $\theta$ bei $s$ startet, gegeben durch $l_w(\theta):=\min_{P\in\mathcal{P}_w}l^P(\theta)$.
-	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zur Zeit $\theta$}, falls $l_w(\theta)=l^P(\theta)$.
+	Dann ist die früheste Ankunft eines Partikels, das zur Zeit $\theta$ bei $s$ startet, gegeben durch $l_w(\theta)\coloneq \min_{P\in\mathcal{P}_w}l^P(\theta)$.
+	Ein Pfad $P\in \mathcal{P}_w$ heißt \emph{kürzester $s$-$w$-Pfad zur Zeit $\theta$}, falls er $l_w(\theta)=l^P(\theta)$ erfüllt.
 \end{definition}
 
 \begin{proposition}\label{prop-abs-cont-sur}
@@ -44,7 +44,7 @@ Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksung
 Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzeste Pfade sind; im dynamischen Sinne gilt dies nicht unbedingt, jedoch aber in folgendem Teilgraph:
 
 \begin{lemma}\label{lemma-shortest-path-using-active-edges}
-	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta:=(V, E_\theta)$ zu jeder Zeit ein azyklischer Graph, in dem $s$ jeden Knoten $v\in V$ erreichen kann.
+	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta\coloneq (V, E_\theta)$ zu jeder Zeit ein azyklischer Graph, in dem $s$ jeden Knoten $v\in V$ erreichen kann.
 \end{lemma}
 \begin{proof}
 	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
@@ -66,7 +66,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	Offenbar löst $(l_v(\theta))_{v\in V}$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
 	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
 	Dabei ist der Teilgraph $G'=(V, E')$ mit
-	\[ E' := \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
+	\[ E' \coloneq  \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
 	ein azyklischer Graph, in dem $s$ jeden Knoten $w\in V$ erreichen kann:
 	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
 	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch einen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
@@ -74,5 +74,5 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 \end{proof}
 
 Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Bellman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
-Dazu wird in jeder der $n-1$ Iterationen für jede Kante das punktweise Minimum $l_w := \min\{ l_w, T_{vw}\circ l_v \}$ gebildet.
+Dazu wird in jeder der $n-1$ Iterationen für jede Kante das punktweise Minimum $l_w \coloneq  \min\{ l_w, T_{vw}\circ l_v \}$ gebildet.
 Sind Operationen auf Funktionen nicht möglich oder zu teuer, so kann $(l_v(\theta))_{v\in V}$ für ein spezielles $\theta\in\R$ mittels Dijkstra-Algorithmus ermittelt werden, wobei man die Kosten einer Kante $vw$ erst bei Scanning von $v$ in der Form $q_{vw}(l_v(\theta)) + \tau_{vw}$ berechnet.

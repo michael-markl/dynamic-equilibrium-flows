@@ -16,7 +16,7 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohn
 
 \begin{proposition}
 	Es sei ein $b$-Fluss $f$ in einem $s$-Netzwerk $\mathcal{N}$ gegeben.
-	Man erhalte das Netzwerk $\mathcal{N}'$ aus $\mathcal{N}$, indem man einen zusätzlichen Knoten $s'$ mit Balance $b'_{s'} := b_s$ zusammen mit einer Kante $(s, s')$ mit Kapazität $b_s$ hinzufügt und Angebot von $s$ mit $b'_s = 0$ entfernt.
+	Man erhalte das Netzwerk $\mathcal{N}'$ aus $\mathcal{N}$, indem man einen zusätzlichen Knoten $s'$ mit Balance $b'_{s'} \coloneq b_s$ zusammen mit einer Kante $(s, s')$ mit Kapazität $b_s$ hinzufügt und Angebot von $s$ mit $b'_s = 0$ entfernt.
 	Ergänzt man $f$ durch den Flusswert $b_s$ auf der Kante $(s', s)$, so erhält man den $b'$-Fluss $f'$.
 	
 	Dann ist die normierte Auslastung jedes $s$-$v$-Pfads $P$ in $\mathcal{N}$ gerade die Auslastung des $s'$-$v$-Pfads $P'$ in $\mathcal{N}'$, der vor dem Pfad $P$ noch die Kante $(s', s)$ benutzt.
@@ -24,7 +24,7 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohn
 \end{proposition}
 \begin{proof}
 	Die Kante $(s', s)$ hat für jeden $b'$-Fluss Auslastung $1$.
-	Daher ist die normierte Auslastung eines $s$-$v$-Pfades gerade die  Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad.
+	Daher ist die normierte Auslastung eines $s$-$v$-Pfades gerade die Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad.
 \end{proof}
 
 Dadurch können normierte schmale Flüsse durch die Bestimmung nicht-normier\-ter schmalen Flusses ermittelt werden.
@@ -48,7 +48,7 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 	\[
 	x_{vw}'(\theta) = f_{vw}^+(l_v(\theta)) l_v'(\theta)= f_{vw}^-(l_w(\theta))l_w'(\theta)
 	\]
-	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurück\-setzen auf den Kanten mit Warteschlange $E_1:=\{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ von Wert $d(\theta)$.
+	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurück\-setzen auf den Kanten mit Warteschlange $E_1\coloneq \{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ von Wert $d(\theta)$.
 	Dabei sind die Ableitungen $(l_v'(\theta))_{v\in V}$ die normierten Knotenauslastungen.
 \end{theorem}
 \todo{Beweis nochmal durchgehen}
@@ -56,13 +56,13 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 	Man bemerke zunächst $l_s'(\theta) = 1$.
 	Da außerdem der Einfluss in das Netzwerk 
 	\[
-	d(\theta)=  \sum_{e\in \delta^+(s)} f_e^+(\theta) - \sum_{e\in\delta^-(s)} f_e^-(\theta) = \sum_{e\in \delta^+(s)} x_e'(\theta) - \sum_{e\in\delta^-(s)} x_e'(\theta)
+	d(\theta)= \sum_{e\in \delta^+(s)} f_e^+(\theta) - \sum_{e\in\delta^-(s)} f_e^-(\theta) = \sum_{e\in \delta^+(s)} x_e'(\theta) - \sum_{e\in\delta^-(s)} x_e'(\theta)
 	\]
 	erfüllt, ist $x'(\theta)$ ein $d(\theta)$-wertiger Fluss, weil $x_e'(\theta)$ nach Lemma~\ref{lemma-x-locally-constant} für inaktive Kanten $e$ verschwindet. Es bleibt also die Bedingungen~\ref{def-thin-flow-x-zero}-\ref{def-thin-flow-no-resetting-edge} zu zeigen.
 	
 	Um Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen,
 	nehme man an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
-	Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n := \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
+	Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n \coloneq \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
 	Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
 	\[
 	l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{k\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).
@@ -83,21 +83,21 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $x_{vw}'(\theta)=0$ voraus, wodurch $l_w'(\theta)=0$ folgt und mit der Monotonie von $l_v$ gilt $0 \leq l_v'(\theta)$.
 		
 		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
-		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon  \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
+		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: (\theta, \theta + \varepsilon] \subseteq \Theta_{vw}^c$.
 		
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} gilt bereits $vw\notin E_1$ und nach Lemma~\ref{lemma-x-locally-constant} ist $x_{vw}'(\theta) = 0$. 
 		Es muss also nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
 		Wegen $\theta\in\Theta_{vw}$ gilt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta + \varepsilon) - l_v(\theta)$.
-		Teilt man diese Ungleichung  durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
+		Teilt man diese Ungleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
 		
 		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{vw}(l_v(\theta_\varepsilon)) = l_w(\theta_\varepsilon)$.
 		
 		Dies ist die exakte Umkehrung der Bedingung von Fall 2.
 		Zusätzlich betrachte man diesen Fall nur, falls Fall 1 nicht eintritt.
 		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{vw}(l_v(\theta')) = 0$; insbesondere ist $vw$ nicht in $E_1$ enthalten.
-		Man wähle $\theta'_\varepsilon:=\max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{vw}(l_v(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte, welches aufgrund der Stetigkeit von $q_{vw}\circ l_u$ existiert.
+		Man wähle $\theta'_\varepsilon\coloneq \max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{vw}(l_v(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte, welches aufgrund der Stetigkeit von $q_{vw}\circ l_u$ existiert.
 		Nach Konstruktion ist $q_{vw}\circ l_v$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $vw$ in diesem Intervall aktiv.
 		Nun impliziert $\theta_\varepsilon'\in \Theta_{vw}$ gerade $\theta_\varepsilon\in\Theta_{vw}$, da $\Theta_{vw}$ ab\-ge\-schlossen ist.
 		Daher folgt aus $l_w(\theta_\varepsilon') - l_w(\theta) = l_v(\theta_\varepsilon') - l_v(\theta)$ 		Bedingung~\ref{def-thin-flow-x-zero}, indem man durch $\theta_\varepsilon'-\theta$ teilt und $l_w'(\theta) = l_v'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
@@ -127,11 +127,11 @@ Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizon
 \end{proof}
 
 \begin{definition}[$\alpha$-Erweiterung]
-	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf den Kanten mit Warteschlange $E_1 := \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ der aktiven Kanten und ein $\alpha \geq 0$ gegeben.
+	Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf den Kanten mit Warteschlange $E_1 \coloneq \{ vw\in E \mid q_{vw}(l_v(T)) > 0 \} $ und Knotenbewertung $l'$ im Graphen $G_T$ der aktiven Kanten und ein $\alpha \geq 0$ gegeben.
 	
 	Ergänzt man die Werte aus $f$, sodass für alle zur Zeit $T$ aktiven Kanten $vw\in E_T$
 	\begin{align*}
-	&\tilde{f}_{vw}^+(\theta):= \frac{x_{vw}'}{l_v'} \text{~~~ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \\ &\tilde{f}_{vw}^-(\theta):=\frac{x_{vw}'}{l_w'} \text{~~~ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$}
+	&\tilde{f}_{vw}^+(\theta)\coloneq \frac{x_{vw}'}{l_v'} \text{~~~ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \\ &\tilde{f}_{vw}^-(\theta)\coloneq \frac{x_{vw}'}{l_w'} \text{~~~ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$}
 	\end{align*}
 	gelten, so erhält man eine \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$ mit $x'$}.
 	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade dem Wert von $x'$.
@@ -215,7 +215,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'.
 		\]
 		Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
-		Ist  hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
+		Ist hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
 		\[
 		0<\tilde{F}^+_{vw}(\theta) - \tilde{F}_{vw}^-(\theta +\tau_{vw}) = \alpha x_{vw}' - \min \{ \alpha l_w', \theta + \tau_{vw} - l_w(T) \} x_{vw}' / l_w'.
 		\]
@@ -223,7 +223,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}.
 		\]
 		Nun betrachte man Kanten $vw$, die zum Zeitpunkt $l_v(T)$ keine Warteschlange haben.
-		Nach~\ref{def-thin-flow-x-positive} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw}  \}$.
+		Nach~\ref{def-thin-flow-x-positive} gilt hier $l_w' = \max \{ l_v', x_{vw}' / u_{vw} \}$.
 		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so ist $\theta+\tau_{vw}$ in $[l_w(T), l_w(T) + \alpha l_w']$ enthalten und es gilt
 		\[
 		0<\tilde{F}_{vw}^+(\theta) - \tilde{F}_{vw}^-(\theta + \tau_{vw})= \gamma x_{vw}' - \gamma l_v' x_{vw}'/l_w'.
@@ -262,7 +262,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		da zusätzlich $(\theta-T) l_v' \leq \alpha (l_v' - l_w') \leq q_{vw}(l_v(T))$ gilt.
 		Damit folgt
 		\begin{align*}
-		\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') &= l_w(T) + (\theta - T) l_v'  + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) \\
+		\tilde{T}_{vw}(l_v(T) + (\theta - T)l_v') &= l_w(T) + (\theta - T) l_v' + \tilde{q}_{vw}(l_v(T) + (\theta - T)l_v')- q_{vw}(l_v(T)) \\
 		&= l_w(T) + (\theta - T) l_w'.
 		\end{align*}
 		Zuletzt betrachte man aktive Kanten $vw\notin E_1$ mit $x_{vw}' = 0$.
@@ -348,8 +348,8 @@ Unter Benutzung des Lemmas von Zorn kann man jedoch die Existenz von dynamischen
 	Sei nun eine aufsteigende Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ gegeben.
 	Man bemerke, dass für $i\leq j$ die frühesten Ankunftszeiten der Flüsse $f^i$ und $f^j$ auf $(-\infty, T^i)$ übereinstimmen.
 	
-	Man definiere nun $T^* := \lim_{i\in\N} T^i$ sowie die Ankunftszeit $l_v(\theta)$ an einem Knoten $v$ zur Zeit $\theta\in(-\infty, T^*)$, die von einem Fluss $f^i$ der Kette mit $T^i \geq \theta$ angenommen wird.
-	Sei außerdem $l_v(T^*) := \lim_{i\in\N} l_v(T^i)$.
+	Man definiere nun $T^* \coloneq \lim_{i\in\N} T^i$ sowie die Ankunftszeit $l_v(\theta)$ an einem Knoten $v$ zur Zeit $\theta\in(-\infty, T^*)$, die von einem Fluss $f^i$ der Kette mit $T^i \geq \theta$ angenommen wird.
+	Sei außerdem $l_v(T^*) \coloneq \lim_{i\in\N} l_v(T^i)$.
 	Definiert man nun $f$ als den Fluss, dessen Zuflussrate $f_{vw}^+$ für $\theta<l_v(T^*)$ den Wert von $f^{i+}_{vw}(\theta)$ eines $i\in\N$ mit $l_v(T^i) > l_v(\theta)$ hat und für $\theta \geq l_v(T^*)$ den Wert $0$ hat, sowie dessen Abflussrate $f_{vw}^-$ für $\theta<l_w(T^*)$ den Wert von $f^{i-}_{vw}(\theta)$ eines $i\in\N$ mit $l_w(T^i) > l_w(\theta)$ hat und für $\theta \geq l_w(T^*)$ den Wert $0$ hat.
 	Dann ist $f$ nicht nur ein zulässiger Fluss, sondern sogar ein dynamischer Nash-Fluss mit Zeithorizont $T^*$.
 	Somit folgt, dass $(f, T^*)$ eine obere Schranke der Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ ist.

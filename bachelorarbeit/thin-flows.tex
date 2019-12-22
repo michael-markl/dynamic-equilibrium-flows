@@ -9,13 +9,13 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
 	Ein \emph{$s$-Netzwerk} ist ein azyklisches Netzwerk $(V, E, u)$, in dem alle Knoten von $s$ aus erreicht werden können.
 	Ist ein Balancevektor $b\in\R^V$ gegeben, so erfüllt er $b_v\leq 0$ für alle $v\in V\setminus \{ s \}$.
 	
-    Stattet man ein $s$-Netzwerk mit einer Menge \emph{zurücksetzender Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.
+ Stattet man ein $s$-Netzwerk mit einer Menge \emph{zurücksetzender Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.
 \end{definition}
 
 \begin{definition}[Auslastung]
 	Sei ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurück\-setzen auf $E_1$ gegeben.
 	Dann bezeichnet $f_e/u_e$ die \emph{Auslastung einer Kante $e$ durch $f$}.
-	Die \emph{Auslastungsübertragung einer Kante $vw$} ist gegeben durch \[ \rho_{vw}(l_v, f_{vw}) := \begin{cases}
+	Die \emph{Auslastungsübertragung einer Kante $vw$} ist gegeben durch \[ \rho_{vw}(l_v, f_{vw}) \coloneq \begin{cases}
 		\max\{ l_v, f_{vw} / u_{vw} \}, & \text{falls $vw\notin E_1$,}\\
 		f_{vw} / u_{vw}, & \text{falls $vw\in E_1$.}
 	\end{cases}
@@ -41,7 +41,7 @@ Daher nennt man die Kanten in $E_1$ die zurücksetzenden Kanten, da sie die Ausl
 	
 	Sei also $\tilde{l}\in\R_{\geq 0}^V$ die Lösung des Gleichungssystems.
 	Der Teilgraph $(V, E')$ mit \[
-	E':= \left\{ vw\in E ~\middle\vert~ \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)}  \rho_{uw}(\tilde{l}_u, f_{uw}) \right\}
+	E'\coloneq \left\{ vw\in E ~\middle\vert~ \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)} \rho_{uw}(\tilde{l}_u, f_{uw}) \right\}
 	\]
 	ebenfalls azyklisch und jeder Knoten ist von $s$ aus erreichbar.
 	Man zeige $l_w = \tilde{l}_w$ durch eine Induktion über die Distanz von $s$ zu $w$ bezüglich der Anzahl an Kanten.
@@ -208,8 +208,8 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $\displaystyle l_s = 0$,
 		\item\label{def-thin-flow-x-zero} $\displaystyle l_w \leq l_v$, \tabto{4.5cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
-		\item\label{def-thin-flow-x-positive} $\displaystyle l_w = \max\left\{ l_v, \frac{f_{vw}}{u_{vw}} \right\}$,  \tabto{4.5cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
-		\item\label{def-thin-flow-resetting-edge} $\displaystyle l_w = \frac{f_{vw}}{u_{vw}}$,  \tabto{4.5cm} für $vw\in E_1$,
+		\item\label{def-thin-flow-x-positive} $\displaystyle l_w = \max\left\{ l_v, \frac{f_{vw}}{u_{vw}} \right\}$, \tabto{4.5cm} für $vw\in E\setminus E_1$ mit $f_{vw} > 0$,
+		\item\label{def-thin-flow-resetting-edge} $\displaystyle l_w = \frac{f_{vw}}{u_{vw}}$, \tabto{4.5cm} für $vw\in E_1$,
 		\item\label{def-thin-flow-no-resetting-edge} $\displaystyle l_w \geq \min_{vw\in \delta^-(w)} l_v$, \tabto{4.5cm} für $w\in V\setminus \{ s \}$ mit $\delta^-(w)\cap E_1 = \emptyset$.
 	\end{enumerate}
 	Diese Knotenbewertung stimmt dann mit der Knotenauslastung von $f$ überein.
@@ -228,7 +228,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Da $w$ von $s$ aus erreichbar ist, hat $w$ mindestens eine eingehende Kante und es folgt bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
 	
 	Sei nun umgekehrt $l\in\R_{\geq 0}^V$ eine Knotenbewertung, die~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt.
-	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von  $f$ ist.
+	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von $f$ ist.
 	Für $w=s$ gilt $l_s=0$ bereits nach~\ref{def-thin-flow-source}.
 	Für $w\neq s$ ist $l_w$ nach~\ref{def-thin-flow-x-zero},~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} eine untere Schranke an $\rho_{vw}(l_v, f_{vw})$ für $vw\in\delta^-(w)$.
 	Es bleibt zu zeigen, dass für eine eingehende Kante $vw$ der Wert $\rho_{vw}(l_v, f_{vw})$ auch $l_w$ annimmt:
@@ -282,7 +282,7 @@ Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{p
 \end{lemma}
 \begin{proof}
 	Angenommen, es existieren zwei normierte schmale Flüsse $f$ und $g$ mit Zurück\-setzen auf $E_1$ und unterschiedlichen Knotenauslastungen $l\neq h$.
-	Dann ist ohne Beschränkung der Allgemeinheit die Menge $S:=\{ v\in V \mid l_v > h_v \}$ nichtleer.
+	Dann ist ohne Beschränkung der Allgemeinheit die Menge $S\coloneq \{ v\in V \mid l_v > h_v \}$ nichtleer.
 	Da $f$ und $g$ jeweils $b$-Flüsse sind, gilt 
 	\begin{equation}\label{proof-uniqueness-labels-eq}
 	\sum_{e\in \delta^+(S)} f_e - \sum_{e\in\delta^-(S)} f_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} g_e - \sum_{e\in\delta^-(S)} g_e.
@@ -293,7 +293,7 @@ Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{p
 	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $f_e \geq g_e$, weil sonst wegen $v\notin S$ die Ungleichung
 	\[l_w \leq \rho_{vw}(l_v, f_{vw}) \leq \rho_{vw}(h_v, g_{vw}) = h_w\]
 	gelten würde, was $w\in S$ widerspricht.
-	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $f_e = g_e$ für alle $e\in \delta(S):=\delta^-(S) \cup \delta^+(S)$.
+	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $f_e = g_e$ für alle $e\in \delta(S)\coloneq \delta^-(S) \cup \delta^+(S)$.
 	Für $vw\in \delta^-(S)$ ist dann $g_e=f_e=0$, da für $g_e=f_e>0$ wieder mit $v\notin S$ die Ungleichung $l_w = \rho_{vw}(l_v, f_{vw})\leq \rho_{vw}(h_v, g_{vw})=h_w$ der Bedingung $w\in S$ widerspricht.
 	
 	Aufgrund der Azyklizität existiert ein Knoten $w\in S$ mit $\delta^-(w)\subseteq \delta^-(S)$.
@@ -362,7 +362,7 @@ Dazu führen wir die folgenden Begriffe ein:
 
 \begin{definition}[Korrespondenz, Fixpunkt]
 	Eine \emph{Korrespondenz} von einer Menge $A$ in eine Menge $B$ ist eine Abbildung $f: A \to \mathcal{P}(B)\setminus \{ \emptyset \}$ von $A$ in die Potenzmenge von $B$ ohne die leere Menge.
-	Sind $A$ und $B$ topologische Räume, so nennt man $f$ \emph{abgeschlossen}, wenn die zugehörige Relation $R_f := \{ (a,b) \in A\times B \mid b\in f(a)  \}$ in der Produkttopologie abgeschlossen ist.
+	Sind $A$ und $B$ topologische Räume, so nennt man $f$ \emph{abgeschlossen}, wenn die zugehörige Relation $R_f \coloneq \{ (a,b) \in A\times B \mid b\in f(a) \}$ in der Produkttopologie abgeschlossen ist.
 
 	Ein \emph{Fixpunkt} einer Korrespondenz $f: X \to \mathcal{P}$ ist ein Punkt $x\in X$ mit $x\in f(x)$.
 \end{definition}
@@ -384,7 +384,7 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	\]
 	Dabei sei $l\in\R_{\geq 0}^V$ die zu $f$ gehörige Knotenauslastung.
 	Diese Korrespondenz ist wohldefiniert, da $\Gamma(f)$ für jedes $f\in C$ nichtleer ist:
-	Der Knoten $s$ kann im Graphen $G':= (V, E')$ mit $E':= \{ vw\in E \mid \rho_{vw}(l_v, f_{vw})=l_w \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ mindestens eine eingehende Kante mit $l_w = \rho_{vw}(l_v, f_{vw})$ besitzt. 
+	Der Knoten $s$ kann im Graphen $G'\coloneq (V, E')$ mit $E'\coloneq \{ vw\in E \mid \rho_{vw}(l_v, f_{vw})=l_w \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ mindestens eine eingehende Kante mit $l_w = \rho_{vw}(l_v, f_{vw})$ besitzt. 
 	Daher existiert ein $s$-$v$-Weg $P_v$ in $G'$ für alle $v\in V$ und der Fluss $\sum_{v\in V\setminus\{ s\}} b_v \cdot P_v$ ist in $\Gamma(f)$ enthalten.
 	
 	Für jedes $f\in C$ ist $\Gamma(f)$ konvex: Ist für $g, h\in \Gamma(f), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w < \rho_{vw}(l_w, f_{vw})$ erfüllt, so gilt auch $\lambda g_{vw} + (1-\lambda) h_{vw} = 0$, womit $\lambda g + (1-\lambda)h$ im Bild $\Gamma(f)$ liegt.
@@ -493,7 +493,7 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 
 \begin{lemma}\label{lemma-thin-flows-without-resetting-have-minimal-congestion}
 	Sei ein schmaler $b$-Fluss $f$ ohne Zurücksetzen mit zugehöriger Knotenauslastung $l$ gegeben.
-	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für  $E\neq\emptyset$ ist $X:=\{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
+	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q$ und für $E\neq\emptyset$ ist $X\coloneq \{ v\in V \mid l_v < q \}$ ein dünnster Schnitt.
 \end{lemma}
 \begin{proof}
 	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, so ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
@@ -509,19 +509,19 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 \end{proof}
 
 \begin{definition}
-	Seien $\mathcal{I}:=(V, E, u, b)$ eine $b$-Fluss-Instanz und $X\subseteq V$ ein dünnster Schnitt mit Auslastung $q$.
-	Dann heißt $\mathcal{I}[X] := (X, E[X], u[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
-	wobei $E[X] := \{ vw \in E \mid v, w \in X \}$ als die Menge der Kanten zwischen Knoten in $X$, $u[X]$ als die Einschränkung von $u$ auf $E[X]$ und $b[X]$ durch \[
-	b[X]_v := b_v - u(\delta^+_E(v)\cap\delta^+_E(X)) q \quad \text{für $v\in X$}
+	Seien $\mathcal{I}\coloneq (V, E, u, b)$ eine $b$-Fluss-Instanz und $X\subseteq V$ ein dünnster Schnitt mit Auslastung $q$.
+	Dann heißt $\mathcal{I}[X] \coloneq (X, E[X], u[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
+	wobei $E[X] \coloneq \{ vw \in E \mid v, w \in X \}$ als die Menge der Kanten zwischen Knoten in $X$, $u[X]$ als die Einschränkung von $u$ auf $E[X]$ und $b[X]$ durch \[
+	b[X]_v \coloneq b_v - u(\delta^+_E(v)\cap\delta^+_E(X)) q \quad \text{für $v\in X$}
 \] definiert ist.
 \end{definition}
 
-Man bemerke, dass $X$ die Ungleichung $b[X] \leq b$  komponentenweise erfüllt und $b[X]$ ein zulässiger Balancevektor ist: \[
+Man bemerke, dass $X$ die Ungleichung $b[X] \leq b$ komponentenweise erfüllt und $b[X]$ ein zulässiger Balancevektor ist: \[
 	\sum_{v\in X} b[X]_v = b(X) - u(\delta^+_E(X)) q = 0
 \]
 
 \begin{proposition}\label{prop-restricted-minimal-flow-is-b-flow-on-induced-instance}
-	Ist $f$ ein $b$-Fluss minimaler Auslastung einer $b$-Fluss-Instanz $\mathcal{I}$, so ist die Einschränkung $f':=f_{\mid E[X]}$ ein $b[X]$-Fluss der durch $X$ induzierten Instanz $(X, E[X], u[X], b[X])$ für jeden dünnsten Schnitt $X$.
+	Ist $f$ ein $b$-Fluss minimaler Auslastung einer $b$-Fluss-Instanz $\mathcal{I}$, so ist die Einschränkung $f'\coloneq f_{\mid E[X]}$ ein $b[X]$-Fluss der durch $X$ induzierten Instanz $(X, E[X], u[X], b[X])$ für jeden dünnsten Schnitt $X$.
 	
 	Handelt es sich um ein $s$-Netzwerk mit $b_s > 0$ und ist $l$ die Knotenauslastung von $f$, so stimmt die Einschränkung von $l$ auf $X$ mit der Knotenauslastung $l'$ von $f'$ überein.
 \end{proposition}
@@ -554,8 +554,8 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 
 \begin{corollary}\label{cor-thin-flow-alg-correct}
 	Seien ein $b$-Fluss $f$ minimaler Auslastung sowie ein dünnster Schnitt $X$ auf einem $s$-Netzwerk ohne zurücksetzende Kanten gegeben.
-	Ist $f'$ ein schmaler Fluss ohne Zurücksetzen auf der durch $X$ induzierten Teilinstanz, so ist $g := f' \sqcup f$ definiert durch \[
-		g_e := \begin{cases}
+	Ist $f'$ ein schmaler Fluss ohne Zurücksetzen auf der durch $X$ induzierten Teilinstanz, so ist $g \coloneq f' \sqcup f$ definiert durch \[
+		g_e \coloneq \begin{cases}
 			f'_e, & \text{falls $e\in E[X]$,} \\
 			f_e, & \text{falls $e\in E\setminus E[X]$,}
 		\end{cases}
@@ -565,7 +565,7 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	Es ist leicht zu sehen, dass $g$ ein $b$-Fluss minimaler Auslastung ist:
 	Für einen Knoten $v \in V\setminus X$ ist $g(\delta^+_E(v)) - g(\delta^-_E(v)) = f(\delta^+_E(v)) - g(\delta^-_E(v)) = b_v$ und für $v\in X$ gilt
 	\begin{align*}
-	g(\delta^+_E(v)) - g(\delta^-_E(v)) =& f'(\delta^+_{E[X]}(v))  - f'(\delta^-_{E[X]}(v))  \\
+	g(\delta^+_E(v)) - g(\delta^-_E(v)) =& f'(\delta^+_{E[X]}(v)) - f'(\delta^-_{E[X]}(v)) \\
 	&+ f(\delta^+_E(v)\cap\delta^+_E(X)) - f(\delta^-_E(v)\cap\delta^-_E(X)) = b_v
 	\end{align*}
 
@@ -771,7 +771,7 @@ Die Funktionsweise des Algorithmus' soll durch das folgende Beispiel illustriert
 	Dabei wird als Eingabeinstanz der Graph aus Abbildung~\ref{figure-thin-flow-example} verwendet.
 	
 	Der erste Schritt besteht darin, in der ersten Iteration einen auslastungsminimalen $b$-Fluss sowie einen dünnsten Schnitt auf dem Ursprungsnetzwerk zu berechnen.
-	Dabei erhält man den $b$-Fluss in Abbildung~\ref{subfig-thin-flow-first-iteration} mit dem Schnitt $X^1:= V \setminus \{ g \}$ bei Auslastung $q^1 := 8$.
+	Dabei erhält man den $b$-Fluss in Abbildung~\ref{subfig-thin-flow-first-iteration} mit dem Schnitt $X^1\coloneq V \setminus \{ g \}$ bei Auslastung $q^1 \coloneq 8$.
 	Zu diesem Zeitpunkt weiß man bereits, dass der Fluss auf allen Kanten, die nicht innerhalb von $X^1$ verlaufen, hier $(e,g)$ und $(f,g)$, bereits in den entstehenden schmalen Fluss ohne Zurücksetzen übernommen werden können.
 	Alle ausgehenden Kanten von $X^1$ haben nämlich die maximale Auslastung $q^1$, sodass auch schon die Knotenauslastung aller Knoten außerhalb $X^1$, hier die Auslastung von $g$, gerade $q^1$ ist.
 
@@ -808,7 +808,7 @@ Das Problem besteht nun darin, ausgehend von einer Quelle eine Senke oder eine w
 Die einfachste Lösung wäre hier natürlich, ausgehend von der Quelle solange den ausgehenden Kanten zu folgen bis man an einer Senke angelangt.
 Jedoch betrachtet man hier Graphen, die exponentiell in der Eingabe wachsen können:
 
-Knoten in diesem Graphen sind repräsentiert durch $n$ Bits in der Knotenmenge $V:=\{ 0,1 \}^n$ oder durch die Zahlen $V := \{ 0, \dots, 2^n -1 \}$.
+Knoten in diesem Graphen sind repräsentiert durch $n$ Bits in der Knotenmenge $V\coloneq \{ 0,1 \}^n$ oder durch die Zahlen $V \coloneq \{ 0, \dots, 2^n -1 \}$.
 Kanten werden dann kodiert mittels einer Nachfolger-Funktion $S: V\rightarrow V\cupdot \{ \varepsilon \}$ und einer Vorgänger-Funktion $P: V\rightarrow V \cupdot \{ \varepsilon \}$, die jeweils polynomiell berechenbar sind und die Eigenschaft $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ erfüllen.
 Eine Kante $(x,y)$ zwischen zwei Knoten $x,y \in V$ soll also genau dann existieren, wenn $S(x) = y$ und $P(y) = x$ erfüllt sind.
 Ein Knoten $x$ ist also eine Quelle oder eine Senke, wenn er entweder keinen Vorgänger oder keinen Nachfolger, d.h. wenn entweder $P(x)$ oder $S(x)$ gerade $\varepsilon$ ist.
@@ -877,7 +877,7 @@ Dazu wird mit der Transformierung eines Netzwerks mit zurück\-setzenden Kanten 
 
 Dieses Konzept verhilft zur folgenden Einsicht:
 \begin{lemma}\label{lemma-thin-flows-anchored-networks}
-	Seien $\mathcal{N}:= (V, E, u, s, E_1)$ ein zurücksetzendes $s$-Netzwerk und $\mathcal{N}'$ sein verankertes Netzwerk.
+	Seien $\mathcal{N}\coloneq (V, E, u, s, E_1)$ ein zurücksetzendes $s$-Netzwerk und $\mathcal{N}'$ sein verankertes Netzwerk.
 	Seien $f$ ein Fluss auf $\mathcal{N}$ und $f'$ ein Fluss auf $\mathcal{N}'$, der aus $f$ durch Übernehmen des Flusses der zurücksetzenden auf die verankerten Kanten entsteht.
 	Dann stimmen die Knotenauslastungen beider schmalen Flüsse überein und
 	$f$ ist genau dann ein schmaler $b$-Fluss mit Zurücksetzen auf $E_1$ in $\mathcal{N}$, wenn $f'$ ein schmaler $b'$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ ist, wobei $b'$ gegeben ist durch
@@ -912,16 +912,16 @@ Weiß man nämlich die Werte eines schmalen Flusses auf den zurücksetzenden Kan
 Dies verhilft uns auch zu einem Kandidaten für die Fixpunktiteration nach Brouwer:
 
 \begin{definition}\label{def-sigma}
-	Für eine \problemThinFlow Instanz $\mathcal{N}:=(V, E, u, s, b, E_1)$ sei $\Sigma\subseteq \R^{E_1}$ die Menge aller Werte, die ein $b$-Fluss in $\mathcal{N}$ auf den Kanten $E_1$ annehmen kann, und $\mathcal{N}'$ sei das verankerte Netzwerk von $\mathcal{N}$.
+	Für eine \problemThinFlow Instanz $\mathcal{N}\coloneq (V, E, u, s, b, E_1)$ sei $\Sigma\subseteq \R^{E_1}$ die Menge aller Werte, die ein $b$-Fluss in $\mathcal{N}$ auf den Kanten $E_1$ annehmen kann, und $\mathcal{N}'$ sei das verankerte Netzwerk von $\mathcal{N}$.
 	Dann bezeichne $\Phi: \Sigma \rightarrow \Sigma$ die Funktion, die einem Vektor $f\in\Sigma$ die Werte der verankerten Kanten eines schmalen $b'$-Flusses ohne Zurücksetzen in~$\mathcal{N}'$ bei Balancen $b'$ mit
 	\[
-	b'_s := b_s + f(E_1) \text{~~~ und ~~~} b'_v := b_v - f( \delta^+(v)\cap E_1) \text{~~~ für alle $v\in V\setminus \{ s \}$}
+	b'_s \coloneq b_s + f(E_1) \text{~~~ und ~~~} b'_v \coloneq b_v - f( \delta^+(v)\cap E_1) \text{~~~ für alle $v\in V\setminus \{ s \}$}
 	\]
 	zuweist.
 \end{definition}
 
 Zunächst bemerke man, dass $\Phi$ wohldefiniert und eindeutig ist:
-Einen schmalen $b'$-Fluss auf $\mathcal{N}'$ kann man auch als $b$-Fluss auf $\mathcal{N}$ interpretieren, wobei die Flusswerte von den verankerten  Kanten auf die zurücksetzenden Kanten übertragen werden; insbesondere liegt der Zielbereich von $\Phi$ tatsächlich in $\Sigma$.
+Einen schmalen $b'$-Fluss auf $\mathcal{N}'$ kann man auch als $b$-Fluss auf $\mathcal{N}$ interpretieren, wobei die Flusswerte von den verankerten Kanten auf die zurücksetzenden Kanten übertragen werden; insbesondere liegt der Zielbereich von $\Phi$ tatsächlich in $\Sigma$.
 Da jeder schmale Fluss $f$ in $\mathcal{N}'$ im Sinne von Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss auf $\mathcal{N}$ mit Zurücksetzen auf $E_1$ und geeigneten Balancen ist und der Fluss auf zurücksetzenden Kanten nach~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig ist, ist auch der Fluss auf den verankerten Kanten eindeutig.
 
 Außerdem ist die Menge $\Sigma$ nichtleer, kompakt und konvex, da sie eine Projektion des nichtleeren Polytops $\{ f \mid \text{$f$ ist $b$-Fluss} \}$ auf $E_1$ ist.
@@ -948,8 +948,8 @@ Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
 	Seien $x$, $y$ aus $\Sigma$ gegeben.
 	Man zeige $ \norm{\Phi(x) - \Phi(y)}_\infty \leq \abs{E_1} \norm{x- y}_\infty $.
 	
-	Seien für $h\in \{ x,y \}$ die Balancen $b_s^h := b_s + h(E_1)$ und $b_v^h:= b_v - h(\delta^+_\mathcal{N}(v) \cap E_1)$ für $v\in V\setminus\{ s\}$ gegeben.
-	Man definiere weiter die Balancen $b_v^z := \min \{ b_v^x, b_v^y \}$ für alle $v\in V\setminus \{ s\}$ und $b_s^z:=-\sum_{v\in V\setminus \{ s\}} b_v^z$.
+	Seien für $h\in \{ x,y \}$ die Balancen $b_s^h \coloneq b_s + h(E_1)$ und $b_v^h\coloneq b_v - h(\delta^+_\mathcal{N}(v) \cap E_1)$ für $v\in V\setminus\{ s\}$ gegeben.
+	Man definiere weiter die Balancen $b_v^z \coloneq \min \{ b_v^x, b_v^y \}$ für alle $v\in V\setminus \{ s\}$ und $b_s^z\coloneq -\sum_{v\in V\setminus \{ s\}} b_v^z$.
 	Sei $f^h$ ein schmaler $b^h$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ für $h\in \{x, y, z\}$.
 	Dann ist $f^h_{\mid E_1} = \Phi(h)$ für $h\in \{x,y \}$ und nach Theorem~\ref{thm-thin-flow-sensitivity-analysis} gilt für alle $e\in E_1$:
 	\[

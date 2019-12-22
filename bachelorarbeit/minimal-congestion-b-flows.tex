@@ -5,7 +5,7 @@ Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse.
 
 \begin{definition}[Auslastungsminimaler $b$-Fluss]
 	Sei ein $b$-Fluss $f$ auf einem Netzwerk ohne Schleifen mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
-	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f):=\max_{e\in E} f_e/u_e$ bezeichnet die \emph{Auslastung des Flusses $f$}.
+	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f)\coloneq \max_{e\in E} f_e/u_e$ bezeichnet die \emph{Auslastung des Flusses $f$}.
 	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge), eine Kante ohne Fluss mit \emph{Nullkante} bezeichnet.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
 \end{definition}
@@ -96,21 +96,21 @@ Zunächst betrachte man das folgende Beispiel.
 	Die maximale Kantenauslastung durch $x$ ist $4$, welche auf den Kanten $(b,a), (f,b),(f,c)$ und $(h,f)$ angenommen.
 	Bei der Frage, ob $x$ schon ein auslastungsminimaler $b$-Fluss ist, kann man nun die schwache Dualität ausnutzen:
 	
-	Der Schnitt $Y := \{ c, d, g \}$ hat nur eine einzige eingehende Kante, nämlich $(f,c)$.
+	Der Schnitt $Y \coloneq \{ c, d, g \}$ hat nur eine einzige eingehende Kante, nämlich $(f,c)$.
 	Außerdem hat $Y$ eine Nachfrage von $-4$.
 	Entsprechend muss auf der Kante $(f,c)$ mindestens Fluss im Wert von $4$ fließen.
-	In der Form von Theorem~\ref{thm-weak-duality-min-con-flow} würde man argumentieren mit $X:= V\setminus Y$, für das $b(X) = 4$ und $u(\delta^+(X)) = 1$ gilt.
+	In der Form von Theorem~\ref{thm-weak-duality-min-con-flow} würde man argumentieren mit $X\coloneq V\setminus Y$, für das $b(X) = 4$ und $u(\delta^+(X)) = 1$ gilt.
 	Dann muss die Auslastung eines $b$-Flusses mindestens $4/1=4$ sein.
 	Da die Auslastung von $x$ ebenfalls $4$ beträgt, ist $x$ auslastungsminimal.
 	Daher ist auch $X$ ein dünnster Schnitt.
 \end{example}
 \begin{definition}[Doppelgraph]
-	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}:=\{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}:=\{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
+	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}\coloneq \{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}\coloneq \{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
 \end{definition}
 \begin{definition}[Residualgraph eines $b$-Flusses]
 	Sei ein $b$-Fluss $f$ auf einem Netzwerk $(V, E)$ mit Kapazitäten $u\in\R^E_{>0}$ gegeben.
-	Der \emph{Residualgraph von $G$ bezüglich $f$} ist definiert durch $G_f := (V, E_f)$ mit \[
-	E_f := \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
+	Der \emph{Residualgraph von $G$ bezüglich $f$} ist definiert durch $G_f \coloneq (V, E_f)$ mit \[
+	E_f \coloneq \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
 	\]
 \end{definition}
 
@@ -128,7 +128,7 @@ Abbildung~\ref{figure-min-con-example-residual-graph} zeigt den Residualgraphen 
 	\]
 	so bezeichne~$g$, gegeben durch
 	\[
-		g_e := f_e + (k_{\overrightsmallarrow{e}} - k_{\overleftsmallarrow{e}}) \gamma \geq 0 \text{~~~ für alle $e\in E$},
+		g_e \coloneq f_e + (k_{\overrightsmallarrow{e}} - k_{\overleftsmallarrow{e}}) \gamma \geq 0 \text{~~~ für alle $e\in E$},
 	\]
 	den \emph{$b$-Fluss, der durch $\gamma$-Augmentieren von $f$ entlang $C$ entsteht}.
 \end{definition}
@@ -147,10 +147,10 @@ Zunächst wird ein hinreichendes Optimalitätskriterium für $b$-Flüsse vorgest
 Um diese Aussage zu zeigen, benötigt man folgende Hilfsproposition:
 
 \begin{proposition}\label{prop-difference-b-flows-stream}
-	Für zwei $b$-Flüsse $f$, $f'$ mit $c(f) \geq c(f')$ ist $f'\Delta f := g\in \R_{\geq0}^{E^\leftrightarrow}$, definiert durch
+	Für zwei $b$-Flüsse $f$, $f'$ mit $c(f) \geq c(f')$ ist $f'\Delta f \coloneq g\in \R_{\geq0}^{E^\leftrightarrow}$, definiert durch
 	\begin{align*}
-	g_{\overrightsmallarrow{e}} := \max\{ 0, f_e' - f_e \} \text{~~~und~~~}
-	g_{\overleftsmallarrow{e}} := \max\{ 0, f_e - f_e' \} \text{~~~für $e\in E$},
+	g_{\overrightsmallarrow{e}} \coloneq \max\{ 0, f_e' - f_e \} \text{~~~und~~~}
+	g_{\overleftsmallarrow{e}} \coloneq \max\{ 0, f_e - f_e' \} \text{~~~für $e\in E$},
 	\end{align*}
 	eine Strömung auf $G^\leftrightarrow$, die auf $E^\leftrightarrow \setminus E_f$ verschwindet.
 \end{proposition}
@@ -160,7 +160,7 @@ Um diese Aussage zu zeigen, benötigt man folgende Hilfsproposition:
 	Durch Fallunterscheidung erkenne man $g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}} = f_e' - f_e$ für alle $e\in E$ und man folgere:
 	\begin{align*}
 	g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v))
-	&= \left( \sum_{e\in\delta^+_G(v)} g_{\overrightsmallarrow{e}} +  \sum_{e\in\delta^-_G(v)} g_{\overleftsmallarrow{e}} \right)
+	&= \left( \sum_{e\in\delta^+_G(v)} g_{\overrightsmallarrow{e}} + \sum_{e\in\delta^-_G(v)} g_{\overleftsmallarrow{e}} \right)
 	- \left(\sum_{e\in\delta^-_G(v)} g_{\overrightsmallarrow{e}} + \sum_{e\in\delta^+_G(v)} g_{\overleftsmallarrow{e}} \right) \\
 	&= \sum_{e\in\delta^+_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}}) - \sum_{e\in\delta^-_G(v)} (g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}})\\
 	&= \sum_{e\in\delta^+_G(v)} (f_e' - f_e) - \sum_{e\in\delta^-_G(v)} (f_e' - f_e) = b_v - b_v = 0.
@@ -178,7 +178,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Sei $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise mit einer Flaschenhalskante besitzt, und sei $e$ eine beliebige Flaschenhalskante von $f$.
 	Sei $f'$ ein $b$-Fluss minimaler Auslastung.
 	Angenommen es gebe eine Flaschenhalskante $e$ von $f$ mit $f'_e/u_e < f_e/u_e$.
-	Die Strömung $g:= f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} eine Dekomposition in Zyklen $g = \lambda_1 \cdot C_1 +\dots + \lambda_k \cdot C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
+	Die Strömung $g\coloneq f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} eine Dekomposition in Zyklen $g = \lambda_1 \cdot C_1 +\dots + \lambda_k \cdot C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
 	Da $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
 	Da $g$ außerdem nur auf $E_f$ verläuft, enthält $E_f$ also den Zyklus $C_i$, der die Flaschenhalskante $e$ benutzt, was im Widerspruch zur Voraussetzung steht.
 	Also muss bereits $f'_e / u_e \geq f_e / u_e$ gelten, wodurch die Behauptung folgt.
@@ -195,7 +195,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Für einen Graphen $G = (V,E)$ sei die Relation ${\sim} \subseteq V\times V$ die Äquivalenzrelation gegeben durch \[
 	v\sim w :\Leftrightarrow \text{$v$ ist von $w$ in $G$ erreichbar und $w$ ist von $v$ in $G$ erreichbar}.
 	\]
-	Dann nennt man den azyklischen Graphen $G^\sim:=(V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen -- also die Menge der \emph{(starken) Zusammenhangskomponenten} -- sind und eine Kante $xy$ in $E^\sim$ genau dann existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
+	Dann nennt man den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen -- also die Menge der \emph{(starken) Zusammenhangskomponenten} -- sind und eine Kante $xy$ in $E^\sim$ genau dann existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
 \end{definition}
 
 Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ erreicht werden kann, wenn die Äquivalenzklasse von $w$ im Zusammenhangsgraph von der Äquivalenzklasse von $v$ erreicht werden kann.
@@ -213,9 +213,9 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 	\newcommand{\RK}{\text{RK}}
 	Es sei $q^* > 0$ die Auslastung von $f$, $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
 	
-	Man setze $\gamma_\VK := \min_{\overrightsmallarrow{e}\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
-	Weiter sei $\gamma_\RK := \min_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
-	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK  \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang $C$ einen $b$-Fluss $\tilde{f}$, wobei $k$ das maximale Vorkommen einer Kante in $C$ ist.
+	Man setze $\gamma_\VK \coloneq \min_{\overrightsmallarrow{e}\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
+	Weiter sei $\gamma_\RK \coloneq \min_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
+	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang $C$ einen $b$-Fluss $\tilde{f}$, wobei $k$ das maximale Vorkommen einer Kante in $C$ ist.
 	
 	Bezüglich $\tilde{f}$ haben dann sowohl alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss.
@@ -453,10 +453,10 @@ Dabei erlaubt die RAM die Angabe der Operanden durch indirekte Adressierung.
 
 Für die Bestimmung der Laufzeit eines Programms $\mathcal{A}$ wird hier das logarithmische Kostenmaß verwendet, um dem zeitlichen Mehraufwand von beispielsweise der Multiplikation großer Zahlen gerecht zu werden:
 Demnach benötigt die Ausführung einer elementaren Instruktion $t$ viele Zeiteinheiten, wobei $t$ die Summe der Kodierungslängen der darin genutzten Zahlen (d.h. Speicheradressen und -werte) ist.
-Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} := 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
+Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} \coloneq 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
 Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ kodiert, sodass $r = p/q$ gilt.
-Dabei wird die Kodierungslänge von $r$ als $\size{r}:= \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
-Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} := \sum_{i=1}^n \size{v_i}$ und $\size{A}:= \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
+Dabei wird die Kodierungslänge von $r$ als $\size{r}\coloneq \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
+Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} \coloneq \sum_{i=1}^n \size{v_i}$ und $\size{A}\coloneq \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
 
 \begin{proposition}\label{prop-rational-bounds-encoding}
 	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
@@ -499,7 +499,7 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 		\norm{v}_2 \leq \norm{v}_1 \leq \prod_{i=1}^{n} (1+\abs{v_i}) - 1 \leq \prod_{i=1}^n 2^{\size{v_i} - 1} - 1 = 2^{\size{v} - n} - 1.
 	\] 
 	
-	Für Aussage $(iii)$ benötigt man die Hadamard-Ungleichung: Sind $a^1, \dots, a^n$ die Spaltenvektoren von $A$, so gilt $\abs{\det(A)} \leq  \prod_{i=1}^{n} \norm{a^i}_2$.
+	Für Aussage $(iii)$ benötigt man die Hadamard-Ungleichung: Sind $a^1, \dots, a^n$ die Spaltenvektoren von $A$, so gilt $\abs{\det(A)} \leq \prod_{i=1}^{n} \norm{a^i}_2$.
 	Damit folgere man:
 	\[
 		\abs{\det(A)} \leq \prod_{i=1}^n (2^{\size{a^i} - n} - 1) \leq 2^{\sum_{i=1}^n \size{a^i} - n^2} = 2^{\size{A} - n^2}.
@@ -514,31 +514,31 @@ Die Laufzeit eines Programms $\mathcal{A}$ bei Eingabe einer Instanz $\mathcal{I
 
 Um nun mithilfe dieser effizienten Suche auf den rationalen Zahlen, das Problem auslastungsminimaler $b$-Flüsse zu lösen, werden zunächst einige Grundlagen der Linearen Optimierung wiederholt:
 \begin{definition}[Lineare Programm in Standardform]
-	Ein Optimierungsproblem der Form $\min\{ c^T x \mid x \in P^=(A, b) \}$ mit $c\in\R^n, b\in\R^m, A\in\R^{m\times n}$ und Zulässigkeitsbereich $P^=(A,b):= \{ x\in\R^n \mid Ax = b, x\geq 0 \}$ heißt \emph{lineares Programm in Standardform}.
+	Ein Optimierungsproblem der Form $\min\{ c^T x \mid x \in P^=(A, b) \}$ mit $c\in\R^n, b\in\R^m, A\in\R^{m\times n}$ und Zulässigkeitsbereich $P^=(A,b)\coloneq \{ x\in\R^n \mid Ax = b, x\geq 0 \}$ heißt \emph{lineares Programm in Standardform}.
 \end{definition}
 
 \begin{definition}[Ecke konvexer Menge]
-	Für eine konvexe Menge $P$ heißt $x\in P$ eine \emph{Ecke von $P$}, falls $x$ das einzige Element des Schnittes von $P$ und einer Stützhyperebene $H:=\{ x\in\R^n \mid d^T x = \delta \}$ mit $d\in\R^n$ und $\delta\in\R$ ist.
+	Für eine konvexe Menge $P$ heißt $x\in P$ eine \emph{Ecke von $P$}, falls $x$ das einzige Element des Schnittes von $P$ und einer Stützhyperebene $H\coloneq \{ x\in\R^n \mid d^T x = \delta \}$ mit $d\in\R^n$ und $\delta\in\R$ ist.
 \end{definition}
 
 \begin{definition}[Zulässige Basislösung]
-Für ein lineares Programm in Standardform mit $P:=P^=(A, b)$ mit $\rank(A) = m$ heißt eine $m$-wertige Teilmenge $B$ von $[n]$ Basis und $N:= [n]\setminus B$ die zugehörige Nichtbasis zu $B$, falls $A_B$ invertierbar ist.
+Für ein lineares Programm in Standardform mit $P\coloneq P^=(A, b)$ mit $\rank(A) = m$ heißt eine $m$-wertige Teilmenge $B$ von $[n]$ Basis und $N\coloneq [n]\setminus B$ die zugehörige Nichtbasis zu $B$, falls $A_B$ invertierbar ist.
 Ein Punkt $x\in P$ ist eine \emph{zulässige Basislösung zur Basis $B$}, falls $x_N$ verschwindet.
 In diesem Fall gilt $x_B = A_B^{-1} b$.
 \end{definition}
 
 \begin{satz}[{siehe \cite[Satz 5.2.1. (2)]{Jungnickel2008}}]\label{satz-existence-optimality-for-lps}
-	Ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P:=P^=(A,b)$ und $\rank(A) = m$ hat eine optimale Ecklösung, falls die Zielfunktion $x\mapsto c^T x$ auf $P$ nach unten beschränkt ist.
+	Ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P\coloneq P^=(A,b)$ und $\rank(A) = m$ hat eine optimale Ecklösung, falls die Zielfunktion $x\mapsto c^T x$ auf $P$ nach unten beschränkt ist.
 \end{satz}
 
 \begin{satz}[{siehe \cite[Satz 5.2.3.]{Jungnickel2008}}]\label{satz-ecke-basislsg}
-Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P:=P^=(A,b)$ und $\rank(A) = m$ ist $x\in\R^n$ genau dann eine Ecke von $P$, wenn $x$ eine zulässige Basislösung ist.
+Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich $P\coloneq P^=(A,b)$ und $\rank(A) = m$ ist $x\in\R^n$ genau dann eine Ecke von $P$, wenn $x$ eine zulässige Basislösung ist.
 \end{satz}
 
 \begin{proposition}\label{prop-rank-obda-m}
-	Sei ein nichtleeres Polyeder $P^=(A, b)$ mit $k:=\rank(A)$ und linear unabhängigen Zeilen $a_{i_1},\dots, a_{i_k}$ gegeben.
+	Sei ein nichtleeres Polyeder $P^=(A, b)$ mit $k\coloneq \rank(A)$ und linear unabhängigen Zeilen $a_{i_1},\dots, a_{i_k}$ gegeben.
 	Setzt man \[
-	\tilde{A}:= (a_{i_1}, \dots, a_{i_k})^T\text{~ und ~}\tilde{b}:= (b_{i_1}, \dots, b_{i_k})^T, \]
+	\tilde{A}\coloneq (a_{i_1}, \dots, a_{i_k})^T\text{~ und ~}\tilde{b}\coloneq (b_{i_1}, \dots, b_{i_k})^T, \]
 	 so hat $\tilde{A}$ Rang $k$ und es gilt $P^=(A,b) = P^=(\tilde{A}, \tilde{b})$.
 \end{proposition}
 \begin{proof}
@@ -552,7 +552,7 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 \end{proof}
 
 \begin{lemma}\label{lemma-optimal-value-in-finite-domain}
-	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P:= P^=(A,b)$ und ganzzahligen Parametern $A\in \Z^{m\times n}$, $b\in\Z^m$ und $c\in\Z^n$, sodass $x\mapsto c^T x$  auf $P$ nach unten beschränkt ist.
+	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P\coloneq P^=(A,b)$ und ganzzahligen Parametern $A\in \Z^{m\times n}$, $b\in\Z^m$ und $c\in\Z^n$, sodass $x\mapsto c^T x$ auf $P$ nach unten beschränkt ist.
 	Es sei $c_{\max}$ der betraglich größte Eintrag in $c$.
 	Ist weiter $k$ die Anzahl der Koordinaten, in denen $c$ nicht verschwindet, so liegt der optimale Zielfunktionswert in der endlichen Menge
 	\[
@@ -560,7 +560,7 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 	\]
 \end{lemma}
 \begin{proof}
-	Es sei $\tilde{A}$ die Teilmatrix von $A$, die $r:=\rank{A}$ linear unabhängige Zeilen von $A$ enthält; $\tilde{b}$ sei der entsprechende Teilvektor von $b$.
+	Es sei $\tilde{A}$ die Teilmatrix von $A$, die $r\coloneq \rank{A}$ linear unabhängige Zeilen von $A$ enthält; $\tilde{b}$ sei der entsprechende Teilvektor von $b$.
 	Dann stimmen die Polyeder $P^=(A,b)$ und $P^=(\tilde{A}, \tilde{b})$ nach Proposition~\ref{prop-rank-obda-m} überein.
 	Mit den Sätzen~\ref{satz-existence-optimality-for-lps} und~\ref{satz-ecke-basislsg} folgt, dass es eine optimale Basislösung $x^*$ gibt.
 	Ist $B$ die Basis von $x^*$, so ist $x^*$ auf den Koordinaten von $B$ gerade $\tilde{A}_B^{-1} \tilde{b}$, sodass die Cramersche Regel die Darstellung $x_i^* = \det(\tilde{A}_B^i) / \det(\tilde{A}_B)$ für jede Koordinate $i\in B$ liefert.
@@ -628,9 +628,9 @@ Formuliert man~(\ref{problem-lp-minimal-flow}) als lineares Programm in Standard
 		\nil_{m\times 1}
 	\end{pmatrix} \in \Q^{n+m}.
 \]
-Dabei ist $B$ die Inzidenzmatrix des schleifenfreien Graphen, das heißt, nennt man die Kanten $e_1, \dots, e_m $ und die Knoten $v_1, \dots, v_n$, setzt man  für alle $i\in [n]$ und $j\in [m]$
+Dabei ist $B$ die Inzidenzmatrix des schleifenfreien Graphen, das heißt, nennt man die Kanten $e_1, \dots, e_m $ und die Knoten $v_1, \dots, v_n$, setzt man für alle $i\in [n]$ und $j\in [m]$
 \[ 
-	b_{i,j} := \begin{cases}
+	b_{i,j} \coloneq \begin{cases}
 		1, & \text{falls $v_i = \head(e_j)$}, \\
 		-1, & \text{falls $v_i = \tail(e_j)$},\\
 		0, & \text{sonst.}
@@ -666,15 +666,15 @@ Dazu werden die folgenden beiden Abschätzungen benötigt:
 	
 	Ein solcher Vergleich kann wie folgt umgesetzt werden:
 	Der Graph $(V,E)$ wird um zwei Knoten, eine sog. Superquelle $s$ und Supersenke $t$, augmentiert.
-	Für jeden Knoten $v\in V$ mit $b_v > 0$ wird eine Kante $(s,v)$ mit Kapazität $\nu_{(s,v)}:= b_v$ eingefügt; für einen Knoten $v\in V$ mit $b_v < 0$ wird eine Kante $(v,t)$ mit Kapazität $\nu_{(v,t)}:= -b_v$ erstellt.
-	Für bereits bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e := u_e \cdot  p / q$ gesetzt.
+	Für jeden Knoten $v\in V$ mit $b_v > 0$ wird eine Kante $(s,v)$ mit Kapazität $\nu_{(s,v)}\coloneq b_v$ eingefügt; für einen Knoten $v\in V$ mit $b_v < 0$ wird eine Kante $(v,t)$ mit Kapazität $\nu_{(v,t)}\coloneq -b_v$ erstellt.
+	Für bereits bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e \coloneq u_e \cdot p / q$ gesetzt.
 	
-	Dann hat ein maximaler $s$-$t$-Fluss $f$, der die Kantenkapazitäten $\nu$  einhält, der also $f_e\leq \nu_e$ für alle $e\in E$ erfüllt, genau dann Wert $\mathbf{b}$, wenn $q^*\leq p/q$ gilt:
+	Dann hat ein maximaler $s$-$t$-Fluss $f$, der die Kantenkapazitäten $\nu$ einhält, der also $f_e\leq \nu_e$ für alle $e\in E$ erfüllt, genau dann Wert $\mathbf{b}$, wenn $q^*\leq p/q$ gilt:
 	Für einen maximalen $s$-$t$-Fluss $f$ mit $f\leq \nu$ und Wert $\mathbf{b}$ ist $f$ eingeschränkt auf $E$ ein $b$-Fluss, denn offenbar sind hier alle Kanten der Form $(s,v)$ bzw. $(v,t)$ hinsichtlich $\nu_{(s,v)}$ bzw. $\nu_{(v,t)}$ voll ausgelastet.	
 	Da diese Kanten durch Einschränkung auf $E$ wegfallen und $v$ bzgl. $f$ Flusserhaltung gewährt hat, gilt $\sum_{e\in\delta^+_E(v)} f_e - \sum_{e\in\delta^-_E(v)} f_e = b_v$.
 	Außerdem gilt $f_e/u_e \leq p/q$ für alle Kanten $e\in E$.
 	Insbesondere ist $q^*\leq p/q$.
-	Ist andersherum $f$ ein $b$-Fluss mit Auslastung $q^*\leq p/q$, so ist der Fluss $\tilde{f}$, der $f$ um $\tilde{f}_{(s,v)}:=b_v$ für $b_v > 0$ und $\tilde{f}_{(v,t)}:= -b_v$ für $b_v < 0$ augmentiert, ein maximaler $s$-$t$-Fluss, der die Kapazitäten $\nu$ einhält.
+	Ist andersherum $f$ ein $b$-Fluss mit Auslastung $q^*\leq p/q$, so ist der Fluss $\tilde{f}$, der $f$ um $\tilde{f}_{(s,v)}\coloneq b_v$ für $b_v > 0$ und $\tilde{f}_{(v,t)}\coloneq -b_v$ für $b_v < 0$ augmentiert, ein maximaler $s$-$t$-Fluss, der die Kapazitäten $\nu$ einhält.
 	
 	Außerdem kann man herausfinden, ob ein $b$-Fluss überhaupt existiert, indem man wie oben überprüft, ob ein maximaler $s$-$t$-Fluss den Wert $\mathbf{b}$ hat, wenn man $\nu_e=\infty$ für $e\in E$ setzt.
 \end{proof}
