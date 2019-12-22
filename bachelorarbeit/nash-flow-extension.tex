@@ -51,7 +51,6 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 	für alle Kanten $vw$ und Knoten $v$, so ist der statische Fluss $x'(\theta) \in \R^{E_\theta}$, eingeschränkt auf die zu $\theta$ aktiven Kanten, ein normierter schmaler Fluss mit Zurück\-setzen auf den Kanten mit Warteschlange $E_1\coloneq \{vw\in E \mid q_{vw}(l_v(\theta))>0 \}$ von Wert $d(\theta)$.
 	Dabei sind die Ableitungen $(l_v'(\theta))_{v\in V}$ die normierten Knotenauslastungen.
 \end{theorem}
-\todo{Beweis nochmal durchgehen}
 \begin{proof}
 	Man bemerke zunächst $l_s'(\theta) = 1$.
 	Da außerdem der Einfluss in das Netzwerk 
@@ -104,8 +103,8 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		
 		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta)}^{l_w(\theta+\varepsilon)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
-		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
-	\end{description}
+		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat füg $\varepsilon\rightarrow 0$.
+	\end{description}\vspace{-1.4em}
 \end{proof}
 
 \begin{definition}
@@ -183,7 +182,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\]
 		Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
 		
-		\item[Zu] $(ii)$:\todo{Absatz}
+		\item[Zu] $(ii)$:
 		
 		Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
 		Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $V\setminus \{ s, t \}$ erfüllt.
@@ -280,10 +279,8 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		Des Weiteren gilt $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T) = \tilde{x}_e^-(T) = \tilde{x}_e^-(\theta)$ für Kanten mit $x_{e}' = 0$ und $\theta > T$.
 		Für $\theta$ zwischen $T$ und $T+\alpha$ liefert~$(ii)$ die Behauptung.
 		Für $\theta > T+\alpha$ gilt schließlich $\tilde{x}_e^+(\theta) = \tilde{x}_e^+(T + \alpha) = \tilde{x}_e^-(T+\alpha) = \tilde{x}_e^-(\theta)$.
-\end{description}
+\end{description}\vspace{-1.4em}
 \end{proof}
-
-\todo{Der Abschnitt wird mit der Fortsetzung zu Bemerkung~\ref{remark-thin-flow} abgeschlossen.}
 \begin{remark}[Fortsetzung von Bemerkung~\ref{remark-thin-flow}]\label{remark-thin-flow-part-2}
 	Es soll erörtert werden, warum die Bedingung~\ref{def-thin-flow-no-resetting-edge}, die hier im Vergleich zu~\cite[Definition~6]{Koch2011} hinzugezogen wurde, für die Korrektheit von Theorem~\ref{thm-alpha-extension-is-nash-flow} benötigt wird:
 	Dies wird genutzt, damit die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
@@ -333,7 +330,7 @@ Ausgehend vom dynamischen Nullfluss mit Zeithorizont $0$ wird der Fluss nach und
 
 Ob dieser Algorithmus jedoch terminiert in dem Sinne, dass irgendwann ein $\alpha$ beliebig groß gewählt werden kann und somit der dynamische Nash-Fluss ab einem Zeitpunkt $T$ konstant gewählt werden kann, ist eine bisher unbeantwortete Frage.
 Cominetti, Correa und Olver beantworten Teile der Frage in~\cite{CominettiExample}:
-Übersteigt die minimale Warteschlangenkapazität $\sum_{e\in\delta^+(S)} u_e$ eines $s$-$t$-Schnitts den konstanten Netzwerkzufluss $d$ nicht, so erreicht ein dynamischer Nash-Fluss schließlich einen stabilen Zustand, ab dem der Fluss konstant ist.
+Übersteigt die minimale Warteschlangenkapazität $u(\delta^+(S))$ eines $s$-$t$-Schnitts $S$ den konstanten Netzwerkzufluss $d$ nicht, so erreicht ein dynamischer Nash-Fluss schließlich einen stabilen Zustand, ab dem der Fluss konstant ist.
 Ob dieser Zustand jedoch durch endlich viele $\alpha$-Erweiterungen berechnet werden kann, bleibt ungeklärt.
 Jedoch geben die Autoren ein Beispiel, in dem erst in der Größe des Graphen exponentiell viele $\alpha$-Erweiterungen zu einem stabilen Zustand führen.
 

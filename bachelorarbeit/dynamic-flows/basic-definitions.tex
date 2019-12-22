@@ -15,6 +15,9 @@ Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ 
 	f(E')\coloneq \sum_{e \in E'} f_e \text{~~~ und ~~~} b(V')\coloneq\sum_{v\in V'} b_v.
 \]
 
+Ein \emph{Pfad} $P=(e_1, \dots, e_k)$ ist eine Aneinanderreihung von Kanten, das heißt, es gilt $\head(e_i) = \tail(e_{i+1})$ für alle $i\in[k-1]$.
+Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich außer $\tail(e_1)$ kein Knoten zweimal besucht wird.
+
 \begin{definition}[Dynamisches Netzwerk]
 	Ein \emph{Netzwerk} $(V, E, u, s, t, \tau)$ ist ein gerichteter Graph $(V,E)$, in dem $s$ alle Knoten in $V$ erreicht.
 	Dabei heißen $s\in V$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
@@ -27,7 +30,7 @@ Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ 
 	\[ b_v \coloneq f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
 	Man nennt $f$ auch einen \emph{$b$-Fluss}.
 	Gibt es zwei Knoten $s$ und $t$, sodass $b_v$
-	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert} $v(f)\coloneq\sum_{e\in\delta^+(s)} f_e - \sum_{e\in\delta^-(s)}f_e$.
+	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert $b_s$}.
 \end{definition}
 
 Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.

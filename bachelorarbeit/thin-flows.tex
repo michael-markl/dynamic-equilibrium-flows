@@ -12,6 +12,8 @@ Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
  Stattet man ein $s$-Netzwerk mit einer Menge \emph{zurücksetzender Kanten $E_1\subseteq E$} aus, so heißt das Tupel $(V, E, u, b, s, E_1)$ ein \emph{$s$-Netzwerk mit Zurücksetzen auf $E_1$}.
 \end{definition}
 
+\todo{Irgendwie dieses Netzwerk am Anfang definieren}
+
 \begin{definition}[Auslastung]
 	Sei ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurück\-setzen auf $E_1$ gegeben.
 	Dann bezeichnet $f_e/u_e$ die \emph{Auslastung einer Kante $e$ durch $f$}.
@@ -255,26 +257,11 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Der Rest folgt dann mit Lemma~\ref{lemma-thin-flow-t-def}.
 	Ist $vw\notin E_1$ mit $f_{vw}>0$, so gilt $l_w = \rho_{vw}(l_v, f_{vw})$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
 	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $f_{vw}>0$: Hier folgt wieder $l_w = \rho_{vw}(l_v, f_{vw})$.
-	\todo{u statt tilde}
-	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{\tilde{v}w\in \delta^-(w)} \rho_{\tilde{v}w}(l_{\tilde{v}}, f_{\tilde{v}w}) = 0$.
+	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{uw\in \delta^-(w)} \rho_{uw}(l_u, f_{uw}) = 0$.
 \end{proof}
 
 Mit anderen Worten: Eine Kante wird nur genutzt, falls die Auslastungs\-über\-tra\-gung durch die Kante gerade die Auslastung des Zielknotens ist.
 Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{prop-congestion-labels-dijkstra} bereits eine untere Schranke an die Knotenauslastung ist.
-
-\todo{Vlt im folgenden Korollar auch/oder Gleichheit zu $\max f_e/u_e$ zeigen}
-\begin{corollary}
-	Für einen schmalen Fluss $f$ mit Knotenauslastung $l$ in einem Netzwerk mit nichtleerer Kantenmenge gilt:
-	\[
-		\max_{vw\in E} \rho_{vw}(l_v, f_{vw}) = \max_{v\in V} l_v.
-	\]
-\end{corollary}
-\begin{proof}
-	Für $w\neq s$ ist $l_w = \min_{vw\in\delta^-(w)} \rho_{vw}(l_v, f_{vw})$.
-	Daher gilt bereits \glqq$\geq$\grqq.
-	Angenommen es gebe eine Kante $vw\in E$ mit $\rho_{vw}(l_v, f_{vw}) > \max_{u\in V} l_u$
-	Dann ist aber bereits $f_{vw}/u_{vw} > \max_{u\in V} l_u \geq 0$, womit $l_w \geq \rho_{vw}(l_v, f_{vw})$ nach Lemma~\ref{lemma-equivalent-thin-flow} gelten müsste.
-\end{proof}
 
 \begin{lemma}[Eindeutigkeit der Knotenauslastung]\label{lemma-node-congestion-unique}
 	Seien ein $s$-Netzwerk mit zurücksetzenden Kanten $E_1\subseteq E$ gegeben.
@@ -285,7 +272,7 @@ Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{p
 	Dann ist ohne Beschränkung der Allgemeinheit die Menge $S\coloneq \{ v\in V \mid l_v > h_v \}$ nichtleer.
 	Da $f$ und $g$ jeweils $b$-Flüsse sind, gilt 
 	\begin{equation}\label{proof-uniqueness-labels-eq}
-	\sum_{e\in \delta^+(S)} f_e - \sum_{e\in\delta^-(S)} f_e = \sum_{v\in S} b_v = \sum_{e\in\delta^+(S)} g_e - \sum_{e\in\delta^-(S)} g_e.
+	f( \delta^+(S)) - f(\delta^-(S)) = b(S) = g(\delta^+(S)) - g(\delta^-(S)).
 	\end{equation}
 	Für aus $S$ herausgehende Kanten $vw\in \delta^+(S)$ gilt $f_e \leq g_e$, denn angenommen es gelte $f_e > g_e$, folgt mit Lemma~\ref{lemma-equivalent-thin-flow} und $v\in S$ die Ungleichung 
 	\[l_w = \rho_{vw}(l_v, f_{vw}) > \rho_{vw}(h_v, g_{vw})\geq h_w,\]
@@ -499,7 +486,7 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, so ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
 	
 	Sei also $q>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
-	Nach Korollar~\ref{cor-thin-flows-max-node-label-equals-max-edge-label} genügt es zu
+	Nach Korollar~\ref{cor-easy-characterization-sparsest-cut} genügt es zu
 	zeigen, dass die Auslastung jeder ausgehenden Kante von $X$ bezüglich $f$ gerade $q$ beträgt und auf eingehenden Kanten von $X$ kein Fluss fließt.
 	Wegen $l_s=0$ ist $s$ im Schnitt $X$ enthalten.
 	Sei $vw\in\delta^+(X)$ eine ausgehende Kante.
@@ -866,7 +853,7 @@ Daher wird dies als Vermutung festgehalten:
 \end{conjecture}
 
 Nichtsdestotrotz wird im weiteren Verlauf dieses Abschnitts der Zusammenhang zwischen schmalen Flüssen mit Zurück\-setzen und schmalen Flüssen ohne Zurück\-setzen erarbeitet, um einen Kandidaten für die Anwendung des Brouwerschen Suchproblems zu finden.
-\todo{Add cite to }
+Dieser wurde auch in~\cite{Koch2012} eingeführt.
 Dazu wird mit der Transformierung eines Netzwerks mit zurück\-setzenden Kanten zu seinem verankerten Netzwerk ohne zurücksetzende Kanten begonnen:
 
 \begin{definition}[Verankertes Netzwerk]
@@ -972,14 +959,16 @@ Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anst
 		\emph{\epsTFwR} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
-			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ mit $\norm{b' - b}_\infty \leq \varepsilon$
+				&sowie die Genauigkeit $\varepsilon$.\\
+			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ mit $\norm{b' - b}_\infty \leq \varepsilon$.
 		\end{tabular}
 	\end{mdframed}
 \end{center}
 
+Sei also eine \problemThinFlow\ Instanz und eine Genauigkeit $\varepsilon$ gegeben.
 Ist für das Problem~\Brouwer\ als Eingabe auch eine Funktion erlaubt, die auf einem Polytop in Normalform definiert ist, so erhält man bei Eingabe der Funktion $\Phi$ und Genauigkeit $\varepsilon/\abs{E_1}$ einen Vektor $f\in\Sigma$ mit $\norm{\Phi(f) - f}_\infty \leq \varepsilon / \abs{E_1}$.
 In polynomieller Zeit kann man dann einen schmalen Fluss $g$ ohne Zurücksetzen im verankerten Netzwerk bei Balancen $b'$ mit $b_s' = b_s + f(E_1)$ und $b_v' = b_v - f(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{ s \}$ berechnen.
-Dieser ist nach Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss mit Zurücksetzen im ursprünglichen Netzwerk bei Balancen $b''$ mit $b_s'' = b_s + (f-g)(E_1)$ und $b_v'' = b_v + (f-g)(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{s\}$.
+Dieser ist nach Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss mit Zurücksetzen im ursprünglichen Netzwerk mit den Balancen $b''$ mit $b_s'' = b_s + (f-g)(E_1)$ und $b_v'' = b_v + (f-g)(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{s\}$.
 Insbesondere gilt also:
 \[ 
 	\norm{ b - b''}_\infty \leq \sum_{e \in E_1} \abs{f_e - g_e} \leq \varepsilon.

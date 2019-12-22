@@ -16,14 +16,15 @@ Dabei wird angenommen, dass der Graph keine Schleifen besitzt, da diese bei der 
 \section{Optimalitätskriterium auslastungsminimaler Flüsse}
 
 In diesem Abschnitt wird ein hinreichendes sowie notwendiges Kriterium auslastungsminimaler $b$-Flüsse erarbeitet.
+Das Resultat in Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} wurde in~\cite[Theorem 6.11]{Koch2012} zwar verwendet, jedoch nicht bewiesen.
+Der Beweis und die zugehörige Analyse auslastungsminimaler $b$-Flüsse wurde hier eigenständig erarbeitet.
 
 Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, das die Auslastung von Schnitten involviert.
 
 \begin{definition}[Schnitt]
 	In einem gerichteten Netzwerk $(V, E, u)$ heißt eine Teilmenge $X\subseteq V$ \emph{Schnitt}, wobei die aus $X$ ausgehenden Kanten mit $\delta^+(X)$ und die in $X$ eingehenden Kanten mit $\delta^-(X)$ bezeichnet werden.
 	
-	Sind zusätzlich Knotenbalancen $b\in\R^V$ mit $\sum_{v\in V} b_v = 0$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
-	Dabei ist $b(X)$ bzw. $u(E')$ eine Kurzschreibweise für $\sum_{v\in X} b_v$ bzw. $\sum_{e\in E'} u_e$.
+	Sind zusätzlich Knotenbalancen $b\in\R^V$ mit $b(V) = 0$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
 	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
 \end{definition}
 Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
@@ -31,7 +32,7 @@ Man kann leicht erkennen, dass die Auslastung eines Schnittes höchstens so gro�
 Dies ist auch anschaulich klar, da das Angebot $b(X) > 0$ eines Schnittes $X$ im besten Fall gleichmäßig auf die Kapazitäten aller ausgehenden Kanten des Schnittes verteilt wird.
 
 \begin{theorem}[Schwache Dualität]\label{thm-weak-duality-min-con-flow}
- 	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ mit $\sum_{v\in V}b_v = 0$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
+ 	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
 \end{theorem}
 \begin{proof}
 	Sei $e^*$ eine Flaschenhalskante bzgl. $f$.
@@ -199,6 +200,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 \end{definition}
 
 Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ erreicht werden kann, wenn die Äquivalenzklasse von $w$ im Zusammenhangsgraph von der Äquivalenzklasse von $v$ erreicht werden kann.
+Außerdem ist der Zusammenhangsgraph stets azyklisch.
 
 \begin{proposition}\label{prop-augment-min-con-flow-with-circuit}
 	Es seien $f$ ein $b$-Fluss minimaler Auslastung $q^*>0$ und $C$ ein Kreis im Residualgraph $G_f$.
@@ -244,8 +246,6 @@ Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ e
 	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat, und dessen Flaschenhals- bzw. Nullkanten minimal sind.
 	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass sie auch den gleichen Zusammenhangsgraphen besitzen.
 \end{proof}
-
-\todo{Zshgraphen azyklisch}
 
 Dieses Lemma zeigt, dass jeder auslastungsminimale $b$-Fluss auf Kanten zwischen den Zusammenhangskomponenten identisch ist.
 In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man die Zusammenhangskomponenten des Residualgraphs des Flusses $x$ aus Beispiel~\ref{example-min-con-flow}.
@@ -404,7 +404,7 @@ In diesem Abschnitt soll die Berechnung auslastungsminimaler Flüsse beleuchtet 
 Aufmerksame Leser konnten bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu kostenminimalen $b$-Flüssen erkennen.
 Bei der Suche nach kostenminimalen $b$-Flüssen werden die Kanten mit Kosten $c\in\R_{\geq 0}^E$ bewertet und man ist daran interessiert einen $b$-Fluss $f$ zu finden, der den Ausdruck $\sum_{e \in E} c_e f_e$ minimiert und dabei die Kapazitäten der Kanten nicht übersteigt, der also $f_e \leq u_e$ für jede Kante $e$ erfüllt.
 Dazu betrachtet man ebenfalls den Residualgraph, allerdings mit einem kleinen Unterschied: Vorwärtskanten werden aufgenommen, wenn deren Auslastung geringer als $1$ statt geringer als die Auslastung des Flusses ist.
-Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $\sum_{e\in C} c_e < 0$ (\todo{Add cite}).
+Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $c(E(C)) < 0$ (\todo{Add cite}).
 
 Eine Herangehensweise für das Finden eines kostenminimalen Flusses ist es, ausgehend von einem beliebigen $b$-Fluss iterativ Zyklen im Residualgraph durch Augmentieren zu entfernen.
 Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} nach $\bigO(nm^2\log n)$ Iterationen mit einem kostenminimalen $b$-Fluss bei einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Theoreme~3.9, 3.10]{Goldberg1989}).
@@ -448,7 +448,7 @@ Diese besteht aus einer Recheneinheit und einem unendlich großen Speicher, dess
 Eine RAM kann ein Programm, also eine endliche Folge von elementaren Instruktionen, ausführen.
 Eine solche elementare Instruktion ist entweder eine arithmetische Operation, also eine Addition ($+$), Subtraktion ($-$), Multiplikation ($\cdot$) oder ganzzahlige Division ($\div$), oder ein bedingter Sprung, welcher zunächst zwei Operanden mithilfe eines Vergleichers aus $\{ <, \leq, > \geq, =, \neq \}$ vergleicht und im Wahrheitsfall zu einer bestimmten Instruktion wechselt.
 Dabei erlaubt die RAM die Angabe der Operanden durch indirekte Adressierung.
-\todo{refine RAM}.
+\todo{refine RAM.}
 
 
 Für die Bestimmung der Laufzeit eines Programms $\mathcal{A}$ wird hier das logarithmische Kostenmaß verwendet, um dem zeitlichen Mehraufwand von beispielsweise der Multiplikation großer Zahlen gerecht zu werden:
@@ -636,7 +636,6 @@ Dabei ist $B$ die Inzidenzmatrix des schleifenfreien Graphen, das heißt, nennt 
 		0, & \text{sonst.}
 	\end{cases}
 \]
-\todo{Explain $\head, \tail$}
  Die zugehörigen Entscheidungsvariablen sind $(f, y, q^*)^T\in\R_{\geq 0}^{2m+1}$, die Zielfunktion ist definiert durch $x\mapsto c^T x$ mit $c = (\nil_{1\times 2m}, 1)^T$.
  
 Multipliziert man nun für $i\in [n]$ die $i$-te Zeile von $A$ und $\tilde{b}$ mit dem Nenner von $b_i$ und für $i\in [m]$ die $(n+i)$-te Zeile mit dem Nenner von $u_i$, so erhält man eine ganzzahlige Matrix $\hat{A}$ und einen ganzzahligen Vektor $\hat{b}$.

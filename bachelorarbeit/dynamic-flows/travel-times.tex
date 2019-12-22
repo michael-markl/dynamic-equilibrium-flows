@@ -47,9 +47,9 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	Für einen zulässigen Fluss ist der durch die zur Zeit $\theta$ aktiven Kanten induzierte Teilgraph $G_\theta\coloneq (V, E_\theta)$ zu jeder Zeit ein azyklischer Graph, in dem $s$ jeden Knoten $v\in V$ erreichen kann.
 \end{lemma}
 \begin{proof}
-	Angenommen es existiere ein Zyklus $C=(v_1, \dots, v_n)$ mit $v_1=v_n$ und ausschließlich aktiven Kanten.
+	Angenommen es existiere ein Zyklus $C=(e_1, \dots, e_n)$ mit ausschließlich aktiven Kanten.
 	Es ist $l^C(\theta) > \theta$, da für Zyklen eine positive Gesamtverzögerung vorausgesetzt ist.
-	Aufgrund der Aktivität aller Kanten in $C$ erzeugt $l_{v_1}(\theta) = l^C(l_{v_1}(\theta)) > l_{v_1}(\theta)$ einen Widerspruch.
+	Setzt man $v:= \tail(e_1)$, so erzeugt $l_{v}(\theta) = l^C(l_{v}(\theta)) > l_{v}(\theta)$ einen Widerspruch aufgrund der Aktivität aller Kanten.
 	
 	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
 	Daher ist $w$ von $s$ aus in $G_\theta$ erreichbar.
