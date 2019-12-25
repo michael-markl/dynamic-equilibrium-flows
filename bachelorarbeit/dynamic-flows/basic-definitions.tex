@@ -16,26 +16,38 @@ Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ 
 \]
 
 Ein \emph{Pfad} $P=(e_1, \dots, e_k)$ ist eine Aneinanderreihung von Kanten, das heißt, es gilt $\head(e_i) = \tail(e_{i+1})$ für alle $i\in[k-1]$.
-Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich außer $\tail(e_1)$ kein Knoten zweimal besucht wird.
+Ein Pfad heißt \emph{Weg}, falls kein Knoten mehrmals besucht wird. 
+Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich $\tail(e_1)$ genau zweimal und sonst kein Knoten mehrmals besucht wird.
 
 \begin{definition}[Dynamisches Netzwerk]
 	Ein \emph{Netzwerk} $(V, E, u, s, t, \tau)$ ist ein gerichteter Graph $(V,E)$, in dem $s$ alle Knoten in $V$ erreicht.
 	Dabei heißen $s\in V$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
 	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
 \end{definition}
-\todo{colonequals verwenden}
 \begin{definition}[Statischer Fluss]
 	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
 	Sein \emph{Balancevektor $b\in \R^V$} ist gegeben durch
 	\[ b_v \coloneq f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
-	Man nennt $f$ auch einen \emph{$b$-Fluss}.
+	Man nennt $f$ auch einen \emph{$b$-Fluss} und sagt, \emph{$f$ gewähre Flusserhaltung bzgl. $b$}.
 	Gibt es zwei Knoten $s$ und $t$, sodass $b_v$
 	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert $b_s$}.
+	Ist $b$ der Nullvektor, so nennt man $f$ auch eine Strömung.
 \end{definition}
 
 Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
+Außerdem sind für eine Strömung nur nichtnegative Werte zugelassen.
+Eine wichtige Aussage bei der Anaylse von statischen Flüssen liefert der Dekompositionssatz:
+\todo{cite}
+\begin{theorem}[Dekompositionssatz]\label{thm-decomposition}
+	Ein statischer $s$-$t$-Fluss $f$ besitzt eine Dekomposition in elementare $s$-$t$-Wege und Zyklen, das heißt es existieren $s$-$t$-Wege $P_1,\dots,P_k$ und Zyklen $C_1, \dots, C_l$ sowie $\lambda_1,\dots,\lambda_k,\mu_1,\dots,\mu_l > 0$ mit \[
+		f = \sum_{i\in[k]}\lambda_i P_i + \sum_{i\in[l]} \mu_i C_i.
+	\]
+	Ist $f$ eine Strömung, so gibt es eine Dekomposition in Zyklen.
+\end{theorem}
 
-
+Die Einführung dynamischer Flüsse und kürzester Wege folgt im Wesentlichen der von Cominetti, Correa und Larré aus~\cite{Cominetti2015} mit Ergänzungen von Ronald Koch und Martin Skutella aus~\cite{Koch2011}.
+So haben Cominetti u. a. dynamische Flüsse beispielsweise statt Lebesgue-integrierbarer Funktionen mit lokal Lebesgue-integrierbaren Funktionen ausgestattet, die den Vorteil bieten, über den gesamten Zeitraum $[0, \infty)$ unendlich viel Fluss zu schicken.
+Dazu wird der folgende Funktionenraum eingeführt:
 
 \begin{definition}
 	Der Raum $\mathfrak{F}_0$ sei die Menge der Funktionen $g: \R \to \R_{\geq 0}$, die lokal integrierbar bzgl. des Lebesgue-Maßes sind und auf der negativen Achse verschwinden, die also $\int_a^b |g(t)| \diff t< \infty$ für beliebige beschränkte Intervalle $(a,b)$ und $g(t)=0$ für $t<0$ erfüllen.
@@ -47,7 +59,7 @@ Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss
 	
 	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta)\coloneq\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta)\coloneq\int_0^\theta f^-_e(t) \diff t<\infty$.
 	
-	Die \emph{(Länge der) Warteschlange $z_e(\theta)$ und die Wartezeit $q_e(\theta)$ an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$} seien gegeben durch $z_e(\theta)\coloneq F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und $q_e(\theta) \coloneq z_e(\theta) / u_e$.
+	Die \emph{(Länge der) Warteschlange $z_e(\theta)$ und die Wartezeit $q_e(\theta)$ an einer Kante $e\in E$ zum Zeitpunkt $\theta\in\R$} seien gegeben durch $z_e(\theta)\coloneq F_e^+(\theta) - F_e^-(\theta + \tau_e)$ und $q_e(\theta) \coloneq z_e(\theta) / u_e$.
 	
 	Man beschreibe die \emph{Austrittszeit $T_e(\theta)$ aus einer Kante $e\in E$ bei Eintrittszeit $\theta$}, zu der ein Partikel eine Kante verlässt, die es zum Zeitpunkt $\theta$ betreten hat, als $T_e(\theta)\coloneq\theta + q_e(\theta) + \tau_e$.
 \end{definition}
@@ -56,7 +68,7 @@ Der Definition der Austrittszeit kann man bereits entnehmen, wie sich Partikel, 
 Nachdem sie zur Zeit $\theta$ die Kante betreten haben, müssen sie sich zunächst in eine Warteschlange einreihen, welche mit der Kapazität $u_e$ nach dem FIFO-Prinzip (First-In-First-Out-Prinzip) abgebaut wird.
 Nachdem diese Wartezeit $q_e(\theta)$ vorüber ist, vergeht eine weitere konstante Verzögerungszeit $\tau_e$, bevor sie wieder aus der Kante austreten.
 Des Weiteren müssen sich die Partikel bereits sofort bei der Ankunft an einem Knoten entscheiden, in welche Kante sie eintreten wollen, und können nicht an einem Knoten verweilen.
-Dies führt zu folgender Definition der Zulässigkeit dynamischer Flüsse:
+Um das beschriebene Verhalten zu gewährleisten, führt man im Folgenden die Zulässigkeit dynamischer Flüsse ein:
 
 \begin{definition}[Zulässiger dynamischer Fluss]
 	Ein dynamischer Fluss $f$ heißt \emph{zulässig}, falls er die folgenden Eigenschaften erfüllt:
@@ -84,7 +96,7 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 \begin{proof}
 	In~\ref{prop-feasible-flow-T-mon-inc-cont} folgt die Stetigkeit bereits aus der Stetigkeit von $F_e^+$ und $F_e^-$.
 	Um zu zeigen, dass die Funktion monoton wachsend ist, seien $\theta_1 \leq \theta_2$ gegeben.
-	Mit der Monotonie von $F_e^+$ und mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau_e}^{\theta_2+\tau_e} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ gilt: 
+	Mit $F_e^-(\theta_2 + \tau_e) = F_e^-(\theta_1+\tau_e) + \int_{\theta_1+\tau_e}^{\theta_2+\tau_e} f_e^-(t)\diff t\leq F_e^-(\theta_1 + \tau_e) + (\theta_2 - \theta_1)u_e$ und mit der Monotonie von $F_e^+$ folgt: 
 	\[
 		\theta_1 + q_e(\theta_1)
 		= \theta_1 + \frac{F_e^+(\theta_1) - F_e^-(\theta_1 + \tau_e)}{u_e}
@@ -93,12 +105,18 @@ Die folgende Proposition beschreibt wichtige Folgerungen über zulässige dynami
 	
 	Für $\theta'\in (\theta, \theta+q_e(\theta))$ gilt also $\theta' + q_e(\theta') \geq \theta + q_e(\theta)$, womit $q_e(\theta') \geq \theta + q_e(\theta) - \theta' > 0$ gerade Aussage (ii) beweist.
 	
-	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), da
-	$\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)$ gilt, und damit ist $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$.
+	Aussage (iii) folgt dann mit~\ref{def-feasible-flow-queue-with-capacity} und Aussage~(ii), weil daraus
+	\[ 
+	\int_{\theta}^{\theta + q_e(\theta)}f_e^-(t + \tau_e) \diff t = q_e(\theta)  u_e = z_e(\theta)
+	\]
+	folgt, weshalb $F_e^-(T_e(\theta)) = F_e^-(\theta+\tau_e) + \int_{\theta+\tau_e}^{\theta+\tau_e+q_e(\theta)}f_e^-(t)\diff t = F_e^+(\theta)$ gilt.
 	
 	Zu Aussage (iv):
 	Für alle $\theta'\in [\theta_1, \theta_2]$ gilt $F_e^+(\theta') = F_e^+(\theta_2)$.
-	Also ist die Warteschlange $z_e(\theta') = F_e^+(\theta_2) - F_e^-(\theta' + \tau_e) \geq z_e(\theta_2) > 0$ positiv und nach~\ref{def-feasible-flow-queue-with-capacity} gilt $f_e^-(\theta' + \tau_e)=u_e$.
-	Die Differenz der Warteschlangen ist
-	$z_e(\theta_1)-z_e(\theta_2)=-F^-_e(\theta_1 + \tau_e) + F^-_e(\theta_2 + \tau_e) = (\theta_2 - \theta_1)u_e$, was $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$ impliziert.
+	Also ist die Warteschlange $z_e(\theta') = F_e^+(\theta_2) - F_e^-(\theta' + \tau_e) \geq z_e(\theta_2)$ positiv und nach~\ref{def-feasible-flow-queue-with-capacity} gilt $f_e^-(\theta' + \tau_e)=u_e$.
+	Die Differenz der Warteschlangen erfüllt
+	\[
+	z_e(\theta_1)-z_e(\theta_2)=-F^-_e(\theta_1 + \tau_e) + F^-_e(\theta_2 + \tau_e) = (\theta_2 - \theta_1)u_e,
+	\]
+	was $q_e(\theta_1) - q_e(\theta_2) = \theta_2 - \theta_1$ impliziert.
 \end{proof}

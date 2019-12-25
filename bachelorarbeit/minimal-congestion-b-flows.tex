@@ -1,16 +1,16 @@
 \chapter{Auslastungsminimale Flüsse}\label{chapter-min-con-flows}
 
-Eine effiziente Berechnung von Nash-Gleichgewichten erfordert zunächst Verständnis von speziellen Klassen von statischen Flüssen.
+Die Berechnung von Nash-Gleichgewichten erfordert zunächst das Verständnis von speziellen Klassen statischer Flüssen.
 Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse.
 
 \begin{definition}[Auslastungsminimaler $b$-Fluss]
-	Sei ein $b$-Fluss $f$ auf einem Netzwerk ohne Schleifen mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
-	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f)\coloneq \max_{e\in E} f_e/u_e$ bezeichnet die \emph{Auslastung des Flusses $f$}.
-	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge), eine Kante ohne Fluss mit \emph{Nullkante} bezeichnet.
+	Sei ein $b$-Fluss $f$ auf einem Netzwerk mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
+	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f)\coloneq \max_{e\in E} f_e/u_e$ wird die \emph{Auslastung des Flusses $f$} genannt.
+	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge), eine Kante ohne Fluss als \emph{Nullkante} bezeichnet.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
 \end{definition}
 
-In diesem Kapitel wird ein Optimalitätskriterium und ein effizienter Algorithmus zur Berechnung solcher auslastungsminimaler $b$-Flüsse vorgestellt.
+In diesem Kapitel wird zunächst ein Optimalitätskriterium und ein effizienter Algorithmus zur Berechnung solcher auslastungsminimaler $b$-Flüsse, der polynomielle Laufzeit benötigt, vorgestellt.
 Dabei wird angenommen, dass der Graph keine Schleifen besitzt, da diese bei der Berechnung auslastungsminimaler $b$-Flüsse ignoriert werden können.
 
 \section{Optimalitätskriterium auslastungsminimaler Flüsse}
@@ -19,17 +19,16 @@ In diesem Abschnitt wird ein hinreichendes sowie notwendiges Kriterium auslastun
 Das Resultat in Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} wurde in~\cite[Theorem 6.11]{Koch2012} zwar verwendet, jedoch nicht bewiesen.
 Der Beweis und die zugehörige Analyse auslastungsminimaler $b$-Flüsse wurde hier eigenständig erarbeitet.
 
-Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, das die Auslastung von Schnitten involviert.
+Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, welches die Auslastung von Schnitten involviert.
 
 \begin{definition}[Schnitt]
-	In einem gerichteten Netzwerk $(V, E, u)$ heißt eine Teilmenge $X\subseteq V$ \emph{Schnitt}, wobei die aus $X$ ausgehenden Kanten mit $\delta^+(X)$ und die in $X$ eingehenden Kanten mit $\delta^-(X)$ bezeichnet werden.
-	
-	Sind zusätzlich Knotenbalancen $b\in\R^V$ mit $b(V) = 0$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
+	In einem gerichteten Netzwerk $(V, E, u)$ wird eine Teilmenge $X\subseteq V$ auch \emph{Schnitt} genannt.
+	Sind Knotenbalancen $b\in\R^V$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
 	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
 \end{definition}
 Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
-Man kann leicht erkennen, dass die Auslastung eines Schnittes höchstens so groß ist wie die eines $b$-Flusses.
-Dies ist auch anschaulich klar, da das Angebot $b(X) > 0$ eines Schnittes $X$ im besten Fall gleichmäßig auf die Kapazitäten aller ausgehenden Kanten des Schnittes verteilt wird.
+Im Folgenden wird gezeigt, dass die Auslastung eines Schnittes höchstens so groß ist wie die eines $b$-Flusses.
+Dies ist auch anschaulich klar, da das Angebot $b(X)$ eines Schnittes $X$ im besten Fall gleichmäßig auf die Kapazitäten aller ausgehenden Kanten des Schnittes verteilt wird.
 
 \begin{theorem}[Schwache Dualität]\label{thm-weak-duality-min-con-flow}
  	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
@@ -43,8 +42,8 @@ Dies ist auch anschaulich klar, da das Angebot $b(X) > 0$ eines Schnittes $X$ im
 	wobei in der letzten Ungleichung $b(X) = f(\delta^+(X)) - f(\delta^-(X))$ eingeht.
 \end{proof}
 
-Dieser Abschnitt soll nun dazu dienen, auch die starke Dualität zu zeigen.
-Zunächst betrachte man das folgende Beispiel.
+Im restlichen Abschnitt soll nun auch die starke Dualität gezeigt werden.
+Zunächst wird die schwache Dualität an einem Beispiel illustriert.
 
 \begin{example}\label{example-min-con-flow}
 	\begin{figure}
@@ -98,36 +97,40 @@ Zunächst betrachte man das folgende Beispiel.
 	Bei der Frage, ob $x$ schon ein auslastungsminimaler $b$-Fluss ist, kann man nun die schwache Dualität ausnutzen:
 	
 	Der Schnitt $Y \coloneq \{ c, d, g \}$ hat nur eine einzige eingehende Kante, nämlich $(f,c)$.
-	Außerdem hat $Y$ eine Nachfrage von $-4$.
+	Außerdem hat $Y$ eine Balance von $-4$.
 	Entsprechend muss auf der Kante $(f,c)$ mindestens Fluss im Wert von $4$ fließen.
-	In der Form von Theorem~\ref{thm-weak-duality-min-con-flow} würde man argumentieren mit $X\coloneq V\setminus Y$, für das $b(X) = 4$ und $u(\delta^+(X)) = 1$ gilt.
+	In der Form von Theorem~\ref{thm-weak-duality-min-con-flow} würde man mit dem Schnitt $X\coloneq V\setminus Y$ argumentieren, für den $b(X) = 4$ und $u(\delta^+(X)) = 1$ gelten.
 	Dann muss die Auslastung eines $b$-Flusses mindestens $4/1=4$ sein.
-	Da die Auslastung von $x$ ebenfalls $4$ beträgt, ist $x$ auslastungsminimal.
-	Daher ist auch $X$ ein dünnster Schnitt.
+	Da die Auslastung von $x$ ebenfalls $4$ beträgt, sind $x$ bereits ein auslastungsminimaler $b$-Fluss und $X$ ein dünnster Schnitt.
 \end{example}
+
+Ähnlich wie bei der Analyse von maximalen $s$-$t$-Flüssen wird auch hier ein sogenannter Residualgraph eines Flusses eingeführt.
+
 \begin{definition}[Doppelgraph]
-	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ ist das Paar $(V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}\coloneq \{ \overrightsmallarrow{e} \mid e\in E \}$ die Menge der Vorwärtskanten, die die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}\coloneq \{ \overleftsmallarrow{e} \mid e\in E \}$ die Menge der Rückswärtskanten, die die Richtung der Ursprungskante umkehren, sind.
+	Der Doppelgraph $G^\leftrightarrow$ eines Graphen $G=(V,E)$ entstehe durch Hinzunahme aller Kanten in umgekehrter Richtung.
+	Man notiere $G^\leftrightarrow$ als das Paar $(V, E^\leftrightarrow)\coloneq (V, \overrightsmallarrow{E}\cup \overleftsmallarrow{E})$, wobei $\overrightsmallarrow{E}\coloneq \{ \overrightsmallarrow{e} \mid e\in E \}$ die \emph{Menge der Vor\-wärts\-kanten}, welche die Richtung der Ursprungskante beibehalten, und $\overleftsmallarrow{E}\coloneq\{ \overleftsmallarrow{e} \mid e\in E \}$ die \emph{Menge der Rückwärtskanten}, die die Richtung der Ursprungs\-kante umkehren, sind.
+	Es gilt also für alle Kanten $e\in E$:
+	\[
+		\head(\overrightsmallarrow{e})=\head(e) = \tail(\overleftsmallarrow{e}) \text{~~~ und ~~~} \tail(\overrightsmallarrow{e}) = \tail(e) = \head(\overleftsmallarrow{e}).
+	\]
 \end{definition}
 \begin{definition}[Residualgraph eines $b$-Flusses]
 	Sei ein $b$-Fluss $f$ auf einem Netzwerk $(V, E)$ mit Kapazitäten $u\in\R^E_{>0}$ gegeben.
-	Der \emph{Residualgraph von $G$ bezüglich $f$} ist definiert durch $G_f \coloneq (V, E_f)$ mit \[
+	Der \emph{Residualgraph von $G$ bezüglich $f$} sei definiert durch $G_f \coloneq (V, E_f)$ mit \[
 	E_f \coloneq \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
 	\]
 \end{definition}
 
-Im Residualgraph eines $b$-Flusses $f$ wird eine Kante also in beide Richtungen erstellt, falls die Auslastung durch $f$ echt zwischen $0$ und $q^*$ liegt. Fließt kein Fluss auf der Kante, so gibt es nur die Vorwärtskante, und handelt es sich um eine Flaschenhalskante, so existiert nur die Rückwärtskante.
+Im Residualgraph eines $b$-Flusses $f$ wird eine Kante nur in beide Richtungen erstellt, falls die Auslastung echt zwischen $0$ und $q^*$ liegt. Fließt kein Fluss auf der Kante, so gibt es nur die Vorwärtskante, und handelt es sich um eine Flaschenhalskante, so existiert nur die Rückwärtskante.
 Abbildung~\ref{figure-min-con-example-residual-graph} zeigt den Residualgraphen für Beispiel~\ref{example-min-con-flow}.
-
-\todo{Kreis vs. Zyklus erklären}
 
 \begin{definition}[Augmentieren eines Flusses]
 	\newcommand{\VK}{\text{VK}}
 	\newcommand{\RK}{\text{RK}}
 	Seien $f$ ein $b$-Fluss und $C$ ein gerichteter Kreis in seinem Residualgraph $G_f$.
-	Ist $k_d$ die Anzahl der Vorkommen einer Kante~$d$ in $C$ und ist $\gamma\geq 0$ mit \[
-	\gamma \leq \frac{f_e}{k_{\overleftsmallarrow{e}} - k_{\overrightsmallarrow{e}}} \text{~~~ für alle $e\in E$ mit $k_{\overleftsmallarrow{e}} > k_{\overrightsmallarrow{e}}$},
-	\]
-	so bezeichne~$g$, gegeben durch
+	Ist $k_d$ die Anzahl der Vorkommen einer Kante~$d$ in $C$ und ist $\gamma\geq 0$ mit \(
+	\gamma \leq f_e / (k_{\overleftsmallarrow{e}} - k_{\overrightsmallarrow{e}})
+	\) für alle $e\in E$ mit $k_{\overleftsmallarrow{e}} > k_{\overrightsmallarrow{e}}$, so bezeichne~$g$, gegeben durch
 	\[
 		g_e \coloneq f_e + (k_{\overrightsmallarrow{e}} - k_{\overleftsmallarrow{e}}) \gamma \geq 0 \text{~~~ für alle $e\in E$},
 	\]
@@ -137,7 +140,7 @@ Abbildung~\ref{figure-min-con-example-residual-graph} zeigt den Residualgraphen 
 Zunächst wird ein hinreichendes Optimalitätskriterium für $b$-Flüsse vorgestellt:
 
 \begin{lemma}\label{lemma-min-flow-criterion}
-	Ist $f$ ein $b$-Fluss in $(V, E, u)$, dessen Residualgraph keine gerichteten Kreise besitzt, die eine Flaschenhalskante als Rückwärtskante benutzen, so ist $f$ auslastungsminimal.
+	Ist $f$ ein $b$-Fluss in $(V, E, u)$, dessen Residualgraph $G_f$ keine gerichteten Kreise besitzt, die eine Flaschenhalskante als Rückwärtskante benutzen, so ist $f$ auslastungsminimal.
 	Ist $f'$ ein weiterer auslastungsminimaler Fluss, so sind die Flaschenhalskanten $E^*$ von $f$ auch Flaschenhalskanten von $f'$.
 	
 	Hat $G_f$ außerdem keine Kreise, die Nullkanten von $f$ als Vorwärtskanten benutzen, so sind die Nullkanten $E^0$ von $f$ auch Nullkanten von $f'$.
@@ -156,8 +159,7 @@ Um diese Aussage zu zeigen, benötigt man folgende Hilfsproposition:
 	eine Strömung auf $G^\leftrightarrow$, die auf $E^\leftrightarrow \setminus E_f$ verschwindet.
 \end{proposition}
 \begin{proof}
-	Eine Strömung ist eine Kantenbewertung, die in jedem Knoten Flusserhaltung erhält.
-	Man zeige also $g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v)) = 0$ für alle Knoten $v\in V$.
+	Um zu zeigen, dass $g$ eine Strömung ist, muss $g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v))$ für alle Knoten $v\in V$ verschwinden.
 	Durch Fallunterscheidung erkenne man $g_{\overrightsmallarrow{e}} - g_{\overleftsmallarrow{e}} = f_e' - f_e$ für alle $e\in E$ und man folgere:
 	\begin{align*}
 	g(\delta^+_{G^\leftrightarrow}(v)) - g(\delta^-_{G^\leftrightarrow}(v))
@@ -168,24 +170,25 @@ Um diese Aussage zu zeigen, benötigt man folgende Hilfsproposition:
 	\end{align*}
 	Es bleibt also zu zeigen, dass $g$ auf $E^\leftrightarrow \setminus E_f$ verschwindet.
 	Sei zunächst eine Vorwärts\-kante $\overrightsmallarrow{e}$ mit $f_{e}/u_{e} = c(f)$ gegeben.
-	Dann gilt nach Voraussetzung auch $f_{e}/u_{e} = c(f) \geq c(f') \geq f'_{e}/u_{e}$, wodurch $g_{\overrightsmallarrow{e}}= 0$ folgt.
+	Dann gilt \(
+	f_{e}/u_{e} = c(f) \geq c(f') \geq f'_{e}/u_{e}
+	\) nach Voraussetzung, wodurch $g_{\overrightsmallarrow{e}}= 0$ folgt.
 	Für eine Rückwärtskante $\overleftsmallarrow{e}$ mit $f_e = 0$ folgt $g_{\overleftsmallarrow{e}} = 0$ direkt.
 \end{proof}
 
-Insbesondere existiert für solche Strömungen $f'\Delta f$ eine Dekomposition in Zyklen.
+Insbesondere existiert für solche Strömungen $f'\Delta f$ nach Theorem~\ref{thm-decomposition} eine Dekomposition in Zyklen.
 Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 
 \begin{proof}[Beweis von Lemma~\ref{lemma-min-flow-criterion}]
-	Sei $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise mit einer Flaschenhalskante besitzt, und sei $e$ eine beliebige Flaschenhalskante von $f$.
-	Sei $f'$ ein $b$-Fluss minimaler Auslastung.
-	Angenommen es gebe eine Flaschenhalskante $e$ von $f$ mit $f'_e/u_e < f_e/u_e$.
-	Die Strömung $g\coloneq f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} eine Dekomposition in Zyklen $g = \lambda_1 \cdot C_1 +\dots + \lambda_k \cdot C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
-	Da $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
+	Seien $f$ ein $b$-Fluss, dessen Residualgraph keine gerichteten Kreise mit einer Flaschenhalskante besitzt, und $f'$ ein $b$-Fluss minimaler Auslastung.
+	Angenommen, es gebe eine Flaschenhalskante $e$ von $f$ mit $f'_e/u_e < f_e/u_e$.
+	Die Strömung $g\coloneq f'\Delta f$ besitzt nach Proposition~\ref{prop-difference-b-flows-stream} und Theorem~\ref{thm-decomposition} eine Dekomposition in Zyklen $g = \lambda_1 C_1 +\dots + \lambda_k C_k$ mit $\lambda_i > 0$ für $i\in[k]$.
+	Weil $g_{\overleftsmallarrow{e}}$ positiv ist, gibt es einen Zyklus $C_i$, der ${\overleftsmallarrow{e}}$ enthält.
 	Da $g$ außerdem nur auf $E_f$ verläuft, enthält $E_f$ also den Zyklus $C_i$, der die Flaschenhalskante $e$ benutzt, was im Widerspruch zur Voraussetzung steht.
 	Also muss bereits $f'_e / u_e \geq f_e / u_e$ gelten, wodurch die Behauptung folgt.
 	
 	Man nehme nun weiter an, $G_f$ habe keine Zyklen, die Nullkanten von $f$ als Vorwärts\-kanten verwendet.
-	Angenommen, für eine Kante $e\in E^0$ gelte nun $0=f_e/u_e < f'_e/u_e$.
+	Angenommen, für eine Kante $e\in E^0$ gelte $f'_e/u_e > 0$.
 	Dann ist $g_{\overrightsmallarrow{e}}$ positiv und es gibt wieder einen Zyklus $C_i$, der $\overrightsmallarrow{e}$ enthält.
 	Dies führt wieder zum Widerspruch, dass $G_f$ den Zyklus $C_i$ enthalten müsste, der aber eine Nullkante als Vorwärts\-kante verwendet.
 \end{proof}
@@ -194,7 +197,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 
 \begin{definition}[Zusammenhangsgraph]
 	Für einen Graphen $G = (V,E)$ sei die Relation ${\sim} \subseteq V\times V$ die Äquivalenzrelation gegeben durch \[
-	v\sim w :\Leftrightarrow \text{$v$ ist von $w$ in $G$ erreichbar und $w$ ist von $v$ in $G$ erreichbar}.
+	v\sim w ~~\vcentcolon\Leftrightarrow~~ \text{$v$ ist von $w$ und $w$ ist von $v$ in $G$ erreichbar}.
 	\]
 	Dann nennt man den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen -- also die Menge der \emph{(starken) Zusammenhangskomponenten} -- sind und eine Kante $xy$ in $E^\sim$ genau dann existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
 \end{definition}
@@ -215,11 +218,11 @@ Außerdem ist der Zusammenhangsgraph stets azyklisch.
 	\newcommand{\RK}{\text{RK}}
 	Es sei $q^* > 0$ die Auslastung von $f$, $C_\VK$ die Menge der Vorwärtskanten und $C_\RK$ die Menge der Rückwärtskanten in $C$.
 	
-	Man setze $\gamma_\VK \coloneq \min_{\overrightsmallarrow{e}\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
-	Weiter sei $\gamma_\RK \coloneq \min_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
+	Man setze $\gamma_\VK \coloneq \inf_{\overrightsmallarrow{e}\in C_\VK} q^*u_e - f_e > 0$ als die minimale Flussmenge, die man jeder Kante in $C_\VK$ zufügen müsste, sodass mindestens eine Kante darin mindestens Auslastung $q^*$ erhält.
+	Weiter sei $\gamma_\RK \coloneq \inf_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
 	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang $C$ einen $b$-Fluss $\tilde{f}$, wobei $k$ das maximale Vorkommen einer Kante in $C$ ist.
 	
-	Bezüglich $\tilde{f}$ haben dann sowohl alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
+	Bezüglich $\tilde{f}$ haben dann< alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss.
 	
 	Da nach der Augmentierung der Kreis $C$ auch in $G_{\tilde{f}}$ liegt, ändert sich am Zusammenhangsgraphen nichts:
@@ -239,16 +242,16 @@ Außerdem ist der Zusammenhangsgraph stets azyklisch.
 	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhals- und Nullkanten.
 	Zwischen Zusammenhangskomponenten können keine weiteren Kanten mit Auslastung in $(0, q^*)$ liegen, da diese in beide Richtungen generiert würden und somit die Zusammenhangskomponenten verschmelzen lassen würden.
 	
-	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante oder eine Nullkante als Vorwärtskante verwendet, sodass die Menge der Flaschenhals- und Nullkanten von $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} minimal sind.
+	Dementsprechend ist im Residualgraph $G_{\tilde{f}}$ kein Kreis, der eine Flaschenhalskante von $\tilde{f}$ als Rückwärtskante oder eine Nullkante von $\tilde{f}$ als Vorwärtskante verwendet, sodass die Flaschenhals- und Nullkanten von $\tilde{f}$ nach Lemma~\ref{lemma-min-flow-criterion} minimal sind.
 	
 	Sei nun ein beliebiger weiterer auslastungsminimaler $b$-Fluss $g$ gegeben.
 	Es bleibt zu zeigen, dass $g$ den gleichen Zusammenhangsgraphen wie $\tilde{f}$ besitzt.
 	Aus $g$ erhalte man wie oben den auslastungsminimalen $b$-Fluss $\tilde{g}$, für den $G_{\tilde{g}}$ den gleichen Zusammenhangsgraphen wie $G_g$ hat, und dessen Flaschenhals- bzw. Nullkanten minimal sind.
-	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass sie auch den gleichen Zusammenhangsgraphen besitzen.
+	Dann sind aber bereits die Residualgraphen $G_{\tilde{f}}$ und $G_{\tilde{g}}$ identisch, sodass diese auch den gleichen Zusammenhangsgraphen besitzen.
 \end{proof}
 
 Dieses Lemma zeigt, dass jeder auslastungsminimale $b$-Fluss auf Kanten zwischen den Zusammenhangskomponenten identisch ist.
-In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man die Zusammenhangskomponenten des Residualgraphs des Flusses $x$ aus Beispiel~\ref{example-min-con-flow}.
+In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man den Residualgraphen des Flusses aus Beispiel~\ref{example-min-con-flow}.
 Der entsprechende Zusammenhangsgraph ist dann
 \begin{center}
 	\begin{tikzpicture}
@@ -260,16 +263,16 @@ Der entsprechende Zusammenhangsgraph ist dann
 	\path[-Latex] (z1) edge (z2);
 	\end{tikzpicture}
 \end{center}
-und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hingegen sind die Kanten $(a,b)$ und $(h,f)$, die durch $x$ auch von Wert $4$ ausgelastet werden, nicht notwendigerweise Flaschenhalskanten: So kann man die Zyklen $(a,b,e,a)$ und $(f,h,i,f)$ augmentieren, um die Auslastung auf den beiden Kanten zu verringern.
+und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hingegen sind die Kanten $(a,b)$ und $(h,f)$, deren Auslastung ebenfalls $4$ ist, nicht notwendigerweise Flaschenhalskanten: So kann man die Zyklen $(a,b,e,a)$ und $(f,h,i,f)$ augmentieren, um die Auslastung auf den beiden Kanten zu verringern.
 
-Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-kriterium formuliert werden:
+Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-kriterium formuliert werden:
 
 \begin{theorem}\label{thm-optimal-criterion-min-con-flow}
 	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphs $G_f$ verläuft.
-	Gilt letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt.
+	Gilt Letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt.
 \end{theorem}
 \begin{proof}
-	Sei $f$ zunächst ein auslastungsminimaler $b$-Fluss.
+	Sei $f$ ein auslastungsminimaler $b$-Fluss.
 	Ist $q^* = 0$, so ist $f$ der Nullfluss.
 	Für positive $q^*$ verlaufen die minimalen Flaschenhalskanten nach Lemma~\ref{lemma-min-bottlenecks-between-strong-comps} als Rückwärtskanten zwischen Zusammenhangskomponenten des Residualgraphs $G_f$.
 	
@@ -277,7 +280,7 @@ Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-krite
 	Eine ausgehende Kante $xy\in\delta^+_G(X)$ muss dann bzgl. $f$ Auslastung $c(f)$ haben, da $x$ von $v$ in $G_{f}$ erreichbar ist und daher $xy$ nicht als Vorwärtskante in $G_f$ erscheinen kann; sonst wäre $y$ auch in $X$.
 	Die Auslastung einer eingehenden Kante $xy\in\delta^-_G(X)$ bzgl. $f$ muss jedoch verschwinden, da $xy$ nicht als Rückwärtskante in $G_f$ auftaucht.
 	
-	Dann ist $vw$ eine ausgehende Kante von $X$, da $w$ von $v$ aus in $G_f$ nicht erreichbar ist, weil $v$ und $w$ in unterschiedlichen Zusammenhangskomponenten von $G_f$ liegen und bereits die Kante $\overleftsmallarrow{vw}$ in $G_f$ existiert.
+	Weiter ist $vw$ eine ausgehende Kante von $X$ in $G$, da $w$ von $v$ aus in $G_f$ nicht erreichbar ist, weil $v$ und $w$ in unterschiedlichen Zusammenhangskomponenten von $G_f$ liegen und bereits die Kante $\overleftsmallarrow{vw}$ in $G_f$ existiert.
 	Also ist $\delta^+_G(X)$ nichtleer und es gilt:
 	\[
 	\frac{b(X)}{u(\delta^+_G(X))} = \frac{f(\delta^+_G(X))}{u(\delta^+(X))} = \sum_{e\in\delta^+(X)} \frac{u_e}{u(\delta^+(X))} c(f) = c(f).
@@ -368,7 +371,7 @@ Mit diesem Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-krite
 Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
 
 \begin{theorem}\label{thm-strong-duality-sparsest-cut-min-flow}
-	Existiert in einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
+	Existiert in einem gerichteten Netzwerk $(V, E, u)$ mit Balancen $b\in\R^V$ ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
 	\[
 	\min_{\text{$f$ $b$-Fluss}}~\max_{e\in E}\frac{f_e}{u_e} = \max_{\substack{X\subseteq V\\ \delta^+(X)\neq\emptyset}} ~ \frac{b(X)}{u(\delta^+(X))}.
 	\]
@@ -401,7 +404,7 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwisc
 \section{Berechnung auslastungsminimaler Flüsse}
 
 In diesem Abschnitt soll die Berechnung auslastungsminimaler Flüsse beleuchtet werden.
-Aufmerksame Leser konnten bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu kostenminimalen $b$-Flüssen erkennen.
+Man konnte bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu kostenminimalen $b$-Flüssen erkennen.
 Bei der Suche nach kostenminimalen $b$-Flüssen werden die Kanten mit Kosten $c\in\R_{\geq 0}^E$ bewertet und man ist daran interessiert einen $b$-Fluss $f$ zu finden, der den Ausdruck $\sum_{e \in E} c_e f_e$ minimiert und dabei die Kapazitäten der Kanten nicht übersteigt, der also $f_e \leq u_e$ für jede Kante $e$ erfüllt.
 Dazu betrachtet man ebenfalls den Residualgraph, allerdings mit einem kleinen Unterschied: Vorwärtskanten werden aufgenommen, wenn deren Auslastung geringer als $1$ statt geringer als die Auslastung des Flusses ist.
 Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $c(E(C)) < 0$ (\todo{Add cite}).
@@ -654,32 +657,32 @@ Dazu werden die folgenden beiden Abschätzungen benötigt:
 \end{proof}
 
 \begin{theorem}
-	Eine Instanz $(V,E,b,u)$ des (MCF)-Problems kann mit $\bigO(\size{b} + \size{u})$ Berechnungen eines maximalen Flusses auf einem Graphen der Größe von $(V,E)$ gelöst werden.
+	Eine Instanz $(V,E,b,u)$ von (MCF) kann mit $\bigO(\size{b} + \size{u})$ Berechnungen eines maximalen Flusses auf einem Graphen der Größe von $(V,E)$ gelöst werden.
 \end{theorem}
 \begin{proof}
 	Es sei zunächst $\mathbf{b}$ die Summe aller positiven $b_v$ für $v\in V$.
 	Dies ist gerade das Negative der Summe aller negativen $b_v$ für $v\in V$, denn sonst wäre $b$ kein zulässiger Balance-Vektor, für den es von vornherein keinen $b$-Fluss gibt.
 	
 	Angenommen, es existiere ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses nach Korollar~\ref{cor-minimal-congestion-limited} eine nichtnegative, rationale Zahl, deren Zähler und Nenner durch $8^{\size{b} + \size{u}}$ beschränkt sind.
-	Nach Theorem~\ref{theorem-find-rational} kann $q^*$ durch $\bigO(\size{b} + \size{u})$ Vergleiche der Form \glqq Ist $q^*\leq p/q$?\grqq\ ermittelt werden.
+	Dann folgt mit Theorem~\ref{theorem-find-rational}, dass $q^*$ durch $\bigO(\size{b} + \size{u})$ Vergleiche der Form \glqq Ist $q^*\leq p/q$?\grqq\ ermittelt werden kann.
 	
 	Ein solcher Vergleich kann wie folgt umgesetzt werden:
 	Der Graph $(V,E)$ wird um zwei Knoten, eine sog. Superquelle $s$ und Supersenke $t$, augmentiert.
 	Für jeden Knoten $v\in V$ mit $b_v > 0$ wird eine Kante $(s,v)$ mit Kapazität $\nu_{(s,v)}\coloneq b_v$ eingefügt; für einen Knoten $v\in V$ mit $b_v < 0$ wird eine Kante $(v,t)$ mit Kapazität $\nu_{(v,t)}\coloneq -b_v$ erstellt.
 	Für bereits bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e \coloneq u_e \cdot p / q$ gesetzt.
-	
 	Dann hat ein maximaler $s$-$t$-Fluss $f$, der die Kantenkapazitäten $\nu$ einhält, der also $f_e\leq \nu_e$ für alle $e\in E$ erfüllt, genau dann Wert $\mathbf{b}$, wenn $q^*\leq p/q$ gilt:
-	Für einen maximalen $s$-$t$-Fluss $f$ mit $f\leq \nu$ und Wert $\mathbf{b}$ ist $f$ eingeschränkt auf $E$ ein $b$-Fluss, denn offenbar sind hier alle Kanten der Form $(s,v)$ bzw. $(v,t)$ hinsichtlich $\nu_{(s,v)}$ bzw. $\nu_{(v,t)}$ voll ausgelastet.	
-	Da diese Kanten durch Einschränkung auf $E$ wegfallen und $v$ bzgl. $f$ Flusserhaltung gewährt hat, gilt $\sum_{e\in\delta^+_E(v)} f_e - \sum_{e\in\delta^-_E(v)} f_e = b_v$.
-	Außerdem gilt $f_e/u_e \leq p/q$ für alle Kanten $e\in E$.
-	Insbesondere ist $q^*\leq p/q$.
-	Ist andersherum $f$ ein $b$-Fluss mit Auslastung $q^*\leq p/q$, so ist der Fluss $\tilde{f}$, der $f$ um $\tilde{f}_{(s,v)}\coloneq b_v$ für $b_v > 0$ und $\tilde{f}_{(v,t)}\coloneq -b_v$ für $b_v < 0$ augmentiert, ein maximaler $s$-$t$-Fluss, der die Kapazitäten $\nu$ einhält.
+	
+	Hat $f$ den Wert $\mathbf{b}$ und schränkt man $f$ auf $E$ ein, so erhält man einen $b$-Fluss, denn offenbar sind hier alle Kanten der Form $(s,v)$ hinsichtlich $\nu_{(s,v)}$ voll ausgelastet.
+	Da diese Kanten und die Kanten der Form $(v,t)$ durch Einschränkung auf $E$ wegfallen und $f$ für $v\in V\setminus\{ s, t \}$ Flusserhaltung gewährt, gilt $f(\delta^+_E(v)) - f(\delta^-_E(v)) = b_v$.
+	Außerdem gilt $f_e/u_e \leq p/q$ für alle Kanten $e\in E$, also insbesondere $q^*\leq p/q$.
+	
+	Gelte andersherum $q^* \leq p/q$ und sei $f$ ein $b$-Fluss mit Auslastung $q^*$, so ist der Fluss $\tilde{f}$, der $f$ um die Werte $\tilde{f}_{(s,v)}\coloneq b_v$ für $b_v > 0$ und $\tilde{f}_{(v,t)}\coloneq -b_v$ für $b_v < 0$ erweitert, ein maximaler $s$-$t$-Fluss, der die Kapazitäten $\nu$ einhält.
 	
 	Außerdem kann man herausfinden, ob ein $b$-Fluss überhaupt existiert, indem man wie oben überprüft, ob ein maximaler $s$-$t$-Fluss den Wert $\mathbf{b}$ hat, wenn man $\nu_e=\infty$ für $e\in E$ setzt.
 \end{proof}
 
-Hier kann man nun aus den zahlreichen Algorithmen zur Berechnung von maximalen Flüssen wählen.
-Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Goldberg-Tarjan, \todo{add cite} so kann ein maximaler $s$-$t$-Fluss in $\bigO(\abs{V}^2\abs{E})$ Operationen berechnet werden.
+Hier kann man nun aus den zahlreichen Algorithmen zur Berechnung von maximalen $s$-$t$-Flüssen wählen.
+Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Goldberg und Tarjan, \todo{add cite} so kann ein maximaler $s$-$t$-Fluss mit $\bigO(n^2 m)$ Operationen berechnet werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten des Graphen ist.
 Die Ergebnisse werden nun im folgenden Theorem gesammelt.
 
 \begin{theorem}\label{thm-compute-minimal-con-flow}

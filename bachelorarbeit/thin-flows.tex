@@ -223,11 +223,12 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Wegen $l_s = 0$ gilt bereits~\ref{def-thin-flow-source}.
 	Für eine Kante $vw\in E\setminus E_1$ mit $f_{vw}=0$ gilt $l_w\leq \rho_{vw}(l_v, f_{vw}) = l_v$, wodurch auch~\ref{def-thin-flow-x-zero} folgt.
 	Ist $vw\in E$ mit $f_{vw} > 0$, so existiert ein $s$-$w$-Pfad mit positivem Fluss, der die Kante $vw$ benutzt, sodass die Auslastung dieses Pfades $l_w=\rho_{vw}(l_v, f_{vw})$ ist, da der $s$-$v$-Teilpfad die Auslastung $l_v$ besitzt.
-	Für $vw\notin E_1$ bedeutet das gerade $l_w = \max\{ l_v, f_{vw}/u_{vw} \}$ also~\ref{def-thin-flow-x-positive}, und für $vw\in E_1$ zeigt das $l_w = f_{vw} / u_{vw}$.
+	
+	Für $vw\notin E_1$ bedeutet das jedoch gerade $l_w = \max\{ l_v, f_{vw}/u_{vw} \}$, also~\ref{def-thin-flow-x-positive}, und für $vw\in E_1$ folgt $l_w = f_{vw} / u_{vw}$.
 	Für~\ref{def-thin-flow-resetting-edge} bleibt der Fall $f_{vw} = 0$ zu prüfen:
-	Dann ist aber $l_w = \min_{uw\in\delta^-(w)} \rho_{uw}(l_u, f_{uw}) = f_{vw} / u_{vw} = 0$.
+	Hier gilt $l_w = \min_{uw\in\delta^-(w)} \rho_{uw}(l_u, f_{uw}) = f_{vw} / u_{vw} = 0$.
 	Zuletzt betrachte man den Fall, dass $w\neq s$ keine eingehende zurücksetzende Kante hat.
-	Da $w$ von $s$ aus erreichbar ist, hat $w$ mindestens eine eingehende Kante und es folgt bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
+	Da $w$ von $s$ aus erreichbar ist, hat $w$ mindestens eine eingehende Kante und dadurch folgt bereits $l_w = \min_{vw\in \delta^-(w)} \max\{ l_v, f_{vw} / u_{vw} \} \geq \min_{vw\in\delta^-(w)} l_v$, was auch~\ref{def-thin-flow-no-resetting-edge} impliziert.
 	
 	Sei nun umgekehrt $l\in\R_{\geq 0}^V$ eine Knotenbewertung, die~\ref{def-thin-flow-source}-\ref{def-thin-flow-no-resetting-edge} erfüllt.
 	Man verwende eine Induktion über die Distanz eines Knotens $w$ zu $s$ bezüglich der Kantenzahl, um zu zeigen, dass $l_w$ die Knotenauslastung von $f$ ist.
@@ -256,7 +257,8 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Nun nehme man an, es gelte $f_{vw}=0$ für alle $vw\in E$ mit $l_w < \rho_{vw}(l_v, f_{vw})$, und man zeige die Eigenschaften~\ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge}.
 	Der Rest folgt dann mit Lemma~\ref{lemma-thin-flow-t-def}.
 	Ist $vw\notin E_1$ mit $f_{vw}>0$, so gilt $l_w = \rho_{vw}(l_v, f_{vw})$, wodurch Bedingung~\ref{def-thin-flow-x-positive} folgt.
-	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst $vw\in E_1$ mit $f_{vw}>0$: Hier folgt wieder $l_w = \rho_{vw}(l_v, f_{vw})$.
+	Für~\ref{def-thin-flow-resetting-edge} betrachte man zunächst Kanten $vw\in E_1$ mit $f_{vw}>0$:
+	Hier folgt wieder $l_w = \rho_{vw}(l_v, f_{vw})$.
 	Falls $f_{vw}=0$ gilt, ist $l_w=\min_{uw\in \delta^-(w)} \rho_{uw}(l_u, f_{uw}) = 0$.
 \end{proof}
 

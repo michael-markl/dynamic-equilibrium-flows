@@ -3,7 +3,7 @@
 In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten eingeführt und erörtert, wann eine Kante $vw$ in einem kürzesten $s$-$w$-Pfad liegt.
 
 \begin{definition}
-	Für einen dynamischen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta)\coloneq T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls er den Pfad zum Zeitpunkt $\theta$ betritt.
+	Für einen dynamischen Fluss $f$ und einen Pfad $P=(e_1,\dots,e_k)$ definiere $l^P(\theta)\coloneq T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ den Zeitpunkt, an dem ein Partikel den Endknoten des Pfads erreicht, falls es den Pfad zum Zeitpunkt $\theta$ betritt.
 	
 	Für einen Knoten $w\in V$ beschreibe $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade.
 	Dann ist die früheste Ankunft eines Partikels, das zur Zeit $\theta$ bei $s$ startet, gegeben durch $l_w(\theta)\coloneq \min_{P\in\mathcal{P}_w}l^P(\theta)$.
@@ -24,11 +24,14 @@ In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten
 	Daher sind auch $l^P$ und $l_v$ surjektiv.
 \end{proof}
 
+Die Monotonie lässt sich spieltheoretisch interpretieren:
+Partikel, die zur Zeit $\theta$ in $s$ starten und sich auf einem kürzesten Pfad zu $t$ begeben, kommen zur Zeit $l_t(\theta)$ in $t$ an.
+Partikel, die später starten, können also nicht früher in $t$ ankommen.
 Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksungleichung: 
 
 \begin{lemma}\label{lemma-dreicksungl}
-	Für alle Kanten $vw\in E$ gilt in einem zulässigen Fluss 
-	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$.
+	Für einen zulässigen dynamischen Fluss gilt 
+	$T_{vw}(l_v(\theta)) \geq l_w(\theta)$ für alle Kanten $vw\in E$.
 \end{lemma}
 \begin{proof}
 	Sei ein kürzester $s$-$v$-Pfad $P$ zum Zeitpunkt $\theta$ gegeben.
@@ -37,9 +40,28 @@ Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksung
 \end{proof}
 
 \begin{definition}
-	Man bezeichne eine Kante $vw\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls sie auf einem zur Zeit $\theta$ kürzesten $s$-$w$-Pfad liegt, d.h. falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt; sonst nennt man sie \emph{inaktiv zum Zeitpunkt $\theta$}.
-	Die Menge $\Theta_e$ ist die abgeschlossene Menge aller Zeitpunkte, zu denen die Kante $e$ aktiv ist.
+	Man bezeichne eine Kante $vw\in E$ als \emph{aktiv zum Zeitpunkt $\theta$}, falls sie auf einem zur Zeit $\theta$ kürzesten $s$-$w$-Pfad liegt; sonst nennt man sie \emph{inaktiv zum Zeitpunkt $\theta$}.
+	Es bezeichne $\Theta_e$ die Menge aller Zeitpunkte, zu denen die Kante $e$ aktiv ist.
 \end{definition}
+
+\begin{proposition}
+	Für einen zulässigen Fluss ist eine Kante $e$ genau dann aktiv zum Zeitpunkt $\theta$, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt.
+	Außerdem ist die Menge $\Theta_e$ abgeschlossen.
+\end{proposition}
+\begin{proof}
+	Ist $vw$ aktiv zum Zeitpunkt $\theta$, existiert ein zur Zeit $\theta$ kürzester $s$-$w$-Pfad $P$, der die Kante $vw$ benutzt.
+	Da Zykeln nach Voraussetzung eine positive Gesamtverzögerung haben, ist $P$ ein $s$-$w$-Weg, dessen letzte Kante gerade $vw$ ist.
+	Sei also $Q$ das Anfangsstück von $P$ bis zum Knoten $v$.
+	Dann gilt aufgrund der Monotonie $
+	T_{vw}(l_v(\theta)) \leq T_{vw}( l^Q(\theta) ) = l_w(\theta),
+	$
+	sodass mit Lemma~\ref{lemma-dreicksungl} sogar Gleichheit gilt.
+	
+	Gilt andersherum $T_{vw}(l_v(\theta)) = l_w(\theta)$ und sei $Q$ ein kürzester $s$-$v$-Pfad, so ist der Pfad $P$, der an $Q$ noch die Kante $vw$ anhängt, ein kürzester $s$-$w$-Pfad zur Zeit $\theta$, der die Kante $vw$ benutzt.
+	
+	Aufgrund der Stetigkeit von $T_{vw}$ und $l_v$ ist die Menge $\Theta_{vw}$ abgeschlossen.
+\end{proof}
+
 
 Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzeste Pfade sind; im dynamischen Sinne gilt dies nicht unbedingt, jedoch aber in folgendem Teilgraph:
 
@@ -52,7 +74,7 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	Setzt man $v:= \tail(e_1)$, so erzeugt $l_{v}(\theta) = l^C(l_{v}(\theta)) > l_{v}(\theta)$ einen Widerspruch aufgrund der Aktivität aller Kanten.
 	
 	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
-	Daher ist $w$ von $s$ aus in $G_\theta$ erreichbar.
+	Daher ist $w$ von $s$ aus auch in $G_\theta$ erreichbar.
 \end{proof}
 
 \begin{proposition}\label{prop-arrival-times-vector}
@@ -69,10 +91,10 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	\[ E' \coloneq  \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
 	ein azyklischer Graph, in dem $s$ jeden Knoten $w\in V$ erreichen kann:
 	Zyklen können wegen der positiven Gesamtverzögerung nicht entstehen und jeder Knoten $w\neq s$ hat mindestens eine eingehende Kante $vw$ mit $T_{vw}(\tilde{l}_v) = \tilde{l}_w$.
-	Daher ist jede Knotenbewertungen $\tilde{l}_w$ bereits durch einen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
+	Daher ist $\tilde{l}_w$ bereits durch einen $s$-$w$-Pfad $P$ in $G'$ festgelegt auf $l^P(\theta)\geq l_w(\theta)$.
 	Für einen zur Zeit $\theta$ kürzesten $s$-$w$-Pfad $Q$ gilt außerdem $\tilde{l}_w \leq T^Q(\tilde{l}_s) = T^Q(\theta) = l_w(\theta)$.
 \end{proof}
 
-Um $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Bellman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
+Um den Vektor $(l_v(\theta))_{v\in V}$ für alle $\theta\in\R$ gleichzeitig zu berechnen, kann der Bellman-Ford-Algorithmus auf den Distanzvektor-Funktionen $(l_v)_{v\in V}$ genutzt werden:
 Dazu wird in jeder der $n-1$ Iterationen für jede Kante das punktweise Minimum $l_w \coloneq  \min\{ l_w, T_{vw}\circ l_v \}$ gebildet.
-Sind Operationen auf Funktionen nicht möglich oder zu teuer, so kann $(l_v(\theta))_{v\in V}$ für ein spezielles $\theta\in\R$ mittels Dijkstra-Algorithmus ermittelt werden, wobei man die Kosten einer Kante $vw$ erst bei Scanning von $v$ in der Form $q_{vw}(l_v(\theta)) + \tau_{vw}$ berechnet.
+Sind Operationen auf Funktionen nicht möglich oder zu teuer, so kann $(l_v(\theta))_{v\in V}$ für ein spezielles $\theta\in\R$ mit dem Dijkstra-Algorithmus ermittelt werden, wobei man die Kosten einer Kante $vw$ erst bei Scanning von $v$ in der Form $q_{vw}(l_v(\theta)) + \tau_{vw}$ berechnet.

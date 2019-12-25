@@ -13,13 +13,13 @@ Weiter gibt es im Netzwerk eine Quelle, also einen Knoten, an dem kontinuierlich
 Diesen Flüssen gibt man nun die folgende spieltheoretische Interpretation:
 Jedes infinitesimal kleine Partikel, das in einem Fluss an der Quelle zu einem bestimmten Zeitpunkt entsteht, wird als Spieler in einem nicht-atomaren Auslastungsspiel interpretiert:
 Dabei verfolgt jeder Spieler das Ziel, in möglichst kurzer Zeit nach Erscheinen an der Quelle zur Senke des Netzwerks zu gelangen.
-Jeder Spieler besitzt dabei bereits zur Zeit seines Entstehens über alle nötigen Informationen, die seine tatsächliche Ankunftszeit an der Senke beeinflussen - das heißt, er weiß über den künftigen Verlauf der Warteschlangen an den Kanten Bescheid --, und kann diese nutzen um einen tatsächlich zur aktuellen Zeit kürzesten Quelle-Senke-Pfad zu ermitteln.
+Jeder Spieler besitzt dabei bereits zur Zeit seines Entstehens über alle nötigen Informationen, die seine tatsächliche Ankunftszeit an der Senke beeinflussen -- das heißt, er weiß über den künftigen Verlauf der Warteschlangen an den Kanten Bescheid --, und kann diese nutzen um einen zur aktuellen Zeit kürzesten Quelle-Senke-Pfad zu ermitteln.
 Da es sich bei den Spielern um infinitesimal kleine Partikel handelt, verändert sich der dynamische Fluss durch die Entscheidung eines einzelnen Partikels nicht.
 
 Ein Nash-Gleichgewicht wird für eine endliche Anzahl an Spielern für gewöhnlich als eine Strategiewahl charakterisiert, in der kein Spieler seine Strategie bei Beibehalten der Wahl der anderen Spieler ändern kann, um seine eigenen Kosten echt zu verringern.
 Im Fall dynamischer Flüsse wird dieser Begriff etwas aufgeweicht:
-So wird ein dynamischer Fluss ein Nash-Gleichgewicht genannt, falls eine Kante 
-fast nur zu Zeitpunkten genutzt wird, zu denen die Kante den Zielknoten unter allen Pfaden in der kürzest-möglichen Zeit erreicht.
+So wird ein dynamischer Fluss ein Nash-Gleichgewicht genannt, falls eine Kante von $v$ nach $w$
+fast nur zu Zeitpunkten genutzt wird, zu denen die Kante auf einem kürzesten  Pfad von der Quelle zu $w$ liegt.
 
 Diese Arbeit gibt zunächst eine formale Definition von dynamischen Flüssen in Kapitel~\ref{chapter-dynamic-flows} sowie eine Charakterisierung von Nash-Gleichgewichten in Kapitel~\ref{chapter-nash-flows}.
 Danach widmet sie sich der Berechnung ebensolcher Gleichgewichte für den Fall, dass der Netzwerkzufluss an der Quelle konstant ist.
