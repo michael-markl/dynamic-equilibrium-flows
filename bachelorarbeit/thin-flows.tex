@@ -787,7 +787,7 @@ Die Abkürzung $\PPAD$ ist kurz für \glqq Polynomial Parity Argument on Directe
 Das Paritätsargument beruht dabei darauf, dass für jeden gerichteten Graphen mit einem unbalancierten Knoten, d.h. einem Knoten, dessen Eingangsgrad ungleich seines Ausgangsgrad ist, ein weiterer unbalancierter Knoten existiert.
 Dies folgt leicht aus der Gradgleichung
 \[
-	2 \abs{E} = \sum_{v\in V} ( d^+(v) + d^-(v) ),
+	2 \abs{E} = \sum_{v\in V} ( \abs{\delta^+(v)} + \abs{\delta^-(v)} ),
 \]
 denn gäbe es sonst keinen weiteren unbalancierten Knoten, so wäre der rechte Teil der Gleichung ungerade, der linke jedoch gerade.
 Für die Definition von~$\PPAD$ führt man zunächst das sogenannte \EndOfTheLine-Problem ein.
@@ -797,8 +797,8 @@ Das Problem besteht nun darin, ausgehend von einer Quelle eine Senke oder eine w
 Die einfachste Lösung wäre hier natürlich, ausgehend von der Quelle solange den ausgehenden Kanten zu folgen bis man an einer Senke angelangt.
 Jedoch betrachtet man hier Graphen, die exponentiell in der Eingabe wachsen können:
 
-Knoten in diesem Graphen sind repräsentiert durch $n$ Bits in der Knotenmenge $V\coloneq \{ 0,1 \}^n$ oder durch die Zahlen $V \coloneq \{ 0, \dots, 2^n -1 \}$.
-Kanten werden dann kodiert mittels einer Nachfolger-Funktion $S: V\rightarrow V\cupdot \{ \varepsilon \}$ und einer Vorgänger-Funktion $P: V\rightarrow V \cupdot \{ \varepsilon \}$, die jeweils polynomiell berechenbar sind und die Eigenschaft $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ erfüllen.
+Knoten in diesem Graphen sind repräsentiert durch $n$ Bits in der Knotenmenge $V\coloneq \{ 0,1 \}^n$.
+Kanten werden dann durch eine Nachfolger-Funktion $S: V\rightarrow V\cupdot \{ \varepsilon \}$ und eine Vorgänger-Funktion $P: V\rightarrow V \cupdot \{ \varepsilon \}$ kodiert, die jeweils polynomiell berechenbar sind und die Eigenschaft $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ erfüllen.
 Eine Kante $(x,y)$ zwischen zwei Knoten $x,y \in V$ soll also genau dann existieren, wenn $S(x) = y$ und $P(y) = x$ erfüllt sind.
 Ein Knoten $x$ ist also eine Quelle oder eine Senke, wenn er entweder keinen Vorgänger oder keinen Nachfolger, d.h. wenn entweder $P(x)$ oder $S(x)$ gerade $\varepsilon$ ist.
 Mit diesen Grundlagen kann das Problem nun formalisiert werden:
@@ -809,9 +809,9 @@ Mit diesen Grundlagen kann das Problem nun formalisiert werden:
 		\begin{tabular}{rl}
 			{\bfseries Input}: &Polynomiell berechenbare Funktionen $S,P: V\rightarrow V\cupdot \{ \varepsilon \}$ mit\\
 			& $S(x) = y \Leftrightarrow P(y) = x$ für alle $x,y \in V$ und
-			$P(0) = \varepsilon \neq S(0)$ sowie \\
-			& eine Zahl $n\in\N$ mit $V = \{ 0, 1 \}^n$.\\
-			{\bfseries Output}: & Ein Knoten $x\neq 0$ mit $\{ P(x), S(x) \} \subsetneq \{ \varepsilon \}$.
+			$P(0^n) = \varepsilon \neq S(0^n)$\\
+			& sowie eine Zahl $n\in\N$ mit $V = \{ 0, 1 \}^n$.\\
+			{\bfseries Output}: & Ein Knoten $x\in V\setminus \{ 0^n \}$ mit $\{ P(x), S(x) \} \subsetneq \{ \varepsilon \}$.
 		\end{tabular}
 	\end{mdframed}
 \end{center}
@@ -910,7 +910,7 @@ Dies verhilft uns auch zu einem Kandidaten für die Fixpunktiteration nach Brouw
 \end{definition}
 
 Zunächst bemerke man, dass $\Phi$ wohldefiniert und eindeutig ist:
-Einen schmalen $b'$-Fluss auf $\mathcal{N}'$ kann man auch als $b$-Fluss auf $\mathcal{N}$ interpretieren, wobei die Flusswerte von den verankerten Kanten auf die zurücksetzenden Kanten übertragen werden; insbesondere liegt der Zielbereich von $\Phi$ tatsächlich in $\Sigma$.
+Einen schmalen $b'$-Fluss auf $\mathcal{N}'$ kann man auch als $b$-Fluss auf $\mathcal{N}$ interpretieren, wobei die Flusswerte der verankerten Kanten auf die zurücksetzenden Kanten übertragen werden; insbesondere liegt der Zielbereich von $\Phi$ tatsächlich in $\Sigma$.
 Da jeder schmale Fluss $f$ in $\mathcal{N}'$ im Sinne von Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss auf $\mathcal{N}$ mit Zurücksetzen auf $E_1$ und geeigneten Balancen ist und der Fluss auf zurücksetzenden Kanten nach~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig ist, ist auch der Fluss auf den verankerten Kanten eindeutig.
 
 Außerdem ist die Menge $\Sigma$ nichtleer, kompakt und konvex, da sie eine Projektion des nichtleeren Polytops $\{ f \mid \text{$f$ ist $b$-Fluss} \}$ auf $E_1$ ist.
@@ -920,7 +920,7 @@ Wir betrachten nun die Fixpunkte von $\Phi$:
 \end{proposition}
 \begin{proof}
 	Man folgert dies leicht aus Lemma~\ref{lemma-thin-flows-anchored-networks}:
-	Es ist $x$ genau dann ein Fixpunkt von $\Phi$, wenn ein schmaler $b'$-Fluss $f$ ohne Zurücksetzen auf $\mathcal{N}'$, der auf den verankerten Kanten $x$ entspricht, existiert, wobei $b'$ der Vektor wie in Definition~\ref{def-sigma} ist, welcher nach Lemma~\ref{lemma-thin-flows-anchored-networks} bereits ein schmaler Fluss mit Zurücksetzen auf $\mathcal{N}$ ist.	
+	Es ist $x$ genau dann ein Fixpunkt von $\Phi$, wenn ein schmaler $b'$-Fluss $f$ ohne Zurücksetzen auf $\mathcal{N}'$, der auf den verankerten Kanten $x$ entspricht, existiert, wobei $b'$ der Vektor wie in Definition~\ref{def-sigma} ist, welcher nach Lemma~\ref{lemma-thin-flows-anchored-networks} einem schmalen Fluss mit Zurücksetzen auf $\mathcal{N}$ entspricht.	
 \end{proof}
 
 Koch gelangt mittels einer Sensitivitätsanalyse von schmalen Flüssen ohne Zurück\-setzen zu folgendem Theorem in ~\cite[Theorem 6.53]{Koch2012}:
@@ -935,14 +935,13 @@ Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
 \end{corollary}
 \begin{proof}
 	Seien $x$, $y$ aus $\Sigma$ gegeben.
-	Man zeige $ \norm{\Phi(x) - \Phi(y)}_\infty \leq \abs{E_1} \norm{x- y}_\infty $.
-	
+	Man zeige $\norm{\Phi(x) - \Phi(y)}_\infty \leq \abs{E_1} \norm{x- y}_\infty $.
 	Seien für $h\in \{ x,y \}$ die Balancen $b_s^h \coloneq b_s + h(E_1)$ und $b_v^h\coloneq b_v - h(\delta^+_\mathcal{N}(v) \cap E_1)$ für $v\in V\setminus\{ s\}$ gegeben.
-	Man definiere weiter die Balancen $b_v^z \coloneq \min \{ b_v^x, b_v^y \}$ für alle $v\in V\setminus \{ s\}$ und $b_s^z\coloneq -\sum_{v\in V\setminus \{ s\}} b_v^z$.
+	Man definiere weiter die Balancen $b_v^z \coloneq \min \{ b_v^x, b_v^y \}$ für alle $v\in V\setminus \{ s\}$ und $b_s^z\coloneq -b^z(V\setminus \{ s\})$.
 	Sei $f^h$ ein schmaler $b^h$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ für $h\in \{x, y, z\}$.
 	Dann ist $f^h_{\mid E_1} = \Phi(h)$ für $h\in \{x,y \}$ und nach Theorem~\ref{thm-thin-flow-sensitivity-analysis} gilt für alle $e\in E_1$:
 	\[
-		0\leq f_e^z - f_e^h \leq b_s^z - b_s^x = - \sum_{v\in V\setminus\{ s\}} (b_v^z + b_v^x)
+		0\leq f_e^z - f_e^h \leq b_s^z - b_s^h = - \sum_{v\in V\setminus\{ s\}} (b_v^z + b_v^h).
 	\]
 	Daraus lässt sich für alle Kanten $e\in E_1$ mit der Dreicksungleichung folgern:
 	\begin{align*}
@@ -954,29 +953,34 @@ Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
 
 Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anstreben, das folgende Problem einer schwachen Approximation darauf zu reduzieren:
 
-\newcommand{\epsTFwR}{\textsc{$\varepsilon$-TFwR}}
+\newcommand{\epsTFwR}{\textsc{($\varepsilon$\nobreakdash-TFwR)}}
 \begin{center}
 	\begin{mdframed}
 		\centering
-		\emph{\epsTFwR} \\[1em]
+		\emph{Approximate Thin Flow with Resetting \epsTFwR} \\[1em]
 		\begin{tabular}{rl}
 			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
 				&sowie die Genauigkeit $\varepsilon$.\\
-			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ mit $\norm{b' - b}_\infty \leq \varepsilon$.
+			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ und $\norm{b' - b}_\infty \leq \varepsilon$.
 		\end{tabular}
 	\end{mdframed}
 \end{center}
 
-Sei also eine \problemThinFlow\ Instanz und eine Genauigkeit $\varepsilon$ gegeben.
-Ist für das Problem~\Brouwer\ als Eingabe auch eine Funktion erlaubt, die auf einem Polytop in Normalform definiert ist, so erhält man bei Eingabe der Funktion $\Phi$ und Genauigkeit $\varepsilon/\abs{E_1}$ einen Vektor $f\in\Sigma$ mit $\norm{\Phi(f) - f}_\infty \leq \varepsilon / \abs{E_1}$.
-In polynomieller Zeit kann man dann einen schmalen Fluss $g$ ohne Zurücksetzen im verankerten Netzwerk bei Balancen $b'$ mit $b_s' = b_s + f(E_1)$ und $b_v' = b_v - f(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{ s \}$ berechnen.
-Dieser ist nach Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss mit Zurücksetzen im ursprünglichen Netzwerk mit den Balancen $b''$ mit $b_s'' = b_s + (f-g)(E_1)$ und $b_v'' = b_v + (f-g)(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{s\}$.
-Insbesondere gilt also:
-\[ 
-	\norm{ b - b''}_\infty \leq \sum_{e \in E_1} \abs{f_e - g_e} \leq \varepsilon.
-\]
+\begin{lemma}
+	Liegt das Problem \Brouwer\ sogar bei Eingabe von Funktionen, die auf einem Polytop in Normalform definiert sind, in~\PPAD, so ist auch das Problem \epsTFwR\ in \PPAD\ enthalten.
+\end{lemma}
+\begin{proof}
+	Sei eine rationale \problemThinFlow\ Instanz und eine Genauigkeit $\varepsilon$ gegeben.
+	Sei $f\in \Sigma$ mit $\norm{\Phi(f) - f}_\infty \leq \varepsilon / \abs{E_1}$ die Lösung der Instanz von \Brouwer\ bei Eingabe von $\Phi$ und der Genauigkeit $\varepsilon/\abs{E_1}$.
+	In polynomieller Zeit kann man dann einen schmalen Fluss $g$ ohne Zurücksetzen im verankerten Netzwerk bei Balancen $b''$ mit $b_s'' = b_s + f(E_1)$ und $b_v'' = b_v - f(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{ s \}$ berechnen.
+	Dieser ist nach Lemma~\ref{lemma-thin-flows-anchored-networks} auch ein schmaler Fluss mit Zurücksetzen im ursprünglichen Netzwerk bei den Balancen $b'$ mit $b_s' = b_s + (f-g)(E_1)$ und $b_v' = b_v + (f-g)(\delta^+(v)\cap E_1)$ für $v\in V\setminus\{s\}$.
+	Insbesondere gilt also 
+	\(
+	\norm{ b - b'}_\infty \leq \sum_{e \in E_1} \abs{f_e - g_e} \leq \varepsilon.
+	\)
+\end{proof}
 
 Ob das Problem~\Brouwer\ dahingehend verallgemeinert werden kann, dass als Definitionsbereich ein allgemeines Polytop in Normalform verwendet werden kann, bleibt an dieser Stelle jedoch offen.
 Da wir außerdem schon gesehen haben, dass bei Eingabe einer rationalen \problemThinFlow\ Instanz eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch die exakte Version \probTFwR\ in \PPAD\ liegt.
-Beides könnte durch eine Anpassung der Triangulation, die bei der Reduktion von~\Brouwer\ auf eine Version des Lemma von Sperner -- welche selbst vollständig in $\PPAD$ liegt -- gebildet wird, erreicht werden.
+Beides könnte durch eine Anpassung der Triangulation erreicht werden, die bei der Reduktion von~\Brouwer\ auf eine Version des Lemma von Sperner, welche selbst vollständig in $\PPAD$ liegt, gebildet wird.
 Dabei könnten außerdem die Erkenntnisse aus Abschnitt~\ref{sec-rational-search}, der Einblicke in die exakte Suche rationaler Zahlen gibt, hilfreich sein.
