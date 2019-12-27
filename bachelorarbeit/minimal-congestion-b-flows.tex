@@ -443,21 +443,24 @@ Versucht man beispielsweise $\gamma$ so zu wählen, dass die Auslastung des Zykl
 	Wird der Fluss entlang $\overrightsmallarrow{e_i}\overleftsmallarrow{e_k}$ augmentiert, so werden die Flusswerte von $e_i$ und $e_k$ angeglichen, sodass der Wert von $e_j$ in jedem Fall davon abweicht.
 \end{example}
 
-\subsection{Berechnungsmodell}
+\subsection{Berechnungsmodell und Kodierungslängen}
 
-Um die Laufzeit des nachfolgenden Algorithmus' präzise analysieren zu können, wird zunächst das zugrundeliegende Berechnungsmodell vorgestellt.
+Um den nachfolgenden Algorithmus präzise analysieren zu können, wird zunächst das zugrundeliegende Berechnungsmodell vorgestellt.
 Dabei wird wie in~\cite{Gritzmann2013} eine Variante der Random-Access-Machine (RAM) verwendet.
 Diese besteht aus einer Recheneinheit und einem unendlich großen Speicher, dessen Speicherzellen anhand der natürlichen Zahlen adressiert werden und jeweils eine ganze Zahl speichern.
 Eine RAM kann ein Programm, also eine endliche Folge von elementaren Instruktionen, ausführen.
 Eine solche elementare Instruktion ist entweder eine arithmetische Operation, also eine Addition ($+$), Subtraktion ($-$), Multiplikation ($\cdot$) oder ganzzahlige Division ($\div$), oder ein bedingter Sprung, welcher zunächst zwei Operanden mithilfe eines Vergleichers aus $\{ <, \leq, > \geq, =, \neq \}$ vergleicht und im Wahrheitsfall zu einer bestimmten Instruktion wechselt.
 Dabei erlaubt die RAM die Angabe der Operanden durch indirekte Adressierung.
-\todo{refine RAM.}
+Eine solche RAM erlaubt also unter Anderem das Formulieren üblicher Schleifen.
+Für eine formale Definition wird auf~\cite{Gritzmann2013} verwiesen.
 
+Für die Bestimmung der Laufzeit eines Programms gibt es nun im Wesentlichen zwei Möglichkeiten:
+Das logarithmische und das konstante Kostenmaß:
+Beim logarithmischen Kostenmaß wird der Zeitaufwand einer elementaren Instruktion auf die Summe der Kodierungslängen der darin genutzten Zahlen (d.h. Speicheradressen und -werte) gesetzt, um beispielsweise den zeitlichen Mehraufwand von der Multiplikation großer Zahlen zu modellieren.
+Das konstante Kostenmaß hingegen weist jeder elementaren Instruktion unbeachtet der Größe der darin vorkommenden Zahlen einen konstanten Zeitaufwand zu.
 
-Für die Bestimmung der Laufzeit eines Programms $\mathcal{A}$ wird hier das logarithmische Kostenmaß verwendet, um dem zeitlichen Mehraufwand von beispielsweise der Multiplikation großer Zahlen gerecht zu werden:
-Demnach benötigt die Ausführung einer elementaren Instruktion $t$ viele Zeiteinheiten, wobei $t$ die Summe der Kodierungslängen der darin genutzten Zahlen (d.h. Speicheradressen und -werte) ist.
 Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} \coloneq 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
-Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ kodiert, sodass $r = p/q$ gilt.
+Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ mit $r = p/q$ kodiert.
 Dabei wird die Kodierungslänge von $r$ als $\size{r}\coloneq \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
 Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} \coloneq \sum_{i=1}^n \size{v_i}$ und $\size{A}\coloneq \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
 
@@ -508,8 +511,6 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 		\abs{\det(A)} \leq \prod_{i=1}^n (2^{\size{a^i} - n} - 1) \leq 2^{\sum_{i=1}^n \size{a^i} - n^2} = 2^{\size{A} - n^2}.
 	\]
 \end{proof}
-
-Die Laufzeit eines Programms $\mathcal{A}$ bei Eingabe einer Instanz $\mathcal{I}$ einer Problemklasse $\Pi$ ist dann die Summe der Zeitaufwände der einzelnen Instruktionen, die während der Ausführung des Programms bei Eingabe $\mathcal{I}$ durchlaufen werden.
 
 \input{bachelorarbeit/efficient-search-rationals}
 
