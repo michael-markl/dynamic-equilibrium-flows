@@ -4,7 +4,7 @@ Die Berechnung von Nash-Gleichgewichten erfordert zunächst das Verständnis von
 Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse.
 
 \begin{definition}[Auslastungsminimaler $b$-Fluss]
-	Sei ein $b$-Fluss $f$ auf einem Netzwerk mit Kapazitäten $u\in\R_{>0}^E$ gegeben.
+	Sei ein $b$-Fluss $f$ auf einem Netzwerk gegeben.
 	Dann heißt $f_e/u_e$ die \emph{Auslastung der Kante $e$ durch $f$} und die maximale Kantenauslastung $c(f)\coloneq \max_{e\in E} f_e/u_e$ wird die \emph{Auslastung des Flusses $f$} genannt.
 	Eine Kante mit Auslastung $c(f)$ wird auch als \emph{Flaschenhalskante} (engl. bottleneck edge), eine Kante ohne Fluss als \emph{Nullkante} bezeichnet.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
@@ -22,8 +22,8 @@ Der Beweis und die zugehörige Analyse auslastungsminimaler $b$-Flüsse wurde hi
 Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, welches die Auslastung von Schnitten involviert.
 
 \begin{definition}[Schnitt]
-	In einem gerichteten Netzwerk $(V, E, u)$ wird eine Teilmenge $X\subseteq V$ auch \emph{Schnitt} genannt.
-	Sind Knotenbalancen $b\in\R^V$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
+	In einem Netzwerk $(V, E, u)$ wird eine Knotenteilmenge $X\subseteq V$ auch \emph{Schnitt} genannt.
+	Sind Knotenbalancen $b$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
 	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.
 \end{definition}
 Man bemerke, dass ein dünnster Schnitt existiert, wenn die Kantenmenge $E$ nichtleer ist.
@@ -31,7 +31,7 @@ Im Folgenden wird gezeigt, dass die Auslastung eines Schnittes höchstens so gro
 Dies ist auch anschaulich klar, da das Angebot $b(X)$ eines Schnittes $X$ im besten Fall gleichmäßig auf die Kapazitäten aller ausgehenden Kanten des Schnittes verteilt wird.
 
 \begin{theorem}[Schwache Dualität]\label{thm-weak-duality-min-con-flow}
- 	In einem gerichteten Netzwerk $(V, E, u)$ mit Balancevektor $b\in\R^V$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
+ 	In einem Netzwerk $(V, E, u)$ mit Balancen $b$ ist die Auslastung eines $b$-Flusses $f$ mindestens so groß wie die Auslastung eines Schnittes $X$ mit ausgehenden Kanten; das heißt \[\max_{e\in E} \frac{f_e}{u_e} \geq \frac{b(X)}{u(\delta^+(X))}.\]
 \end{theorem}
 \begin{proof}
 	Sei $e^*$ eine Flaschenhalskante bzgl. $f$.
@@ -115,8 +115,8 @@ Zunächst wird die schwache Dualität an einem Beispiel illustriert.
 	\]
 \end{definition}
 \begin{definition}[Residualgraph eines $b$-Flusses]
-	Sei ein $b$-Fluss $f$ auf einem Netzwerk $(V, E)$ mit Kapazitäten $u\in\R^E_{>0}$ gegeben.
-	Der \emph{Residualgraph von $G$ bezüglich $f$} sei definiert durch $G_f \coloneq (V, E_f)$ mit \[
+	Sei ein $b$-Fluss $f$ auf einem Netzwerk $(V, E, u)$ gegeben.
+	Der \emph{Residualgraph von $f$} sei definiert durch $G_f \coloneq (V, E_f)$ mit \[
 	E_f \coloneq \{ \overrightsmallarrow{e}\in \overrightsmallarrow{E} \mid f_e/u_e < c(f) \} \cup \{ \overleftsmallarrow{e} \in \overleftsmallarrow{E} \mid f_e/u_e > 0 \}.
 	\]
 \end{definition}
@@ -199,7 +199,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Für einen Graphen $G = (V,E)$ sei die Relation ${\sim} \subseteq V\times V$ die Äquivalenzrelation gegeben durch \[
 	v\sim w ~~\vcentcolon\Leftrightarrow~~ \text{$v$ ist von $w$ und $w$ ist von $v$ in $G$ erreichbar}.
 	\]
-	Dann nennt man den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen -- also die Menge der \emph{(starken) Zusammenhangskomponenten} -- sind und eine Kante $xy$ in $E^\sim$ genau dann existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
+	Dann nennt man den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen, also die Menge der \emph{(starken) Zusammenhangskomponenten} von $G$, sind und eine Kante $xy$ genau dann in $E^\sim$ existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
 \end{definition}
 
 Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ erreicht werden kann, wenn die Äquivalenzklasse von $w$ im Zusammenhangsgraph von der Äquivalenzklasse von $v$ erreicht werden kann.
@@ -222,7 +222,7 @@ Außerdem ist der Zusammenhangsgraph stets azyklisch.
 	Weiter sei $\gamma_\RK \coloneq \inf_{\overleftsmallarrow{e}\in C_\RK} f_e > 0$ die minimale Flussmenge der Rückwärtskanten in $C$.
 	Wählt man nun ein $\gamma \in (0, \min\{ \gamma_\VK, \gamma_\RK \})$, so erhält man durch $(\gamma/k)$-wertige Augmentierung von $f$ entlang $C$ einen $b$-Fluss $\tilde{f}$, wobei $k$ das maximale Vorkommen einer Kante in $C$ ist.
 	
-	Bezüglich $\tilde{f}$ haben dann< alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
+	Bezüglich $\tilde{f}$ haben dann alle Kanten in $E_C$ eine positive und geringere Auslastung als $q^*$.
 	Demnach ist auch $\tilde{f}$ ein auslastungsminimaler $b$-Fluss.
 	
 	Da nach der Augmentierung der Kreis $C$ auch in $G_{\tilde{f}}$ liegt, ändert sich am Zusammenhangsgraphen nichts:
@@ -356,7 +356,7 @@ Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-
 \end{figure}
 
 \begin{lemma}\label{lemma-calc-sparsest-cut}
-	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u)$ mit nichtleerer Kantenmenge $E$.
+	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u, b)$ mit nichtleerer Kantenmenge $E$.
 	Dann kann in $\bigO(n+m)$ Zeit ein dünnster Schnitt mit Auslastung $q^*$ berechnet werden.
 	Dabei seien $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten.
 \end{lemma}
@@ -371,7 +371,7 @@ Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-
 Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
 
 \begin{theorem}\label{thm-strong-duality-sparsest-cut-min-flow}
-	Existiert in einem gerichteten Netzwerk $(V, E, u)$ mit Balancen $b\in\R^V$ ein $b$-Fluss und ist $E$ nichtleer, so ist die minimale Auslastung eines $b$-Flusses gerade die Auslastung eines dünnsten Schnittes; das bedeutet
+	Existiert in einem Netzwerk ein $b$-Fluss und ist $E$ nichtleer, so ist die Auslastung eines auslastungsminimalen $b$-Flusses gerade die eines dünnsten Schnittes; das bedeutet
 	\[
 	\min_{\text{$f$ $b$-Fluss}}~\max_{e\in E}\frac{f_e}{u_e} = \max_{\substack{X\subseteq V\\ \delta^+(X)\neq\emptyset}} ~ \frac{b(X)}{u(\delta^+(X))}.
 	\]
@@ -383,19 +383,19 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwisc
 \end{proof}
 
 \begin{corollary}\label{cor-easy-characterization-sparsest-cut}
-	Seien $f$ ein $b$-Fluss mit Auslastung $q$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$ in einem Netzwerk $(V, E, u)$.
+	Seien $f$ ein $b$-Fluss mit Auslastung $q^*$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$.
 	Dann sind die beiden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Es sind $X$ ein dünnster Schnitt und $f$ ein $b$-Fluss minimaler Auslastung.
-		\item Die Auslastung bezüglich $f$ aller ausgehenden Kanten von $X$ beträgt $q$ und $f$ verschwindet auf allen eingehenden Kanten von $X$.
+		\item Die Auslastung bezüglich $f$ beträgt $q^*$ auf allen ausgehenden Kanten von $X$ und verschwindet auf allen eingehenden Kanten von $X$.
 	\end{enumerate}
 \end{corollary}
 \begin{proof}
 	Aufgrund der Flusserhaltung gilt $b(X) = f(\delta^+(X)) - f(\delta^-(X))$.
 	In \[
-	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q}{u(\delta^+(X))} = q
+	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q^*}{u(\delta^+(X))} = q^*
 	\]
-	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q$ für alle $e\in\delta^+(X)$ gelten.
+	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q^*$ für alle $e\in\delta^+(X)$ gelten.
 	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung.
 \end{proof}
 
@@ -589,7 +589,7 @@ Da das Maschinenmodell nur auf Zahlen mit endlicher Kodierung arbeiten kann, wir
 		\centering
 		\emph{Minimum Congestion Flow (MCF)} \\[1em]
 		\begin{tabular}{rl}
-			{\bfseries Input}: &$b$-Fluss-Instanz $(V, E, b\in\Q^V, u \in \Q^E_{>0})$\\
+			{\bfseries Input}: &Netzwerk $(V, E,u \in \Q^E_{>0})$ mit Balancen $b\in\Q^V$\\
 			{\bfseries Output}: &Auslastungsminimaler $b$-Fluss $f$
 		\end{tabular}
 	\end{mdframed}
@@ -612,7 +612,7 @@ Umgekehrt ist $(c(f), f)$ eine optimale Lösung von~(\ref{problem-lp-minimal-flo
 
 
 \begin{corollary}\label{cor-minimal-congestion-limited}
-	Existiert für eine $b$-Fluss-Instanz $(V, E, b\in\Q^V, u\in\Q^E_{>0})$ ein $b$-Fluss, so ist die Auslastung $q^*$ eines auslastungsminimalen $b$-Flusses enthalten in
+	Existiert für ein Netzwerk mit rationalen Kapazitäten $u\in\Q_{>0}^E$ und Balancen $b\in\Q^V$ ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses enthalten in
 	\[
 	\left\{ \frac{p}{q} ~\middle|~ p\in\N_0, q\in\N_1, p,q \leq 8^{\size{b} + \size{u} } \right\}.
 	\]
@@ -642,7 +642,8 @@ Dabei ist $B$ die Inzidenzmatrix des schleifenfreien Graphen, das heißt, nennt 
  Die zugehörigen Entscheidungsvariablen sind $(f, y, q^*)^T\in\R_{\geq 0}^{2m+1}$, die Zielfunktion ist definiert durch $x\mapsto c^T x$ mit $c = (\nil_{1\times 2m}, 1)^T$.
  
 Multipliziert man nun für $i\in [n]$ die $i$-te Zeile von $A$ und $\tilde{b}$ mit dem Nenner von $b_i$ und für $i\in [m]$ die $(n+i)$-te Zeile mit dem Nenner von $u_i$, so erhält man eine ganzzahlige Matrix $\hat{A}$ und einen ganzzahligen Vektor $\hat{b}$.
-Die Kodierungslänge der ersten $n$ Zeilen von $\hat{A}$ beträgt höchstens $2\size{b} + (n-2)m) + nm + n = 2\size{b} + 2nm -2m + n$.
+Die Kodierungslänge der ersten $n$ Zeilen von $\hat{A}$ beträgt höchstens \[ 2\size{b} + (n-2)m) + nm + n = 2\size{b} + 2nm -2m + n.
+\]
 Die restlichen $m$ Zeilen haben eine Kodierungslänge von höchstens $3\size{u} + 2m^2 - 2m$.
 Der Vektor $\hat{b}$ hat eine Kodierungslänge von höchstens $\size{b} + m$.
 

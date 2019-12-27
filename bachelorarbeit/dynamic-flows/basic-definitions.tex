@@ -1,4 +1,3 @@
-
 \section{Grundlegende Definitionen}
 
 Zunächst werden einige grundlegende Begriffe eingeführt.
@@ -16,19 +15,24 @@ Ist weiter $f: E \rightarrow \R$ eine Kantenbewertung und $b: V \rightarrow \R$ 
 \]
 
 Ein \emph{Pfad} $P=(e_1, \dots, e_k)$ ist eine Aneinanderreihung von Kanten, das heißt, es gilt $\head(e_i) = \tail(e_{i+1})$ für alle $i\in[k-1]$.
+Dabei bezeichnet $[n]$ die Menge der ersten $n$ natürlichen Zahlen, also $\{ 1,\dots, n \}$.
+Die Kanten eines Pfades werden in der Menge $E(P)$, die Knoten in der Menge $V(P)$ gesammelt.
 Ein Pfad heißt \emph{Weg}, falls kein Knoten mehrmals besucht wird. 
 Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich $\tail(e_1)$ genau zweimal und sonst kein Knoten mehrmals besucht wird.
 
-\begin{definition}[Dynamisches Netzwerk]
-	Ein \emph{Netzwerk} $(V, E, u, s, t, \tau)$ ist ein gerichteter Graph $(V,E)$, in dem $s$ alle Knoten in $V$ erreicht.
+\begin{definition}
+	Ein \emph{Netzwerk $(V, E, u)$} ist ein gerichteter, endlicher Graph $(V, E, u)$ mit \emph{Kapazitäten} $u: E \to \R_{>0}$.
+	Im Falle statischer Flüsse ist ein Netzwerk häufig mit Balancen $b:V\to\R$ ausgestattet.
+	
+	Ein \emph{Dynamisches Netzwerk} $(V, E, u, s, t, \tau)$ ist ein Netzwerk $(V, E, u)$, in dem $s$ alle Knoten in $V$ erreicht.
 	Dabei heißen $s\in V$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
-	Jeder Kante $e\in E$ werden eine Kapazität $u_e > 0$ und eine Verzögerungszeit $\tau_e\geq 0$ zugeordnet, sodass alle Zykel $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
+	Jeder Kante $e\in E$ wird zusätzlich eine \emph{Verzögerungszeit} $\tau_e\geq 0$ zugeordnet, wobei alle Zykel $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
 \end{definition}
 \begin{definition}[Statischer Fluss]
 	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
 	Sein \emph{Balancevektor $b\in \R^V$} ist gegeben durch
 	\[ b_v \coloneq f(\delta^+(v)) - f(\delta^-(v)) \text{~~~ für $v\in V$}. \]
-	Man nennt $f$ auch einen \emph{$b$-Fluss} und sagt, \emph{$f$ gewähre Flusserhaltung bzgl. $b$}.
+	Man nennt $f$ auch einen \emph{$b$-Fluss} oder sagt, \emph{$f$ gewähre Flusserhaltung bzgl. $b$}.
 	Gibt es zwei Knoten $s$ und $t$, sodass $b_v$
 	für alle Knoten $v\in V\setminus\{ s, t \}$ verschwindet, für $s$ nicht-negativ und für $t$ nicht-positiv ist, so ist $f$ ein \emph{statischer $s$-$t$-Fluss mit Wert $b_s$}.
 	Ist $b$ der Nullvektor, so nennt man $f$ auch eine Strömung.
@@ -54,7 +58,7 @@ Dazu wird der folgende Funktionenraum eingeführt:
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
-	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
+	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines dynamischen Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
 	Dabei bezeichnen $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$}.
 	
 	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta)\coloneq\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta)\coloneq\int_0^\theta f^-_e(t) \diff t<\infty$.
