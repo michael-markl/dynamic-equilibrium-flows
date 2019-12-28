@@ -145,32 +145,32 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 	Eine rationale Zahl $x\in(0,1]$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 2M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $2M$ bestimmt werden.
 \end{theorem}
 \begin{proof}	
-	Man betrachte zunächst den Fall, dass man über die beste obere Schranke $x_r/y_r$ an $x$ in $F_{2^k}$ sowie über dessen Vorgänger $x_l/y_l$ in $F_{2^k}$ verfügt und nun die beste obere Schranke $x_r'/y_r'$ in $F_{2^{k+1}}$ und dessen Vorgänger $x_l'/y_l'$ ermitteln möchte.
-	Nach Lemma~\ref{lemma-candidates-next-farey-bound} kommen dabei als Kandidaten für $x_l'/y_l'$ und $x_r'/y_r'$ genau die Brüche der Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r \leq 2^{k+1}$ in Frage; für $x_l'/y_l'$ bzw. $x_r'/y_r'$ ist außerdem $x_l/y_l$ bzw. $x_r/y_r$ möglich.
+	Man betrachte zunächst den Fall, dass man über die beste obere Schranke $x_r/y_r$ an $x$ in $F_{2^{k-1}}$ sowie über dessen Vorgänger $x_l/y_l$ in $F_{2^{k-1}}$ verfügt und nun die beste obere Schranke $x_r'/y_r'$ in $F_{2^{k}}$ und dessen Vorgänger $x_l'/y_l'$ ermitteln möchte.
+	Nach Lemma~\ref{lemma-candidates-next-farey-bound} kommen dabei als Kandidaten für $x_l'/y_l'$ und $x_r'/y_r'$ genau die Brüche der Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r \leq 2^{k}$ in Frage; für $x_l'/y_l'$ bzw. $x_r'/y_r'$ ist außerdem $x_l/y_l$ bzw. $x_r/y_r$ möglich.
 	
 	Unter diesen Brüchen ist für $x_r/y_r$ der kleinstmögliche gesucht, der $x\leq x_r/y_r$ erfüllt, und für $x_l/y_l$ der größtmögliche, für den $x_l/y_l < x_r/y_r$ gilt.
-	Nach Lemma~\ref{lemma-farey-middle-member} ist $y_l + y_r > 2^k$.
-	Daher ist $y_l$ oder $y_r$ größer als $2^{k-1}$.
-	Aus Symmetriegründen sei im Folgenden ohne Einschränkung $y_l$ größer als $2^{k-1}$.
+	Nach Lemma~\ref{lemma-farey-middle-member} ist $y_l + y_r > 2^{k-1}$.
+	Daher ist $y_l$ oder $y_r$ größer als $2^{k-2}$.
+	Aus Symmetriegründen sei im Folgenden ohne Einschränkung $y_l$ größer als $2^{k-2}$.
 	Nun unterscheide man drei Fälle:
 	
 	\begin{description}
-		\item[1. Fall:] $y_r \geq 2^{k-2}$.
+		\item[1. Fall:] $y_r \geq 2^{k-3}$.
 		
-		In diesem Fall sind alle Möglichkeiten an $(\alpha,\beta)\in\N^2$ mit $\alpha y_l + \beta y_r \leq 2^{k+1}$ enthalten in der Menge $\{ (1,1), (1,2),\dots,(1,5), (2,1), (2,2),(2,3),(3,1) \}$.
-		Hier kann mit konstant vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ und arithmetischen Operationen die beste obere Schranke an $x$ in $F_{2^{k+1}}$ und den Vorgänger der Schranke finden.
+		In diesem Fall sind alle Möglichkeiten an $(\alpha,\beta)\in\N^2$ mit $\alpha y_l + \beta y_r \leq 2^{k}$ enthalten in der Menge $\{ (1,1), (1,2),\dots,(1,5), (2,1), (2,2),(2,3),(3,1) \}$.
+		Hier kann man mit konstant vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ und arithmetischen Operationen die beste obere Schranke an $x$ in $F_{2^{k}}$ und den Vorgänger der Schranke finden.
 		
-		\item[2. Fall:] $x > \frac{x_l'}{y_l'} \coloneq \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_l}$ mit $\alpha \coloneq 1$ und $\beta \coloneq \left\lfloor \frac{2^{k+1} - y_l}{y_r}\right\rfloor$.
+		\item[2. Fall:] $x > \frac{x_l'}{y_l'} \coloneq \frac{\alpha x_l + \beta x_r}{\alpha y_l + \beta y_l}$ mit $\alpha \coloneq 1$ und $\beta \coloneq \left\lfloor \frac{2^{k} - y_l}{y_r}\right\rfloor$.
 		
-		Lemma~\ref{lemma-fraction-helpers}~$(ii)$ impliziert, dass $x_l'/y_l'$ der direkte Vorgänger von $x_r/y_r$ in $F_{2^{k+1}}$ ist, denn für $\alpha$ ist $1$ der minimale Wert und für $\beta$ ist der maximale Wert, der $y_l + \beta y_r \leq 2^{k+1}$ noch erfüllt, gerade $\lfloor (2^{k+1} - y_l)/y_r \rfloor$.
+		Lemma~\ref{lemma-fraction-helpers}~$(ii)$ impliziert, dass $x_l'/y_l'$ der direkte Vorgänger von $x_r/y_r$ in $F_{2^{k}}$ ist, denn für $\alpha$ ist $1$ der minimale Wert und für $\beta$ ist der maximale Wert, der $y_l + \beta y_r \leq 2^{k}$ noch erfüllt, gerade $\lfloor (2^{k} - y_l)/y_r \rfloor$.
 		Des Weiteren ist $\beta$ mindestens $\lfloor y_r/y_r \rfloor = 1$.
-		Dementsprechend wird als neue obere Schranke die vorherige Schranke übernommen, d.h. $x_r'/y_r' = x_r/y_r$, mit Vorgänger $x_l'/y_l'$ in $F_{2^{k+1}}$.
+		Dementsprechend wird als neue obere Schranke die vorherige Schranke übernommen, d.h. $x_r'/y_r' = x_r/y_r$, mit Vorgänger $x_l'/y_l'$ in $F_{2^{k}}$.
 		
 		\item[3. Fall:]~Weder Fall~1 noch Fall~2 treten ein.
 		
-			In diesem Fall sind $y_r$ kleiner als $2^{k-2}$ ist und die gesuchte obere Schranke $x_r'/y_r'$ kleiner als die aktuelle Schranke $x_r/y_r$.
-			Also hat die gesuchte Schranke die Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r\leq 2^{k+1}$.
-			Wegen $y_l > 2^{k-1}$ kann man die Suche dabei auf $\alpha \in \{ 1, 2, 3 \}$ beschränken.
+			In diesem Fall sind $y_r$ kleiner als $2^{k-3}$ ist und die gesuchte obere Schranke $x_r'/y_r'$ kleiner als die aktuelle Schranke $x_r/y_r$.
+			Also hat die gesuchte Schranke die Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r\leq 2^{k}$.
+			Wegen $y_l > 2^{k-2}$ kann man die Suche dabei auf $\alpha \in \{ 1, 2, 3 \}$ beschränken.
 			Für jedes $\alpha\in\{1,2,3\}$ bestimmt man nun das $\beta_\alpha$, sodass der entsprechende Bruch $x$ von oben möglichst gut beschränkt:
 			\[
 				\frac{\alpha x_l + (\beta_\alpha - 1) x_l}{\alpha y_l + (\beta_\alpha - 1) y_r} < x \leq \frac{\alpha x_l + \beta_\alpha x_l}{\alpha y_l + \beta_\alpha y_l}.
@@ -180,14 +180,14 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 			\text{~~~~~und~~~~~}
 			\frac{x_l'}{y_l'}\coloneq \max_{\alpha\in[3]} 			\frac{\alpha x_l + (\beta_\alpha - 1)x_r}{\alpha y_l + (\beta_\alpha - 1)y_r}.
 			\]
-			Die $\beta_\alpha$ können wegen der Monotonie nach Lemma~\ref{lemma-fraction-helpers} mittels binärer Suche auf $\beta \in \{1,\dots, \lfloor (2^{k+1} - \alpha y_l) / y_r \rfloor \}$ ermittelt werden.
-			Dabei werden insgesamt maximal $3 \cdot \lfloor \log_2(2^{k+1} / y_r) + 1 \rfloor = 3 (k+2 - \lceil\log_2(y_r)\rceil)$ Vergleiche mit $x$ benötigt.
-			Man bemerke für die spätere Analyse, dass $y_r'$ in diesem Fall größer als $2^k$ ist.
+			Die $\beta_\alpha$ können wegen der Monotonie nach Lemma~\ref{lemma-fraction-helpers} mittels binärer Suche auf $\beta \in \{1,\dots, \lfloor (2^{k} - \alpha y_l) / y_r \rfloor \}$ ermittelt werden.
+			Dabei werden insgesamt maximal $3 \cdot \lfloor \log_2(2^{k} / y_r) + 1 \rfloor = 3 (k+1 - \lceil\log_2(y_r)\rceil)$ Vergleiche mit $x$ benötigt.
+			Man bemerke für die spätere Analyse, dass $y_r'$ in diesem Fall größer als $2^{k-1}$ ist.
  	\end{description}
  	
- 	Der Algorithmus wird mit $k=0$, $x_l/y_l$ = $0/1$ sowie $x_r/y_r = 1/1$ initialisiert.
+ 	Der Algorithmus wird mit $x_l/y_l$ = $0/1$ sowie $x_r/y_r = 1/1$ initialisiert.
  	Dann wird das Suchintervall wie oben beschrieben in $n\coloneq \lceil \log_2(M) \rceil$ Runden verkleinert.
- 	In Runde $k+1$ soll also ausgehend von einer besten Schranke (und ihrem Vorgänger) in $F_{2^k}$ eine beste Schranke (und ihr Vorgänger) in $F_{2^{k+1}}$ ermittelt werden.
+ 	In Runde $k$ soll also ausgehend von einer besten Schranke (und ihrem Vorgänger) in $F_{2^{k-1}}$ eine beste Schranke (und ihr Vorgänger) in $F_{2^{k}}$ ermittelt werden.
  	Schließlich erhält man eine niedrigste obere Schranke $x_r/y_r$ an $x$ in $F_{2^n}$.
  	Da eine Darstellung von $x$ in $F_{2^n}$ existiert, muss $x_r/y_r$ also bereits mit $x$ übereinstimmen.
  	
@@ -197,7 +197,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Jedoch braucht eine einzelne Ausführung von Fall~3 aufgrund der binären Suche unter Umständen $\bigO(\log M)$ viele Vergleiche.
  	Hier hilft eine genauere Analyse der akkumulierten Anzahl von Vergleichen, die durch Fall~3 ausgelöst werden.
  	
- 	Dazu zeigt man, dass nach der $k$-ten Runde des Algorithmus für den dritten Fall insgesamt nur maximal $9k$ Vergleiche mit $x$ unternommen werden.
+ 	Dazu zeigt man, dass nach der $k$-ten Runde des Algorithmus für den dritten Fall insgesamt nur maximal $9k$ Vergleiche mit $x$ unternommen wurden.
  	Dies zeigt man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
  	Ist $i=1$ -- ist also Fall 3 das erste Mal eingetreten --, so wurden maximal $3(k+2) \leq 9k$ Vergleiche benötigt.
  	Für $i\geq2$ sei $k'$ die letzte Runde, zu der Fall 3 angewandt wurde.
