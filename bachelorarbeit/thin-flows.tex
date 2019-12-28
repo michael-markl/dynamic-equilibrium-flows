@@ -513,15 +513,24 @@ Schränkt man einen solchen also auf $E[X]$ ein, erhält man einen $b[X]$-Fluss.
 Daher ist eine durch einen dünnsten Schnitt induzierte Teilinstanz wieder eine  $b$-Fluss-Instanz.
 
 \begin{proposition}\label{prop-restricted-minimal-flow-is-b-flow-on-induced-instance}
-	Sei $f$ ein auslastungsminimaler $b$-Fluss einer $b$-Fluss-Instanz $\mathcal{I}$ in einem $s$-Netzwerks mit $b_s > 0$, so stimmen die Knotenauslastungen $l$ von $f$ auf $X$ mit der Knotenauslastung $l'$ von $f'$ überein.
+	Seien $f$ ein $b$-Fluss minimaler Auslastung $q^*$ einer $b$-Fluss-Instanz in einem $s$-Netzwerks mit $b_s > 0$ und $X$ ein dünnster Schnitt, so stimmen die Knotenauslastungen $l$ von $f$ auf $X$ mit der Knotenauslastung $l'$ von $f'$ überein.
+	Ist $X$ inklusionsminimal, so existiert ein $b[X]$-Fluss in $(X, E[X])$, dessen Auslastung geringer als $q^*$ ist.
 \end{proposition}
 \begin{proof}
 	Da $X$ ein dünnster Schnitt in einem $s$-Netzwerk mit $b_s > 0$ ist, liegt $s$ in $X$, da $X$ nur so eine positive Auslastung haben kann.
 	Sei ein beliebiger Knoten $v$ aus $X$ gegeben.
-	Da jeder $s$-$v$-Pfad in $(X, E[X])$ auch in $(V, E)$ enthalten ist, ist die Auslastung $l'_v$ bereits maximal $l_v$.
-	Außerdem liegt jeder $s$-$v$-Pfad in $(V, E)$ mit positivem Fluss bezüglich $f$ auch komplett in $(X, E[X])$, da $f$ auf $\delta^-_E(X)$ verschwindet.
-	Daraus folgt $l'_v \geq l_v$.
-	\todo{Das folgt noch nicht; brauche Inklusionsminimalität}
+	Da jeder $s$-$v$-Pfad in $(X, E[X])$ auch in $(V, E)$ enthalten ist, ist die Auslastung $l'_v$ bereits mindestens $l_v$.
+	Angenommen, $l_v$ beträgt $q^*$, so gilt automatisch $l_v \geq l_v'$.
+	Seien also $l_v < q^*$ und $P$ ein $s$-$v$-Pfad mit Auslastung $l_v$ bzgl. $f$ in $(V, E)$.
+	Dann ist jede Kante in $P$ auch in $E[X]$ enthalten, da ausgehende Kanten aus $X$ Auslastung $q^*$ bzgl. $f$ haben.
+	Insbesondere gilt also auch hier $l_v \geq l_v'$.
+	
+	Sei $X$ nun außerdem inklusionsminimal.
+	Gilt $b[X]_s = 0$, so ist die Aussage klar.
+	Sonst existiert wieder ein dünnster Schnitt $Y$ auf $(X, E[X])$ bezüglich den Balancen $b[X]$.
+	Angenommen, die Auslastung von $Y$ ist wieder $q^*$, wodurch die Einschränkung von $f$ auf $E[X]$ ein auslastungsminimaler $b[X]$-Fluss ist.
+	Dann ist $Y$ nach Korollar~\ref{cor-easy-characterization-sparsest-cut} ein dünnster Schnitt von $(V, E)$ bezüglich den Balancen $b$.
+	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $X$.
 \end{proof}
 
 Daher kann man bereits erkennen, dass ein schmaler Fluss ohne Zurücksetzen eingeschränkt auf eine durch einen dünnsten Schnitt induzierte Teilinstanz wieder ein schmaler Fluss ist.
@@ -561,6 +570,8 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	Nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} stimmt die Auslastung von $v$ bezüglich der Einschränkung von $f$ mit der Auslastung von $v$ bezüglich $f$ überein, sodass auch die Auslastung von $P$ mit der Auslastung von $v$ bezüglich $f$ übereinstimmen.
 \end{proof}
 
+Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
+
 \begin{algorithm}
 \caption{Berechnung eines schmalen Flusses ohne Zurücksetzen}
 \label{algorithm-computation-thin-flow-without-resetting}
@@ -569,8 +580,8 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	\State $f \gets 0^E$
 	\State $(V', E', b') \gets (V, E, b)$
 	\While{$b'_s \neq 0$}
-	\State Berechne auslastungsminimalen $b'$-Fluss $f'$ und dünnsten Schnitt $X$
-	\Statex auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$
+	\State Berechne auslastungsminimalen $b'$-Fluss $f'$ und inklusionsminimalen, 
+	\Statex  dünnsten Schnitt $X$ auf $(V', E', b')$ mit Kapazitäten $u_{\mid E'}$
 	\State $f_{\mid E'\setminus E'[X]} \gets f'_{\mid E'\setminus E'[X]}$
 	\State $(V', E', b') \gets (V'[X], E'[X], b'[X])$
 	\EndWhile
@@ -579,10 +590,8 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 \end{algorithmic}
 \end{algorithm}
 
-Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
-
 \begin{theorem}
-		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwoR\ und berechnet einen schmalen Fluss ohne Zurücksetzen in einer Laufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$.
+		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwoR\ und berechnet einen schmalen Fluss ohne Zurücksetzen in einer Laufzeit von $\bigO((\size{b} + \size{u})^2 n^2 m L)$, wobei $L\coloneq \abs{\{ l_v \mid v\in V \}}$ die Anzahl der verschiedenen Knotenauslastungen eines schmalen Flusses ohne Zurücksetzen ist.
 \end{theorem}
 \begin{proof}
 	Für die Korrektheit des Algorithmus benutzt man Korollar~\ref{cor-thin-flow-alg-correct}:
@@ -599,8 +608,9 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	für den Nullfluss $f_{\mid E'}$ erfüllt ist, sodass $f$ ein schmaler Fluss ist.
 	
 	Da die Existenz eines $b$-Flusses vorausgesetzt wird, ist auch die Berechnung eines auslastungsminimalen Flusses in jeder Iteration möglich, weil die Einschränkung eines auslastungsminimalen $b$-Flusses auf $E[X]$ ein $b[X]$-Fluss ist, sodass auch in jeder Iteration ein $b'$-Fluss existiert.
-	Daher terminiert der Algorithmus nach mindestens $n$ Iterationen, denn in jeder Iteration wird aus $V'$ mindestens ein Knoten entfernt.
-	Außerdem kann ein auslastungsminimaler $b$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
+	
+	Daher terminiert der Algorithmus nach mindestens $L$ Iterationen, denn in jeder Iteration wird die minimale Auslastung eines $b'$-Flusses nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} echt reduziert.
+	Außerdem kann ein auslastungsminimaler $b'$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
 	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
 \end{proof}
 

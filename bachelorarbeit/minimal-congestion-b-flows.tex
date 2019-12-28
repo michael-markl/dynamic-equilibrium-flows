@@ -403,7 +403,7 @@ Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines au
 	Man speichere sich dabei für jede Zusammenhangskomponente $Z$, ob eine eingehende Rückwärtskante in $G_f$ existiert, das heißt, ob $\delta_{G_f}^-(Z) \cap \overleftsmallarrow{E}$ leer ist.
 	Nach Theorem~\ref{thm-optimal-criterion-min-con-flow} existiert eine Flaschenhalskante als Rückwärtskante zwischen zwei Zusammenhangskomponenten von $G_f$, sodass mindestens für eine Zusammenhangskomponente diese Menge nichtleer ist.
 	
-	Eine topologische Sortierung auf dem azyklischen Zusammenhangsgraphen kann ebenfalls in $\bigO(n + m)$ Zeit berechnet werden (siehe \todo{cite}).
+	Eine topologische Sortierung auf dem azyklischen Zusammenhangsgraphen kann ebenfalls mit $\bigO(n + m)$ Operationen berechnet werden (siehe \todo{cite}).
 	Man erhält also eine Nummerierung $Z_1, \dots, Z_k$ der Zusammenhangskomponenten mit der folgenden Eigenschaft:
 	Existiert eine Kante von $Z_i$ nach $Z_j$, so folgt bereits $i < j$.
 	Wählt man nun $X\subseteq V$ als die in $G_f$ erreichbaren Knoten von einer Zusammenhangskomponente $Z_i$ mit einer eingehenden Rückwärtskante in $G_f$ und maximaler Nummer, so ist $X$ nach Theorem~\ref{thm-optimal-criterion-min-con-flow} ein dünnster Schnitt.
