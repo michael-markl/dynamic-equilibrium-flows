@@ -460,7 +460,7 @@ Beim logarithmischen Kostenmaß wird der Zeitaufwand einer elementaren Instrukti
 Das konstante Kostenmaß hingegen weist jeder elementaren Instruktion unbeachtet der Größe der darin vorkommenden Zahlen einen konstanten Zeitaufwand zu.
 
 Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} \coloneq 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
-Rationale Zahlen $r$ werden als Tupel zweier ganzer Zahlen $(p,q)$ mit $r = p/q$ kodiert.
+Rationale Zahlen $r$ werden als Paar ganzer Zahlen $(p,q)$ mit $r = p/q$ kodiert.
 Dabei wird die Kodierungslänge von $r$ als $\size{r}\coloneq \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
 Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} \coloneq \sum_{i=1}^n \size{v_i}$ und $\size{A}\coloneq \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
 
@@ -517,16 +517,21 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 \subsection{Berechnung mittels LP-Formulierung}
 
 Um nun mithilfe dieser effizienten Suche auf den rationalen Zahlen, das Problem auslastungsminimaler $b$-Flüsse zu lösen, werden zunächst einige Grundlagen der Linearen Optimierung wiederholt:
-\begin{definition}[Lineare Programm in Standardform]
+\begin{definition}[Lineares Programm in Standardform]
 	Ein Optimierungsproblem der Form $\min\{ c^T x \mid x \in P^=(A, b) \}$ mit $c\in\R^n, b\in\R^m, A\in\R^{m\times n}$ und Zulässigkeitsbereich $P^=(A,b)\coloneq \{ x\in\R^n \mid Ax = b, x\geq 0 \}$ heißt \emph{lineares Programm in Standardform}.
 \end{definition}
 
 \begin{definition}[Ecke konvexer Menge]
-	Für eine konvexe Menge $P$ heißt $x\in P$ eine \emph{Ecke von $P$}, falls $x$ das einzige Element des Schnittes von $P$ und einer Stützhyperebene $H\coloneq \{ x\in\R^n \mid d^T x = \delta \}$ mit $d\in\R^n$ und $\delta\in\R$ ist.
+	Für eine konvexe Menge $P$ heißt ein Punkt $x\in P$ eine \emph{Ecke von $P$}, falls $x$ das einzige Element des Schnittes von $P$ mit einer Stützhyperebene $H\coloneq \{ x\in\R^n \mid d^T x = \delta \}$ mit $d\in\R^n$ und $\delta\in\R$ ist.
 \end{definition}
 
+\begin{notation}
+Sind $A\in\R^{m\times n}$ eine Matrix und $B\subseteq[n]$ eine Teilmenge der Spaltenindizes, bezeichnet $A_B$ die Matrix, die aus $A$ bei Löschen der Spalten entsteht, deren Index nicht in $B$ vorkommen.
+Für einen Vektor $x\in\R^n$ ist $x_B$ entsprechend der Vektor, der aus $x$ durch Löschen der Einträge aus $[n]\setminus B$ entsteht.
+\end{notation}
+
 \begin{definition}[Zulässige Basislösung]
-Für ein lineares Programm in Standardform mit $P\coloneq P^=(A, b)$ mit $\rank(A) = m$ heißt eine $m$-wertige Teilmenge $B$ von $[n]$ Basis und $N\coloneq [n]\setminus B$ die zugehörige Nichtbasis zu $B$, falls $A_B$ invertierbar ist.
+Für ein lineares Programm in Standardform mit $P\coloneq P^=(A, b)$, $A\in\R^{m\times n}$ und $\rank(A) = m$ heißt eine $m$-wertige Teilmenge $B$ von $[n]$ \emph{eine Basis} und $N\coloneq [n]\setminus B$ \emph{die zugehörige Nichtbasis zu $B$}, falls $A_B$ invertierbar ist.
 Ein Punkt $x\in P$ ist eine \emph{zulässige Basislösung zur Basis $B$}, falls $x_N$ verschwindet.
 In diesem Fall gilt $x_B = A_B^{-1} b$.
 \end{definition}
@@ -547,7 +552,7 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 \end{proposition}
 \begin{proof}
 	Die Teilmenge $P^=(A,b)\subseteq P^=(\tilde{A}, \tilde{b})$ ist klar:
-	Gelten für ein $x\in\R^n_{\geq0}$ alle Ungleichungen von $Ax \leq b$, so erst recht alle der Teilmenge $\tilde{A}x \leq \tilde{b}$.
+	Gelten für ein $x\in\R^n_{\geq0}$ alle Ungleichungen in $Ax \leq b$, so erst recht alle in $\tilde{A}x \leq \tilde{b}$.
 	
 	Da der Zeilenrang von $A$ gerade $k$ ist, existiert für jede Zeile $a_j$ eine Linearkombination $a_j=\sum_{l=1}^k \lambda_l a_{i_l}$ aus den Zeilen in $\tilde{A}$.
 	Da $P^=(A,b)$ nichtleer ist, existiert ein $y$ darin, welches die Gleichung
