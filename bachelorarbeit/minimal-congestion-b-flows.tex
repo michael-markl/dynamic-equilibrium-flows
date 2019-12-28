@@ -10,7 +10,7 @@ Eine wichtige Klasse sind die sogenannten auslastungsminimalen $b$-Flüsse.
 	Ein $b$-Fluss mit minimaler Auslastung wird dann \emph{auslastungsminimaler $b$-Fluss} genannt.
 \end{definition}
 
-In diesem Kapitel wird zunächst ein Optimalitätskriterium und ein effizienter Algorithmus zur Berechnung solcher auslastungsminimaler $b$-Flüsse, der polynomielle Laufzeit benötigt, vorgestellt.
+In diesem Kapitel wird zunächst ein Optimalitätskriterium und ein effizienter Algorithmus zur Berechnung solcher auslastungsminimaler $b$-Flüsse vorgestellt.
 Dabei wird angenommen, dass der Graph keine Schleifen besitzt, da diese bei der Berechnung auslastungsminimaler $b$-Flüsse ignoriert werden können.
 
 \section{Optimalitätskriterium auslastungsminimaler Flüsse}
@@ -19,9 +19,9 @@ In diesem Abschnitt wird ein hinreichendes sowie notwendiges Kriterium auslastun
 Das Resultat in Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} wurde in~\cite[Theorem 6.11]{Koch2012} zwar verwendet, jedoch nicht bewiesen.
 Der Beweis und die zugehörige Analyse auslastungsminimaler $b$-Flüsse wurde hier eigenständig erarbeitet.
 
-Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, welches die Auslastung von Schnitten involviert.
+Ähnlich zum wohlbekannten Max-Flow-Min-Cut-Theorem von Ford und Fulkerson betrachtet man dabei ein duales Problem, welches Schnitte involviert.
 
-\begin{definition}[Schnitt]
+\begin{definition}[Dünnster Schnitt]
 	In einem Netzwerk $(V, E, u)$ wird eine Knotenteilmenge $X\subseteq V$ auch \emph{Schnitt} genannt.
 	Sind Knotenbalancen $b$ gegeben und ist $\delta^+(X)$ nichtleer, so bezeichne $b(X) / u(\delta^+(X))$ die \emph{Auslastung des Schnittes $X$}.
 	Existiert ein Schnitt, dessen Auslastung maximal ist, so nennt man ihn einen \emph{dünnsten Schnitt}.

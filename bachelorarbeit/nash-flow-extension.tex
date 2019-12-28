@@ -74,21 +74,25 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		\item[1. Fall:] $\exists \varepsilon > 0:\forall \theta'\in (\theta, \theta + \varepsilon ] : q_{vw}(l_v(\theta')) > 0$.
 		
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist $[\theta,\theta+\varepsilon]\subseteq \Theta_{vw}$.
-		Außerdem ist $q_{vw}$ nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} auf dem Intervall $[ l_v(\theta') , l_w(\theta') - \tau_{vw} )$ positiv, also insbesondere auf $( l_w(\theta)-\tau_{vw} , l_w(\theta + \varepsilon) - \tau_{vw} )$.
-		Man folgere $x_{vw}(\theta + \varepsilon) - x_{vw}(\theta) = \int_{l_w(\theta)-\tau_{vw}}^{l_w(\theta + \varepsilon)-\tau_{vw}} f_{vw}^-(t+\tau_{vw}) dt
-		= u_{vw} (l_w(\theta + \varepsilon) - l_w(\theta))$ mit~\ref{def-feasible-flow-queue-with-capacity}.
-		Teilt man diese Gleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $x_{vw}'(\theta) = u_{vw} l_w'(\theta)$.
+		Außerdem ist $q_{vw}$ nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} auf $[ l_v(\theta') , l_w(\theta') - \tau_{vw} )$ positiv, also auch auf $( l_w(\theta)-\tau_{vw} , l_w(\theta + \varepsilon) - \tau_{vw} )$.
+		Mit~\ref{def-feasible-flow-queue-with-capacity} folgere man
+		\[ x_{vw}(\theta + \varepsilon) - x_{vw}(\theta) = \int_{l_w(\theta)-\tau_{vw}}^{l_w(\theta + \varepsilon)-\tau_{vw}} f_{vw}^-(t+\tau_{vw}) \diff t
+		= u_{vw} (l_w(\theta + \varepsilon) - l_w(\theta)).\]
+		Teilt man diese Gleichung durch $\varepsilon$, so erhält man $x_{vw}'(\theta) = u_{vw} l_w'(\theta)$ für $\varepsilon\rightarrow 0$.
 		Ist $vw\in E_1$, so ist also Bedingung~\ref{def-thin-flow-resetting-edge} erfüllt.
 		Für Bedingung~\ref{def-thin-flow-x-zero} setze man $x_{vw}'(\theta)=0$ voraus, wodurch $l_w'(\theta)=0$ folgt und mit der Monotonie von $l_v$ gilt $0 \leq l_v'(\theta)$.
 		
-		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: $l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta)$.
+		Ist $vw\notin E_1$, ist also die Warteschlange zum Zeitpunkt $l_v(\theta)$ leer, so gilt: 
+		\[ 
+		l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta).
+		\]
 		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: (\theta, \theta + \varepsilon] \subseteq \Theta_{vw}^c$.
 		
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} gilt bereits $vw\notin E_1$ und nach Lemma~\ref{lemma-x-locally-constant} ist $x_{vw}'(\theta) = 0$. 
-		Es muss also nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
-		Wegen $\theta\in\Theta_{vw}$ gilt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta + \varepsilon) - l_v(\theta)$.
+		Es muss nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
+		Es gilt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta + \varepsilon) - l_v(\theta)$ wegen $\theta\in\Theta_{vw}$ .
 		Teilt man diese Ungleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
 		
 		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{vw}(l_v(\theta_\varepsilon)) = l_w(\theta_\varepsilon)$.
@@ -96,14 +100,14 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		Dies ist die exakte Umkehrung der Bedingung von Fall 2.
 		Zusätzlich betrachte man diesen Fall nur, falls Fall 1 nicht eintritt.
 		Das heißt, für alle $\theta_\varepsilon$ existiert ein $\theta'\in(\theta, \theta_\varepsilon]$ mit $q_{vw}(l_v(\theta')) = 0$; insbesondere ist $vw$ nicht in $E_1$ enthalten.
-		Man wähle $\theta'_\varepsilon\coloneq \max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{vw}(l_v(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte, welches aufgrund der Stetigkeit von $q_{vw}\circ l_u$ existiert.
+		Dann wähle man $\theta'_\varepsilon\coloneq \max\{ \theta'\in (\theta, \theta_\varepsilon] \mid q_{vw}(l_v(\theta')) = 0 \}$ als das Maximum solcher Zeitpunkte, welches aufgrund der Stetigkeit von $q_{vw}\circ l_u$ existiert.
 		Nach Konstruktion ist $q_{vw}\circ l_v$ im Intervall $(\theta_\varepsilon', \theta_\varepsilon)$ positiv und nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} ist die Kante $vw$ in diesem Intervall aktiv.
 		Nun impliziert $\theta_\varepsilon'\in \Theta_{vw}$ gerade $\theta_\varepsilon\in\Theta_{vw}$, da $\Theta_{vw}$ ab\-ge\-schlossen ist.
 		Daher folgt aus $l_w(\theta_\varepsilon') - l_w(\theta) = l_v(\theta_\varepsilon') - l_v(\theta)$ 		Bedingung~\ref{def-thin-flow-x-zero}, indem man durch $\theta_\varepsilon'-\theta$ teilt und $l_w'(\theta) = l_v'(\theta)$ für $\varepsilon\rightarrow0$ erhält.
 		
 		Für Bedingung~\ref{def-thin-flow-x-positive} bleibt zu zeigen, dass $x_{vw}'(\theta) /u_{vw}\leq l_w'(\theta)$ gilt.
 		Wegen Bedingung~\ref{def-feasible-flow-capacity} ist $x_{vw}(\theta + \varepsilon)-x_{vw}(\theta) = \int_{l_w(\theta)}^{l_w(\theta+\varepsilon)} f_{vw}^-(t) dt\leq (l_w(\theta + \varepsilon) - l_w(\theta)) u_{vw}$ für beliebiges $\varepsilon>0$.
-		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat füg $\varepsilon\rightarrow 0$.
+		Durch Teilen mit $\varepsilon u_{vw}$ erhält man das gewünschte Resultat für $\varepsilon\rightarrow 0$.
 	\end{description}\vspace{-1.4em}
 \end{proof}
 
@@ -300,7 +304,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\path [->] (S) edge node[below left] {$1/1$} (T);
 		\path [->] (V) edge node[below right] {$10/1$} (T);
 		\end{tikzpicture}
-		\caption{Ein Netzwerk mit Kantenbeschriftung $\tau_e / u_e$.}
+		\caption{Ein dynamisches Netzwerk mit Kantenbeschriftung $\tau_e / u_e$.}
 		\label{figure-labels}
 	\end{figure}
 \end{remark}
@@ -332,7 +336,7 @@ Ob dieser Algorithmus jedoch terminiert in dem Sinne, dass irgendwann ein $\alph
 Cominetti, Correa und Olver beantworten Teile der Frage in~\cite{CominettiExample}:
 Übersteigt die minimale Warteschlangenkapazität $u(\delta^+(S))$ eines $s$-$t$-Schnitts $S$ den konstanten Netzwerkzufluss $d$ nicht, so erreicht ein dynamischer Nash-Fluss schließlich einen stabilen Zustand, ab dem der Fluss konstant ist.
 Ob dieser Zustand jedoch durch endlich viele $\alpha$-Erweiterungen berechnet werden kann, bleibt ungeklärt.
-Jedoch geben die Autoren ein Beispiel, in dem erst in der Größe des Graphen exponentiell viele $\alpha$-Erweiterungen zu einem stabilen Zustand führen.
+Jedoch geben die Autoren ein Beispiel, in dem erst exponentiell viele $\alpha$-Erweiterungen zu einem stabilen Zustand führen.
 
 Unter Benutzung des Lemmas von Zorn kann man jedoch die Existenz von dynamischen Nash-Flüssen mit konstantem Netzwerkzufluss zeigen:
 
