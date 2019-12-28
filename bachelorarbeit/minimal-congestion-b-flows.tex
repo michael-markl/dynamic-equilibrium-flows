@@ -269,7 +269,7 @@ Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-
 
 \begin{theorem}\label{thm-optimal-criterion-min-con-flow}
 	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphs $G_f$ verläuft.
-	Gilt Letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt.
+	Gilt Letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt mit Auslastung~$c(f)$.
 \end{theorem}
 \begin{proof}
 	Sei $f$ ein auslastungsminimaler $b$-Fluss.
@@ -355,20 +355,7 @@ Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-
 	\label{figure-min-con-example-residual-graph}
 \end{figure}
 
-\begin{lemma}\label{lemma-calc-sparsest-cut}
-	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u, b)$ mit nichtleerer Kantenmenge $E$.
-	Dann kann in $\bigO(n+m)$ Zeit ein dünnster Schnitt mit Auslastung $q^*$ berechnet werden.
-	Dabei seien $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten.
-\end{lemma}
-\begin{proof}
-	Ist $q^* = 0$, so ist $b$ bereits der Nullvektor und es kann jede einelementige Knotenmenge mit mindestens einer ausgehenden Kante verwendet werden.
-	Sonst berechne man in~$\bigO(n+m)$ Zeit zum Beispiel mit Tarjan's Algorithmus (siehe \todo{add cite}) die starken Zusammenhangskomponenten $Z_1, \dots, Z_k$ des Residualgraphen $G_f$.
-	Nach Theorem~\ref{thm-optimal-criterion-min-con-flow} existiert eine Flaschenhalskante als Rückwärtskante zwischen den Zusammenhangskomponenten von $G_f$.
-	In $\bigO(m)$ Zeit identifiziere man eine solche Kante $\overleftsmallarrow{vw}$ mit $vw\in E'$ und sammle alle Knoten, die in $G_f$ von $v$ aus erreichbar sind, in der Menge $X$.
-	Dann ist $X$ ebenfalls nach Theorem~\ref{thm-optimal-criterion-min-con-flow} ein dünnster Schnitt.
-\end{proof}
-
-Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwischen der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
+Nun lässt sich das folgende wichtige Theorem zeigen, das die starke Dualität der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
 
 \begin{theorem}\label{thm-strong-duality-sparsest-cut-min-flow}
 	Existiert in einem Netzwerk ein $b$-Fluss und ist $E$ nichtleer, so ist die Auslastung eines auslastungsminimalen $b$-Flusses gerade die eines dünnsten Schnittes; das bedeutet
@@ -379,15 +366,17 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwisc
 \begin{proof}
 	Die Existenz eines auslastungsminimalen Flusses und eines dünnsten Schnittes folgt aus den Voraussetzungen.
 	Schwache Dualität nach Theorem~\ref{thm-weak-duality-min-con-flow} liefert, dass jeder Schnitt höchstens die Auslastung eines auslastungsminimalen $b$-Flusses hat.
-	Lemma~\ref{lemma-calc-sparsest-cut} zeigt, dass diese untere Schranke auch tatsächlich durch einen Schnitt angenommen wird.
+	Lemma~\ref{thm-optimal-criterion-min-con-flow} zeigt, dass diese untere Schranke im Fall $b\neq 0$ auch tatsächlich durch einen Schnitt angenommen wird.
+	Ist $b$ der Nullvektor, so ist jede Knotenmenge mit einer ausgehenden Kante ein dünnster Schnitt mit Auslastung $0$.
 \end{proof}
 
 \begin{corollary}\label{cor-easy-characterization-sparsest-cut}
 	Seien $f$ ein $b$-Fluss mit Auslastung $q^*$ und $X$ ein Schnitt mit $\delta^+(X)\neq \emptyset$.
-	Dann sind die beiden Aussagen äquivalent:
+	Dann sind die folgenden Aussagen äquivalent:
 	\begin{enumerate}[label=(\roman*)]
 		\item Es sind $X$ ein dünnster Schnitt und $f$ ein $b$-Fluss minimaler Auslastung.
 		\item Die Auslastung bezüglich $f$ beträgt $q^*$ auf allen ausgehenden Kanten von $X$ und verschwindet auf allen eingehenden Kanten von $X$.
+		\item Der Schnitt $X$ hat in $G_f$ keine ausgehenden Kanten.
 	\end{enumerate}
 \end{corollary}
 \begin{proof}
@@ -396,10 +385,33 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das den Zusammenhang zwisc
 	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q^*}{u(\delta^+(X))} = q^*
 	\]
 	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q^*$ für alle $e\in\delta^+(X)$ gelten.
-	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung.
+	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung $(i)\Leftrightarrow (ii)$.
+	
+	Die Aussage $(ii) \Leftrightarrow (iii)$ folgt aus der Definition des Residualgraphs.
 \end{proof}
 
-\todo{Insbesondere sind alle inklusionsminimalen dünnsten Schnitte -- gegeben eines minimalen $b$-Flusses -- durch die Methode Residualgraph berechenbar (in sehr geringer polynomieller Zeit, nämlich vermutlich sogar $O(n+m)$ -- Allerdings muss man hier bisschen aufpassen, findet man ausgehend von einer maximal ausgelasteten Kante eine weitere, so muss man (für inklusionsminimalität das Vorgehen von hier zurücksetzen)}
+Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines auslastungsminimalen Flusses alle Knoten enthält, die er darin erreichen kann.
+
+\begin{lemma}\label{lemma-calc-sparsest-cut}
+	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u, b)$ mit nichtleerer Kantenmenge $E$.
+	Dann kann mit $\bigO(n+m)$ Operationen ein inklusionsminimaler, dünnster Schnitt mit Auslastung $q^*$ berechnet werden.
+	Dabei seien $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten.
+\end{lemma}
+\begin{proof}
+	Ist $q^* = 0$, so ist $b$ bereits der Nullvektor und es kann jede einelementige Knotenmenge mit mindestens einer ausgehenden Kante verwendet werden.
+	Sonst berechne man in~$\bigO(n+m)$ Operationen zum Beispiel mit Tarjan's Algorithmus (siehe \todo{add cite}) die starken Zusammenhangskomponenten und damit den Zusammenhangsgraph des Residualgraphen $G_f$.
+	Man speichere sich dabei für jede Zusammenhangskomponente $Z$, ob eine eingehende Rückwärtskante in $G_f$ existiert, das heißt, ob $\delta_{G_f}^-(Z) \cap \overleftsmallarrow{E}$ leer ist.
+	Nach Theorem~\ref{thm-optimal-criterion-min-con-flow} existiert eine Flaschenhalskante als Rückwärtskante zwischen zwei Zusammenhangskomponenten von $G_f$, sodass mindestens für eine Zusammenhangskomponente diese Menge nichtleer ist.
+	
+	Eine topologische Sortierung auf dem azyklischen Zusammenhangsgraphen kann ebenfalls in $\bigO(n + m)$ Zeit berechnet werden (siehe \todo{cite}).
+	Man erhält also eine Nummerierung $Z_1, \dots, Z_k$ der Zusammenhangskomponenten mit der folgenden Eigenschaft:
+	Existiert eine Kante von $Z_i$ nach $Z_j$, so folgt bereits $i < j$.
+	Wählt man nun $X\subseteq V$ als die in $G_f$ erreichbaren Knoten von einer Zusammenhangskomponente $Z_i$ mit einer eingehenden Rückwärtskante in $G_f$ und maximaler Nummer, so ist $X$ nach Theorem~\ref{thm-optimal-criterion-min-con-flow} ein dünnster Schnitt.
+	Außerdem ist er sogar inklusionsminimal:
+	Angenommen, es gäbe einen dünnsten Schnitt $Y$ mit $Y\subsetneq X$. 
+	Nach Korollar~\ref{cor-easy-characterization-sparsest-cut} ist $Y$ eine Vereinigung von Zusammenhangskomponenten $Z_j$ mit $j > i$.
+	Insbesondere hat keine dieser Zusammenhangskomponenten eine eingehende Rückwärtskante in $G_f$ und dadurch keine ausgehenden Kanten in $G$, was ihn als dünnsten Schnitt bereits disqualifiziert.
+\end{proof}
 
 \section{Berechnung auslastungsminimaler Flüsse}
 
