@@ -616,10 +616,11 @@ Da das Maschinenmodell nur auf Zahlen mit endlicher Kodierung arbeiten kann, wir
 Ein Algorithmus, der (MCF) löst, soll zudem mit einer Fehlermeldung abbrechen, falls kein $b$-Fluss existiert.
 Zunächst wird (MCF) als lineares Optimierungsproblem formuliert.
 Dabei minimieren wir die Zahl $q^*$, sodass $b$-Flüsse existieren, deren Auslastung $q^*$ nicht überschreitet:
+
 \begin{equation}\tag{LP}\label{problem-lp-minimal-flow}
 \begin{aligned}
-& \min q^* \\[1em]
-\text{u.d.N.\quad} & \sum_{e\in \delta^+(v)} f_e - \sum_{e\in\delta^-(v)} f_e = b_v & \text{für alle $v\in V$,} \\[1em]
+& \min q^* \\[0.3em]
+\text{u.d.N.\quad} & \sum_{e\in \delta^+(v)} f_e - \sum_{e\in\delta^-(v)} f_e = b_v & \text{für alle $v\in V$,} \\[0.3em]
 & 0 \leq \frac{f_e}{u_e} \leq q^* & \text{für alle $e\in E$.}
 \end{aligned}
 \end{equation}
@@ -643,7 +644,7 @@ Formuliert man~(\ref{problem-lp-minimal-flow}) als lineares Programm in Standard
 	A = \begin{pmatrix}
 		B & \nil_{n\times m} & \nil_{n\times 1} \\
 		\one_{m\times m} & \one_{m\times m} & -u
-	\end{pmatrix} \in \Q^{(n+m) \times (2m+1)},
+	\end{pmatrix} \in \Q^{(n+m) \times (2m+1)},~~~
 	\tilde{b} = \begin{pmatrix}
 		b \\
 		\nil_{m\times 1}
@@ -664,15 +665,17 @@ Die Kodierungslänge der ersten $n$ Zeilen von $\hat{A}$ beträgt höchstens \[ 
 \]
 Die restlichen $m$ Zeilen haben eine Kodierungslänge von höchstens $3\size{u} + 2m^2 - 2m$.
 Der Vektor $\hat{b}$ hat eine Kodierungslänge von höchstens $\size{b} + m$.
-
-Lemma~\ref{lemma-optimal-value-in-finite-domain} wird nun genutzt, um das Resultat zu folgern.
-Dazu werden die folgenden beiden Abschätzungen benötigt:
+Das Resultat folgt nun mit Lemma~\ref{lemma-optimal-value-in-finite-domain} und den folgenden beiden Abschätzungen:
+{\setlength{\abovedisplayskip}{9pt}%
+	\setlength{\belowdisplayskip}{0pt}%
 \begin{align*}
 \size{\hat{A}} + \size{\hat{b}} - (n+m)(2m+2) &= \size{\hat{A}} + \size{\hat{b}} - 2mn - 2n - 2m^2 - 2m\\
-&\leq 2 \size{b} + 3\size{u} + \size{\hat{b}} - n - 6m \leq 3\size{b} + 3\size{u} -n-5m, \\[1em]
-\size{\hat{A}} - (m+n)(2m + 1) &= \size{\hat{A}} - 2m^2 - m - 2mn - n\\
-&\leq 2\size{b} + 3\size{u} - 5m.
+&\leq 2 \size{b} + 3\size{u} + \size{\hat{b}} - n - 6m \leq 3\size{b} + 3\size{u} -n-5m,
 \end{align*}
+\begin{align*}
+\size{\hat{A}} - (m+n)(2m + 1) = \size{\hat{A}} - 2m^2 - m - 2mn - n \leq 2\size{b} + 3\size{u} - 5m.
+\end{align*}
+}
 \end{proof}
 
 \begin{theorem}
@@ -705,6 +708,6 @@ Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Gold
 Die Ergebnisse werden nun im folgenden Theorem gesammelt.
 
 \begin{theorem}\label{thm-compute-minimal-con-flow}
-	Ein auslastungsminimaler $b$-Fluss kann mit $\bigO((\size{b}+\size{u}) n^2 m)$ arithmetischen Operationen auf Zahlen mit Kodierungslänge $\bigO(\size{b} + \size{u})$ berechnet werden, wodurch sich eine Laufzeit von $\bigO((\size{b}+\size{u})^2 n^2 m)$ ergibt.
+	Ein auslastungsminimaler $b$-Fluss kann mit $\bigO((\size{b}+\size{u}) n^2 m)$ arithmetischen Operationen auf Zahlen mit Kodierungslänge $\bigO(\size{b} + \size{u})$ berechnet werden, wodurch sich eine Laufzeit von $\bigO((\size{b}+\size{u})^2 n^2 m)$ bei logarithmischen Kostenmaß ergibt.
 	Dabei sind $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten im Graphen.
 \end{theorem}
