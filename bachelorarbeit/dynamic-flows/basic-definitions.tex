@@ -40,8 +40,7 @@ Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zy
 
 Man bemerke, dass ein statischer Fluss keine Kapazitätsbedingung erfüllen muss.
 Außerdem sind für eine Strömung nur nichtnegative Werte zugelassen.
-Eine wichtige Aussage bei der Anaylse von statischen Flüssen liefert der Dekompositionssatz:
-\todo{cite}
+Eine wichtige Aussage bei der Anaylse von statischen Flüssen liefert der Dekompositionssatz (siehe \cite[Satz 8.8]{Korte2012}):
 \begin{theorem}[Dekompositionssatz]\label{thm-decomposition}
 	Ein statischer $s$-$t$-Fluss $f$ besitzt eine Dekomposition in elementare $s$-$t$-Wege und Zyklen, das heißt es existieren $s$-$t$-Wege $P_1,\dots,P_k$ und Zyklen $C_1, \dots, C_l$ sowie $\lambda_1,\dots,\lambda_k,\mu_1,\dots,\mu_l > 0$ mit \[
 		f = \sum_{i\in[k]}\lambda_i P_i + \sum_{i\in[l]} \mu_i C_i.

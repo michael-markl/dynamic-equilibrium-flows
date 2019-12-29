@@ -399,11 +399,11 @@ Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines au
 \end{lemma}
 \begin{proof}
 	Ist $q^* = 0$, so ist $b$ bereits der Nullvektor und es kann jede einelementige Knotenmenge mit mindestens einer ausgehenden Kante verwendet werden.
-	Sonst berechne man in~$\bigO(n+m)$ Operationen zum Beispiel mit Tarjan's Algorithmus (siehe \todo{add cite}) die starken Zusammenhangskomponenten und damit den Zusammenhangsgraph des Residualgraphen $G_f$.
+	Sonst berechne man in~$\bigO(n+m)$ Operationen (siehe \cite[Satz 2.19]{Korte2012}) die starken Zusammenhangskomponenten und damit den Zusammenhangsgraph des Residualgraphen $G_f$.
 	Man speichere sich dabei für jede Zusammenhangskomponente $Z$, ob eine eingehende Rückwärtskante in $G_f$ existiert, das heißt, ob $\delta_{G_f}^-(Z) \cap \overleftsmallarrow{E}$ leer ist.
 	Nach Theorem~\ref{thm-optimal-criterion-min-con-flow} existiert eine Flaschenhalskante als Rückwärtskante zwischen zwei Zusammenhangskomponenten von $G_f$, sodass mindestens für eine Zusammenhangskomponente diese Menge nichtleer ist.
 	
-	Eine topologische Sortierung auf dem azyklischen Zusammenhangsgraphen kann ebenfalls mit $\bigO(n + m)$ Operationen berechnet werden (siehe \todo{cite}).
+	Eine topologische Sortierung auf dem azyklischen Zusammenhangsgraphen kann ebenfalls mit $\bigO(n + m)$ Operationen berechnet werden (siehe \cite[Satz 2.20]{Korte2012}).
 	Man erhält also eine Nummerierung $Z_1, \dots, Z_k$ der Zusammenhangskomponenten mit der folgenden Eigenschaft:
 	Existiert eine Kante von $Z_i$ nach $Z_j$, so folgt bereits $i < j$.
 	Wählt man nun $X\subseteq V$ als die in $G_f$ erreichbaren Knoten von einer Zusammenhangskomponente $Z_i$ mit einer eingehenden Rückwärtskante in $G_f$ und maximaler Nummer, so ist $X$ nach Theorem~\ref{thm-optimal-criterion-min-con-flow} ein dünnster Schnitt.
@@ -419,7 +419,7 @@ In diesem Abschnitt soll die Berechnung auslastungsminimaler Flüsse beleuchtet 
 Man konnte bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu kostenminimalen $b$-Flüssen erkennen.
 Bei der Suche nach kostenminimalen $b$-Flüssen werden die Kanten mit Kosten $c\in\R_{\geq 0}^E$ bewertet und man ist daran interessiert einen $b$-Fluss $f$ zu finden, der den Ausdruck $\sum_{e \in E} c_e f_e$ minimiert und dabei die Kapazitäten der Kanten nicht übersteigt, der also $f_e \leq u_e$ für jede Kante $e$ erfüllt.
 Dazu betrachtet man ebenfalls den Residualgraph, allerdings mit einem kleinen Unterschied: Vorwärtskanten werden aufgenommen, wenn deren Auslastung geringer als $1$ statt geringer als die Auslastung des Flusses ist.
-Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $c(E(C)) < 0$ (\todo{Add cite}).
+Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $c(E(C)) < 0$ (siehe \cite[Satz 9.7]{Korte2012}).
 
 Eine Herangehensweise für das Finden eines kostenminimalen Flusses ist es, ausgehend von einem beliebigen $b$-Fluss iterativ Zyklen im Residualgraph durch Augmentieren zu entfernen.
 Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} nach $\bigO(nm^2\log n)$ Iterationen mit einem kostenminimalen $b$-Fluss bei einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Theoreme~3.9, 3.10]{Goldberg1989}).
@@ -704,7 +704,7 @@ Das Resultat folgt nun mit Lemma~\ref{lemma-optimal-value-in-finite-domain} und 
 \end{proof}
 
 Hier kann man nun aus den zahlreichen Algorithmen zur Berechnung von maximalen $s$-$t$-Flüssen wählen.
-Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Goldberg und Tarjan, \todo{add cite} so kann ein maximaler $s$-$t$-Fluss mit $\bigO(n^2 m)$ Operationen berechnet werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten des Graphen ist.
+Verwendet man beispielsweise den wohlbekannten Push-Relabel-Algorithmus von Goldberg und Tarjan (siehe \cite[Satz 8.30]{Korte2012}), so kann ein maximaler $s$-$t$-Fluss mit $\bigO(n^2 m)$ Operationen berechnet werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten des Graphen ist.
 Die Ergebnisse werden nun im folgenden Theorem gesammelt.
 
 \begin{theorem}\label{thm-compute-minimal-con-flow}
