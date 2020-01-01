@@ -8,11 +8,11 @@ Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation verw
 \begin{definition}[Normierter schmaler Fluss]\label{def-normalized-thin-flow}
 	Seien ein $s$-Netzwerk $\mathcal{N}$ und ein $b$-Fluss $f$ gegeben.
 	Für einen $s$-$v$-Pfad $P=(e_1, \dots, e_k)$ bezeichnet die \emph{normierte Auslastung von $P$} die Verkettung $\rho_{e_k}(\cdot, f_{e_k}) \circ \cdots \circ \rho_{e_1}(\cdot, f_{e_1})(1)$.
-	Die zu $f$ gehörige \emph{normierte Knotenauslastung} $l\in\R^V$ ist für jeden Knoten $v\in V$ die minimale Auslastung eines $s$-$v$-Pfades.
-	Dann heißt $f$ ein \emph{normierter $b_s$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
+	Die zu $f$ gehörige \emph{normierte Knotenauslastung} $l\in\R^V$ ist für jeden Knoten $v\in V$ die minimale normierte Auslastung eines $s$-$v$-Pfades.
+	Dann heißt $f$ ein \emph{normierter $b_s$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die normierte Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
 \end{definition}
 
-Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohne großen Aufwand übertragen lassen:
+Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Abschnitten ohne großen Aufwand übertragen lassen:
 
 \begin{proposition}
 	Es sei ein $b$-Fluss $f$ in einem $s$-Netzwerk $\mathcal{N}$ mit $b_s > 0$ gegeben.
@@ -20,14 +20,14 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Kapiteln ohn
 	Ergänzt man $f$ durch den Flusswert $b_s$ auf der Kante $(s', s)$, so erhält man den $b'$-Fluss $f'$.
 	
 	Dann ist die normierte Auslastung jedes $s$-$v$-Pfads $P$ in $\mathcal{N}$ gerade die Auslastung des $s'$-$v$-Pfads $P'$ in $\mathcal{N}'$, der vor dem Pfad $P$ noch die Kante $(s', s)$ benutzt.
-	Insbesondere ist $f$ genau dann ein normierte schmaler Fluss in $\mathcal{N}$, wenn $f'$ ein schmaler Fluss in $\mathcal{N'}$ ist.
+	Insbesondere ist $f$ genau dann ein normierter schmaler Fluss in $\mathcal{N}$, wenn $f'$ ein schmaler Fluss in $\mathcal{N'}$ ist.
 \end{proposition}
 \begin{proof}
 	Die Kante $(s', s)$ hat für jeden $b'$-Fluss Auslastung $1$.
-	Daher ist die normierte Auslastung eines $s$-$v$-Pfades gerade die Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad.
+	Daher ist die normierte Auslastung eines $s$-$v$-Pfades in $\mathcal{N}$ gerade die Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad in $\mathcal{N'}$.
 \end{proof}
 
-Dadurch können normierte schmale Flüsse durch die Bestimmung nicht-normier\-ter schmalen Flusses ermittelt werden.
+Dadurch kann ein normierter schmaler Fluss durch die Bestimmung eines nicht-normier\-ten schmalen Flusses ermittelt werden.
 Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Verän\-derung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source}, also $l_s = 0$, hier $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen normierten schmalen Fluss mit Zurücksetzen induziert.
@@ -92,7 +92,7 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		
 		Nach Lemma~\ref{lemma-nash-flow-waiting-queue-implies-active-edge} gilt bereits $vw\notin E_1$ und nach Lemma~\ref{lemma-x-locally-constant} ist $x_{vw}'(\theta) = 0$. 
 		Es muss nur Bedingung~\ref{def-thin-flow-x-zero} geprüft werden:
-		Es gilt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta + \varepsilon) - l_v(\theta)$ wegen $\theta\in\Theta_{vw}$ .
+		Es gilt $l_w(\theta + \varepsilon) - l_w(\theta) < l_v(\theta + \varepsilon) - l_v(\theta)$ wegen $\theta\in\Theta_{vw}$.
 		Teilt man diese Ungleichung durch $\varepsilon$, so erhält man für $\varepsilon\rightarrow 0$ die Bedingung $l_w'(\theta)\leq l_v'(\theta)$.
 		
 		\item[3. Fall:] $\forall \varepsilon>0: \exists \theta_{\varepsilon}\in (\theta, \theta+\varepsilon]: T_{vw}(l_v(\theta_\varepsilon)) = l_w(\theta_\varepsilon)$.
@@ -157,22 +157,21 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		Für $\theta \leq l_v(T)$ gilt $\tilde{f}^-_{vw}(\theta + \tau_{vw})=f^-_{vw}(\theta + \tau_{vw})$ für alle $vw\in E$.
 		Insbesondere ist $\tilde{q}_e(\theta) = q_e(\theta)$ und $\tilde{T}_e(\theta) = T_e(\theta)$ für $\theta \leq l_v(T)$.
 		\item Die $\alpha$-Erweiterung $\tilde{f}$ ist ein zulässiger dynamischer Fluss mit Zeithorizont $T+\alpha$ und für alle $\gamma \in [0, \alpha]$ gilt
-		\[ \tilde{F}_{vw}^+(l_v(T) + \gamma l_v') = \tilde{F}_{vw}^-(l_w(T) + \gamma l_w'). \]
+		$ \tilde{F}_{vw}^+(l_v(T) + \gamma l_v') = \tilde{F}_{vw}^-(l_w(T) + \gamma l_w')$.
 		\item Gilt zusätzlich für alle zum Zeitpunkt $T$ inaktiven Kanten die Bedingung \begin{equation}\tag{$\alpha 2$}\label{equation-alpha-inactive-edge}
 		l_w(T) - l_v(T) + \alpha(l_w' -l_v') \leq \tau_{vw},
 		\end{equation}
 		so sind die $\tilde{f}$ zugeordneten frühesten Ankunftszeiten $\tilde{l}_v(\theta)$ für $\theta \leq T+\alpha$ durch
 		\[ \tilde{l}_v(\theta) = \begin{cases}
 		l_v(\theta), & \text{ falls $\theta < T$,} \\
-		l_v(T) + (\theta - T) l_v', & \text{ falls $\theta \in [T, T+\alpha]$.}
+		l_v(T) + (\theta - T) l_v', & \text{ falls $\theta \in [T, T+\alpha]$,}
 		\end{cases}\]
 		gegeben und der Fluss $\tilde{f}$ ist ein dynamischer Nash-Fluss.
 	\end{enumerate}
 \end{theorem}
 \begin{proof}
 	\begin{description}[leftmargin=0cm, topsep=0cm, itemindent=0.5cm]
-		\item[Zu Aussage]\emph{(i):}
-		
+		\item[Zu Aussage (i):]
 		Ist $vw\in E_1$ mit $l_w'<l_v'$, so gilt mit Voraussetzung~(\ref{equation-alpha-queuing-edge})
 		\[
 		l_w(T)-l_v(T) + (\theta - T)(l_w' - l_v') \geq l_w(T)-l_v(T)+\alpha(l_w'- l_v')\geq \tau_{vw}.
@@ -181,13 +180,12 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		l_w(T)+(\theta-T)l_w' &= l_v(T) + q_{vw}(l_v(T))+\tau_{vw}+(\theta - T)l_w'\\
 		&\geq l_v(T) + (\theta-T)l_v'+\tau_{vw}.
 		\end{align*}
-		Daraus folgt wiederum mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch \[ 
-		\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw}) \text{~~~ für alle $\theta\leq l_v(T)$}.
+		Für alle $\theta\leq l_v(T)$ folgt daraus mit $\theta + \tau_{vw} \leq l_v(T) + \tau_{vw} \leq l_w(T)$ auch \[ 
+		\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw}).
 		\]
 		Insbesondere gilt $\tilde{q}_{vw}(\theta) = q_{vw}(\theta)$ und sogar $ \tilde{T}_{vw}(\theta)= T_{vw}(\theta)$ für $\theta \leq l_v(T)$.
 		
-		\item[Zu Aussage]\emph{(ii):}
-		
+		\item[Zu Aussage (ii):]		
 		Um zu zeigen, dass $\tilde{f}$ zulässig ist, zeige man die Eigenschaften \ref{def-feasible-flow-capacity}-\ref{def-feasible-flow-queue-with-capacity}.
 		Die Bedingung~\ref{def-feasible-flow-no-flow-at-node} gilt, da $x'$ ein statischer $s$-$t$-Fluss ist und Flusserhaltung in $V\setminus \{ s, t \}$ erfüllt.
 		Für die Bedingungen~\ref{def-feasible-flow-capacity}, \ref{def-feasible-flow-no-negative-flow} und \ref{def-feasible-flow-queue-with-capacity} genügt es, Kanten $e\in E_T$ mit $x_e' > 0$ zu prüfen, da sonst $\tilde{f}_e$ mit $f_e$ übereinstimmt und $f$ bereits zulässig ist.
@@ -206,17 +204,13 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		\[\tilde{F}_{vw}^+(\theta) = \tilde{F}_{vw}^+(l_v(T) + \alpha l_v') = \tilde{F}_{vw}^-(l_w(T) + \alpha l_w') \geq \tilde{F}_{vw}^-(\theta + \tau_{vw}).\]
 		Es bleibt Bedingung \ref{def-feasible-flow-queue-with-capacity} zu prüfen, d.h. Warteschlangen sollen mit der Kantenkapazität abgebaut werden.
 		Sei also $\tilde{q}_{vw}(\theta)$ positiv.
-		Nach (i) gilt 
-		\[
-		\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw}) = u_{vw}
-		\]
-		für $\theta\leq l_v(T)$.
+		Es gilt 
+		$
+		\tilde{f}_{vw}^-(\theta + \tau_{vw}) = f_{vw}^-(\theta + \tau_{vw})$ und damit $\tilde{f}_{vw}^-(\theta + \tau_{vw}) = u_{vw}$ für $\theta\leq l_v(T)$ nach (i).
+		
 		Ist $\theta > l_v(T)$, so unterscheide man, ob die Warteschlange von $vw$ zur Zeit $l_v(T)$ positiv ist:
 		Ist dies der Fall, so gilt $l_w' = x_{vw}' / u_{vw}$ nach~\ref{def-thin-flow-resetting-edge}, und ohne Einschränkung gilt $\theta + \tau_{vw} \geq l_w(T)$, denn $f_{vw}^-$ ist nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-positive-queue} und Eigenschaft~\ref{def-feasible-flow-queue-with-capacity} konstant $u_{vw}$ auf $[l_v(T)+\tau_{vw},l_w(T))$.
-		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt nach (i):
-		\[
-		\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'.
-		\]
+		Existiert ein $\gamma\in [0, \alpha]$ mit $\theta = l_v(T) + \gamma l_v'$, so gilt $\theta + \tau_{vw} = l_v(T) + \gamma l_v' + \tau_{vw} \leq l_w(T) + \gamma l_w'$ nach (i).
 		Damit ist $\tilde{f}^-_{vw}(\theta + \tau_{vw}) = x_{vw}'/l_w' = u_{vw}$.
 		Ist hingegen $\theta > l_v(T) + \alpha l_v'$, so gilt
 		\[
@@ -240,8 +234,7 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 		Nun kann man $l_v' < l_w'$ folgern, was wiederum $l_w' = x_{vw}'/u_{vw}$ impliziert.
 		Damit gilt $\tilde{f}^-(\theta + \tau_{vw}) = u_{vw}$.
 		
-		\item[Zu Aussage]\emph{(iii):}
-		
+		\item[Zu Aussage (iii):]
 		Man bemerke, dass $(l_v(\theta))_{v\in V}$ das Gleichungssystem in Proposition~\ref{prop-arrival-times-vector} für $\theta \leq T$ erfüllt, da hier $\tilde{T}_{vw}(\theta)$ und $T_{vw}(\theta)$ nach (i) übereinstimmen.
 		Für $\theta \in (T, T+\alpha)$ löst $(l_v(T) + (\theta - T)l_v')_{v\in V}$ das System:
 		Wegen $l_s' = 1$ gilt $l_s(T) + (\theta - T)l_s' = \theta$.
@@ -286,8 +279,8 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 \end{description}\vspace{-1.4em}
 \end{proof}
 \begin{remark}[Fortsetzung von Bemerkung~\ref{remark-thin-flow}]\label{remark-thin-flow-part-2}
-	Es soll erörtert werden, warum die Bedingung~\ref{def-thin-flow-no-resetting-edge}, die hier im Vergleich zu~\cite[Definition~6]{Koch2011} hinzugezogen wurde, für die Korrektheit von Theorem~\ref{thm-alpha-extension-is-nash-flow} benötigt wird:
-	Dies wird genutzt, damit die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
+	Hier erkennt man, warum die Bedingung~\ref{def-thin-flow-no-resetting-edge}, die in dieser Arbeit im Vergleich zu~\cite[Definition~6]{Koch2011} hinzugezogen wurde, für die Korrektheit von Theorem~\ref{thm-alpha-extension-is-nash-flow} benötigt wird:
+	Dies wird benötigt, damit die erweiterten Ankunftszeiten tatsächlich mit den angegebenen übereinstimmen.
 	
 	Man betrachte den dynamischen Nullfluss im Netzwerk aus Abbildung~\ref{figure-labels} mit Zeithorizont $0$.
 	Die Kanten $st$ und $sv$ sind aktiv, wohingegen die Kante $vt$ inaktiv ist.
@@ -296,13 +289,13 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
-		\node[draw, circle] (S) at (0,2) {$s$};
-		\node[draw, circle] (V) at (4,2) {$v$};
-		\node[draw, circle] (T) at (2,0) {$t$};
+		\node[draw, circle, outer sep=4pt] (S) at (0,2) {$s$};
+		\node[draw, circle, outer sep=4pt] (V) at (4,2) {$v$};
+		\node[draw, circle, outer sep=4pt] (T) at (2,0.5) {$t$};
 		
-		\path [->] (S) edge node[above] {$1/1$} (V);
-		\path [->] (S) edge node[below left] {$1/1$} (T);
-		\path [->] (V) edge node[below right] {$10/1$} (T);
+		\path [-Latex] (S) edge node[above] {$1/1$} (V);
+		\path [-Latex] (S) edge node[below left] {$1/1$} (T);
+		\path [-Latex] (V) edge node[below right] {$10/1$} (T);
 		\end{tikzpicture}
 		\caption{Ein dynamisches Netzwerk mit Kantenbeschriftung $\tau_e / u_e$.}
 		\label{figure-labels}
@@ -312,9 +305,6 @@ Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweit
 Weiter kann man zeigen, dass man das $\alpha$ in Theorem~\ref{thm-alpha-extension-is-nash-flow} stets strikt positiv wählen kann:
 \begin{proposition}
 	Für einen dynamischen Nash-Fluss $f$ mit Zeithorizont $T$ und normierten schmalen Fluss $x'$ mit Knotenauslastungen $l'$ existiert ein $\alpha>0$, das sowohl (\ref{equation-alpha-queuing-edge}) und (\ref{equation-alpha-inactive-edge}) erfüllt.
-	Dabei kann $\alpha$ gewählt werden zwischen $0$ und \[
-	\inf\left(\left\{ \frac{q_{vw}(l_v(T))}{l_v' - l_w'} ~\middle|~ vw\in E_1, l_w' < l_v' \right\} \cup \left\{ \frac{l_v(T) + \tau_{vw} -l_w(T)}{l_w' - l_v'} ~\middle|~ vw\notin E_\theta, l_w' > l_v' \right\}\right).
-	\]
 \end{proposition}
 \begin{proof}
 	Für Kanten $vw$ mit positiver Warteschlange zur Zeit $T$ muss (\ref{equation-alpha-queuing-edge}), also $l_w(T) - l_v(T) + \alpha(l_w' - l_v') \geq \tau_{vw}$, gelten.
@@ -326,13 +316,13 @@ Weiter kann man zeigen, dass man das $\alpha$ in Theorem~\ref{thm-alpha-extensio
 	Per Definition ist $l_v(T) + \tau_{vw} - l_w(T)$ für inaktive Kanten positiv.
 	Analog muss für diese Kanten mit $l_w' > l_v'$ also $\alpha \leq (l_v(T) + \tau_{vw} -l_w(T))/(l_w' - l_v')$ gefordert werden.
 	
-	Da alle diese oberen Schranken positiv sind, ist auch das Infimum $\alpha^*$ dieser Werte positiv.
+	Da alle diese oberen Schranken positiv sind, folgt die Aussage.
 \end{proof}
 
 Dies hat Koch in~\cite{Koch2011} genutzt, um einen Algorithmus zur Berechnung von dynamischen Nash-Flüssen mit konstanter Netzwerkeinflussrate vorzuschlagen:
 Ausgehend vom dynamischen Nullfluss mit Zeithorizont $0$ wird der Fluss nach und nach mit normierten schmalen Flüssen um einen möglichst großen Zeitraum $\alpha$ erweitert.
 
-Ob dieser Algorithmus jedoch terminiert in dem Sinne, dass irgendwann ein $\alpha$ beliebig groß gewählt werden kann und somit der dynamische Nash-Fluss ab einem Zeitpunkt $T$ konstant gewählt werden kann, ist eine bisher unbeantwortete Frage.
+Ob dieser Algorithmus jedoch terminiert in dem Sinne, dass nach endlich vielen Erweiterungen ein $\alpha$ beliebig groß und somit der dynamische Nash-Fluss ab einem Zeitpunkt $T$ konstant gewählt werden kann, ist eine bisher unbeantwortete Frage.
 Cominetti, Correa und Olver beantworten Teile der Frage in~\cite{CominettiExample}:
 Übersteigt die minimale Warteschlangenkapazität $u(\delta^+(S))$ eines $s$-$t$-Schnitts $S$ den konstanten Netzwerkzufluss $d$ nicht, so erreicht ein dynamischer Nash-Fluss schließlich einen stabilen Zustand, ab dem der Fluss konstant ist.
 Ob dieser Zustand jedoch durch endlich viele $\alpha$-Erweiterungen berechnet werden kann, bleibt ungeklärt.
@@ -349,10 +339,10 @@ Unter Benutzung des Lemmas von Zorn kann man jedoch die Existenz von dynamischen
 	Sei nun eine aufsteigende Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ gegeben.
 	Man bemerke, dass für $i\leq j$ die frühesten Ankunftszeiten der Flüsse $f^i$ und $f^j$ auf $(-\infty, T^i)$ übereinstimmen.
 	
-	Man definiere nun $T^* \coloneq \lim_{i\in\N} T^i$ sowie die Ankunftszeit $l_v(\theta)$ an einem Knoten $v$ zur Zeit $\theta\in(-\infty, T^*)$, die von einem Fluss $f^i$ der Kette mit $T^i \geq \theta$ angenommen wird.
+	Man definiere nun $T^* \coloneq \lim_{i\in\N} T^i$ sowie die Ankunftszeit $l_v(\theta)$ an einem Knoten $v$ zur Zeit $\theta\in(-\infty, T^*)$, die von einem Fluss $f^i$ mit $T^i \geq \theta$ angenommen wird.
 	Sei außerdem $l_v(T^*) \coloneq \lim_{i\in\N} l_v(T^i)$.
-	Definiert man nun $f$ als den Fluss, dessen Zuflussrate $f_{vw}^+$ für $\theta<l_v(T^*)$ den Wert von $f^{i+}_{vw}(\theta)$ eines $i\in\N$ mit $l_v(T^i) > l_v(\theta)$ hat und für $\theta \geq l_v(T^*)$ den Wert $0$ hat, sowie dessen Abflussrate $f_{vw}^-$ für $\theta<l_w(T^*)$ den Wert von $f^{i-}_{vw}(\theta)$ eines $i\in\N$ mit $l_w(T^i) > l_w(\theta)$ hat und für $\theta \geq l_w(T^*)$ den Wert $0$ hat.
-	Dann ist $f$ nicht nur ein zulässiger Fluss, sondern sogar ein dynamischer Nash-Fluss mit Zeithorizont $T^*$.
+	Man definiere nun $f$ als den Fluss, dessen Zuflussrate für $\theta<l_v(T^*)$ den Wert $f^{i+}_{vw}(\theta)$ für ein $i\in\N$ mit $l_v(T^i) > l_v(\theta)$ und für $\theta \geq l_v(T^*)$ den Wert $0$ hat, und dessen Abflussrate für $\theta<l_w(T^*)$ den Wert $f^{i-}_{vw}(\theta)$ für ein $i\in\N$ mit $l_w(T^i) > l_w(\theta)$ und für $\theta \geq l_w(T^*)$ den Wert $0$ hat.
+	Dann ist $f$ nicht nur ein zulässiger dynamischer Fluss, sondern sogar ein dynamischer Nash-Fluss mit Zeithorizont $T^*$.
 	Somit folgt, dass $(f, T^*)$ eine obere Schranke der Kette $(f^i, T^i)_{i\in\N}$ bezüglich $\preceq$ ist.
 	Nach dem Lemma von Zorn besitzt die Ordnung $\preceq$ ein maximales Element $(f, T^*)$.
 	Dann muss $T^*$ aber bereits unendlich sein, da man durch eine $\alpha$-Erweiterung von $f$ mit $\alpha > 0$ sonst einen dynamischen Nash-Fluss $(\tilde{f}, T^* + \alpha)$ erhält, für den $(\tilde{f}, T^* + \alpha) \npreceq (f, T^*)$ gelten würde.

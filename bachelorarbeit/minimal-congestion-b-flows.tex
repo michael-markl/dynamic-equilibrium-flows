@@ -389,12 +389,12 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das die starke Dualität d
 	Die Aussage (ii)$\Leftrightarrow$(iii) folgt aus der Definition des Residualgraphen.
 \end{proof}
 
-Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines auslastungsminimalen Flusses alle Knoten enthält, die er darin erreichen kann.
+Insbesondere folgt also, dass jeder dünnste Schnitt eines auslastungsminimalen Flusses alle Knoten enthält, die er im Residualgraphen erreichen kann.
 
 \begin{lemma}\label{lemma-calc-sparsest-cut}
 	Sei $f$ ein $b$-Fluss minimaler Auslastung $q^*$ im Netzwerk $(V, E, u, b)$ mit nichtleerer Kantenmenge $E$.
 	Dann kann mit $\bigO(n+m)$ Operationen ein inklusionsminimaler, dünnster Schnitt mit Auslastung $q^*$ berechnet werden.
-	Dabei seien $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten.
+	Dabei sind $n$ die Anzahl der Knoten und $m$ die Anzahl der Kanten.
 \end{lemma}
 \begin{proof}
 	Ist $q^* = 0$, so ist $b$ bereits der Nullvektor und es kann jede einelementige Knotenmenge mit mindestens einer ausgehenden Kante verwendet werden.
@@ -415,13 +415,13 @@ Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines au
 \section{Berechnung auslastungsminimaler Flüsse}
 
 In diesem Abschnitt soll die Berechnung auslastungsminimaler Flüsse beleuchtet werden.
-Man konnte bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu kostenminimalen $b$-Flüssen erkennen.
+Man konnte bereits im vorherigen Abschnitt einige Analogien auslastungsminimaler $b$-Flüsse zu \emph{kostenminimalen $b$-Flüssen} erkennen.
 Bei der Suche nach kostenminimalen $b$-Flüssen werden die Kanten mit Kosten $c\in\R_{\geq 0}^E$ bewertet und man ist daran interessiert einen $b$-Fluss $f$ zu finden, der den Ausdruck $\sum_{e \in E} c_e f_e$ minimiert und dabei die Kapazitäten der Kanten nicht übersteigt, der also $f_e \leq u_e$ für jede Kante $e$ erfüllt.
 Dazu betrachtet man ebenfalls den Residualgraph, allerdings mit einem kleinen Unterschied: Vorwärtskanten werden aufgenommen, wenn deren Auslastung geringer als $1$ statt geringer als die Auslastung des Flusses ist.
 Ein $b$-Fluss ist kostenminimal genau dann, wenn der zugehörige, so definierte Residualgraph keine negativen Zyklen hat, also Zyklen $C$ mit $c(E(C)) < 0$ (siehe \cite[Satz 9.7]{Korte2012}).
 
 Eine Herangehensweise für das Finden eines kostenminimalen Flusses ist es, ausgehend von einem beliebigen $b$-Fluss iterativ Zyklen im Residualgraph durch Augmentieren zu entfernen.
-Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} nach $\bigO(nm^2\log n)$ Iterationen mit einem kostenminimalen $b$-Fluss bei einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Theoreme~3.9, 3.10]{Goldberg1989}).
+Verwendet man dabei als Auswahlregel, einen Zyklus mit minimalen mittleren Kantenkosten zu entfernen, so terminiert der sogenannte \emph{Minimum-Mean-Cycle-Cancelling-Algorithmus} nach $\bigO(nm^2\log n)$ Iterationen mit einem kostenminimalen $b$-Fluss bei einer Gesamtlaufzeit von $\bigO(n^2m^3 \log n)$ (siehe \cite[Abschnitt 9.3]{Korte2012}).
 Verfolgt man den gleichen Ansatz für die Berechnung eines auslastungsminimalen Flusses, erhält man den Algorithmus~\ref{algorithm-cycle-cancelling}.
 \begin{algorithm}
 	\caption{Cycle-Cancelling-Algorithmus}
@@ -446,9 +446,10 @@ Versucht man beispielsweise $\gamma$ so zu wählen, dass die Auslastung des Zykl
 	Der eindeutige optimale Fluss weist allen drei Kanten den Wert $1/3$ zu.
 	
 	Startet man beispielsweise mit dem Fluss, der zunächst den gesamten Fluss über Kante $e_1$ schickt, enthält der Residualgraph die Zyklen $\overrightsmallarrow{e_2}\overleftsmallarrow{e_1}$ und $\overrightsmallarrow{e_3}\overleftsmallarrow{e_1}$.
-	Wird entlang einer der beiden Zyklen augmentiert -- o.B.d.A. entlang $\overrightsmallarrow{e_2}\overleftsmallarrow{e_1}$ --, so sind $e_1$ und $e_2$ mit Auslastung $1/2$ die Flaschenhalskanten.
+	Wird entlang einer der beiden Zyklen augmentiert, o.B.d.A. entlang $\overrightsmallarrow{e_2}\overleftsmallarrow{e_1}$, so sind $e_1$ und $e_2$ mit Auslastung $1/2$ die Flaschenhalskanten.
 	Im nächsten Schritt können die Zyklen $\overrightsmallarrow{e_3}\overleftsmallarrow{e_1}$ und $\overrightsmallarrow{e_3}\overleftsmallarrow{e_2}$ augmentiert werden.
-	Auch hier spielt die Wahl aufgrund der Symmetrie keine Rolle und man augmentiere entlang $\overrightsmallarrow{e_3}\overleftsmallarrow{e_2}$, sodass auf der Flaschenhalskante $e_1$ Fluss von Wert $1/2$ und auf $e_2$ und $e_3$ jeweils Fluss von Wert $1/4$ fließt.
+	Auch hier spielt die Wahl aufgrund der Symmetrie keine Rolle.
+	Augmentiert man entlang $\overrightsmallarrow{e_3}\overleftsmallarrow{e_2}$, so fließt auf der Flaschenhalskante $e_1$ Fluss von Wert $1/2$ und auf $e_2$ und $e_3$ jeweils Fluss von Wert $1/4$.
 	
 	Tatsächlich kann man durch beliebige Wahl der Zyklen den auslastungsminimalen Fluss nicht erreichen, da der Fluss zu jeder Zeit auf zwei Kanten den gleichen Wert und auf der übrigen Kante einen unterschiedlichen Wert besitzt; insbesondere beträgt er nie $1/3$ auf allen drei Kanten gleichzeitig: Ist die Kante $e_k$ Flaschenhalskante und der Fluss auf Kante $e_j$ stimme entweder mit dem auf $e_i$ oder mit dem auf $e_k$ überein.
 	Wird der Fluss entlang $\overrightsmallarrow{e_i}\overleftsmallarrow{e_k}$ augmentiert, so werden die Flusswerte von $e_i$ und $e_k$ angeglichen, sodass der Wert von $e_j$ in jedem Fall davon abweicht.
@@ -478,7 +479,7 @@ Das konstante Kostenmaß hingegen weist jeder elementaren Instruktion unbeachtet
 Es werden nun weitere elementare Aussagen über die Kodierungslänge gezeigt:
 
 \begin{proposition}\label{prop-rational-bounds-encoding}
-	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
+	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in \Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
 	Dann gelten:
 	\begin{enumerate}[label=(\roman*)]
 		\item $\size{ab} \leq \size{a}+\size{b}$,
@@ -529,7 +530,7 @@ Es werden nun weitere elementare Aussagen über die Kodierungslänge gezeigt:
 
 \subsection{Berechnung mittels LP-Formulierung}
 
-Um nun mithilfe dieser effizienten Suche auf den rationalen Zahlen, das Problem auslastungsminimaler $b$-Flüsse zu lösen, werden zunächst einige Grundlagen der Linearen Optimierung wiederholt:
+Um nun mithilfe dieser effizienten Suche auf den rationalen Zahlen das Problem auslastungsminimaler $b$-Flüsse zu lösen, werden zunächst einige Grundlagen der Linearen Optimierung wiederholt:
 \begin{definition}[Lineares Programm in Standardform]
 	Ein Optimierungsproblem der Form $\min\{ c^T x \mid x \in P^=(A, b) \}$ mit $c\in\R^n, b\in\R^m, A\in\R^{m\times n}$ und Zulässigkeitsbereich $P^=(A,b)\coloneq \{ x\in\R^n \mid Ax = b, x\geq 0 \}$ heißt \emph{lineares Programm in Standardform}.
 \end{definition}
@@ -684,15 +685,15 @@ Das Resultat folgt nun mit Lemma~\ref{lemma-optimal-value-in-finite-domain} und 
 \end{theorem}
 \begin{proof}
 	Es sei zunächst $\mathbf{b}$ die Summe aller positiven $b_v$ für $v\in V$.
-	Dies ist gerade das Negative der Summe aller negativen $b_v$ für $v\in V$, denn sonst wäre $b$ kein zulässiger Balance-Vektor, für den es von vornherein keinen $b$-Fluss gibt.
+	Dies ist gerade das Negative der Summe aller negativen $b_v$ für $v\in V$, denn sonst gäbe es von vornherein keinen $b$-Fluss.
 	
 	Angenommen, es existiere ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses nach Korollar~\ref{cor-minimal-congestion-limited} eine nichtnegative, rationale Zahl, deren Zähler und Nenner durch $8^{\size{b} + \size{u}}$ beschränkt sind.
 	Dann folgt mit Theorem~\ref{theorem-find-rational}, dass $q^*$ durch $\bigO(\size{b} + \size{u})$ Vergleiche der Form \glqq Ist $q^*\leq p/q$?\grqq\ ermittelt werden kann.
 	
 	Ein solcher Vergleich kann wie folgt umgesetzt werden:
-	Der Graph $(V,E)$ wird um zwei Knoten, eine sog. Superquelle $s$ und Supersenke $t$, augmentiert.
+	Der Graph $(V,E)$ wird um zwei Knoten, eine sog. Superquelle $s$ und eine Supersenke $t$, augmentiert.
 	Für jeden Knoten $v\in V$ mit $b_v > 0$ wird eine Kante $(s,v)$ mit Kapazität $\nu_{(s,v)}\coloneq b_v$ eingefügt; für einen Knoten $v\in V$ mit $b_v < 0$ wird eine Kante $(v,t)$ mit Kapazität $\nu_{(v,t)}\coloneq -b_v$ erstellt.
-	Für bereits bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e \coloneq u_e \cdot p / q$ gesetzt.
+	Für bestehende Kanten $e\in E$ wird die Kapazität auf $\nu_e \coloneq u_e \cdot p / q$ gesetzt.
 	Dann hat ein maximaler $s$-$t$-Fluss $f$, der die Kantenkapazitäten $\nu$ einhält, der also $f_e\leq \nu_e$ für alle $e\in E$ erfüllt, genau dann Wert $\mathbf{b}$, wenn $q^*\leq p/q$ gilt:
 	
 	Hat $f$ den Wert $\mathbf{b}$ und schränkt man $f$ auf $E$ ein, so erhält man einen $b$-Fluss, denn offenbar sind hier alle Kanten der Form $(s,v)$ hinsichtlich $\nu_{(s,v)}$ voll ausgelastet.

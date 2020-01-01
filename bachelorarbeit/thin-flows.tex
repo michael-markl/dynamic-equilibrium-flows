@@ -3,7 +3,10 @@
 
 \section{Definition und Eigenschaften}
 
-Der Abschnitt beginnt mit der Einführung einer neuen Klasse statischer Flüsse:
+Der Abschnitt beginnt mit der Einführung einer weiteren Klasse statischer Flüsse.
+Diese wurden von Ronald Koch in~\cite{Koch2012} erstmals analysiert.
+Hier werden einige Ergebnisse von ihm erarbeitet.
+Weitere Ergänzungen stammen aus~\cite{Cominetti2015}.
 
 \begin{definition}[$s$-Netzwerk]
 	Ein \emph{$s$-Netzwerk} $(V, E, u, s)$ ist ein azyklisches Netzwerk $(V, E, u)$, in dem alle Knoten von $s$ aus erreicht werden können.
@@ -48,7 +51,7 @@ In diesem Sinne setzen Kanten aus $E_1$ die Auslastung eines vorangegangen Pfade
 	Der Teilgraph $(V, E')$ mit \[
 	E'\coloneq \left\{ vw\in E ~\middle\vert~ \rho_{vw}(\tilde{l}_v, f_{vw}) = \min_{uw\in\delta^-(w)} \rho_{uw}(\tilde{l}_u, f_{uw}) \right\}
 	\]
-	ebenfalls azyklisch und jeder Knoten ist von $s$ aus erreichbar.
+	ist ebenfalls azyklisch und jeder Knoten ist von $s$ aus erreichbar.
 	Man zeige $l_w = \tilde{l}_w$ durch eine Induktion über die Distanz von $s$ zu $w$ bezüglich der Anzahl an Kanten.
 	Für $w=s$ gilt offenbar $l_s = 0$.
 	Sei nun ein $s$-$w$-Pfad $P$ gegeben, seien $vw$ die letzte Kante und $Q$ das restliche Anfangsstück dieses Pfades.
@@ -66,6 +69,8 @@ In diesem Sinne setzen Kanten aus $E_1$ die Auslastung eines vorangegangen Pfade
 \end{definition}
 
 Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knotens $v$ gerade die Auslastung eines jeden $s$-$v$-Pfades mit positivem Fluss und $0$, falls kein solcher existiert.
+
+Da sich zurücksetzende Kanten, die in $s$ starten, bezüglich schmaler Flüsse genauso verhalten, als wären sie nicht zurücksetzend, wird im Folgenden ohne Beschränkung angenommen, dass $s$ keine ausgehenden, zurücksetzenden Kanten hat.
 
 \begin{remark}
 	Ronald Koch betrachtet in~\cite{Koch2012} allgemeinere schmale Flüsse: Dort ist das zugrundeliegende Netzwerk nicht als azyklisch vorausgesetzt.
@@ -198,7 +203,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 	Außerdem fällt auf, dass die Kante $(d,e)$ nicht genutzt wird.
 	Auch das ist nicht besonders verwunderlich:
 	Würde man Fluss von der Kante $(a, e)$ entfernen und stattdessen entlang eines Pfads $P$ über $d$ zu $e$ schicken, so hätte $P$ eine Auslastung von mindestens $5$, da jeder Pfad nach $d$ bereits Auslastung $5$ hatte.
-	Weil aber $e$ aufgrund der Kante $(a,e)$ eine kleiner Auslastung als $2{,}5$ hat, kann der entstehende Fluss kein schmaler Fluss sein.
+	Weil aber $e$ aufgrund der Kante $(a,e)$ eine kleinere Auslastung als $2{,}5$ hat, kann der entstehende Fluss kein schmaler Fluss sein.
 	Später in diesem Kapitel sehen wir, dass eine Kante, die zu einem Knoten niedrigerer Auslastung führt, in keinem schmalen Fluss ohne Zurücksetzen genutzt wird.
 	
 	Setzt man jedoch die Kante $(d, e)$ als zurücksetzende Kante voraus, so ist der Fluss aus Abbildung~\ref{subfig-thin-flow-without-resetting} kein schmaler Fluss auf dieser Instanz:
@@ -208,7 +213,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 \end{example}
 
 \begin{lemma}\label{lemma-thin-flow-t-def}
-	Ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurücksetzen auf $E_1$ ist genau dann ein schmaler Fluss, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, die die folgenden Bedingungen erfüllt:
+	Ein $b$-Fluss $f$ in einem $s$-Netzwerk mit Zurücksetzen auf $E_1$ ist genau dann ein schmaler Fluss, wenn eine Knotenbewertung $l\in\R_{\geq 0}^V$ existiert, welche die folgenden Bedingungen erfüllt:
 	\begin{enumerate}[label=(T\arabic*)]
 		\item\label{def-thin-flow-source} $\displaystyle l_s = 0$,
 		\item\label{def-thin-flow-x-zero} $\displaystyle l_w \leq l_v$, \tabto{4.5cm} für $vw\in E \setminus E_1$ mit $f_{vw}=0$,
@@ -244,7 +249,7 @@ Insbesondere ist bei einem schmalen Fluss die Knotenauslastung $l_v$ eines Knote
 
 \begin{remark}\label{remark-thin-flow}
 	Hier ist, wie in~\cite[Definition~4]{Cominetti2011}, im Vergleich zu~\cite[Definition~6]{Koch2011} die Bedingung~\ref{def-thin-flow-no-resetting-edge} zusätzlich eingeführt worden.
-	Diese ist nötig, um den Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow} zu geben, der in \cite{Koch2011} als Theorem~3 geführt wird.
+	Diese ist nötig für den Beweis von Theorem~\ref{thm-alpha-extension-is-nash-flow}, der in \cite{Koch2011} als Theorem~3 geführt wird.
 	Dies wird in Bemerkung~\ref{remark-thin-flow-part-2} weiter erörtert.
 	Die Änderung von $l_s=1$ auf $l_s=0$ wird später durch die Einführung normierter schmaler Flüsse in Definition~\ref{def-normalized-thin-flow} gerechtfertigt.
 \end{remark}
@@ -284,11 +289,11 @@ Dies lässt sich folgern, da die Auslastungsübertragung nach Proposition~\ref{p
 	Ebenso gilt für Kanten $vw\in\delta^-(S)$ die Ungleichung $f_e \geq g_e$, weil sonst wegen $v\notin S$ die Ungleichung
 	\[l_w \leq \rho_{vw}(l_v, f_{vw}) \leq \rho_{vw}(h_v, g_{vw}) = h_w\]
 	gelten würde, was $w\in S$ widerspricht.
-	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $f_e = g_e$ für alle $e\in \delta(S)\coloneq \delta^-(S) \cup \delta^+(S)$.
-	Für $vw\in \delta^-(S)$ ist dann $g_e=f_e=0$, da für $g_e=f_e>0$ wieder mit $v\notin S$ die Ungleichung $l_w = \rho_{vw}(l_v, f_{vw})\leq \rho_{vw}(h_v, g_{vw})=h_w$ der Bedingung $w\in S$ widerspricht.
+	Gleichung~\ref{proof-uniqueness-labels-eq} impliziert dann sogar $f_e = g_e$ für alle $e\in \delta^-(S) \cup \delta^+(S)$.
+	Für $vw\in \delta^-(S)$ verschwinden $g_e$ und $f_e$, da sonst für $g_e=f_e>0$ mit $v\notin S$ die Ungleichung $l_w = \rho_{vw}(l_v, f_{vw})\leq \rho_{vw}(h_v, g_{vw})=h_w$ der Bedingung $w\in S$ widerspricht.
 	
 	Aufgrund der Azyklizität existiert ein Knoten $w\in S$ mit $\delta^-(w)\subseteq \delta^-(S)$.
-	Eingehende Kanten von $w$ sind daher nicht zurücksetzend, da für solch eine Kante $\rho_{vw}(l_v, f_e) = 0 = \rho_{vw}(l_v, g_e)$ gelten würde, sodass $l_w = 0 = h_w$ der Voraussetzung $w\in S$ widerspricht.
+	Eingehende Kanten $vw$ von $w$ sind daher nicht zurücksetzend, da für solch eine Kante $\rho_{vw}(l_v, f_e) = 0 = \rho_{vw}(l_v, g_e)$ gelten würde, sodass $l_w = 0 = h_w$ der Voraussetzung $w\in S$ widerspricht.
 	Daher ist $l_w = \min_{vw\in \delta^-(w)} l_v$ und $h_w = \min_{vw\in\delta^-(w)} h_v$, was den Widerspruch $l_w \leq h_w$ impliziert.
 \end{proof}
 
@@ -376,7 +381,7 @@ Nun lautet der Fixpunktsatz von Kakutani (siehe~\cite{Heuser1991Fix}):
 	Dabei sei $l\in\R_{\geq 0}^V$ die zu $f$ gehörige Knotenauslastung.
 	Diese Korrespondenz ist wohldefiniert, da $\Gamma(f)$ für jedes $f\in C$ nichtleer ist:
 	Der Knoten $s$ kann im Graphen $G'\coloneq (V, E')$ mit $E'\coloneq \{ vw\in E \mid \rho_{vw}(l_v, f_{vw})=l_w \}$ jeden Knoten erreichen, da $G'$ azyklisch ist und jeder Knoten $w\neq s$ mindestens eine eingehende Kante mit $l_w = \rho_{vw}(l_v, f_{vw})$ besitzt. 
-	Daher existiert ein $s$-$v$-Weg $P_v$ in $G'$ für alle $v\in V$ und der Fluss $\sum_{v\in V\setminus\{ s\}} b_v \cdot P_v$ ist in $\Gamma(f)$ enthalten.
+	Daher existiert ein $s$-$v$-Weg $P_v$ in $G'$ für alle $v\in V$ und der Fluss $\sum_{v\in V\setminus\{ s\}} (-b_v) \cdot P_v$ ist in $\Gamma(f)$ enthalten.
 	
 	Für jedes $f\in C$ ist $\Gamma(f)$ konvex: Ist für $g, h\in \Gamma(f), \lambda\in [0,1]$ und eine Kante $vw\in E$ die Bedingung $l_w < \rho_{vw}(l_w, f_{vw})$ erfüllt, so gilt auch $\lambda g_{vw} + (1-\lambda) h_{vw} = 0$, womit $\lambda g + (1-\lambda)h$ im Bild $\Gamma(f)$ liegt.
 	Des Weiteren ist $\Gamma$ abgeschlossen: 
@@ -403,15 +408,18 @@ Dazu schränken wir uns wie bei der Berechnung auslastungsminimaler Flüsse zun�
 		\centering
 		\emph{Thin Flow with Resetting \probTFwR} \\[1em]
 		\begin{tabular}{rl}
-			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
-			{\bfseries Output}: &Schmaler Fluss $f$ mit Zurücksetzen auf $E_1$
+			{\bfseries Input}: &$s$-Netzwerk mit Zurücksetzen $(V, E, u \in \Q^E_{>0}, s\in V, E_1\subseteq E)$\\
+			& und Balancen $b\in \Q^V$.\\
+			{\bfseries Output}: &Schmaler $b$-Fluss mit Zurücksetzen auf $E_1$.
 		\end{tabular}
 	\end{mdframed}
 \end{center}
 
 Die Existenz schmaler Flüsse mit Zurücksetzen aus Theorem~\ref{thm-existence-thin-flow} suggeriert bereits einen exponentiellen Algorithmus, um einen solchen Fluss mit Wert $d$ zu berechnen:
-Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen sollen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die $\max\{ l_v, f_{vw}/u_{vw}\} = \sigma_{vw} l_v + (1-\sigma_{vw}) f_{vw}/u_{vw}$ erfüllen soll.
-Insbesondere sollen in $(V, E')$ immer noch alle Knoten von $s$ aus erreichbar sein.
+Man rate die Menge $E'\subseteq E$ aller Kanten $vw$, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen sollen, sowie für alle $vw\in E'\setminus E_1$ eine Binärzahl $\sigma_{vw}\in\{0,1\}$, die \[
+\max\left\{ l_v, \frac{f_{vw}}{u_{vw}}\right\} = \sigma_{vw} l_v + (1-\sigma_{vw}) \frac{f_{vw}}{u_{vw}}
+\] erfüllen soll.
+Außerdem sollen in $(V, E')$ alle Knoten von $s$ aus erreichbar sein.
 Dann suche man einen zulässigen Punkt in folgendem Polyeder:
 \begin{align*}
 	& (f, l) \in \R_{\geq 0}^{E + V} \\[0.3em]
@@ -437,22 +445,22 @@ Man prüfe die Bedingung aus Lemma~\ref{lemma-thin-flow-t-def}.
 Dabei folgt~\ref{def-thin-flow-source} sofort.
 Für Kanten $vw\in E\setminus E_1$ mit $f_{vw} = 0$ gilt $l_w \leq l_v$ mit Fallunterscheidung nach $vw\in E'$, also gilt~\ref{def-thin-flow-x-zero}.
 Auch~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} folgen sofort.
-Für~\ref{def-thin-flow-no-resetting-edge} nehme man also an, dass ein Knoten $w\neq s$ keine eingehenden Kanten in $E_1$ hat.
+Für~\ref{def-thin-flow-no-resetting-edge} nehme man an, dass ein Knoten $w\neq s$ keine eingehenden Kanten in $E_1$ hat.
 Da $w$ von $s$ aus in $(V, E')$ erreichbar ist, hat $w$ mindestens eine eingehende Kante $vw$ in $E'$, für die $l_w = \max\{ l_v, f_{vw}/u_{vw} \} \geq \min_{uw\in\delta^-(w)} l_u$ gilt.
 Also ist auch~\ref{def-thin-flow-no-resetting-edge} erfüllt und $f$ ist ein schmaler Fluss mit Zurücksetzen auf $E_1$.
 
-Setzt man andersherum für einen schmalen Fluss $f$ mit Knotenauslastung $l$ die Menge $E'$ als diejenigen Kante, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen, und $\sigma_{vw}$ als $1$, falls $l_v \geq f_{vw}/u_{vw}$ gilt, und sonst als $0$, so ist $(f, l)$ eine zulässiger Punkt im oben definierten Polyeder.
+Setzt man andersherum für einen schmalen Fluss $f$ mit Knotenauslastung $l$ die Menge $E'$ als diejenigen Kanten, die $l_w = \rho_{vw}(l_v, f_{vw})$ erfüllen, und $\sigma_{vw}$ als $1$, falls $l_v \geq f_{vw}/u_{vw}$ gilt, und sonst als $0$, so ist $(f, l)$ eine zulässiger Punkt im oben definierten Polyeder.
 Dies kann leicht durch Heranziehen von Lemma~\ref{lemma-equivalent-thin-flow} eingesehen werden.
 
 \newcommand{\TFNP}{\mathbf{TFNP}}
 
 Die Zulässigkeit eines solchen Polyeders kann in polynomieller Zeit beispielsweise durch die Ellipsoidmethode ermittelt werden.
-Da nach Theorem~\ref{thm-existence-thin-flow} für jede \problemThinFlow\ Instanz ein schmaler Fluss mit Zurücksetzen existiert, liegt das Problem \probTFwR\ in der Komplexitätsklasse $\TFNP$:
+Da nach Theorem~\ref{thm-existence-thin-flow} ein schmaler Fluss mit Zurücksetzen existiert, liegt das Problem \probTFwR\ in der Komplexitätsklasse $\TFNP$:
 
 \begin{definition}[Suchproblem]
 	Ein \emph{Suchproblem $\Pi$} ist eine Relation $\Pi\subseteq X \times Y$ zusammen mit der Problemstellung zu einer \emph{Instanz} $x\in X$ eine \emph{Lösung} $y\in Y$ mit $(x,y)\in \Pi$ zu ermitteln.
 	
-	Ein Suchproblem $\Pi\subseteq X\times Y$ heißt \emph{polynomiell reduzierbar} auf ein Suchproblem $\Pi'\subseteq X'\times Y'$, falls es zwei polynomiell berechnbare Funktionen $f: X\rightarrow X'$ und $g: Y\rightarrow Y'$ gibt, sodass $g(y)$ eine Lösung der Instanz $f(x)$ von $\Pi'$ für jede Lösung $y$ einer Instanz $x$ von $\Pi$ ist, d.h.
+	Ein Suchproblem $\Pi\subseteq X\times Y$ heißt \emph{polynomiell reduzierbar} auf ein Suchproblem $\Pi'\subseteq X'\times Y'$, falls es zwei polynomiell berechenbare Funktionen $f: X\rightarrow X'$ und $g: Y\rightarrow Y'$ gibt, sodass $g(y)$ eine Lösung der Instanz $f(x)$ von $\Pi'$ für jede Lösung $y$ einer Instanz $x$ von $\Pi$ ist, d.h.
 	\[ (x,y) \in \Pi \implies (f(x), g(y)) \in \Pi'.\]
 \end{definition}
 \begin{definition}[Komplexitätsklasse $\TFNP$]
@@ -487,8 +495,7 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 	Dann ist $f$ ein $b$-Fluss minimaler Auslastung $q^*$ und für $E\neq\emptyset$ ist $X\coloneq \{ v\in V \mid l_v < q^* \}$ ein dünnster Schnitt.
 \end{lemma}
 \begin{proof}
-	Ist $b$ der Nullvektor -- wie im Fall $E=\emptyset$ --, so ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
-	
+	Ist $b$ der Nullvektor, so ist $f$ der Nullfluss, da das Netzwerk azyklisch ist.
 	Sei also $q^*>0$ die Auslastung von $f$ im Falle von $b\neq 0$.
 	Nach Korollar~\ref{cor-easy-characterization-sparsest-cut} genügt es zu
 	zeigen, dass die Auslastung jeder ausgehenden Kante von $X$ bezüglich $f$ gerade $q^*$ beträgt und auf eingehenden Kanten von $X$ kein Fluss fließt.
@@ -499,8 +506,10 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 	Für eine eingehende Kante $vw\in\delta^-(X)$ gilt $\rho_{vw}(l_v, f_{vw})\geq l_v > l_w$ und somit muss nach Lemma~\ref{lemma-equivalent-thin-flow} der Fluss $f$ auf der Kante $vw$ verschwinden.
 \end{proof}
 
+\todo{some more text}
+
 \begin{definition}
-	Existiert in einem Netzwerk ein $b$-Fluss, so heißt das Tupel $(V, E, b)$ eine \emph{$b$-Fluss-Instanz}.
+	Existiert in einem Graphen ein $b$-Fluss, so heißt das Tupel $(V, E, b)$ eine \emph{$b$-Fluss-Instanz}.
 	Für eine $b$-Fluss-Instanz $(V, E, b)$ und einen dünnsten Schnitt $X$ bezüglich $b$ mit Auslastung $q^*$ heißt $\mathcal{I}[X] \coloneq (X, E[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
 	wobei $E[X] \coloneq \{ vw \in E \mid v, w \in X \}$ die Menge der Kanten zwischen Knoten in $X$ ist und $b[X]$ durch \[
 	b[X]_v \coloneq b_v - u(\delta^+_E(v)\cap\delta^+_E(X)) q^* \text{~~~ für $v\in X$}
@@ -528,7 +537,7 @@ Daher ist eine durch einen dünnsten Schnitt induzierte Teilinstanz wieder eine 
 	Sei $X$ nun außerdem inklusionsminimal.
 	Gilt $b[X]_s = 0$, so ist die Aussage klar.
 	Sonst existiert wieder ein dünnster Schnitt $Y$ auf $(X, E[X])$ bezüglich den Balancen $b[X]$.
-	Angenommen, die Auslastung von $Y$ ist wieder $q^*$, wodurch die Einschränkung von $f$ auf $E[X]$ ein auslastungsminimaler $b[X]$-Fluss ist.
+	Angenommen, die Auslastung von $Y$ ist $q^*$, so ist die Einschränkung von $f$ auf $E[X]$ ein auslastungsminimaler $b[X]$-Fluss ist.
 	Dann ist $Y$ nach Korollar~\ref{cor-easy-characterization-sparsest-cut} ein dünnster Schnitt von $(V, E)$ bezüglich den Balancen $b$.
 	Dies ist jedoch ein Widerspruch zur Inklusionsminimalität von $X$.
 \end{proof}
@@ -543,7 +552,7 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 \begin{proof}
 	Ist $b$ der Nullvektor, so ist $f$ der Nullfluss und $l_v = 0$ für alle $v\in V$.
 	Sonst ist $s$ in $X$ enthalten und für alle $v\in V\setminus X$ enthält jeder $s$-$v$-Pfad mindestens eine Kante, die $X$ verlässt und nach Korollar~\ref{cor-easy-characterization-sparsest-cut} Auslastung $q^*$ besitzt.
-	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung also $\max_{e\in P} f_e / u_e = q^*$.
+	Da das Netz keine zurücksetzenden Kanten hat, beträgt die Auslastung jedes Pfades also $q^*$.
 \end{proof}
 
 \begin{corollary}\label{cor-thin-flow-alg-correct}
@@ -565,9 +574,9 @@ Das Ziel ist es nun, aus einem schmalen Fluss der Teilinstanz einen schmalen Flu
 	\end{align*}
 
 	Sei ein $s$-$v$-Pfad $P$ mit positivem Fluss gegeben.
-	Ist $v$ nicht in $X$, so hat $P$ nach Lemma~\ref{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q} Auslastung $l_v$.
-	Ist $v$ in $X$ enthalten, muss $P$ entlang Kanten innerhalb von $X$ laufen, da $g$ auf eingehenden Kanten von $X$ verschwindet.
-	Nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} stimmt die Auslastung von $v$ bezüglich der Einschränkung von $f$ mit der Auslastung von $v$ bezüglich $f$ überein, sodass auch die Auslastung von $P$ mit der Auslastung von $v$ bezüglich $f$ übereinstimmen.
+	Ist $v$ nicht in $X$ enthalten, so hat $P$ nach Lemma~\ref{lemma-flow-minimal-congestion-sparsest-cut-then-outside-X-congestion-q} Auslastung $l_v$.
+	Liegt $v$ in $X$, muss $P$ entlang Kanten innerhalb von $X$ laufen, da $g$ auf eingehenden Kanten von $X$ verschwindet.
+	Nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} stimmt die Auslastung von $v$ bezüglich der Einschränkung von $f$ mit der Auslastung von $v$ bezüglich $f$ überein, sodass auch die Auslastung von $P$ mit der Auslastung von $v$ bezüglich $f$ übereinstimmt.
 \end{proof}
 
 Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computation-thin-flow-without-resetting} zur Berechnung von schmalen Flüssen ohne Zurücksetzen.
@@ -591,7 +600,7 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 \end{algorithm}
 
 \begin{theorem}
-		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwoR\ und berechnet einen schmalen Fluss ohne Zurücksetzen in einer Laufzeit von $\bigO((\size{b} + \size{u})^2 n^2 m L)$, wobei $L\coloneq \abs{\{ l_v \mid v\in V \}}$ die Anzahl der verschiedenen Knotenauslastungen eines schmalen Flusses ohne Zurücksetzen ist.
+		Algorithmus~\ref{algorithm-computation-thin-flow-without-resetting} löst das Problem~\probTFwoR\ und berechnet einen schmalen Fluss ohne Zurücksetzen mit $\bigO((\size{b} + \size{u}) n^2 m L)$ arithmetischen Operationen, wobei $L\coloneq \abs{\{ l_v \mid v\in V \}}$ die Anzahl der verschiedenen Knotenauslastungen eines schmalen Flusses ohne Zurücksetzen ist.
 \end{theorem}
 \begin{proof}
 	Für die Korrektheit des Algorithmus benutzt man Korollar~\ref{cor-thin-flow-alg-correct}:
@@ -610,8 +619,8 @@ Dies bildet die Grundlage des polynomiellen Algorithmus'~\ref{algorithm-computat
 	Da die Existenz eines $b$-Flusses vorausgesetzt wird, ist auch die Berechnung eines auslastungsminimalen Flusses in jeder Iteration möglich, weil die Einschränkung eines auslastungsminimalen $b$-Flusses auf $E[X]$ ein $b[X]$-Fluss ist, sodass auch in jeder Iteration ein $b'$-Fluss existiert.
 	
 	Daher terminiert der Algorithmus nach mindestens $L$ Iterationen, denn in jeder Iteration wird die minimale Auslastung eines $b'$-Flusses nach Proposition~\ref{prop-restricted-minimal-flow-is-b-flow-on-induced-instance} echt reduziert.
-	Außerdem kann ein auslastungsminimaler $b'$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} in $\bigO((\size{b}+\size{u})^2 n^2 m)$ Zeit berechnet werden.
-	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, wodurch eine Gesamtlaufzeit von $\bigO((\size{b} + \size{u})^2 n^3 m)$ entsteht.
+	Außerdem kann ein auslastungsminimaler $b'$-Fluss nach Theorem~\ref{thm-compute-minimal-con-flow} mit $\bigO((\size{b}+\size{u}) n^2 m)$ Operationen bestimmt werden.
+	Daraus kann man nach Lemma~\ref{lemma-calc-sparsest-cut} in $\bigO(n+m)$ arithmetischen Operationen einen dünnsten Schnitt gewinnen, sodass der gesamte Algorithmus $\bigO((\size{b} + \size{u}) n^2 m L)$ Operationen benötigt.
 \end{proof}
 
 Die Funktionsweise des Algorithmus' soll durch das folgende Beispiel illustriert werden:
@@ -774,10 +783,10 @@ Die Funktionsweise des Algorithmus' soll durch das folgende Beispiel illustriert
 	Daher wird nun der Graph auf die von $X$ induzierte Teilinstanz reduziert:
 	Dabei wird die Balance der Knoten $e$ und $f$ wegen der entfernten Kanten $(e,g)$ und $(f,g)$ um jeweils $8$ reduziert und man sucht jetzt nach einem schmalen Fluss ohne Zurücksetzen auf dieser Teilinstanz.
 	Ein auslastungsminimaler Fluss $f^2$ und der zugehörige dünnste Schnitt $X^2 = \{ a, b, c, e \}$ bei Auslastung $q^2 = 5$ sind in Abbildung~\ref{subfig-thin-flow-second-iteration} zu sehen.
-	Hier sieht man außerdem, dass eingehende Kanten in den dünnsten Schnitt bereits Nullkanten sind -- hier betrifft es die Kante $(d,e)$.
+	Man sieht außerdem, dass eingehende Kanten in den dünnsten Schnitt bereits Nullkanten sind -- hier betrifft es die Kante $(d,e)$.
 	Die Knotenauslastung auf $d$ und $f$ beträgt damit gerade $q^2=5$.
 	
-	Führt man dies im selben Schema in Iteration drei und vier wie in den Abbildungen~\ref{subfig-thin-flow-third-iteration} und~\ref{subfig-thin-flow-forth-iteration} zu sehen weiter, bemerkt man, dass das Angebot von $s$ nach Iteration drei bereits um $22$ verringert wurde und nach Iteration vier gänzlich verschwunden ist.
+	Führt man dies im selben Schema in Iteration drei und vier, wie in den Abbildungen~\ref{subfig-thin-flow-third-iteration} und~\ref{subfig-thin-flow-forth-iteration} zu sehen ist, weiter, bemerkt man, dass das Angebot von $s$ nach Iteration drei bereits um $22$ verringert wurde und nach Iteration vier gänzlich verschwunden ist.
 	Der berechnete schmale Fluss ohne Zurücksetzen ist schließlich in Abbildung~\ref{subfig-thin-flow-without-resetting} zu sehen.
 \end{example}
 
@@ -788,10 +797,10 @@ Die Funktionsweise des Algorithmus' soll durch das folgende Beispiel illustriert
 Nachdem im letzten Abschnitt herausgearbeitet wurde, dass schmale Flüsse ohne Zurücksetzen in polynomieller Zeit ermittelbar sind, wird in diesem Abschnitt die Problemstellung wieder allgemein mit zurücksetzenden Kanten betrachtet.
 In Theorem~\ref{thm-existence-thin-flow} wurde bereits die Existenz solcher Flüsse gezeigt.
 Die Tatsache, dass im Beweis dieses Theorems der Fixpunktsatz von Kakutani benutzt wird, kann Aufschluss darüber geben, in welcher Komplexitätsklasse das untersuchte Problem liegt:
-Papadimitriou hat~1992 in~\cite{PPAD1994} unter Anderem die Komplexitätsklasse $\PPAD$ eingeführt, da die Komplexität vieler Probleme mit ähnlichem Existenzbeweis sich nicht in eine der bestehenden Klassen eingliedern ließ.
+Papadimitriou hat~1992 in~\cite{PPAD1994} unter Anderen die Komplexitätsklasse $\PPAD$ eingeführt, da sich die Komplexität vieler Probleme mit ähnlichem Existenzbeweis nicht in eine der bestehenden Komplexitätsklassen eingliedern ließ.
 
 Die Abkürzung $\PPAD$ ist kurz für \glqq Polynomial Parity Argument on Directed Graphs\grqq.
-Das Paritätsargument beruht dabei darauf, dass für jeden gerichteten Graphen mit einem unbalancierten Knoten, d.h. einem Knoten, dessen Eingangsgrad ungleich seines Ausgangsgrad ist, ein weiterer unbalancierter Knoten existiert.
+Das Paritätsargument beruht dabei darauf, dass für jeden gerichteten Graphen mit einem unbalancierten Knoten, d.h. einem Knoten, dessen Eingangsgrad ungleich seines Ausgangsgrads ist, ein weiterer unbalancierter Knoten existiert.
 Dies folgt leicht aus der Gradgleichung
 \[
 	2 \abs{E} = \sum_{v\in V} ( \abs{\delta^+(v)} + \abs{\delta^-(v)} ),
@@ -822,7 +831,6 @@ Mit diesen Grundlagen kann das Problem nun formalisiert werden:
 		\end{tabular}
 	\end{mdframed}
 \end{center}
-
 Aufbauend auf diesem Problem formuliert man nun die Komplexitätsklasse~$\PPAD$:
 
 \begin{definition}
@@ -832,8 +840,8 @@ Aufbauend auf diesem Problem formuliert man nun die Komplexitätsklasse~$\PPAD$:
 Per Definition ist also das Problem \EndOfTheLine~vollständig in \PPAD.
 Goldberg und Hollender zeigen in~\cite[Theorem 15]{hairyball}, dass auch die allgemeinere Variante, also gegeben eines unbalancierten Knotens einen weiteren unbalancierten Knoten zu finden, vollständig in $\PPAD$ ist.
 
-Es stellt sich zudem heraus, dass die Klasse~$\PPAD$ schwache Approximationen von Fixpunkten, die durch verschiedene Fixpunktsätze bewiesen werden können, erlaubt.
-Der Brouwer'sche Fixpunktsatz besagt, dass jede stetige Funktion $f$ von einer nichtleeren, kompakten und konvexen Teilmenge des $R^n$ in sich selbst einen Fixpunkt $x$ mit $f(x) = x$ hat.
+Es stellt sich zudem heraus, dass die Klasse~$\PPAD$ schwache Approximationen von Fixpunkten erlaubt, die durch verschiedene Fixpunktsätze bewiesen werden können.
+Ein Beispiel dafür ist der Brouwer'sche Fixpunktsatz, welcher besagt, dass jede stetige Selbstabbildung $f$ einer nichtleeren, kompakten und konvexen Teilmenge des $R^n$ einen Fixpunkt $x$ mit $f(x) = x$ hat.
 Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig in \PPAD:
 
 \newcommand{\Brouwer}{\textsc{Brouwer}}
@@ -845,16 +853,16 @@ Die folgende diskrete Version davon ist nach~\cite{DASKALAKIS2019} vollständig 
 		\begin{tabular}{rl}
 			{\bfseries Input}: &Polynomiell berechenbare Funktion $F: [0,1]^m \rightarrow [0, 1]^m$,\\
 			& eine Konstante $K$ mit $\norm{F(x) - F(y)}_\infty \leq K \norm{x - y}_\infty$\\
-			&für alle $x,y\in[0,1]^m$ sowie die Genauigkeit $\varepsilon$.\\
+			&für alle $x,y\in[0,1]^m$ sowie die Genauigkeit $\varepsilon>0$.\\
 			{\bfseries Output}: & Ein Punkt $x\in[0,1]^m$ mit $\norm{F(x) - x}_\infty \leq \varepsilon$.
 		\end{tabular}
 	\end{mdframed}
 \end{center}
 
 Papadimitriou gibt in~\cite{PPAD1994} auch an, dass eine Version des Fixpunktsatzes von Kakutani ebenfalls in~\PPAD\ liegt.
-Dies wird in~\cite{Cominetti2015} aufgegriffen und damit begründet, dass die Berechnung eines schmalen Flusses mit Zurücksetzen ebenfalls in dieser Komplexitätsklasse liegt.
-Allerdings gibt Papadimitriou wenig Details, welche konkrete Version davon in \PPAD\ liegt.
-Auch die Kodierung einer Korrespondenz, d.h. einer mengenwertigen Funktion, wie sie im Fixpunktsatz von Kakutani benutzt wird, ist nicht offensichtlich.
+Dies wird in~\cite{Cominetti2015} aufgegriffen und benutzt, um zu begründen, dass die Berechnung eines schmalen Flusses mit Zurücksetzen ebenfalls in dieser Komplexitätsklasse liegt.
+Allerdings gibt Papadimitriou wenig Details darüber, welche konkrete Version des Fixpunktsatzes von Kakutani in \PPAD\ liegt.
+Auch die Kodierung einer Korrespondenz, d.h. einer mengenwertigen Funktion, wie sie im Fixpunktsatz von Kakutani verwendet wird, ist nicht offensichtlich.
 Daher wird dies als Vermutung festgehalten:
 
 \begin{conjecture}
@@ -875,7 +883,7 @@ Dieses Konzept verhilft zur folgenden Einsicht:
 \begin{lemma}\label{lemma-thin-flows-anchored-networks}
 	Seien $\mathcal{N}\coloneq (V, E, u, s, E_1)$ ein zurücksetzendes $s$-Netzwerk und $\mathcal{N}'$ sein verankertes Netzwerk.
 	Seien $f$ ein Fluss auf $\mathcal{N}$ und $f'$ ein Fluss auf $\mathcal{N}'$, der aus $f$ durch Übernehmen des Flusses der zurücksetzenden auf die verankerten Kanten entsteht.
-	Dann stimmen die Knotenauslastungen beider schmalen Flüsse überein und
+	Dann stimmen die Knotenauslastungen beider schmaler Flüsse überein und
 	$f$ ist genau dann ein schmaler $b$-Fluss mit Zurücksetzen auf $E_1$ in $\mathcal{N}$, wenn $f'$ ein schmaler $b'$-Fluss ohne Zurücksetzen in $\mathcal{N}'$ ist, wobei $b'$ gegeben ist durch
 	\[
 		b_s' = b_s + f(E_1) \text{~~ und ~~} b_v' = b_v - f(\delta^+(v)\cap E_1) \text{~~ für alle $v\in V\setminus \{s \}$}.
@@ -885,13 +893,13 @@ Dieses Konzept verhilft zur folgenden Einsicht:
 	Zunächst vergewissere man sich, dass $f$ und $f'$ die gleichen Knotenauslastungen erzeugen:
 	Ein $s$-$v$-Pfad $P$, der keine zurücksetzende bzw. verankerte Kante benutzt, existiert in beiden Netzwerken und hat bzgl. $f$ und $f'$ die gleiche Auslastung.
 	Ist $P$ jedoch ein Pfad in $\mathcal{N}$, der eine zurücksetzende Kante verwendet, so betrachte man den Teilpfad ab der letzten zurücksetzenden Kante in $P$ und ersetze die zurücksetzende mit der verankerten Kante.
-	Dann erhält man einen Pfad in $\mathcal{N}'$, der die gleiche Auslastung wie $P$ hat.
-	Ist andersherum $P$ ein Pfad in $\mathcal{N}'$, der eine verankerte Kante verwendet, so ersetze man diese mit der zugehörigen zurücksetzenden Kante $uw$ und hänge den entstehenden Pfad an einen beliebigen $s$-$u$-Pfad an.
-	Wieder erhält man einen Pfad in $\mathcal{N}$, der die gleiche Auslastung wie $P$ hat.
+	Dann erhält man einen $s$-$v$-Pfad in $\mathcal{N}'$, der die gleiche Auslastung wie $P$ hat.
+	Ist umgekehrt $P$ ein Pfad in $\mathcal{N}'$, der eine verankerte Kante verwendet, so ersetze man diese mit der zugehörigen zurücksetzenden Kante $uw$ und hänge den entstehenden Pfad an einen beliebigen $s$-$u$-Pfad an.
+	Dadurch erhält man einen $s$-$v$-Pfad in $\mathcal{N}$, der die gleiche Auslastung wie $P$ hat.
 	
-	Per Konstruktion ist außerdem $f$ ein $b$-Fluss genau dann, wenn $f'$ ein $b'$ Fluss ist.
-	Für die restliche Aussage nutzen das Kriterium für schmale Flüsse aus Lemma~\ref{lemma-thin-flow-t-def} und zeigen jeweils die Eigenschaften~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} für die zurücksetzenden bzw. verankerten Kanten.
-	Sei nun zunächst $f$ ein schmaler Fluss in $\mathcal{N}$ und $vw_s$ eine verankerte Kante in $\mathcal{N'}$ mit $f'_{vw_s} > 0$.
+	Per Konstruktion ist außerdem $f$ ein $b$-Fluss genau dann, wenn $f'$ ein $b'$-Fluss ist.
+	Für die restliche Aussage werden die Kriterien für schmale Flüsse aus Lemma~\ref{lemma-thin-flow-t-def} genutzt und die Eigenschaften~\ref{def-thin-flow-x-positive} und~\ref{def-thin-flow-resetting-edge} für die zurücksetzenden bzw. verankerten Kanten gezeigt.
+	Sei zunächst $f$ ein schmaler Fluss in $\mathcal{N}$ und $vw_s$ eine verankerte Kante in $\mathcal{N'}$ mit $f'_{vw_s} > 0$.
 	Dann gilt~\ref{def-thin-flow-x-positive} für $vw_s$ wegen
 	\[ l_w = \frac{f_{vw}}{u_{vw}} = \frac{f'_{vw_s}}{u'_{vw_s}} = \max\left\{ l_s, \frac{f'_{vw_s}}{u'_{vw_s}} \right\} \]
 	nach~\ref{def-thin-flow-resetting-edge} für $vw$.
@@ -903,12 +911,12 @@ Dieses Konzept verhilft zur folgenden Einsicht:
 	\]
 \end{proof}
 
-Man erkennt nun, dass man das Bestimmen eines schmalen Flusses mit Zurücksetzen auf das Bestimmen seines Wertes auf den zurücksetzenden Kanten reduzieren kann:
+Man erkennt nun, dass man das Bestimmen eines schmalen Flusses mit Zurück\-setzen auf das Bestimmen seines Wertes auf den zurücksetzenden Kanten reduzieren kann:
 Weiß man nämlich die Werte eines schmalen Flusses auf den zurücksetzenden Kanten -- welche nach Korollar~\ref{corollary-thin-flows-uniqueness-on-some-edges} eindeutig sind --, so kann man einen schmalen Fluss ohne Zurücksetzen auf dem verankerten Netzwerk mit Balancen $b'$ wie in Lemma~\ref{lemma-thin-flows-anchored-networks} berechnen, um so einen schmalen Fluss auf dem ursprünglichen Netzwerk zu erhalten.
 Dies verhilft uns auch zu einem Kandidaten für die Fixpunktiteration nach Brouwer:
 
 \begin{definition}\label{def-sigma}
-	Für eine \problemThinFlow Instanz $\mathcal{N}\coloneq (V, E, u, s, b, E_1)$ sei $\Sigma\subseteq \R^{E_1}$ die Menge aller Werte, die ein $b$-Fluss in $\mathcal{N}$ auf den Kanten $E_1$ annehmen kann, und $\mathcal{N}'$ sei das verankerte Netzwerk von $\mathcal{N}$.
+	Für ein $s$-Netzwerk $\mathcal{N} \coloneq (V, E, u, s, E_1)$ mit Zurücksetzen und Balancen $b$ seien $\Sigma\subseteq \R^{E_1}$ die Menge aller Werte, die ein $b$-Fluss in $\mathcal{N}$ auf den Kanten $E_1$ annehmen kann, und $\mathcal{N}'$ das verankerte Netzwerk von $\mathcal{N}$.
 	Dann bezeichne $\Phi: \Sigma \rightarrow \Sigma$ die Funktion, die einem Vektor $f\in\Sigma$ die Werte der verankerten Kanten eines schmalen $b'$-Flusses ohne Zurücksetzen in~$\mathcal{N}'$ bei Balancen $b'$ mit
 	\[
 	b'_s \coloneq b_s + f(E_1) \text{~~~ und ~~~} b'_v \coloneq b_v - f( \delta^+(v)\cap E_1) \text{~~~ für alle $v\in V\setminus \{ s \}$}
@@ -927,7 +935,9 @@ Wir betrachten nun die Fixpunkte von $\Phi$:
 \end{proposition}
 \begin{proof}
 	Man folgert dies leicht aus Lemma~\ref{lemma-thin-flows-anchored-networks}:
-	Es ist $x$ genau dann ein Fixpunkt von $\Phi$, wenn ein schmaler $b'$-Fluss $f$ ohne Zurücksetzen auf $\mathcal{N}'$, der auf den verankerten Kanten $x$ entspricht, existiert, wobei $b'$ der Vektor wie in Definition~\ref{def-sigma} ist, welcher nach Lemma~\ref{lemma-thin-flows-anchored-networks} einem schmalen Fluss mit Zurücksetzen auf $\mathcal{N}$ entspricht.	
+	Es ist $x$ genau dann ein Fixpunkt von $\Phi$, wenn ein schmaler $b'$-Fluss $f$ ohne Zurücksetzen auf $\mathcal{N}'$, der auf den verankerten Kanten $x$ entspricht, existiert.
+	Dabei ist $b'$ der Vektor wie in Definition~\ref{def-sigma}
+	Nach Lemma~\ref{lemma-thin-flows-anchored-networks} entspricht $f$ einem schmalen Fluss mit Zurücksetzen auf $\mathcal{N}$.
 \end{proof}
 
 Koch gelangt mittels einer Sensitivitätsanalyse von schmalen Flüssen ohne Zurück\-setzen zu folgendem Theorem in ~\cite[Theorem 6.53]{Koch2012}:
@@ -938,7 +948,7 @@ Koch gelangt mittels einer Sensitivitätsanalyse von schmalen Flüssen ohne Zur�
 
 Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
 \begin{corollary}
-	Für eine $\problemThinFlow$ Instanz ist $\Phi$ eine stetige Funktion mit Lipschitzkonstante $\abs{E_1}$ bzgl. der Maximumsnorm.
+	Für ein $s$-Netzwerk mit Zurücksetzen auf $E_1$ und Zurücksetzen auf $E_1$ ist $\Phi$ eine stetige Funktion mit Lipschitzkonstante $\abs{E_1}$ bzgl. der Maximumsnorm.
 \end{corollary}
 \begin{proof}
 	Seien $x$, $y$ aus $\Sigma$ gegeben.
@@ -951,6 +961,7 @@ Damit lässt sich folgern, dass $\Phi$ eine lipschitzstetige Funktion ist:
 		0\leq f_e^z - f_e^h \leq b_s^z - b_s^h = - \sum_{v\in V\setminus\{ s\}} (b_v^z + b_v^h).
 	\]
 	Daraus lässt sich für alle Kanten $e\in E_1$ mit der Dreicksungleichung folgern:
+	\setlength{\belowdisplayskip}{0em}
 	\begin{align*}
 		\abs{f_e^x - f_e^y} &\leq \sum_{v\in V\setminus\{s \}} (b_v^x - b_v^z + b_v^y - b_v^z) = \sum_{v\in V\setminus\{s\}} \abs{b_v^x - b_v^y}\\
 		& = \sum_{v\in V\setminus\{s\}} \abs{ x(\delta^+_\mathcal{N}(v) \cap E_1) - y(\delta^+_\mathcal{N}(v) \cap E_1)} \\
@@ -966,8 +977,8 @@ Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anst
 		\centering
 		\emph{Approximate Thin Flow with Resetting \epsTFwR} \\[1em]
 		\begin{tabular}{rl}
-			{\bfseries Input}: &\problemThinFlow\ Instanz $(V, E, u \in \Q^E_{>0}, s\in V, b\in \Q^V, E_1\subseteq E)$\\
-				&sowie die Genauigkeit $\varepsilon$.\\
+			{\bfseries Input}: &$s$-Netzwerk mit Zurücksetzen $(V, E, u \in \Q^E_{>0}, s\in V, E_1\subseteq E)$,\\
+			& Balancen $b\in \Q^V$ und Genauigkeit $\varepsilon > 0$.\\
 			{\bfseries Output}: &Ein schmaler $b'$-Fluss mit Zurücksetzen auf $E_1$ und $\norm{b' - b}_\infty \leq \varepsilon$.
 		\end{tabular}
 	\end{mdframed}
@@ -988,6 +999,6 @@ Will man nun die Kenntnisse über das \Brouwer\ Problem nutzen, könnte man anst
 \end{proof}
 
 Ob das Problem~\Brouwer\ dahingehend verallgemeinert werden kann, dass als Definitionsbereich ein allgemeines Polytop in Normalform verwendet werden kann, bleibt an dieser Stelle jedoch offen.
-Da wir außerdem schon gesehen haben, dass bei Eingabe einer rationalen \problemThinFlow\ Instanz eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch die exakte Version \probTFwR\ in \PPAD\ liegt.
+Da wir außerdem schon gesehen haben, dass bei rationalen Kapazitäten und Balancen auch eine rationale Lösung existiert, bleibt die Hoffnung erhalten, dass auch die exakte Berechnung \probTFwR\ in \PPAD\ liegt.
 Beides könnte durch eine Anpassung der Triangulation erreicht werden, die bei der Reduktion von~\Brouwer\ auf eine Version des Lemma von Sperner, welche selbst vollständig in $\PPAD$ liegt, gebildet wird.
 Dabei könnten außerdem die Erkenntnisse aus Abschnitt~\ref{sec-rational-search}, der Einblicke in die exakte Suche rationaler Zahlen gibt, hilfreich sein.

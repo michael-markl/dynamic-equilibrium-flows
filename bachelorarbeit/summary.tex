@@ -6,7 +6,7 @@
 
 \chapter{Fazit}
 
-In dieser Arbeit wurde ein Überblick über die Komplexität und die möglichen Ansätze zur Berechnung von Nash-Gleichgewichten in dynamischen Flüssen mit dem deterministischen Warteschlangenmodell hergestellt.
+In dieser Arbeit wurde ein Überblick über die Komplexität und die möglichen Ansätze zur Berechnung von Nash-Gleichgewichten in dynamischen Flüssen mit dem deterministischen Warteschlangenmodell gegeben.
 Setzt man voraus, dass die Netzwerkzuflussrate in die Quelle konstant ist, so kann man einen Nash-Fluss durch $\alpha$-Erweiterungen mit schmalen Flüssen phasenweise konstruieren.
 Ob diese Konstruktion terminiert bleibt ungeklärt.
 
@@ -16,8 +16,8 @@ Insbesondere folgte, dass das Problem der Berechnung von schmalen Flüssen~\prob
 Des Weiteren wurde die Behauptung von Cominetti u. a. aus~\cite{Cominetti2015} untersucht, ob das Problem auch in der Subklasse~\PPAD\ enthalten ist.
 Zwar ist in der Literatur oft davon die Rede, dass Probleme, die durch den Fixpunktsatz von Kakutani gelöst werden, in~\PPAD\ liegen, jedoch gibt es keine formale Einführung eines solchen Problems.
 Entsprechend wurde in der Arbeit ein Ansatz entwickelt, den Brouwerschen Fixpunktsatz, für den es entsprechende Formalisierungen als Berechnungsproblem in~\PPAD\ gibt, zu verwenden.
-Gleichwohl es auch hier zu Schwierigkeiten bei der konkreten Reduktion auf~\Brouwer\ kommt, so kann man unter weiteren Annahmen zunächst nur eine schwache Approximation von schmalen Flüssen darauf reduzieren.
-Ob die exakte Berechnung also in~\PPAD\ enthalten ist, bleibt weiter offen.
+Gleichwohl es auch hier zu Schwierigkeiten bei der konkreten Reduktion kommt, kann man unter weiteren Annahmen zunächst eine schwache Approximation von schmalen Flüssen darauf reduzieren.
+Ob die exakte Berechnung schmaler Flüsse in~\PPAD\ enthalten ist, bleibt offen.
 
 Schränkt man das Problem auf Netzwerke ohne zurücksetzende Kanten ein, so wurde entsprechend~\cite{Koch2012} ein polynomieller Algorithmus beschrieben, der solche schmalen Flüsse in Netzwerken ohne zurücksetzende Kanten berechnet.
 Dieser setzt schmale Flüsse ohne Zurücksetzen mit auslastungsminimalen $b$-Flüssen und dünnsten Schnitten in Zusammenhang.
@@ -26,6 +26,7 @@ Aufgrund einer Formulierung auslastungsminimaler $b$-Flüsse als Optimallösung 
 Nichtsdestotrotz wurde ausgehend von der Behauptung von Koch in~\cite{Koch2012}, dass die Bestimmung auslastungsminimaler $b$-Flüsse und die Bestimmung dünnster Schnitte duale Probleme sind, eine Strukturanalyse auslastungsminimaler $b$-Flüsse erarbeitet und die Behauptung gezeigt.
 Daraus entwuchs ein Algorithmus, der mit $\bigO(n+m)$ Operation gegeben eines auslastungsminimalen $b$-Flusses einen dünnsten Schnitt berechnet.
 
-Da sich die Suche nach einem rein-kombinatorischen Algorithmus zur Berechnung auslastungsminimaler $b$-Flüsse als erfolglos gestaltete, wurde erörtert, ob es möglich ist, trotzdem einen effizienteren Algorithmus als die Ellipsoidmethode, mit der allgemeine lineare Optimierungsprobleme berechnet werden können, zu erarbeiten.
+Da sich die Suche nach einem rein-kombinatorischen Algorithmus zur Berechnung auslastungsminimaler $b$-Flüsse als erfolglos gestaltete, wurde erörtert, ob es möglich ist, trotzdem einen effizienteren Algorithmus als die Ellipsoidmethode zu erarbeiten.
 Dabei wurde eine effiziente Suche rationaler Zahlen eingeführt, mit der die minimale Auslastung $q^*$ eines $b$-Flusses mit Vergleichen der Form \glqq Ist $q^*\leq p/q$?\grqq\ ermittelt wird.
+Solch ein Vergleich kann mit einem maximalen $s$-$t$-Flusses realisiert werden.
 

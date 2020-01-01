@@ -33,7 +33,7 @@ Es wird das bekannte Lemma von Bézout (siehe~\cite[Satz 3.5]{Algebra2008}) wied
 	Das Lemma von Bézout impliziert bereits die Hinrichtung.
 	Seien also $s,t\in\Z$ mit $1= sa +tb$ gegeben und sei $d$ ein gemeinsamer Teiler von $a$ und $b$.
 	Dann existieren $a',b'\in\Z$ mit $a=d a'$ und $b=d b'$.
-	Insbesondere folgt $1 = sa'd + tb'd = (sa' + tb') d$, wodurch $d$ bereits $1$ oder $-1$, sein muss.
+	Insbesondere folgt $1 = sa'd + tb'd = (sa' + tb') d$, wodurch $d$ bereits $1$ oder $-1$ sein muss.
 	Daher gilt $\ggT(a,b)=1$.
 \end{proof}
 
@@ -103,7 +103,7 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 \end{proof}
 
 Nun wird der Algorithmus erarbeitet.
-Dazu betrachtet man zunächst den Fall, dass $x$ ein Bruch in $(0,1]$ ist, deren Zähler und Nenner durch $M$ beschränkt sind.
+Dazu betrachtet man zunächst den Fall, dass $x$ ein Bruch in $(0,1]$ ist, dessen Zähler und Nenner durch $M$ beschränkt sind.
 Dann existiert in jeder Farey-Folge der Ordnung mindestens $M$ eine Darstellung von $x$.
 Die Grundidee ist der binären Suche entnommen:
 Beginnend bei $(0,1]$ wird ein Suchintervall verwaltet, in dem sich die gesuchte Zahl $x$ befindet.
@@ -201,7 +201,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Dies zeigt man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
  	Ist $i=1$ -- ist also Fall 3 das erste Mal eingetreten --, so wurden maximal $3(k+2) \leq 9k$ Vergleiche benötigt.
  	Für $i\geq2$ sei $k'$ die letzte Runde, zu der Fall 3 angewandt wurde.
- 	Bis zur Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $6k'$ Vergleiche benötigt.
+ 	Bis inklusive Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $6k'$ Vergleiche benötigt.
  	Die obere Schranke $x_r^{(k')} / y_r^{(k')}$, die in Runde $k'$ im Fall $3$ ausgewählt wurde, erfüllt außerdem $y_r^{(k')} > 2^{k'-1}$.
  	Da der Nenner der oberen Schranke im Laufe der Runden nur wachsen kann, gilt $y_r^{(k - 1)} > 2^{k'-1}$ für die obere Schranke $x_r^{(k-1)}/y_r^{(k-1)}$, die in Runde $k-1$ ausgewählt wurde.
  	Daher ist die Anzahl an Vergleichen, die im dritten Fall in Runde $k$ gemacht werden, höchstens \[
@@ -215,7 +215,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Darüber hinaus wird $x$ nur mit Brüchen verglichen, die im Zähler und Nenner durch $2^{\lceil \log_2(M) \rceil}\leq 2M$ beschränkt sind, wodurch das Theorem folgt.
  \end{proof}
 
-Das Ergebnis kann nun mit geringen Aufwand auf allgemeine nichtnegative rationale Zahlen übertragen werden:
+Das Ergebnis kann nun mit geringem Aufwand auf allgemeine nichtnegative rationale Zahlen übertragen werden:
 
 \begin{theorem}\label{theorem-find-rational}
 	Eine rationale Zahl $x\geq0$, deren Zähler und Nenner durch $M$ beschränkt sind, kann mittels $\bigO(\log M)$ vielen Vergleichen der Form \glqq Ist $x\leq p/q$?\grqq\ mit $p,q\leq 4M$ und $\bigO(\log M)$ vielen arithmetischen Operationen auf ganzen Zahlen von Betrag maximal $4M$ bestimmt werden.
@@ -224,8 +224,8 @@ Das Ergebnis kann nun mit geringen Aufwand auf allgemeine nichtnegative rational
 	\newcommand{\highx}{\lceil x \rceil}
 	Zunächst wird mittels binärer Suche auf der Menge $A\coloneq \{0,\dots, M\}$ und $\bigO(\log M)$ Vergleichen $z\coloneq \highx - 1$ ermittelt.
 	Ist $z=-1$, so ist $0$ die Lösung; bei $z=0$ wende direkt Theorem~\ref{theorem-find-fraction} an.
-	Sonst existiert ein irreduzibler Bruch $a/b\in(0,1]$ mit $x=z + a/b$ und $(z b + a)/b$ die irreduzible Darstellung von $x$, für die $b = (z b + a)/x \leq M/z$ gilt.
-	Mit Theorem~\ref{theorem-find-fraction} kann nun die Zahl $y\coloneq x-z\in(0,1]$ gefunden werden, wobei Zähler und Nenner von $y$ durch $\lfloor M/z \rfloor$ beschränkt sind, indem man Vergleiche der Form \glqq Ist $y\leq p/q$?\grqq\ mit dem Resultat eines Vergleichs \glqq Ist $x\leq (p + zq)/q$?\grqq\ beantwortet.
+	Sonst gibt es einen irreduziblen Bruch $a/b\in(0,1]$ mit $x=z + a/b$ und $(z b + a)/b$ die irreduzible Darstellung von $x$, für die $b = (z b + a)/x \leq M/z$ gilt.
+	Mit Theorem~\ref{theorem-find-fraction} kann nun die Zahl $y\coloneq x-z\in(0,1]$ gefunden werden, wobei Zähler und Nenner von $y$ durch $\lfloor M/z \rfloor$ beschränkt sind und ein Vergleich der Form \glqq Ist $y\leq p/q$?\grqq\ mit dem Resultat von \glqq Ist $x\leq (p + zq)/q$?\grqq\ beantwortet wird.
 	Dabei ist der Zähler beschränkt durch \begin{align*}
 	p+z q &\leq 2 \left\lfloor \frac{M}{z} \right\rfloor (1+z) \leq 2 \left(\frac{M}{z} + 1\right)\leq 4M.
 	\end{align*}
