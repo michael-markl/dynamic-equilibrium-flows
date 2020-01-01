@@ -18,7 +18,8 @@ Ein \emph{Pfad} $P=(e_1, \dots, e_k)$ ist eine Aneinanderreihung von Kanten, das
 Dabei bezeichnet $[n]$ die Menge der ersten $n$ natürlichen Zahlen, also $\{ 1,\dots, n \}$.
 Die Kanten eines Pfades werden in der Menge $E(P)$, die Knoten in der Menge $V(P)$ gesammelt.
 Ein Pfad heißt \emph{Weg}, falls kein Knoten mehrmals besucht wird. 
-Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich $\tail(e_1)$ genau zweimal und sonst kein Knoten mehrmals besucht wird.
+Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zyklus} oder \emph{elementarer Kreis}, falls zusätzlich $\tail(e_1)$ genau zweimal und sonst kein Knoten mehrmals besucht werden.
+Ein Weg oder Zyklus $P$ wird oft als Vektor in $\R^E$ aufgefasst, der als Einträge $1$-en auf Kanten in $P$ und sonst $0$-en enthält.
 
 \begin{definition}
 	Ein \emph{Netzwerk $(V, E, u)$} ist ein gerichteter, endlicher Graph $(V, E, u)$ mit \emph{Kapazitäten} $u: E \to \R_{>0}$.
@@ -26,7 +27,7 @@ Ein Pfad heißt \emph{Kreis}, falls $\tail(e_1) = \head(e_k)$ gilt, und \emph{Zy
 	
 	Ein \emph{Dynamisches Netzwerk} $(V, E, u, s, t, \tau)$ ist ein Netzwerk $(V, E, u)$, in dem $s$ alle Knoten in $V$ erreicht.
 	Dabei heißen $s\in V$ die \emph{Quelle} und $t\in V$ die \emph{Senke} des Netzwerks.
-	Jeder Kante $e\in E$ wird zusätzlich eine \emph{Verzögerungszeit} $\tau_e\geq 0$ zugeordnet, wobei alle Zykel $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
+	Jeder Kante $e\in E$ wird zusätzlich eine \emph{Verzögerungszeit} $\tau_e\geq 0$ zugeordnet, wobei alle Zyklen $C$ eine positive Gesamtverzögerung $\tau(E(C))$ haben.
 \end{definition}
 \begin{definition}[Statischer Fluss]
 	Eine Kantenbewertung $f\in\R_{\geq 0}^E$ in einem gerichteten Graphen $(V, E)$ heißt \emph{statischer Fluss}.
@@ -48,7 +49,7 @@ Eine wichtige Aussage bei der Anaylse von statischen Flüssen liefert der Dekomp
 	Ist $f$ eine Strömung, so gibt es eine Dekomposition in Zyklen.
 \end{theorem}
 
-Die Einführung dynamischer Flüsse und kürzester Wege folgt im Wesentlichen der von Cominetti, Correa und Larré aus~\cite{Cominetti2015} mit Ergänzungen von Ronald Koch und Martin Skutella aus~\cite{Koch2011}.
+Die Einführung dynamischer Flüsse und kürzester Wege folgt im Wesentlichen der Darstellung von Cominetti, Correa und Larré aus~\cite{Cominetti2015} mit Ergänzungen von Ronald Koch und Martin Skutella aus~\cite{Koch2011}.
 So haben Cominetti u. a. dynamische Flüsse beispielsweise statt Lebesgue-integrierbarer Funktionen mit lokal Lebesgue-integrierbaren Funktionen ausgestattet, die den Vorteil bieten, über den gesamten Zeitraum $[0, \infty)$ unendlich viel Fluss zu schicken.
 Dazu wird der folgende Funktionenraum eingeführt:
 
@@ -57,7 +58,7 @@ Dazu wird der folgende Funktionenraum eingeführt:
 \end{definition}
 
 \begin{definition}[Dynamischer Fluss]
-	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines dynamischen Netzwerks indizierten Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
+	Ein \emph{dynamischer Fluss $f=(f^+, f^-)$} ist ein Paar zweier über die Kanten $E$ eines dynamischen Netzwerks indizierter Familien mit $f^+_e,f^-_e\in\mathfrak F_0$ für alle $e\in E$.
 	Dabei bezeichnen $f_e^+(\theta)$ bzw. $f_e^-(\theta)$ die \emph{Zu- bzw. Abflussrate an Kante $e\in E$ zum Zeitpunkt $\theta\in\R$}.
 	
 	Der (kumulative) \emph{Zu- bzw. Abfluss an einer Kante $e$ bis zum Zeitpunkt $\theta$} sei definiert durch $F^+_e(\theta)\coloneq\int_0^\theta f^+_e(t) \diff t<\infty$ bzw. $F^-_e(\theta)\coloneq\int_0^\theta f^-_e(t) \diff t<\infty$.
@@ -80,7 +81,8 @@ Um das beschriebene Verhalten zu gewährleisten, führt man im Folgenden die Zul
 		\item\label{def-feasible-flow-no-negative-flow} Fluss verlässt eine Kante nur, falls er sie zuvor betreten hat,\\ d.h. $\forall e\in E, \theta\in\R: F_e^+(\theta) \geq F_e^-(\theta + \tau_e).$
 		\item\label{def-feasible-flow-no-flow-at-node} Bis auf Quelle und Senke erfüllt jeder Knoten $v$ Flusserhaltung,\\
 		d.h. $\forall\theta\in\R: \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) = 0$.\\
-		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein und heißt für $s$ \emph{der Zufluss $d(\theta)$ in das Netzwerk}.
+		Für die Senke $t$ muss dieser Wert nicht-positiv und für die Quelle $s$ nicht-negativ sein. 
+		Für $s$ bezeichnet er den \emph{Zufluss $d(\theta)$ in das Netzwerk}.
 		\item\label{def-feasible-flow-queue-with-capacity} Warteschlangen werden mit der Kapazität der Kante abgebaut,\\ d.h. $\forall e\in E, \theta\in\R: z_e(\theta) > 0 \implies f_e^-(\theta + \tau_e) = u_e$.
 	\end{enumerate}
 \end{definition}

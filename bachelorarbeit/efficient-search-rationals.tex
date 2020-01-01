@@ -2,9 +2,9 @@
 
 Dieser Abschnitt bildet einen Exkurs, der eine effiziente Suche von rationalen Zahlen einführt.
 Dabei werden die Ergebnisse von Christos Papadimitriou aus~\cite{Papadimitriou1979} erarbeitet.
-Die Zielsetzung lautet dabei wie folgt:
+Die Zielsetzung lautet wie folgt:
 Eine nichtnegative, rationale Zahl $x$, deren Zähler und Nenner durch eine Konstante $M$ beschränkt ist, soll durch möglichst wenige Vergleiche der Form \glqq Ist $x\leq p/q$?\grqq\ bestimmt werden.
-Dabei werden mindestens $\Theta(\log M)$ Vergleiche benötigt, da bereits das Suchen von $x$ in der Menge $\{ 0/M, 1/M, \dots, M/M \}$ unter der Annahme, dass $x$ durch einen Bruch mit Nenner $M$ dargestellt werden kann, $\Omega(\log M)$ Vergleiche bedarf.
+Hierfür werden mindestens $\Theta(\log M)$ Vergleiche benötigt, da bereits das Suchen von $x$ in der Menge $\{ 0/M, 1/M, \dots, M/M \}$ unter der Annahme, dass $x$ durch einen Bruch mit Nenner $M$ dargestellt werden kann, $\Omega(\log M)$ Vergleiche bedarf.
 Der Wunsch ist also ein Verfahren zu finden, das nur $\bigO(\log M)$ viele solcher Vergleiche verwendet.
 
 Dazu wird zunächst die sogenannte Farey-Folge eingeführt.
@@ -55,10 +55,10 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 	Dann implizieren die Ungleichungen $h/k < h'/k' < x/y$ gerade \[
 	\frac{x}{y} - \frac{h'}{k'} = \frac{k'x-h'y}{yk'} \geq \frac{1}{yk'}\text{~~~sowie~~~} \frac{h'}{k'} - \frac{h}{k} = \frac{h'k - hk'}{k'k} \geq \frac{1}{kk'}. \]
 	Benutzt man dies mit $y+k > n$, kann man folgenden Widerspruch schließen:
-	\[
+	\setlength{\belowdisplayskip}{0em}
+	\begin{align*}
 		\frac{1}{ky} = \frac{x}{y} - \frac{h}{k} \geq \frac{h'}{k'} + \frac{1}{yk'}- \frac{h}{k} \geq \frac{1}{kk'} + \frac{1}{yk'} = \frac{y+k}{kk'y} > \frac{n}{kk'y} \geq \frac{1}{ky}.
-	\]
-	\vspace{-0.5em}
+	\end{align*}
 \end{proof}
 
 \begin{lemma}\label{lemma-farey-middle-member}
@@ -96,6 +96,7 @@ Damit lässt sich eine wichtige Eigenschaft der Farey-Folgen zeigen:
 		(\alpha a + \beta c)d - c(\alpha b + \beta d) = \alpha(ad - cb) < 0.
 	\end{align*}
 	Zudem kann man mit $0\leq\alpha_1< \alpha_2$ sowie $0\leq\beta_1< \beta_2$ die Monotonien des erweiterten Bruches zeigen:
+	\setlength{\belowdisplayskip}{0em}
 	\begin{align*}
 		(\alpha_1 a + \beta c)(\alpha_2 b + \beta d) - (\alpha_2a + \beta c)(\alpha_1 b + \beta d) &= \beta a d(\alpha_1 - \alpha_2) + \beta c b (\alpha_2 - \alpha_1) > 0, \\[1em]
 		(\alpha a + \beta_1 c)(\alpha b + \beta_2 d) - (\alpha a + \beta_2c)(\alpha b + \beta_1 d) &= \alpha ad(\beta_2 - \beta_1) + \alpha cb(\beta_1 - \beta_2) < 0.
@@ -122,15 +123,15 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 \end{lemma}
 \begin{proof}
 	Sei zunächst ein Bruch $x/y$ der Farey-Folge von Ordnung $2n$ in $[x_l / y_l, x_r/y_r]$ gegeben.
-	Ist $x/y$ bereits $x_l/y_l$ bzw. $x_r/y_r$ ist nichts zu zeigen.
+	Ist $x/y$ bereits $x_l/y_l$ bzw. $x_r/y_r$, ist nichts zu zeigen.
 	Sei also $x/y$ echt zwischen $x_l/y_l$ und $x_r/y_r$.
 	Nach Lemma~\ref{lemma-basic-property-farey-successor} gilt $x_ly_r - x_ry_l = 1$.
-	Fässt man $x_l/y_l$ und $x_r/y_r$ nun als Folgenglieder der Farey-Folge von Ordnung $2n$ auf, existieren nach Lemma~\ref{lemma-farey-middle-member} für das Zwischenglied $x/y$ die Darstellungen $x = \alpha x_l + \beta x_r$ und $y= \alpha y_l + \beta y_l$ mit $\alpha, \beta \in\N$.
+	Fasst man $x_l/y_l$ und $x_r/y_r$ nun als Folgenglieder der Farey-Folge von Ordnung $2n$ auf, existieren nach Lemma~\ref{lemma-farey-middle-member} für das Zwischenglied $x/y$ die Darstellungen $x = \alpha x_l + \beta x_r$ und $y= \alpha y_l + \beta y_l$ mit $\alpha, \beta \in\N$.
 	
 	Sei umgekehrt $x/y$ aus $M$.
-	Ist der Bruch $x/y$ bereits $x_l/y_l$ oder $x_r/y_r$, so ist er in der Farey-Folge von Ordnung $n$, also erst recht in der von Ordnung $2n$.
+	Ist der Bruch $x/y$ bereits $x_l/y_l$ oder $x_r/y_r$, so ist er in der Farey-Folge von Ordnung $n$, also erst recht in der von Ordnung $2n$ enthalten.
 	Sonst hat $x/y$ die Darstellung $x=\alpha x_l + \beta x_r$ und $y=\alpha y_l + \beta y_r$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r \leq 2n$.
-	Angenommen der größte gemeinsame Teiler von $x$ und $y$ wäre $d\geq 2$.
+	Angenommen, der größte gemeinsame Teiler von $x$ und $y$ wäre $d\geq 2$.
 	Dann gäbe es ganze Zahlen $z_1, z_2 \leq n$ mit $x=d z_1$ und $y=d z_2$.
 	Insbesondere würde die irreduzible Darstellung von $x/y$ bereits in $F_n$ liegen.
 	Dies ist ein Widerspruch dazu, dass $x_l/y_l$ und $x_r/y_r$ aufeinanderfolgend in $F_n$ sind.
@@ -192,25 +193,25 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Da eine Darstellung von $x$ in $F_{2^n}$ existiert, muss $x_r/y_r$ also bereits mit $x$ übereinstimmen.
  	
  	Es verbleibt die Analyse der Laufzeit.
- 	Wie bereits argumentiert wurde, werden $\bigO(\log M)$ Runden genutzt.
+ 	Wie bereits angegeben wurde, werden $\bigO(\log M)$ Runden genutzt.
  	Wird in einer Runde nur Fall~1 oder Fall~2 betrachtet, so werden nur konstant viele Vergleiche und Operationen benötigt.
  	Jedoch braucht eine einzelne Ausführung von Fall~3 aufgrund der binären Suche unter Umständen $\bigO(\log M)$ viele Vergleiche.
  	Hier hilft eine genauere Analyse der akkumulierten Anzahl von Vergleichen, die durch Fall~3 ausgelöst werden.
  	
  	Dazu zeigt man, dass nach der $k$-ten Runde des Algorithmus für den dritten Fall insgesamt nur maximal $9k$ Vergleiche mit $x$ unternommen wurden.
- 	Dies zeigt man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
+ 	Dies folgert man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
  	Ist $i=1$ -- ist also Fall 3 das erste Mal eingetreten --, so wurden maximal $3(k+2) \leq 9k$ Vergleiche benötigt.
  	Für $i\geq2$ sei $k'$ die letzte Runde, zu der Fall 3 angewandt wurde.
- 	Bis inklusive Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $6k'$ Vergleiche benötigt.
+ 	Bis inklusive Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $9k'$ Vergleiche verwendet.
  	Die obere Schranke $x_r^{(k')} / y_r^{(k')}$, die in Runde $k'$ im Fall $3$ ausgewählt wurde, erfüllt außerdem $y_r^{(k')} > 2^{k'-1}$.
  	Da der Nenner der oberen Schranke im Laufe der Runden nur wachsen kann, gilt $y_r^{(k - 1)} > 2^{k'-1}$ für die obere Schranke $x_r^{(k-1)}/y_r^{(k-1)}$, die in Runde $k-1$ ausgewählt wurde.
  	Daher ist die Anzahl an Vergleichen, die im dritten Fall in Runde $k$ gemacht werden, höchstens \[
  	3(k+2-\lceil \log_2(y_r^{(k - 1)})\rceil )\leq 3(k - k' + 2).
  	\]
- 	Insgesamt werden also bis Runde $k$ zur Ausführung von Fall 3 höchstens \[
+ 	Insgesamt sind also bis Runde $k$ zur Ausführung von Fall 3 höchstens \[
  	9k' + 3(k-k'+2) = 3(2k' + k + 2) \leq 3(2k' + k + 2(k-k')) = 9 k
  	\]
- 	Vergleiche mit $x$ benötigt, womit die Induktionsbehauptung gezeigt ist.
+ 	Vergleiche mit $x$ notwendig, womit die Induktionsbehauptung gezeigt ist.
  	Damit werden von Fall~3 ebenfalls $\bigO(\log M)$ Vergleiche mit $x$ ausgelöst.
  	Darüber hinaus wird $x$ nur mit Brüchen verglichen, die im Zähler und Nenner durch $2^{\lceil \log_2(M) \rceil}\leq 2M$ beschränkt sind, wodurch das Theorem folgt.
  \end{proof}
@@ -223,7 +224,7 @@ Das Ergebnis kann nun mit geringem Aufwand auf allgemeine nichtnegative rational
 \begin{proof}
 	\newcommand{\highx}{\lceil x \rceil}
 	Zunächst wird mittels binärer Suche auf der Menge $A\coloneq \{0,\dots, M\}$ und $\bigO(\log M)$ Vergleichen $z\coloneq \highx - 1$ ermittelt.
-	Ist $z=-1$, so ist $0$ die Lösung; bei $z=0$ wende direkt Theorem~\ref{theorem-find-fraction} an.
+	Ist $z=-1$, so ist $0$ die Lösung; bei $z=0$ wende man direkt Theorem~\ref{theorem-find-fraction} an.
 	Sonst gibt es einen irreduziblen Bruch $a/b\in(0,1]$ mit $x=z + a/b$ und $(z b + a)/b$ die irreduzible Darstellung von $x$, für die $b = (z b + a)/x \leq M/z$ gilt.
 	Mit Theorem~\ref{theorem-find-fraction} kann nun die Zahl $y\coloneq x-z\in(0,1]$ gefunden werden, wobei Zähler und Nenner von $y$ durch $\lfloor M/z \rfloor$ beschränkt sind und ein Vergleich der Form \glqq Ist $y\leq p/q$?\grqq\ mit dem Resultat von \glqq Ist $x\leq (p + zq)/q$?\grqq\ beantwortet wird.
 	Dabei ist der Zähler beschränkt durch \begin{align*}

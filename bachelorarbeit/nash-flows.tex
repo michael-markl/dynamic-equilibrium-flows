@@ -1,18 +1,18 @@
 \chapter{Dynamische Nash-Flüsse}\label{chapter-nash-flows}
 
-Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse einzuführen.
-Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash Gleichgewicht möglichst früh, also zum Zeitpunkt $l_t(\theta)$, an der Senke ankommen.
+Dieser Abschnitt dient dazu, Nash Gleichgewichte im Kontext dynamischer Flüsse formal einzuführen.
+Dabei hilft die Anschauung, dass Partikel, die zur Zeit $\theta$ an der Quelle erscheinen, in einem Nash-Gleichgewicht möglichst früh -- also zum Zeitpunkt $l_t(\theta)$ -- an der Senke ankommen.
 
 \section{Charakterisierung dynamischer Nash-Flüsse}
 
 
-Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Definitionen: 
+Für die Einführung dynamischer Nash-Flüsse benötigt man weitere Definitionen: 
 
 \begin{definition}
 	Für eine Kante $vw\in E$ bezeichne $x_{vw}^+(\theta)\coloneq F_{vw}^+(l_v(\theta))$ den Zufluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $v$, die zur Zeit $\theta$ in $s$ starten.\\
 	Dagegen bezeichne $x_{vw}^-(\theta)\coloneq F^-_{vw}(l_w(\theta))$ den Abfluss bis zur frühestmöglichen Ankunftszeit von Partikeln in $w$, die zur Zeit $\theta$ in $s$ starten.
 	
-	Für einen Knoten $v\in V$ sei $b_v(\theta)\coloneq \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knoten $v$ zum Zeitpunkt $\theta$.
+	Für einen Knoten $v\in V$ sei $b_v(\theta)\coloneq \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ die Balance des Knotens $v$ zum Zeitpunkt $\theta$.
 \end{definition}
 
 \begin{remark}\label{remark-x^-leqx^+}
@@ -35,7 +35,7 @@ Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Defi
 \end{notation}
 
 \begin{definition}\label{def-flow-along-active-edges}
-	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
+	Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ für alle Kanten $vw\in E$ verschwindet.
 \end{definition}
 
 \begin{remark}
@@ -43,7 +43,7 @@ Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Defi
 	Nach \cite[Definition 2]{Koch2011} sagt man, $f$ \emph{sende Fluss nur entlang aktuell kürzester Pfade}, falls $f_{vw}^+\circ l_v$ fast überall auf $\Theta_{vw}^c$ verschwindet für alle Kanten $vw$.
 
 	Entspricht $f$ dieser Definition, so auch Definition~\ref{def-flow-along-active-edges}: 
-	Da $l_v$ nach Proposition~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Kap. VII, Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge eine Nullmenge ist: \[ l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}. \]
+	Da $l_v$ nach Proposi\-tion~\ref{prop-abs-cont-sur} absolut stetig ist, bildet es nach~\cite[Kap. VII, Aufgabe 4.9]{Elstrodt2011} Nullmengen wieder auf Nullmengen ab, weshalb folgende Menge eine Nullmenge ist: \[ l_v(\{ \theta \in \Theta_{vw}^c \mid f_{vw}^+ (l_v(\theta)) > 0 \}) = \{ \xi \in l_v(\Theta_{vw}^c) \mid f_{vw}^+ (\xi) > 0 \}. \]
 	 
 	Koch und Skutella zeigen im Beweis von~\cite[Lemma 1]{Koch2011} die entsprechende Äquivalenz von Lemma~\ref{lemma-only-active-edges} (i) und (iii) -- jedoch in (i) unter Verwendung ihrer Definition -- und
 	verwenden bei der Implikation (iii)$\Rightarrow$(i) das Argument, dass für jede Kante $vw\in E$ und alle $\theta\in \Theta_{vw}^c$ eine Umgebung $U$ von $\theta$ existiert, sodass $f_{vw}^+$ fast überall in $l_v(U)$ verschwindet.
@@ -51,7 +51,7 @@ Für die formale Einführung dynamischer Nash-Flüsse benötigt man weitere Defi
 	So kann $f_{vw}^+(l_v(\theta))$ für ein $\theta\in\Theta_{vw}^c$ positiv sein und $l_v$ konstant in einer Umgebung um $\theta$.
 	Dann ist $f_{vw}^+ \circ l_v$ in einer Umgebung um $\theta$ positiv, was im Widerspruch zur Forderung ist.
 	
-	Dies wurde in~\cite[Example 2]{Cominetti2015} ausgenutzt, um einen Beispielfluss anzugeben, der beweist, dass die Forderung von Koch und Skutella sogar echt stärker ist.
+	Dies wurde in~\cite[Example 2]{Cominetti2015} dazu genutzt, einen Beispielfluss anzugeben, der beweist, dass die Forderung von Koch und Skutella sogar echt stärker ist.
 \end{remark}
 
 Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes Lemma der Maßtheorie:
@@ -147,7 +147,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 	Angenommen, es gelte $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$.
 	Dann sind auch alle $b_{\newv_e} = 0$ und es gilt $b_s(\theta) + b_t(\theta) = 0$.
 	Setzt man $b_s(\theta) + b_t(\theta) = 0$ voraus, so ist $\sum_{e\in E} b_{\newv_e} = 0$ und, da $f$ zulässig ist, gilt $x_e^-(\theta)\leq x_e^+(\theta)$ nach Bemerkung~\ref{remark-x^-leqx^+}.
-	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb bereits alle $b_{\newv_e} = 0$ sein müssen.
+	Daher gilt $b_{\newv_e}\leq 0$ für alle $e\in E$, weshalb $b_{\newv_e}$ für alle $e\in E$ verschwinden muss.
 \end{proof}
 
 Die Ergebnisse aus Lemma~\ref{lemma-only-active-edges} und Lemma~\ref{lemma-b-graph} werden im folgenden Theorem gesammelt, welches Nash-Gleichgewichte in dynamischen Flüssen charakterisiert:
@@ -172,7 +172,7 @@ In diesem Abschnitt werden einige Ergebnisse über Nash-Flüsse gesammelt, die i
 \end{remark}
 
 \begin{lemma}\label{lemma-x-locally-constant}
-In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\overline{\Theta_e^c}$, also dem Abschluss der Menge der inaktiven Zeitpunkte von $e$, für jede Kante $e\in E$ lokal konstant.
+In einem dynamischen Nash-Fluss ist $x_e$ eingeschränkt auf $\overline{\Theta_e^c}$, also auf den Abschluss der Menge der inaktiven Zeitpunkte von $e$, für jede Kante $e\in E$ lokal konstant.
 \end{lemma}
 \begin{proof}
 Da $\Theta_{vw}^c$ eine in $\R$ offene Menge ist, hat sie eine Darstellung als abzählbare Vereinigung paarweise disjunkter offener Intervalle.
@@ -207,7 +207,7 @@ Der Rest folgt mit der Monotonie und Stetigkeit von $x_{vw}$.
 \begin{proof}
 	Sei $\theta$ das Infimum aller Zeitpunkte $\xi\geq\theta_1$, zu denen $x(\xi) - x(\theta_1)$ nicht in $s$-$t$-Wege zerlegbar ist.
 	Man nehme $\theta \leq \theta_2$ an.
-	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor und noch kurz nach $\theta$ inaktiv sind, existiert ein Intervall $[\theta - \varepsilon, \theta + \varepsilon]$, in der keine inaktive Kante aktiv wird.
+	Da inaktive Kanten zum Zeitpunkt $\theta$ bereits kurz vor und noch kurz nach $\theta$ inaktiv sind, existiert ein Intervall $[\theta - \varepsilon, \theta + \varepsilon]$, in dem keine inaktive Kante aktiv wird.
 	Außerdem existiert für $\xi_0 \coloneq \max \{ \theta_1, \theta - \varepsilon \}$ eine $s$-$t$-Wegezerlegung von $x(\xi_0) - x(\theta_1)$.
 	
 	Für einen Pfad $P$ und einen statischen Fluss $g$ sei $g^P \coloneq \min_{e\in P} g_e$ der Fluss, der auf dem Pfad $P$ fließt.

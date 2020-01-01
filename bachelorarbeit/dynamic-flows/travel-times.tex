@@ -15,7 +15,7 @@ In diesem Abschnitt wird der Begriff der frühesten Ankunftszeit an einem Knoten
 	Die Funktionen $T_e$, $l^P$ sowie $l_v$ sind dabei für alle Kanten $e\in E$, Pfade $P$ in G und Knoten $v\in V$ monoton wachsend, lokal absolut stetig und surjektiv.
 \end{proposition}
 \begin{proof}
-	Nach dem Hauptsatz der Differential- und Integralrechnung für das Lebes\-gue-Inte\-gral (siehe \cite[Kap. VII, Satz 4.14]{Elstrodt2011}) ist $G: [a,b] \to \R, x\mapsto \int_a^x g(t) \diff t$ für eine Lebesgue integrierbare Funktion $g: [a,b] \to \R$ absolut stetig.
+	Nach dem Hauptsatz der Differential- und Integralrechnung für das Lebes\-gue-Inte\-gral (siehe \cite[Kap. VII, Satz 4.14]{Elstrodt2011}) ist $G: [a,b] \to \R, x\mapsto \int_a^x g(t) \diff t$ für eine Lebesgue-integrierbare Funktion $g: [a,b] \to \R$ absolut stetig.
 	Insbesondere sind also $F_e^+$ sowie $F_e^-$ und damit auch $q_e$ und $T_e$ lokal absolut stetig.
 	Als Komposition bzw. punktweises Minimum endlich vieler lokal absolut stetiger Funktionen ist auch $l^P$ bzw. $l_v$ für alle Pfade $P$ und Knoten $v$ lokal absolut stetig.
 	Nach Proposition~\ref{prop-feasible-flow}~\ref{prop-feasible-flow-T-mon-inc-cont} ist die Monotonie von $T_e$ bereits gegeben, welche auch die Monotonie von $l^P$ und $l_v$ impliziert.
@@ -50,14 +50,14 @@ Wie im statischen Szenario von kürzesten Pfaden, gilt auch hier die Dreiecksung
 \end{proposition}
 \begin{proof}
 	Ist $vw$ aktiv zum Zeitpunkt $\theta$, existiert ein zur Zeit $\theta$ kürzester $s$-$w$-Pfad $P$, der die Kante $vw$ benutzt.
-	Da Zykeln nach Voraussetzung eine positive Gesamtverzögerung haben, ist $P$ ein $s$-$w$-Weg, dessen letzte Kante gerade $vw$ ist.
+	Da Zyklen nach Voraussetzung eine positive Gesamtverzögerung haben, ist $P$ ein $s$-$w$-Weg, dessen letzte Kante gerade $vw$ ist.
 	Sei also $Q$ das Anfangsstück von $P$ bis zum Knoten $v$.
 	Dann gilt aufgrund der Monotonie $
 	T_{vw}(l_v(\theta)) \leq T_{vw}( l^Q(\theta) ) = l_w(\theta),
 	$
 	sodass mit Lemma~\ref{lemma-dreicksungl} sogar Gleichheit gilt.
 	
-	Gilt andersherum $T_{vw}(l_v(\theta)) = l_w(\theta)$ und sei $Q$ ein kürzester $s$-$v$-Pfad, so ist der Pfad $P$, der an $Q$ noch die Kante $vw$ anhängt, ein kürzester $s$-$w$-Pfad zur Zeit $\theta$, der die Kante $vw$ benutzt.
+	Gilt umgekehrt $T_{vw}(l_v(\theta)) = l_w(\theta)$ und sei $Q$ ein kürzester $s$-$v$-Pfad, so ist der Pfad $P$, der an $Q$ noch die Kante $vw$ anhängt, ein kürzester $s$-$w$-Pfad zur Zeit $\theta$, der die Kante $vw$ benutzt.
 	
 	Aufgrund der Stetigkeit von $T_{vw}$ und $l_v$ ist die Menge $\Theta_{vw}$ abgeschlossen.
 \end{proof}
@@ -73,19 +73,19 @@ Man beachte, dass Teilpfade kürzester Pfade im statischen Sinne wieder kürzest
 	Es ist $l^C(\theta) > \theta$, da für Zyklen eine positive Gesamtverzögerung vorausgesetzt ist.
 	Setzt man $v:= \tail(e_1)$, so erzeugt $l_{v}(\theta) = l^C(l_{v}(\theta)) > l_{v}(\theta)$ einen Widerspruch aufgrund der Aktivität aller Kanten.
 	
-	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, da $w$ von $s$ aus erreichbar ist.
+	Für jeden Knoten $w\neq s$ existiert mindestens eine eingehende aktive Kante -- zum Beispiel die letzte Kante eines kürzesten $s$-$w$-Pfades, welcher wiederum existiert, weil $w$ von $s$ aus erreichbar ist.
 	Daher ist $w$ von $s$ aus auch in $G_\theta$ erreichbar.
 \end{proof}
 
 \begin{proposition}\label{prop-arrival-times-vector}
-	Für einen zulässigen Fluss $f$ ist der Vektor $(l_v(\theta))_{v\in V}$ die eindeutige Lösung des Gleichungssystems
+	Für einen zulässigen dynamischen Fluss $f$ ist der Vektor $(l_v(\theta))_{v\in V}$ die eindeutige Lösung des Gleichungssystems
 	\[ \tilde{l}_w = \begin{cases}
 	\theta, & \text{falls } w=s, \\
 	\min\limits_{vw\in \delta^-(w)} T_{vw}(\tilde{l}_v), & \text{sonst}.
 	\end{cases} \]
 \end{proposition}
 \begin{proof}
-	Offenbar löst $(l_v(\theta))_{v\in V}$ dieses System, da nach Lemma~\ref{lemma-shortest-path-using-active-edges} jeder Knoten $w\neq s$ eine aktive eingehende Kante hat.
+	Offenbar löst $(l_v(\theta))_{v\in V}$ dieses System, da jeder Knoten $w\neq s$ eine eingehende Kante hat, welche $T_{vw}(l_v) = l_w$ erfüllt.
 	Für eine Lösung $(\tilde{l}_v)_{v\in V}$ des Gleichungssystems, zeige man $l_w(\theta) = \tilde{l}_w$ für jeden Knoten $w\in V$.
 	Dabei ist der Teilgraph $G'=(V, E')$ mit
 	\[ E' \coloneq  \{ vw \in E \mid T_{vw}(\tilde{l}_v ) = \tilde{l}_w \} \]
