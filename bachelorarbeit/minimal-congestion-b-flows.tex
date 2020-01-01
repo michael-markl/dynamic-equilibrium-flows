@@ -385,9 +385,9 @@ Nun lässt sich das folgende wichtige Theorem zeigen, das die starke Dualität d
 	\frac{b(X)}{u(\delta^+(X))} \leq \frac{f(\delta^+(X))}{u(\delta^+(X))} \leq \frac{u(\delta^+(X)) q^*}{u(\delta^+(X))} = q^*
 	\]
 	gilt Gleichheit genau dann, wenn $f(\delta^-(X))=0$ und $f_{e}/u_{e} = q^*$ für alle $e\in\delta^+(X)$ gelten.
-	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung $(i)\Leftrightarrow (ii)$.
+	Theorem~\ref{thm-strong-duality-sparsest-cut-min-flow} liefert nun die Behauptung (i)$\Leftrightarrow$(ii).
 	
-	Die Aussage $(ii) \Leftrightarrow (iii)$ folgt aus der Definition des Residualgraphs.
+	Die Aussage (ii)$\Leftrightarrow$(iii) folgt aus der Definition des Residualgraphen.
 \end{proof}
 
 Insbesondere folgt also, dass jeder dünnste Schnitt im Residualgraphen eines auslastungsminimalen Flusses alle Knoten enthält, die er darin erreichen kann.
@@ -486,7 +486,7 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
-	Zunächst zeigt man Aussage $(i)$ für ganze Zahlen $a$ und $b$:
+	Zunächst zeigt man Aussage (i) für ganze Zahlen $a$ und $b$:
 	\begin{align*}
 		\size{ab} &= 1+\lceil \log_2(\abs{ab} + 1) \rceil \leq 2+\log_2(\abs{a}\abs{b}+1) \leq 2+\log_2((\abs{a}+1)(\abs{b}+1))\\
 		&=2+\log_2(\abs{a} + 1) + \log_2(\abs{b} + 1) = \size{a} + \size{b}.
@@ -512,12 +512,12 @@ Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m
 	\[
 	\prod_{i=1}^{n+1} (1+x_i) \geq (1 + \sum_{i=1}^n x_i) x_{n+1} = 1 + x_{n+1} + \sum_{i=1}^n x_i + x_{n+1} \sum_{i=1}^n x_i \geq 1 + \sum_{i=1}^{n+1} x_i.
 	\]
-	Damit lässt sich Aussage $(ii)$ beweisen:
+	Damit lässt sich Aussage (ii) beweisen:
 	\[
 		\norm{v}_2 \leq \norm{v}_1 \leq \prod_{i=1}^{n} (1+\abs{v_i}) - 1 \leq \prod_{i=1}^n 2^{\size{v_i} - 1} - 1 = 2^{\size{v} - n} - 1.
 	\] 
 	
-	Für Aussage $(iii)$ benötigt man die Hadamard-Ungleichung: Sind $a^1, \dots, a^n$ die Spaltenvektoren von $A$, so gilt $\abs{\det(A)} \leq \prod_{i=1}^{n} \norm{a^i}_2$.
+	Für Aussage (iii) benötigt man die Hadamard-Ungleichung: Sind $a^1, \dots, a^n$ die Spaltenvektoren von $A$, so gilt $\abs{\det(A)} \leq \prod_{i=1}^{n} \norm{a^i}_2$.
 	Damit folgere man:
 	\[
 		\abs{\det(A)} \leq \prod_{i=1}^n (2^{\size{a^i} - n} - 1) \leq 2^{\sum_{i=1}^n \size{a^i} - n^2} = 2^{\size{A} - n^2}.

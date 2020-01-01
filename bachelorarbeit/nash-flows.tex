@@ -81,7 +81,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
-	$(i) \Leftrightarrow (ii)$: Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
+	(i)$\Leftrightarrow$(ii): Bedingung~(ii) gilt genau dann, wenn $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw})^c$ verschwindet.
 	Daher genügt es, zu zeigen, dass sich $l_v(\Theta_{vw})^c$ und $l_v(\Theta_{vw}^c)$ nur um eine Nullmenge voneinander unterscheiden.
 	Mit der Surjektivität von $l_v$ gilt $l_v(\Theta_{vw})^c\subseteq l_v(\Theta_{vw}^c)$.
 	
@@ -91,7 +91,7 @@ Für eine äquivalente Umschreibung dieser Definition, benötigen wir folgendes 
 	Wegen der Monotonie von $l_v$ gilt $l_v(\theta_q)=\xi$, womit $\xi\in l_v(\Q)$ folgt.
 	Also unterscheiden sich die beiden Mengen nur um eine abzählbare Menge.
 	
-	$(i)\Leftrightarrow (iii)$: Sei eine Kante $vw\in E$ gegeben.
+	(i)$\Leftrightarrow$(iii): Sei eine Kante $vw\in E$ gegeben.
 	Für ein $\theta\in\R$ bezeichne $\omega_\theta\leq \theta$ den spätesten Startzeitpunkt, sodass man unter Benutzung von $vw$ zum Zeitpunkt $l_w(\theta)$ zu $w$ gelangt:
 	\[ \omega_\theta\coloneq \max\{ \omega\leq\theta \mid l_w(\theta) = T_{vw}(l_v(\omega)) \}. \]
 	
@@ -130,7 +130,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 	\end{enumerate}
 \end{lemma} 
 \begin{proof}
-	$(i)$: Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $b(V)$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
+	Zu (i): Um zu zeigen, dass die Summe über die Balanceeinträge verschwindet, erkenne man, dass der Anteil einer Kante $e\in E$ in $b(V)$ gerade $x_e^+(\theta) - x_e^-(\theta)$ ist.
 	Damit gilt:
 		\[ \sum_{v\in V}b_v + \sum_{e\in E} b_{\newv_e} = \sum_{e\in E} (x_e^+(\theta) - x_e^-(\theta) + x_e^-(\theta) - x_e^+(\theta)) = 0. \]
 		Es bleibt zu zeigen, dass $g$ bezüglich $b$ Flusserhaltung gewährt.
@@ -141,7 +141,7 @@ Ein Nash-Gleichgewicht sollte diese Eigenschaft daher erfüllen.
 	\sum_{e\in\delta_H^+(v)} g_e - \sum_{e\in\delta^-_H(v)}g_e
 		. \]
 	
-	$(ii)$: Tatsächlich benötigt man aus $(i)$ nur die Eigenschaft, dass die Summe über die Einträge des Balancevektors verschwindet.
+	Zu (ii): Tatsächlich benötigt man aus (i) nur die Eigenschaft, dass die Summe über die Einträge des Balancevektors verschwindet.
 	Mit Lemma~\ref{lemma-balance-0} gilt wegen der Zulässigkeit von $f$ sogar $b_s(\theta)+b_t(\theta) + \sum_{e\in E} b_{\newv_e} = 0$.
 	
 	Angenommen, es gelte $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$.
