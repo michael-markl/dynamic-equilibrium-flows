@@ -121,8 +121,76 @@ Zunächst wird die schwache Dualität an einem Beispiel illustriert.
 	\]
 \end{definition}
 
-Im Residualgraph eines $b$-Flusses $f$ wird eine Kante nur in beide Richtungen erstellt, falls die Auslastung echt zwischen $0$ und $q^*$ liegt. Fließt kein Fluss auf der Kante, so gibt es nur die Vorwärtskante, und handelt es sich um eine Flaschenhalskante, so existiert nur die Rückwärtskante.
+Im Residualgraph eines $b$-Flusses $f$ wird eine Kante nur in beide Richtungen erstellt, falls die Auslastung echt zwischen $0$ und $c(f)$ liegt. Fließt kein Fluss auf der Kante, so gibt es nur die Vorwärtskante, und handelt es sich um eine Flaschenhalskante, so existiert nur die Rückwärtskante.
 Abbildung~\ref{figure-min-con-example-residual-graph} zeigt den Residualgraphen für Beispiel~\ref{example-min-con-flow}.
+
+
+\begin{figure}
+	\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
+	\begin{adjustbox}{center}{
+			\definecolor{lightlightgray}{RGB}{220,220,220}
+			\tikzset{auto rotate/.style={auto=right,-Latex,
+					to path={let \p1=(\tikztostart),\p2=(\tikztotarget),
+						\n1={atan2(\y2-\y1,\x2-\x1)},\n2={\n1-10},\n3={\n1+190}
+						in (\tikztostart.\n2) -- (\tikztotarget.\n3) \tikztonodes}}}
+			{\begin{tikzpicture}[lul/.style={draw,
+					ellipse,
+					fill=white,
+					align=center,
+					inner sep=0pt,
+					outer sep=4pt,
+					text width=7mm,
+					minimum height=1.5cm
+				},
+				scale=0.9]
+				
+				\fill[fill=lightlightgray, rounded corners=1cm] (-2, 5) -- (2,0) -- (6, 5) -- cycle;
+				\fill[fill=lightlightgray, rounded corners=1cm] (2,-1) -- (6,4) -- (10, -1) -- cycle;
+				\fill[fill=lightlightgray, rounded corners=1cm] (6, 5) -- (10,0) -- (14, 5) -- cycle;
+				
+				\node at (2,5.5) {$Z_1$};
+				\node at (6,-1.5) {$Z_2$};
+				\node at (10,5.5) {$Z_3$};
+				
+				\newnode{a}{(0,4)}{$a$}{$-3$}
+				\newnode{b}{(4,4)}{$b$}{$-2$}
+				\newnode{c}{(8,4)}{$c$}{$-2$}
+				\newnode{d}{(12,4)}{$d$}{$-1$}
+				\newnode{e}{(2,2)}{$e$}{$1$}
+				\newnode{f}{(6,2)}{$f$}{$5$}
+				\newnode{g}{(10,2)}{$g$}{$-1$}
+				\newnode{h}{(4,0)}{$h$}{$2$}
+				\newnode{i}{(8,0)}{$i$}{$1$}
+				
+				\begin{scope}[-Latex]
+				\path [-Latex] (a) edge[auto rotate] node[above right] {} (e);
+				\path [-Latex] (e) edge[auto rotate, dashed] node[above right] {} (a);
+				\path [-Latex] (a) edge[auto rotate, dashed] node[above] {} (b);
+				\path [-Latex] (c) edge[auto rotate] node[above] {} (b);
+				\path [-Latex] (c) edge[auto rotate] node[above right] {} (g);
+				\path [-Latex] (g) edge[auto rotate, dashed] node[above right] {} (c);
+				\path [-Latex] (c) edge[auto rotate] node[above] {} (d);
+				\path [-Latex] (d) edge[auto rotate, dashed] node[above] {} (c);
+				\path [-Latex] (d) edge[auto rotate] node[above left] {} (g);
+				\path [-Latex] (e) edge[auto rotate] node[above left] {} (b);
+				\path [-Latex] (b) edge[auto rotate, dashed] node[above left] {} (e);
+				\path [-Latex] (e) edge[auto rotate] node[above right] {} (h);
+				\path [-Latex] (b) edge[auto rotate, dashed] node[above right] {} (f);
+				\path [-Latex] (c) edge[auto rotate, dashed] node[above left] {} (f);
+				\path [-Latex] (f) edge[auto rotate] node[above right] {} (i);
+				\path [-Latex] (i) edge[auto rotate, dashed] node[above right] {} (f);
+				\path [-Latex] (g) edge[auto rotate] node[above left] {} (i);
+				\path [-Latex] (f) edge[auto rotate, dashed] node[above left] {} (h);
+				\path [-Latex] (i) edge[auto rotate] node[above] {} (h);
+				\path [-Latex] (h) edge[auto rotate, dashed] node[above] {} (i);
+				\end{scope}
+				
+				\end{tikzpicture}
+		}}
+	\end{adjustbox}
+	\caption{Der Residualgraph vom Fluss aus Abbildung~\ref{figure-min-con-example}. Vorwärtskanten sind durchgezogen, Rückwärtskanten gestrichelt. Zusammenhangskomponenten sind grau hinterlegt.}
+	\label{figure-min-con-example-residual-graph}
+\end{figure}
 
 \begin{definition}[Augmentieren eines Flusses]
 	\newcommand{\VK}{\text{VK}}
@@ -192,8 +260,6 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Dann ist $g_{\overrightsmallarrow{e}}$ positiv und es gibt wieder einen Zyklus $C_i$, der $\overrightsmallarrow{e}$ enthält.
 	Dies führt wieder zum Widerspruch, dass $G_f$ den Zyklus $C_i$ enthalten müsste, der aber eine Nullkante als Vorwärts\-kante verwendet.
 \end{proof}
-
-
 
 \begin{definition}[Zusammenhangsgraph]
 	Für einen Graphen $G = (V,E)$ sei die Relation ${\sim} \subseteq V\times V$ die Äquivalenzrelation gegeben durch \[
@@ -287,73 +353,6 @@ Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-
 	\]
 	Aufgrund der schwachen Dualität ist $X$ nach Theorem~\ref{thm-weak-duality-min-con-flow} ein dünnster Schnitt.
 \end{proof}
-
-\begin{figure}
-	\newcommand{\newnode}[4]{\node[lul] (#1) at #2 {#3 \\[0.5em] #4};}
-	\begin{adjustbox}{center}{
-		\definecolor{lightlightgray}{RGB}{220,220,220}
-		\tikzset{auto rotate/.style={auto=right,-Latex,
-				to path={let \p1=(\tikztostart),\p2=(\tikztotarget),
-					\n1={atan2(\y2-\y1,\x2-\x1)},\n2={\n1-10},\n3={\n1+190}
-					in (\tikztostart.\n2) -- (\tikztotarget.\n3) \tikztonodes}}}
-		{\begin{tikzpicture}[lul/.style={draw,
-			ellipse,
-			fill=white,
-			align=center,
-			inner sep=0pt,
-			outer sep=4pt,
-			text width=7mm,
-			minimum height=1.5cm
-		},
-		scale=0.9]
-		
-		\fill[fill=lightlightgray, rounded corners=1cm] (-2, 5) -- (2,0) -- (6, 5) -- cycle;
-		\fill[fill=lightlightgray, rounded corners=1cm] (2,-1) -- (6,4) -- (10, -1) -- cycle;
-		\fill[fill=lightlightgray, rounded corners=1cm] (6, 5) -- (10,0) -- (14, 5) -- cycle;
-		
-		\node at (2,5.5) {$Z_1$};
-		\node at (6,-1.5) {$Z_2$};
-		\node at (10,5.5) {$Z_3$};
-		
-		\newnode{a}{(0,4)}{$a$}{$-3$}
-		\newnode{b}{(4,4)}{$b$}{$-2$}
-		\newnode{c}{(8,4)}{$c$}{$-2$}
-		\newnode{d}{(12,4)}{$d$}{$-1$}
-		\newnode{e}{(2,2)}{$e$}{$1$}
-		\newnode{f}{(6,2)}{$f$}{$5$}
-		\newnode{g}{(10,2)}{$g$}{$-1$}
-		\newnode{h}{(4,0)}{$h$}{$2$}
-		\newnode{i}{(8,0)}{$i$}{$1$}
-		
-		\begin{scope}[-Latex]
-		\path [-Latex] (a) edge[auto rotate] node[above right] {} (e);
-		\path [-Latex] (e) edge[auto rotate, dashed] node[above right] {} (a);
-		\path [-Latex] (a) edge[auto rotate, dashed] node[above] {} (b);
-		\path [-Latex] (c) edge[auto rotate] node[above] {} (b);
-		\path [-Latex] (c) edge[auto rotate] node[above right] {} (g);
-		\path [-Latex] (g) edge[auto rotate, dashed] node[above right] {} (c);
-		\path [-Latex] (c) edge[auto rotate] node[above] {} (d);
-		\path [-Latex] (d) edge[auto rotate, dashed] node[above] {} (c);
-		\path [-Latex] (d) edge[auto rotate] node[above left] {} (g);
-		\path [-Latex] (e) edge[auto rotate] node[above left] {} (b);
-		\path [-Latex] (b) edge[auto rotate, dashed] node[above left] {} (e);
-		\path [-Latex] (e) edge[auto rotate] node[above right] {} (h);
-		\path [-Latex] (b) edge[auto rotate, dashed] node[above right] {} (f);
-		\path [-Latex] (c) edge[auto rotate, dashed] node[above left] {} (f);
-		\path [-Latex] (f) edge[auto rotate] node[above right] {} (i);
-		\path [-Latex] (i) edge[auto rotate, dashed] node[above right] {} (f);
-		\path [-Latex] (g) edge[auto rotate] node[above left] {} (i);
-		\path [-Latex] (f) edge[auto rotate, dashed] node[above left] {} (h);
-		\path [-Latex] (i) edge[auto rotate] node[above] {} (h);
-		\path [-Latex] (h) edge[auto rotate, dashed] node[above] {} (i);
-		\end{scope}
-		
-		\end{tikzpicture}
-	}}
-	\end{adjustbox}
-	\caption{Der Residualgraph vom Fluss aus Abbildung~\ref{figure-min-con-example}. Vorwärtskanten sind durchgezogen, Rückwärtskanten gestrichelt. Zusammenhangskomponenten sind grau hinterlegt.}
-	\label{figure-min-con-example-residual-graph}
-\end{figure}
 
 Nun lässt sich das folgende wichtige Theorem zeigen, das die starke Dualität der Auslastung von $b$-Flüssen und der von Schnitten darlegt:
 
@@ -466,15 +465,17 @@ Dabei erlaubt die RAM die Angabe der Operanden durch indirekte Adressierung.
 Eine solche RAM erlaubt also unter Anderem das Formulieren üblicher Schleifen.
 Für eine formale Definition wird auf~\cite{Gritzmann2013} verwiesen.
 
+Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} \coloneq 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
+Rationale Zahlen $r$ werden als Paar ganzer Zahlen $(p,q)$ mit $r = p/q$ kodiert.
+Dabei wird die Kodierungslänge von $r$ als $\size{r}\coloneq \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
+Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} \coloneq \sum_{i=1}^n \size{v_i}$ und $\size{A}\coloneq \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
+
 Für die Bestimmung der Laufzeit eines Programms gibt es nun im Wesentlichen zwei Möglichkeiten:
 Das logarithmische und das konstante Kostenmaß:
 Beim logarithmischen Kostenmaß wird der Zeitaufwand einer elementaren Instruktion auf die Summe der Kodierungslängen der darin genutzten Zahlen (d.h. Speicheradressen und -werte) gesetzt, um beispielsweise den zeitlichen Mehraufwand von der Multiplikation großer Zahlen zu modellieren.
 Das konstante Kostenmaß hingegen weist jeder elementaren Instruktion unbeachtet der Größe der darin vorkommenden Zahlen einen konstanten Zeitaufwand zu.
 
-Dabei wird für eine ganze Zahl $z$ die binäre Kodierung verwendet, deren Länge $\size{z} \coloneq 1 + \lceil \log_2(\abs{z}+1) \rceil$ ist.
-Rationale Zahlen $r$ werden als Paar ganzer Zahlen $(p,q)$ mit $r = p/q$ kodiert.
-Dabei wird die Kodierungslänge von $r$ als $\size{r}\coloneq \size{p} + \size{q}$ definiert, wobei $p/q$ bereits die Darstellung von $r$ als vollständig gekürzter Bruch ist.
-Entsprechend haben rationale Vektoren $v\in\Q^n$ und Matrizen $A\in\Q^{n\times m}$ die Kodierungslängen $\size{v} \coloneq \sum_{i=1}^n \size{v_i}$ und $\size{A}\coloneq \sum_{i=1}^n\sum_{j=1}^m \size{a_{i,j}}$.
+Es werden nun weitere elementare Aussagen über die Kodierungslänge gezeigt:
 
 \begin{proposition}\label{prop-rational-bounds-encoding}
 	Es seien $a,b\in\Q$ zwei rationale Zahlen, $v\in Q^n$ ein rationaler Vektor und $A\in\Q^{n\times n}$ eine rationale Matrix.
