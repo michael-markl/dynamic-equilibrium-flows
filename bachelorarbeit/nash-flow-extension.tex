@@ -1,9 +1,9 @@
 \section{Berechnung dynamischer Nash-Flüsse mit schmalen Flüssen}\label{sec-nash-flow-extension}
-In diesem Abschnitt soll es nun schließlich darum gehen, den Zusammenhang zwischen dynamischen Nash-Flüssen und schmalen Flüssen mit Zurücksetzen aufzuzeigen.
+In diesem Abschnitt soll es schließlich darum gehen, den Zusammenhang zwischen dynamischen Nash-Flüssen und schmalen Flüssen mit Zurücksetzen aufzuzeigen.
 Danach wird kurz auf die Existenz dynamischer Nash-Flüsse und deren Berechnung bei konstanter Einflussrate in das Netzwerk eingegangen.
 Dazu wird wieder die Notation dynamischer Flüsse aus den Kapiteln~\ref{chapter-dynamic-flows} und~\ref{chapter-nash-flows} verwendet.
 
-Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation verwendet:
+Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation eingeführt:
 
 \begin{definition}[Normierter schmaler Fluss]\label{def-normalized-thin-flow}
 	Seien ein $s$-Netzwerk $\mathcal{N}$ und ein $b$-Fluss $f$ gegeben.
@@ -12,7 +12,7 @@ Für diese Ergebnisse werden schmale Flüsse mit einer kleinen Modifikation verw
 	Dann heißt $f$ ein \emph{normierter $b_s$-wertiger schmaler Fluss mit Zurücksetzen auf $E_1$}, falls die normierte Auslastung jedes $s$-$v$-Pfades mit positivem Fluss $l_v$ beträgt.
 \end{definition}
 
-Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Abschnitten ohne großen Aufwand übertragen lassen:
+Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Abschnitten ohne großen Aufwand auf normierte schmale Flüsse übertragen lassen:
 
 \begin{proposition}
 	Es sei ein $b$-Fluss $f$ in einem $s$-Netzwerk $\mathcal{N}$ mit $b_s > 0$ gegeben.
@@ -24,10 +24,10 @@ Schnell kann man sehen, dass sich die Ergebnisse aus den vorherigen Abschnitten 
 \end{proposition}
 \begin{proof}
 	Die Kante $(s', s)$ hat für jeden $b'$-Fluss Auslastung $1$.
-	Daher ist die normierte Auslastung eines $s$-$v$-Pfades in $\mathcal{N}$ gerade die Auslastung vom durch die Kante $(s', s)$ verlängerten Pfad in $\mathcal{N'}$.
+	Daher ist die normierte Auslastung eines $s$-$v$-Pfades in $\mathcal{N}$ gerade die Auslastung des durch die Kante $(s', s)$ verlängerten Pfades in $\mathcal{N'}$.
 \end{proof}
 
-Dadurch kann ein normierter schmaler Fluss durch die Bestimmung eines nicht-normier\-ten schmalen Flusses ermittelt werden.
+Dadurch kann ein normierter schmaler Fluss durch die Bestimmung eines schmalen Flusses ermittelt werden.
 Außerdem können Lemma~\ref{lemma-equivalent-thin-flow} ohne Verän\-derung und Lemma~\ref{lemma-thin-flow-t-def} mit der kleinen Modifikation, dass statt~\ref{def-thin-flow-source}, also $l_s = 0$, hier $l_s = 1$ gelten muss, für normierte schmale Flüsse übernommen werden.
 
 Das folgende Theorem liefert das Resultat, dass ein dynamischer Nash-Fluss zu jedem Zeitpunkt $\theta\in\R$ einen normierten schmalen Fluss mit Zurücksetzen induziert.
@@ -57,16 +57,17 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 	\[
 	d(\theta)= \sum_{e\in \delta^+(s)} f_e^+(\theta) - \sum_{e\in\delta^-(s)} f_e^-(\theta) = \sum_{e\in \delta^+(s)} x_e'(\theta) - \sum_{e\in\delta^-(s)} x_e'(\theta)
 	\]
-	erfüllt, ist $x'(\theta)$ ein $d(\theta)$-wertiger Fluss, weil $x_e'(\theta)$ nach Lemma~\ref{lemma-x-locally-constant} für inaktive Kanten $e$ verschwindet. Es bleibt also die Bedingungen~\ref{def-thin-flow-x-zero}-\ref{def-thin-flow-no-resetting-edge} zu zeigen.
+	erfüllt, ist $x'(\theta)$ ein $d(\theta)$-wertiger Fluss, weil $x_e'(\theta)$ nach Lemma~\ref{lemma-x-locally-constant} für inaktive Kanten $e$ verschwindet.
+	Es bleibt also die Bedingungen~\ref{def-thin-flow-x-zero}-\ref{def-thin-flow-no-resetting-edge} zu zeigen.
 	
-	Um Bedingung~\ref{def-thin-flow-no-resetting-edge} zu zeigen,
+	Um Bedingung~\ref{def-thin-flow-no-resetting-edge} zu folgern,
 	nehme man an, dass die Warteschlange jeder eingehenden Kante $vw$ eines Knotens $w$ zur Zeit $l_v(\theta)$ leer ist.
 	Da für alle $n\in\N$ eine eingehende und zur Zeit $\theta_n \coloneq \theta + 1/n$ aktive Kante existiert, gibt es eine Kante $vw$ die zu unendlich vielen $\theta_n$ aktiv ist.
 	Betrachtet man diese Teilfolge $(\theta_{n_k})_{k\in\N}$ der aktiven Zeitpunkte von $vw$, ist $vw$ wegen der Stetigkeit auch zur Zeit $\theta$ aktiv und es gilt 
 	\[
 	l_w'(\theta) = \lim_{k\to\infty} \frac{l_w(\theta_{n_k})- l_w(\theta)}{1/n_k} = \lim_{k\to\infty} \frac{ l_v(\theta_{n_k}) + q_{vw}(l_v(\theta_{n_k})) - l_v(\theta) }{1/n_k} \geq l_v'(\theta).
 	\]
-	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$.
+	Also ist insbesondere $l_w'(\theta) \geq \min_{vw\in \delta^-(w)\cap E_\theta} l_v'(\theta)$ erfüllt.
 	
 	Sei nun eine Kante $vw\in E_\theta$, also eine aktive Kante zum Zeitpunkt $\theta$, gegeben. Man prüfe die Bedingungen~\ref{def-thin-flow-x-zero}, \ref{def-thin-flow-x-positive} und \ref{def-thin-flow-resetting-edge} jeweils in den folgenden drei Fällen:
 	
@@ -86,7 +87,7 @@ x_{vw}'(\theta) = f_{vw}^+(l_v(\theta))l_v'(\theta) \text{~~~ bzw. analog ~~~} x
 		\[ 
 		l_w(\theta+\varepsilon) - l_w(\theta) = l_v(\theta + \varepsilon) + q_{vw}(l_v(\theta + \varepsilon)) - l_v(\theta) \geq l_v(\theta + \varepsilon) - l_v(\theta).
 		\]
-		Teilt man wieder durch $\varepsilon$, so erhält man für $\varepsilon \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
+		Teilt man diese Ungleichung wieder durch $\varepsilon$, so erhält man für $\varepsilon \rightarrow 0$ Bedingung~\ref{def-thin-flow-x-positive} mit $l_w'(\theta) \leq l_v'(\theta)$ und dem Resultat des letzten Absatzes.
 		
 		\item[2. Fall:] $\exists \varepsilon > 0: (\theta, \theta + \varepsilon] \subseteq \Theta_{vw}^c$.
 		
@@ -140,7 +141,7 @@ Durch folgende Proposition erkennt man, dass in einem Nash-Fluss mit Zeithorizon
 	Dabei entspricht der Netzwerkzufluss von $\tilde{f}$ im Intervall $[T, T+\alpha)$ gerade dem Wert von $x'$.
 \end{definition}
 
-Im nächsten Theorem wird schließlich gezeigt, dass eine solche $\alpha$-Erweiterung wieder einen Nash-Fluss erzeugt.
+Im nächsten Theorem wird gezeigt, dass eine solche $\alpha$-Erweiterung wieder einen Nash-Fluss erzeugt.
 
 \begin{notation}
 	Im folgenden Theorem und Beweis werden alle zur $\alpha$-Erweiterung $\tilde{f}$ gehörigen Größen wie der kumulative Zufluss $\tilde{F}_e^+$, die Wartezeit $\tilde{q}_e$ etc. mit einer Tilde notiert.
