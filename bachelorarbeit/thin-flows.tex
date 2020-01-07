@@ -26,8 +26,8 @@ Insbesondere existiert in einem $s$-Netzwerk immer ein $b$-Fluss.
 		f_{vw} / u_{vw}, & \text{falls $vw\in E_1$.}
 	\end{cases}
 	\]
-	bezeichne die \emph{Auslastungsübertragung einer Kante $vw$}.
-	Die \emph{Auslastung eines $s$-$v$-Pfades $P=(e_1,\dots,e_k)$} ist gegeben durch die Verkettung $\rho_{e_k}(\PlH, f_{e_k})\circ \dots \circ \rho_{e_1}(\PlH, f_{e_1})(0)$.
+	wird als \emph{Auslastungsübertragung einer Kante $vw$} bezeichnet.
+	Die \emph{Auslastung eines $s$-$v$-Pfades $P=(e_1,\dots,e_k)$} bezeichne die Verkettung $\rho_{e_k}(\PlH, f_{e_k})\circ \dots \circ \rho_{e_1}(\PlH, f_{e_1})(0)$.
 	Die zu $f$ \emph{zugehörige Knotenauslastung $l\in\R_{\geq 0}^V$} sei für einen Knoten $v$ die minimale Auslastung eines $s$-$v$-Pfades.
 \end{definition}
 
@@ -507,11 +507,11 @@ Dazu wird zunächst der Zusammenhang dieser Flüsse mit auslastungsminimalen Fl�
 \end{proof}
 
 Daher sind schmale Flüsse bereits auslastungsminimal.
-Umgekehrt gilt dies natürlich nicht.
+Umgekehrt gilt dies natür\-lich nicht.
 Jedoch wird im Folgenden erarbeitet, dass die Kantenbewertung eines auslastungsminimalen Flusses außerhalb eines dünnsten Schnittes bereits mit der eines schmalen Flusses übereinstimmt.
 
 \begin{definition}
-	Existiert in einem Graphen ein $b$-Fluss, so heißt das Tupel $(V, E, b)$ eine \emph{$b$-Fluss-Instanz}.
+	Existiert in einem Graphen $(V, E)$ ein $b$-Fluss, so heißt das Tupel $(V, E, b)$ eine \emph{$b$-Fluss-Instanz}.
 	Für eine $b$-Fluss-Instanz $(V, E, b)$ und einen dünnsten Schnitt $X$ bezüglich $b$ mit Auslastung $q^*$ heißt $\mathcal{I}[X] \coloneq (X, E[X], b[X])$ die \emph{durch $X$ induzierte Teilinstanz von $\mathcal{I}$},
 	wobei $E[X] \coloneq \{ vw \in E \mid v, w \in X \}$ die Menge der Kanten zwischen Knoten in $X$ ist und $b[X]$ durch \[
 	b[X]_v \coloneq b_v - u(\delta^+_E(v)\cap\delta^+_E(X)) q^* \text{~~~ für $v\in X$}
