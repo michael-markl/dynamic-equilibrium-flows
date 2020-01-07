@@ -321,9 +321,9 @@ In Abbildung~\ref{figure-min-con-example-residual-graph} sieht man den Residualg
 Der entsprechende Zusammenhangsgraph hat die Form
 \begin{center}
 	\begin{tikzpicture}
-	\node[draw, circle] (z1) at (2,0) {$Z_1$};
-	\node[draw, circle] (z2) at (4,0) {$Z_2$};
-	\node[draw, circle] (z3) at (0,0) {$Z_3$};
+	\node[draw, circle, outer sep=4pt] (z1) at (2,0) {$Z_1$};
+	\node[draw, circle, outer sep=4pt] (z2) at (4,0) {$Z_2$};
+	\node[draw, circle, outer sep=4pt] (z3) at (0,0) {$Z_3$};
 	\path[-Latex] (z3) edge (z1);
 	\path[-Latex] (z3) edge[bend left] (z2);
 	\path[-Latex] (z1) edge (z2);
@@ -628,10 +628,9 @@ Dabei minimieren wir die Zahl $q^*$, sodass $b$-Flüsse existieren, deren Auslas
 \end{aligned}
 \end{equation}
 
-Schnell ist ersichtlich, dass $f$ für eine optimale Lösung $(q^*, f)$ von~(\ref{problem-lp-minimal-flow}) auch ein auslastungsminimaler $b$-Fluss ist: Die $b$-Fluss-Eigenschaft folgt bereits aus der ersten Bedingung und aus der Nichtnegativität von $f_e / u_e$.
+Schnell ist ersichtlich, dass die optimalen Lösungen von~(\ref{problem-lp-minimal-flow}) gerade die auslastungsminimalen $b$-Flüsse sind:
+Die erste Bedingung ist zusammen mit der Nichtnegativität von $f_e/u_e$ gerade die $b$-Fluss-Eigenschaft.
 Die Auslastungsminimalität von $f$ in~(\ref{problem-lp-minimal-flow}) wird durch die Minimierung der oberen Schranke $q^*$ aller $f_e / u_e$ sichergestellt.
-Umgekehrt ist $(c(f), f)$ eine optimale Lösung von~(\ref{problem-lp-minimal-flow}) für einen auslastungsminimalen $b$-Fluss $f$.
-
 
 \begin{corollary}\label{cor-minimal-congestion-limited}
 	Existiert für ein Netzwerk mit rationalen Kapazitäten $u\in\Q_{>0}^E$ und Balancen $b\in\Q^V$ ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses enthalten in
@@ -670,7 +669,7 @@ Die restlichen $m$ Zeilen haben eine Kodierungslänge von höchstens $3\size{u} 
 Der Vektor $\hat{b}$ hat eine Kodierungslänge von höchstens $\size{b} + m$.
 Das Resultat folgt nun mit Lemma~\ref{lemma-optimal-value-in-finite-domain} und den folgenden beiden Abschätzungen:
 {\setlength{\abovedisplayskip}{9pt}%
-	\setlength{\belowdisplayskip}{0pt}%
+	\setlength{\belowdisplayskip}{-2pt}%
 \begin{align*}
 \size{\hat{A}} + \size{\hat{b}} - (n+m)(2m+2) &= \size{\hat{A}} + \size{\hat{b}} - 2mn - 2n - 2m^2 - 2m\\
 &\leq 2 \size{b} + 3\size{u} + \size{\hat{b}} - n - 6m \leq 3\size{b} + 3\size{u} -n-5m,
