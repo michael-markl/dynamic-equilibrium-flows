@@ -152,8 +152,9 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 	Unter diesen Brüchen ist für $x_r/y_r$ der kleinstmögliche gesucht, der $x\leq x_r/y_r$ erfüllt, und für $x_l/y_l$ der größtmögliche, für den $x_l/y_l < x_r/y_r$ gilt.
 	Nach Lemma~\ref{lemma-farey-middle-member} ist $y_l + y_r > 2^{k-1}$.
 	Daher ist $y_l$ oder $y_r$ größer als $2^{k-2}$.
-	Aus Symmetriegründen sei im Folgenden ohne Einschränkung $y_l$ größer als $2^{k-2}$.
-	Nun unterscheide man drei Fälle:
+	Man nehme zunächst an, $y_l$ sei größer als $2^{k-2}$. 
+	Die Erklärung, dass man für $y_r > 2^{k-2}$ die gleiche Argumentation verwenden kann, folgt später.
+	Man unterscheidet drei Fälle:
 	
 	\begin{description}
 		\item[1. Fall:] $y_r \geq 2^{k-3}$.
@@ -174,7 +175,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 			Wegen $y_l > 2^{k-2}$ kann man die Suche dabei auf $\alpha \in \{ 1, 2, 3 \}$ beschränken.
 			Für jedes $\alpha\in\{1,2,3\}$ bestimmt man nun das $\beta_\alpha$, sodass der entsprechende Bruch $x$ von oben möglichst gut beschränkt:
 			\[
-				\frac{\alpha x_l + (\beta_\alpha - 1) x_l}{\alpha y_l + (\beta_\alpha - 1) y_r} < x \leq \frac{\alpha x_l + \beta_\alpha x_l}{\alpha y_l + \beta_\alpha y_l}.
+				\frac{\alpha x_l + (\beta_\alpha - 1) x_r}{\alpha y_l + (\beta_\alpha - 1) y_r} < x \leq \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}.
 			\]
 			Unter diesen Brüchen wird nun $x_r'/y_r'$ und $x_l'/y_l'$ bestimmt durch
 			\[\frac{x_r'}{y_r'}\coloneq \min_{\alpha\in[3]} \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}
@@ -183,8 +184,18 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 			\]
 			Die $\beta_\alpha$ können wegen der Monotonie nach Lemma~\ref{lemma-fraction-helpers} mittels binärer Suche auf $\beta \in \{1,\dots, \lfloor (2^{k} - \alpha y_l) / y_r \rfloor \}$ ermittelt werden.
 			Dabei werden insgesamt maximal $3 \cdot \lfloor \log_2(2^{k} / y_r) + 1 \rfloor = 3 (k+1 - \lceil\log_2(y_r)\rceil)$ Vergleiche mit $x$ benötigt.
-			Man bemerke für die spätere Analyse, dass $y_r'$ in diesem Fall größer als $2^{k-1}$ ist.
+			Man bemerke für die spätere Analyse, dass sowohl $y_l'$ als auch $y_r'$ in diesem Fall größer als $2^{k-2}$ sind.
  	\end{description}
+ 
+ 	Für den Fall $y_r > 2^{k-1}$ fallen nur kleine Änderungen an:
+ 	Fall~1 wird ausgeführt, falls $y_l \geq 2^{k-3}$ gilt, und $\alpha$ tauscht in der restlichen Argumentation dieses Falls mit $\beta$ die Rollen.
+ 	Fall~2 wird ohne Änderung übernommen.
+ 	Fall~3 tritt nur ein, wenn $y_l<2^{k-3}$ und $x_r'/y_r' < x_r/y_r$ gelten, sodass man sich auf $\beta\in\{1, 2, 3\}$ beschränkt.
+ 	Es wird in $\{1,\dots, \lfloor ( 2^k - \beta y_r)/y_l \rfloor \}$ mit $3(k+1-\lceil \log_2(y_l) \rceil)$ Vergleichen ein $\alpha_\beta$ mit \[
+ 		\frac{(\alpha_\beta - 1) x_l + \beta x_r}{(\alpha_\beta - 1) y_l + \beta y_r} < x \leq \frac{\alpha_\beta x_l + \beta x_r}{\alpha_\beta y_l + \beta y_r}
+ 	\]
+ 	ermittelt.
+ 	Dann kann $x_l'/y_l'$ bzw. $x_r'/y_r'$ analog bestimmt werden.
  	
  	Der Algorithmus wird mit $x_l/y_l$ = $0/1$ sowie $x_r/y_r = 1/1$ initialisiert.
  	Dann wird das Suchintervall wie oben beschrieben in $n\coloneq \lceil \log_2(M) \rceil$ Runden verkleinert.
@@ -199,14 +210,14 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  	Hier hilft eine genauere Analyse der akkumulierten Anzahl von Vergleichen, die durch Fall~3 ausgelöst werden.
  	
  	Dazu zeigt man, dass nach der $k$-ten Runde des Algorithmus für den dritten Fall insgesamt nur maximal $9k$ Vergleiche mit $x$ unternommen wurden.
- 	Dies folgert man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei der Fall $i=0$ klar ist.
- 	Ist $i=1$ -- ist also Fall 3 das erste Mal eingetreten --, so wurden maximal $3(k+2) \leq 9k$ Vergleiche benötigt.
+ 	Dies folgert man per Induktion über die Anzahl $i$ der Ausführungen des dritten Falls, wobei $k$ stets die Runde sei, in der zum $i$-ten Mal Fall $3$ angewandt wurde.
+ 	Ist $i=1$ -- ist also Fall 3 das erste Mal eingetreten --, so wurden maximal $3(k+1) \leq 9k$ Vergleiche benötigt.
  	Für $i\geq2$ sei $k'$ die letzte Runde, zu der Fall 3 angewandt wurde.
- 	Bis inklusive Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $9k'$ Vergleiche verwendet.
- 	Die obere Schranke $x_r^{(k')} / y_r^{(k')}$, die in Runde $k'$ im Fall $3$ ausgewählt wurde, erfüllt außerdem $y_r^{(k')} > 2^{k'-1}$.
- 	Da der Nenner der oberen Schranke im Laufe der Runden nur wachsen kann, gilt $y_r^{(k - 1)} > 2^{k'-1}$ für die obere Schranke $x_r^{(k-1)}/y_r^{(k-1)}$, die in Runde $k-1$ ausgewählt wurde.
+ 	Bis inklusive Runde $k'$ wurden also nach Induktionsvoraussetzung höchstens $9k'$ Vergleiche für Fall $3$ verwendet.
+ 	Die Schranken $x_l^{(k')} / y_l^{(k')}$ und $x_r^{(k')} / y_r^{(k')}$, die in Runde $k'$ im Fall $3$ ausgewählt wurde, sind außerdem größer als $2^{k'-2}$.
+ 	Da der Nenner der Schranken im Laufe der Runden nur wachsen kann, sind auch die Nenner der Schranken, die in Runde $k-1$ ausgewählt wurden, größer als $2^{k' - 2}$.
  	Daher ist die Anzahl an Vergleichen, die im dritten Fall in Runde $k$ gemacht werden, höchstens \[
- 	3(k+2-\lceil \log_2(y_r^{(k - 1)})\rceil )\leq 3(k - k' + 2).
+ 	3(k+1-(\lceil \log_2(2^{k' - 2})\rceil + 1) )= 3(k - k' + 2).
  	\]
  	Insgesamt sind also bis Runde $k$ zur Ausführung von Fall 3 höchstens \[
  	9k' + 3(k-k'+2) = 3(2k' + k + 2) \leq 3(2k' + k + 2(k-k')) = 9 k
