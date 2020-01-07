@@ -304,33 +304,33 @@ Zwar sind schmale Flüsse im Allgemeinen nicht eindeutig -- nichtmal ohne zurüc
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\begin{tikzpicture}[scale=0.8]
-		\node[draw, circle] (S) at (0,2) {$s$};
-		\node[draw, circle] (U) at (2,2) {$u$};
-		\node[draw, circle] (W) at (4,1) {$w$};
-		\node[draw, circle] (V) at (4,3) {$v$};
-		\node[draw, circle] (T) at (6,2) {$t$};
+		\node[draw, circle, outer sep=4pt] (S) at (0,2) {$s$};
+		\node[draw, circle, outer sep=4pt] (U) at (2,2) {$u$};
+		\node[draw, circle, outer sep=4pt] (W) at (4,1) {$w$};
+		\node[draw, circle, outer sep=4pt] (V) at (4,3) {$v$};
+		\node[draw, circle, outer sep=4pt] (T) at (6,2) {$t$};
 		
-		\path [->] (S) edge node[above] {$2$} (U);
-		\path [->] (U) edge node[above left] {$1$} (V);
-		\path [->] (U) edge node[below left] {$1$} (W);
-		\path [->] (V) edge node[above right] {$1$} (T);
-		\path [->] (W) edge node[below right] {$1$} (T);
+		\path [-Latex] (S) edge node[above] {$2$} (U);
+		\path [-Latex] (U) edge node[above left] {$1$} (V);
+		\path [-Latex] (U) edge node[below left] {$1$} (W);
+		\path [-Latex] (V) edge node[above right] {$1$} (T);
+		\path [-Latex] (W) edge node[below right] {$1$} (T);
 		\end{tikzpicture}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\begin{tikzpicture}[scale=0.8]
-		\node[draw, circle] (S) at (0,2) {$s$};
-		\node[draw, circle] (U) at (2,2) {$u$};
-		\node[draw, circle] (W) at (4,1) {$w$};
-		\node[draw, circle] (V) at (4,3) {$v$};
-		\node[draw, circle] (T) at (6,2) {$t$};
+		\node[draw, circle, outer sep=4pt] (S) at (0,2) {$s$};
+		\node[draw, circle, outer sep=4pt] (U) at (2,2) {$u$};
+		\node[draw, circle, outer sep=4pt] (W) at (4,1) {$w$};
+		\node[draw, circle, outer sep=4pt] (V) at (4,3) {$v$};
+		\node[draw, circle, outer sep=4pt] (T) at (6,2) {$t$};
 		
-		\path [->] (S) edge node[above] {$2$} (U);
-		\path [->] (U) edge node[above left] {$2$} (V);
-		\path [->] (U) edge node[below left] {$0$} (W);
-		\path [->] (V) edge node[above right] {$2$} (T);
-		\path [->] (W) edge node[below right] {$0$} (T);
+		\path [-Latex] (S) edge node[above] {$2$} (U);
+		\path [-Latex] (U) edge node[above left] {$2$} (V);
+		\path [-Latex] (U) edge node[below left] {$0$} (W);
+		\path [-Latex] (V) edge node[above right] {$2$} (T);
+		\path [-Latex] (W) edge node[below right] {$0$} (T);
 		\end{tikzpicture}
 	\end{subfigure}
 	\caption{Zwei verschiedene schmale Flüsse derselben Instanz ohne Zurück\-setzen. Auf den Kanten steht der Flusswert; die Kapazitäten sind allesamt $1$.}
