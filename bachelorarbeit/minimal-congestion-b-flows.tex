@@ -575,6 +575,8 @@ Für ein lineares Programm in Standardform mit nichtleerem Zulässigkeitsbereich
 	Für alle $x\in P^=(\tilde{A}, \tilde{b})$ gilt also $a_j x = \sum_{l=1}^k \lambda_l a_{i_l} x = \sum_{l=1}^k \lambda_l b_{i_l} = b_j$.
 \end{proof}
 
+\clearpage
+
 \begin{lemma}\label{lemma-optimal-value-in-finite-domain}
 	Es sei ein lineares Programm in Standardform mit nichtleerem Zu\-lässig\-keits\-bereich $P\coloneq P^=(A,b)$ und ganzzahligen Parametern $A\in \Z^{m\times n}$, $b\in\Z^m$ und $c\in\Z^n$, sodass $x\mapsto c^T x$ auf $P$ nach unten beschränkt ist.
 	Es sei $c_{\max}$ der betraglich größte Eintrag in $c$.
@@ -629,8 +631,8 @@ Dabei minimieren wir die Zahl $q^*$, sodass $b$-Flüsse existieren, deren Auslas
 \end{equation}
 
 Schnell ist ersichtlich, dass die optimalen Lösungen von~(\ref{problem-lp-minimal-flow}) gerade die auslastungsminimalen $b$-Flüsse sind:
-Die erste Bedingung ist zusammen mit der Nichtnegativität von $f_e/u_e$ gerade die $b$-Fluss-Eigenschaft.
-Die Auslastungsminimalität von $f$ in~(\ref{problem-lp-minimal-flow}) wird durch die Minimierung der oberen Schranke $q^*$ aller $f_e / u_e$ sichergestellt.
+Die erste Bedingung stellt mit der Nichtnegativität von $f_e/u_e$ die $b$-Fluss-Eigenschaft dar.
+Die Auslastungsminimalität einer Optimal\-lösung von~(\ref{problem-lp-minimal-flow}) wird durch das Minimieren der Schranke $q^*$ von $f_e / u_e$ sichergestellt.
 
 \begin{corollary}\label{cor-minimal-congestion-limited}
 	Existiert für ein Netzwerk mit rationalen Kapazitäten $u\in\Q_{>0}^E$ und Balancen $b\in\Q^V$ ein $b$-Fluss, so ist die minimale Auslastung $q^*$ eines $b$-Flusses enthalten in
