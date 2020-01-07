@@ -265,7 +265,7 @@ Diese Eigenschaft wird im folgenden Beweis ausgenutzt:
 	Für einen Graphen $G = (V,E)$ sei ${\sim}$ die Äquivalenzrelation auf $V$ gegeben durch \[
 	v\sim w ~~\vcentcolon\Leftrightarrow~~ \text{$v$ ist von $w$ und $w$ ist von $v$ in $G$ erreichbar}.
 	\]
-	Man nennt den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei die Knoten $V^\sim$ die Menge der Äquivalenzklassen, also die Menge der \emph{(starken) Zusammenhangskomponenten} von $G$, sind und eine Kante $xy$ genau dann in $E^\sim$ existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
+	Man nennt den azyklischen Graphen $G^\sim\coloneq (V^\sim, E^\sim)$ den \emph{Zusammenhangsgraphen von $G$}, wobei $V^\sim$ die Menge der Äquivalenzklassen, also die Menge der \emph{(starken) Zusammenhangskomponenten} von $G$, sind und eine Kante $xy$ genau dann in $E^\sim$ existiert, wenn $x\neq y$ gilt und es eine Kante $vw$ in $E$ gibt, sodass $v$ in der Zusammenhangskomponente $x$ und $w$ in der Zusammenhangskomponente $y$ liegen.
 \end{definition}
 
 Man sieht schnell, dass ein Knoten $w$ genau dann von einem anderen Knoten $v$ erreicht werden kann, wenn die Äquivalenzklasse von $w$ im Zusammenhangsgraph von der Äquivalenzklasse von $v$ erreicht werden kann.
@@ -302,7 +302,7 @@ Außerdem ist der Zusammenhangsgraph stets azyklisch.
 	Insbesondere haben alle Residualgraphen auslastungsminimaler $b$-Flüsse den gleichen Zusammenhangsgraphen.
 \end{lemma}
 \begin{proof}
-	Es seien $Z_1,\dots, Z_k$ die Zusammenhangskomponenten des Residualgraphs $G_f$.
+	Es seien $Z_1,\dots, Z_k$ die Zusammenhangskomponenten des Residualgraphen $G_f$.
 	Für alle $i\in [k]$ sei $C_i$ ein Kreis, der alle Kanten, die innerhalb $Z_i$ verlaufen, abläuft.
 	Dann existiert nach Proposition~\ref{prop-augment-min-con-flow-with-circuit} ein auslastungsminimaler $b$-Fluss $\tilde{f}$, dessen Residualgraph den gleichen Zusammenhangsgraph hat wie der von $f$, für den aber innerhalb der Zusammenhangskomponenten keine Flaschenhalskanten als Rückwärtskanten und keine Nullkanten als Vorwärtskanten vorkommen.
 	Zwischen den Zusammenhangskomponenten haben $f$ und $\tilde{f}$ jedoch die gleichen Flaschenhals- und Nullkanten.
@@ -334,7 +334,7 @@ und die Kanten $(f,c)$ und $(f,b)$ sind die minimalen Flaschenhalskanten -- hing
 Mit dem letzten Lemma kann nun ein hinreichendes und notwendiges Optimalitäts\-kriterium formuliert werden:
 
 \begin{theorem}\label{thm-optimal-criterion-min-con-flow}
-	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphs $G_f$ verläuft.
+	Ein $b$-Fluss $f$ ist genau dann auslastungsminimal, wenn $f$ der Nullfluss ist oder eine Rückwärtskante $\overleftsmallarrow{vw}$ zwischen zwei Zusammenhangskomponenten seines Residualgraphen $G_f$ verläuft.
 	Gilt Letzteres, so ist die Menge $X$ der Knoten, die von $v$ aus in $G_f$ erreichbar sind, ein dünnster Schnitt mit Auslastung~$c(f)$.
 \end{theorem}
 \begin{proof}
