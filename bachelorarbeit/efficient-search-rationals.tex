@@ -170,7 +170,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 		
 		\item[3. Fall:]~Weder Fall~1 noch Fall~2 treten ein.
 		
-			In diesem Fall sind $y_r$ kleiner als $2^{k-3}$ ist und die gesuchte obere Schranke $x_r'/y_r'$ kleiner als die aktuelle Schranke $x_r/y_r$.
+			In diesem Fall sind $y_r$ kleiner als $2^{k-3}$ und die gesuchte obere Schranke $x_r'/y_r'$ kleiner als die aktuelle Schranke $x_r/y_r$.
 			Also hat die gesuchte Schranke die Form $(\alpha x_l + \beta x_r)/(\alpha y_l + \beta y_r)$ mit $\alpha,\beta\in\N$ und $\alpha y_l + \beta y_r\leq 2^{k}$.
 			Wegen $y_l > 2^{k-2}$ kann man die Suche dabei auf $\alpha \in \{ 1, 2, 3 \}$ beschränken.
 			Für jedes $\alpha\in\{1,2,3\}$ bestimmt man nun das $\beta_\alpha$, sodass der entsprechende Bruch $x$ von oben möglichst gut beschränkt:
@@ -187,7 +187,7 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 			Man bemerke für die spätere Analyse, dass sowohl $y_l'$ als auch $y_r'$ in diesem Fall größer als $2^{k-2}$ sind.
  	\end{description}
  
- 	Für den Fall $y_r > 2^{k-1}$ fallen nur kleine Änderungen an:
+ 	Für den Fall $y_r > 2^{k-2}$ fallen nur kleine Änderungen an:
  	Fall~1 wird ausgeführt, falls $y_l \geq 2^{k-3}$ gilt, und $\alpha$ tauscht in der restlichen Argumentation dieses Falls mit $\beta$ die Rollen.
  	Fall~2 wird ohne Änderung übernommen.
  	Fall~3 tritt nur ein, wenn $y_l<2^{k-3}$ und $x_r'/y_r' < x_r/y_r$ gelten, sodass man sich auf $\beta\in\{1, 2, 3\}$ beschränkt.
