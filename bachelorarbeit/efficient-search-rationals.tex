@@ -177,10 +177,11 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
 			\[
 				\frac{\alpha x_l + (\beta_\alpha - 1) x_r}{\alpha y_l + (\beta_\alpha - 1) y_r} < x \leq \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}.
 			\]
-			Unter diesen Brüchen wird nun $x_r'/y_r'$ und $x_l'/y_l'$ bestimmt durch
-			\[\frac{x_r'}{y_r'}\coloneq \min_{\alpha\in[3]} \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}
+			Unter diesen Brüchen wird nun $x_l'/y_l'$ und $x_r'/y_r'$ bestimmt durch
+			\[
+			\frac{x_l'}{y_l'}\coloneq \max_{\alpha\in[3]} 			\frac{\alpha x_l + (\beta_\alpha - 1)x_r}{\alpha y_l + (\beta_\alpha - 1)y_r}
 			\text{~~~~~und~~~~~}
-			\frac{x_l'}{y_l'}\coloneq \max_{\alpha\in[3]} 			\frac{\alpha x_l + (\beta_\alpha - 1)x_r}{\alpha y_l + (\beta_\alpha - 1)y_r}.
+			\frac{x_r'}{y_r'}\coloneq \min_{\alpha\in[3]} \frac{\alpha x_l + \beta_\alpha x_r}{\alpha y_l + \beta_\alpha y_r}.
 			\]
 			Die $\beta_\alpha$ können wegen der Monotonie nach Lemma~\ref{lemma-fraction-helpers} mittels binärer Suche auf $\beta \in \{1,\dots, \lfloor (2^{k} - \alpha y_l) / y_r \rfloor \}$ ermittelt werden.
 			Dabei werden insgesamt maximal $3 \cdot \lfloor \log_2(2^{k} / y_r) + 1 \rfloor = 3 (k+1 - \lceil\log_2(y_r)\rceil)$ Vergleiche mit $x$ benötigt.
@@ -189,10 +190,10 @@ Zunächst wird der Suchraum, aus dem die Schranken bestimmt werden können, anal
  
  	Für den Fall $y_r > 2^{k-2}$ fallen nur kleine Änderungen an:
  	Fall~1 wird ausgeführt, falls $y_l \geq 2^{k-3}$ gilt, und $\alpha$ tauscht in der restlichen Argumentation dieses Falls mit $\beta$ die Rollen.
- 	Fall~2 wird ohne Änderung übernommen.
- 	Fall~3 tritt nur ein, wenn $y_l<2^{k-3}$ und $x_r'/y_r' < x_r/y_r$ gelten, sodass man sich auf $\beta\in\{1, 2, 3\}$ beschränkt.
- 	Es wird in $\{1,\dots, \lfloor ( 2^k - \beta y_r)/y_l \rfloor \}$ mit $3(k+1-\lceil \log_2(y_l) \rceil)$ Vergleichen ein $\alpha_\beta$ mit \[
- 		\frac{(\alpha_\beta - 1) x_l + \beta x_r}{(\alpha_\beta - 1) y_l + \beta y_r} < x \leq \frac{\alpha_\beta x_l + \beta x_r}{\alpha_\beta y_l + \beta y_r}
+ 	Fall~2 wird verwendet, falls ${x\leq x_r'/y_r'\coloneq (\alpha x_l + \beta x_r) / (\alpha y_l + \beta y_l)}$ mit ${\alpha\coloneq \lfloor (2^k - y_r)/ y_l \rfloor}$ und $\beta\coloneq 1$ gilt.
+ 	Fall~3 tritt nur ein, wenn $y_l<2^{k-3}$ und ${x_l'/y_l' > x_l/y_l}$ gelten, wobei man sich auf $\beta\in\{1, 2, 3\}$ beschränkt.
+ 	Es wird in der Menge ${ \{1,\dots, \lfloor ( 2^k - \beta y_r)/y_l \rfloor \} }$ mit $3(k+1-\lceil \log_2(y_l) \rceil)$ Vergleichen ein $\alpha_\beta$ mit \[
+ 		\frac{\alpha_\beta x_l + \beta x_r}{\alpha_\beta y_l + \beta y_r} < x \leq \frac{(\alpha_\beta - 1) x_l + \beta x_r}{(\alpha_\beta - 1)y_l + \beta y_r}
  	\]
  	ermittelt.
  	Dann kann $x_l'/y_l'$ bzw. $x_r'/y_r'$ analog bestimmt werden.
