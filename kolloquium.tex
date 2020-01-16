@@ -1,0 +1,173 @@
+
+\documentclass[envcountsect]{beamer}
+\usetheme[faculty=phil, headheight=0em, fonts=none]{fibeamer}
+
+
+\usepackage[utf8]{inputenc} % for input encoding
+\usepackage[german]{babel} % for german localization
+\usepackage{colonequals} % for :=
+\usepackage{graphicx} % for \includegraphics
+\usepackage{wrapfig} % for floating images to the right
+\usepackage{tikz}
+\usepackage{esvect}
+\usepackage{tabto}
+\usepackage{enumitem}
+
+\usetikzlibrary{arrows, shapes}
+
+
+\usepackage{mathabx}
+%-------------------------------------------------------------------------------
+% Hilfreiche Befehle
+%-------------------------------------------------------------------------------
+\newcommand{\betrag}[1]{\lvert #1 \rvert}	        % Betrag
+\providecommand*{\Lfloor}{\left\lfloor}                 % gro\ss{}es Abrunden
+\providecommand*{\Rfloor}{\right\rfloor}                % gro\ss{}es Abrunden
+\providecommand*{\Floor}[1]{\Lfloor #1 \Rfloor}         % gro\ss{}es ganzes Abrunden
+\providecommand*{\Ceil}[1]{\left\lceil #1 \right\rceil} % gro\ss{}es ganzes Aufrunden
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\firstNumbers}[1]{[#1]}
+\newcommand{\transpose}{^\intercal}
+\newcommand{\subjectTo}{\textbf{s.t.}}
+\newcommand{\MIPR}{MIP\textsuperscript{*}}
+\newcommand{\MIPI}{MIP}
+\newcommand{\oBdA}{oBdA.}
+\newcommand{\rang}{\operatorname{rang}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert_\infty}
+\newcommand{\zero}{0}
+\newcommand{\todo}[1]{{\color{red}{\emph{TODO: }}#1}}
+\newcommand{\one}{\mathbbm{1}}
+\newcommand{\eq}[1]{{\operatorname{eq}(#1)}}
+\newcommand{\co}[1]{\operatorname{co}(#1)}
+
+\setbeamertemplate{theorems}[numbered]
+\newtheorem{conjecture}[theorem]{Vermutung}
+\newtheorem{korollar}[theorem]{Korollar}
+\newtheorem{beispiel}[theorem]{Beispiel}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\definecolor{darkblue}{HTML}{00446B}
+
+
+\newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
+
+
+
+\makeatletter
+\setlength\fibeamer@lengths@logowidth{0em}
+\setlength\fibeamer@lengths@logoheight{0em}
+\makeatother
+\useoutertheme{infolines}
+\newenvironment{noheadline}{
+	\setbeamertemplate{headline}{}
+}{}
+\newenvironment{nofootline}{
+\setbeamertemplate{footline}{}
+}{}
+
+\setbeamersize{text margin left=2.7em, text margin right=2.7em}
+\setbeamertemplate{frametitle}{\insertframetitle}
+\setbeamercolor{block body}{fg=black!90}
+
+
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{size=\huge}
+\setbeamertemplate{institute}{\insertinstitute}
+
+\AtBeginSection{
+	\begin{noheadline}
+		\begin{frame}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[sep=8pt,center]{title}
+			\usebeamerfont{title}\insertsectionhead\par%
+		\end{beamercolorbox}
+		\vfill
+	\end{frame}
+	\end{noheadline}
+
+}
+
+\makeatletter
+\setbeamertemplate{footline}{%
+	\color{darkblue}% to color the progressbar
+	\small
+	\hfill{\insertframenumber\hspace{1.5em}}
+	\vspace{1em}
+
+
+	\hspace*{-\beamer@leftmargin}%
+	\rule{\beamer@leftmargin}{1pt}%
+	\rlap{\rule{\dimexpr\numexpr0\insertframenumber\dimexpr
+			\textwidth\relax/\numexpr0\inserttotalframenumber}{1pt}}
+	% next 'empty' line is mandatory!
+
+	\vspace{0\baselineskip}
+	{}
+}
+
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\title{Nash Gleichgewichte in Dynamischen Flüssen}
+\subtitle{Seminar zur Optimierung und Spieltheorie}
+\author{~\\Michael Markl \\ 27. Juni 2019}
+\date{08.11.2018}
+\institute{Insitut für Mathematik der Universität Augsburg\\Diskrete Mathematik, Optimierung und Operations Research}
+
+\renewcommand{\[}{
+	\setlength\abovedisplayskip{0.5ex}
+	\setlength{\belowdisplayskip}{0.5ex}
+	\setlength{\abovedisplayshortskip}{0.5ex}
+	\setlength{\belowdisplayshortskip}{0.5ex}\begin{equation*}}
+
+\renewcommand{\]}{\end{equation*}}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+%\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}
+
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+
+	\setcounter{framenumber}{-1}
+
+	\begin{nofootline}
+		\frame{\titlepage}
+	\end{nofootline}
+
+	\begin{frame}{Gliederung}
+		\tableofcontents
+	\end{frame}
+
+	\input{kolloquium/dynamic-flows}
+
+	\input{kolloquium/travel-times}
+	
+	\input{kolloquium/nash-flows}
+	
+	\input{kolloquium/further-results}
+	
+
+	\begin{noheadline}
+		\begin{frame}<presentation:0>[noframenumbering]
+			\cite{Koch2011}
+			\cite{Cominetti2011}
+			\cite{Cominetti2015}
+			\cite{Elstrodt2011Abs}
+			\cite{Elstrodt2011Top}
+		\end{frame}
+	
+		\begin{frame}[allowframebreaks]{Literatur}
+			\scriptsize
+			\bibliographystyle{alphadin}
+			\bibliography{literature}
+		\end{frame}
+	\end{noheadline}
+
+\end{document}

@@ -1,0 +1,36 @@
+\section{Dynamische Nash-Flüsse}
+
+\begin{frame}
+	\begin{definition}
+		Für einen zulässigen Fluss $f$ und einen Zeitpunkt $\theta$ bezeichne
+		\begin{itemize}[label=\color{darkblue}$\bullet$]
+			\item $x_{vw}^+(\theta):= F_{vw}^+(l_v(\theta))$ bzw. $x_{vw}^-(\theta):= F^-_{vw}(l_w(\theta))$ für $vw\in E$,
+			\pause\item $b_v(\theta) := \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ für $v\in V$.
+		\end{itemize}
+	\end{definition}
+	
+	\pause\begin{definition}\label{def-flow-along-active-edges}
+		Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+$ fast überall auf $l_v(\Theta_{vw}^c)$ verschwindet für alle Kanten $vw\in E$.
+	\end{definition}
+
+	\pause\begin{definition}
+	Man sage, der Fluss $f$ \emph{fließe ohne Überholungen}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$.
+	\end{definition}
+\end{frame}
+
+\begin{frame}
+	\begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
+		Für einen zulässigen dynamischen Fluss $f$ sind die folgenden Aussagen äquivalent:
+		\begin{enumerate}[label=(\roman*)]
+			\item Der Fluss $f$ fließt nur entlang aktiver Kanten
+			\item Für alle Kanten $e\in E$ und zu jeder Zeit $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
+			\item Der Fluss $f$ fließt ohne Überholungen.
+		\end{enumerate}
+		Gilt eine dieser Aussagen, so nennt man $f$ einen \emph{dynamischen Nash-Fluss}.
+	\end{theorem}
+
+	\pause\begin{lemma}\label{lemma-vanishes-intervals}
+		Seien $g: \R \to \R_{\geq 0}$ eine lokal Lebesgue-integrierbare Funktion und $((a_i, b_i))_{i\in I}$ eine Familie offener Intervalle.
+		Dann verschwindet $g$ fast überall auf $\Theta:=\bigcup_{i\in I} (a_i, b_i)$ genau dann, wenn es für alle $i\in I$ fast überall auf $(a_i, b_i)$ verschwindet.
+	\end{lemma}
+\end{frame}
