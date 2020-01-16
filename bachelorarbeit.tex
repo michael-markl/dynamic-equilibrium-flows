@@ -103,4 +103,24 @@
 \ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
 \pagestyle{empty}
 \include{bachelorarbeit/titlepage}
+\cleardoublepage
+
+\tableofcontents        % Inhaltsverzeichnis
+\thispagestyle{empty}
+%\listoftables          % Tabellenverzeichnis (eventuell einfügen)
+\cleardoublepage              % neue Seite für eigentlichen Inhalt
+\pagestyle{headings}
+\setcounter{page}{1}    % Eigentlicher Inhalt beginnt auf Seite 1
+\input{bachelorarbeit/introduction}
+\input{bachelorarbeit/dynamic-flows}
+\input{bachelorarbeit/nash-flows}
+\input{bachelorarbeit/minimal-congestion-b-flows}
+\input{bachelorarbeit/thin-flows}
+\input{bachelorarbeit/nash-flow-extension}
+\input{bachelorarbeit/summary}
+
+\clearpage          % neue Seite für Literaturverzeichnis
+\nocite*
+\thispagestyle{empty}
+\bibliography{literature}
 \end{document}		
