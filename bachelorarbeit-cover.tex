@@ -102,5 +102,39 @@
 \begin{document}
 \ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
 \pagestyle{empty}
-\include{bachelorarbeit/titlepage}
+\thispagestyle{empty}
+\newcommand{\Universitat}{Universität Augsburg}
+
+\begin{titlepage}
+	\begin{center}
+		\LARGE \textbf{\Universitat} \\
+		\uni \\
+		\makebox[0pt]{\text{\lehrstuhl}} \\
+	\end{center}
+	\vspace*{1em}
+	\begin{center}
+		\includegraphics[width=5cm,height=5cm]{UNI}
+	\end{center}
+	
+	\vspace*{1em}
+	
+	\begin{center}
+		\Huge\textsc{Bachelorarbeit}
+	\end{center}
+	
+	\vspace*{1cm}
+	\ownline
+	\begin{center}
+		\setstretch{2}{
+			{\huge \textbf{\thema}}\par
+		}
+	\end{center}
+	\ownline
+	\vspace*{1cm}
+	\begin{center}
+		\LARGE\textbf{Michael Markl}
+	\end{center}
+	\vfill
+\end{titlepage}
+
 \end{document}		
