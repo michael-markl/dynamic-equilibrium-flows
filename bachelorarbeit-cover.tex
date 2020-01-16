@@ -1,0 +1,106 @@
+\newcommand*{\DocType}{scrreprt}
+%\renewcommand*\DocType{article} % Uncomment for screen optimization
+
+\newcommand*\ClassList{scrreprt,article}
+\documentclass[\DocType, paper=a4,fontsize=11pt,titlepage,twoside, headsepline]{generalclass}
+
+\usepackage[nobreak,align=center]{mdframed}
+\usepackage[utf8]{inputenc}
+\usepackage[automark]{scrpage2}	        % Seiten-Stil für scrartcl
+% Mathematische Zeichensätze und Umgebungen
+\usepackage{amsfonts, amssymb}	        % Definition einer Liste mathematischer Fontbefehle und Symbole
+
+\usepackage[intlimits,sumlimits]{amsmath} % Integral-/Summationsgrenzen über/unter Zeichen
+\usepackage{tabto}
+\usepackage{mathabx}
+\usepackage{mathtools}
+
+\usepackage{subcaption}
+% mathematische Verbesserungen
+\usepackage{amsthm}	                    % spezielle theorem Stile
+\usepackage{aliascnt} 
+\usepackage{array}		                % erweiterte Tabellen
+% Schriftzeichen, Format
+\usepackage{latexsym}		            % Latex-Symbole
+\usepackage[english, german, ngerman]{babel} % Mehrsprachenumgebung
+% Layout
+\usepackage{geometry}                   % Seitenränder
+\usepackage{xcolor}                     % Farben
+\usepackage{bbm}
+% Tabellen und Listen
+\usepackage{float}		                % Gleitobjekte 
+\usepackage[flushright]{paralist}       % Bessere Behandlung der Auflistungen
+\usepackage{datetime}
+% Bilder
+\usepackage[final]{graphicx}            % Graphiken einbinden
+\usepackage{caption}                    % Beschriftungen
+\usepackage{subcaption}                 % Beschriftungen für Unterteilung
+\usepackage{tikz}
+\usepackage[chapter]{algorithm}
+\usepackage{setspace}
+\usepackage[export]{adjustbox}
+
+\usepackage{algpseudocode}
+% Interaktive Referenzen, und PDF-Keys
+\usepackage{xr-hyper}  
+\usepackage[pagebackref,pdftex, plainpages=false]{hyperref} % Rückreferenz im Literaturverzeichnis, Treiber für ps zu pdf ; für direkt nach pdf: pdftex
+\usepackage{enumitem}
+
+\title{Berechnung von Nash-Gleichgewichten in~dynamischen Flüssen}
+\date{08.01.2020}
+\author{Michael Markl}
+
+\input{header/header}			% Befehle und Pakete für Titelseite
+\input{header/theorem}			% Mathematische Befehle und Pakete
+\input{header/referenz}			% Befehle und Pakete für Referenzen
+
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+
+
+\IfClass{article}{ % Optimize for screen
+	\geometry{papersize={160mm,161.5mm},margin=5mm} 
+}
+\geometry{left=3.5cm, right=3.5cm, top=3.5cm, bottom=4cm}
+
+
+\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\textit{#1}}
+\floatname{algorithm}{Algorithmus}
+%\renewcommand{\todo}[1]{\todo{\color{red}TODO: #1}}
+
+\numberwithin{figure}{section}	% Abbildungsnummern in Section
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\cupdot}{\dot\cup}
+\newcommand{\PPAD}{\textbf{PPAD}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\bigO}{\mathcal{O}}
+\renewcommand{\]}{\end{equation*}}
+
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\newcommand{\size}[1]{\langle#1\rangle}
+\DeclareMathOperator{\rank}{rang}
+\DeclareMathOperator{\ggT}{ggT}
+\DeclareMathOperator{\tail}{tail}
+\DeclareMathOperator{\head}{head}
+
+\makeatletter
+\let\OldStatex\Statex
+\renewcommand{\Statex}[1][3]{%
+\setlength\@tempdima{\algorithmicindent}%
+\OldStatex\hskip\dimexpr#1\@tempdima\relax}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Start des Dokuments
+\begin{document}
+\ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
+\pagestyle{empty}
+\include{bachelorarbeit/titlepage}
+\end{document}		
