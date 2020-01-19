@@ -1,6 +1,7 @@
 
 \documentclass[envcountsect, handout]{beamer}
-\usetheme[faculty=phil, headheight=0em, fonts=none]{fibeamer}
+\usetheme[headheight=0em, logo=none, themepath=beamercolorthemefibeamer, nofonts]{fibeamer}
+\usepackage{beamercolorthemefibeamer}
 
 
 \usepackage[utf8]{inputenc} % for input encoding
@@ -12,11 +13,9 @@
 \usepackage{esvect}
 \usepackage{tabto}
 \usepackage{enumitem}
-
+\usepackage{mathabx}
 \usetikzlibrary{arrows, shapes}
 
-
-\usepackage{mathabx}
 %-------------------------------------------------------------------------------
 % Hilfreiche Befehle
 %-------------------------------------------------------------------------------
@@ -52,14 +51,11 @@
 
 \definecolor{darkblue}{HTML}{00446B}
 
-
 \newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
 
 
 
 \makeatletter
-\setlength\fibeamer@lengths@logowidth{0em}
-\setlength\fibeamer@lengths@logoheight{0em}
 \makeatother
 \useoutertheme{infolines}
 \newenvironment{noheadline}{
@@ -73,8 +69,6 @@
 \setbeamertemplate{frametitle}{\insertframetitle}
 \setbeamercolor{block body}{fg=black!90}
 
-
-\usefonttheme{professionalfonts}
 \setbeamerfont{title}{size=\huge}
 \setbeamertemplate{institute}{\insertinstitute}
 
@@ -117,15 +111,15 @@
 \subtitle{Bachelorkolloquium}
 \author{~\\Michael Markl \\ 23. Januar 2020}
 \date{23.01.2020}
-\institute{Insitut für Mathematik der Universität Augsburg\\Diskrete Mathematik, Optimierung und Operations Research}
-
 \renewcommand{\[}{
 	\setlength\abovedisplayskip{0.5ex}
 	\setlength{\belowdisplayskip}{0.5ex}
 	\setlength{\abovedisplayshortskip}{0.5ex}
 	\setlength{\belowdisplayshortskip}{0.5ex}\begin{equation*}}
 
-\renewcommand{\]}{\end{equation*}}
+\institute{Insitut für Mathematik der Universität Augsburg\\Diskrete Mathematik, Optimierung und Operations Research}
+
+\input{kolloquium/setupfont}
 
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 %\setlist[enumerate]{topsep=0.5ex,itemsep=0ex,partopsep=0ex,parsep=0.8ex}

@@ -1,4 +1,4 @@
-\section{Kürzeste Wege}
+\subsection{Kürzeste Wege}
 
 \begin{frame}
 	\begin{definition}[Kürzeste Wege]
@@ -19,10 +19,12 @@
 	\begin{definition}[Aktivität einer Kante]
 		Eine Kante $vw\in E$ ist \emph{aktiv zum Zeitpunkt $\theta$}, falls $T_{vw}(l_v(\theta)) = l_w(\theta)$ gilt; sonst ist sie \emph{inaktiv zum Zeitpunkt $\theta$}.
 		
-		Die Menge $\Theta_e$ sei die abgeschlossene Menge aller Zeitpunkte, zu denen $e$ aktiv ist.
+		\pause
+		Es sei $\Theta_e$ die Menge der Zeitpunkte, zu denen $e$ aktiv ist.
+		Für $\theta\in\R$ sei $G_\theta\coloneq (V, E_\theta)$ der Teilgraph der zur Zeit $\theta$ aktiven Kanten.
 	\end{definition}
 	\pause\begin{lemma}
-		Für einen zulässigen Fluss ist der Teilgraph der zu $\theta$ aktiven Kanten ein azyklischer Graph, in dem $s$ jeden Knoten erreichen kann.
+		Für einen zulässigen Fluss ist $G_\theta$ ein azyklischer Graph, in dem $s$ jeden Knoten erreichen kann.
 	\end{lemma}
 	\pause\begin{proposition}
 			Für einen zulässigen Fluss $f$ ist $(l_v(\theta))_{v\in V}$ die eindeutige Lösung von

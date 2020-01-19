@@ -1,0 +1,23 @@
+\usefonttheme{professionalfonts}
+
+\DeclareFontFamily{OML}{zavm}{\skewchar\font=127 }
+\DeclareFontShape{OML}{zavm}{m}{it}{<-> s*[.85] zavmri7m}{}
+\DeclareFontShape{OML}{zavm}{b}{it}{<-> s*[.85] zavmbi7m}{}
+\DeclareFontShape{OML}{zavm}{m}{sl}{<->ssub * zavm/m/it}{}
+\DeclareFontShape{OML}{zavm}{bx}{it}{<->ssub * zavm/b/it}{}
+\DeclareFontShape{OML}{zavm}{b}{sl}{<->ssub * zavm/b/it}{}
+\DeclareFontShape{OML}{zavm}{bx}{sl}{<->ssub * zavm/b/sl}{}
+\DeclareMathAlphabet{\mathsf}{OML}{zavm}{m}{it} % not `n'
+
+\DeclareFontFamily{OT1}{zavm}{\skewchar \font =127}
+\DeclareFontShape{OT1}{zavm}{m}{n}{<-> s*[.85] zavmr7t}{}
+\DeclareFontShape{OT1}{zavm}{b}{n}{<-> s*[.85] zavmb7t}{}
+\DeclareFontShape{OT1}{zavm}{bx}{n}{<->ssub * zavm/b/n}{}
+
+\DeclareFontFamily{OMS}{zavm}{}
+\DeclareFontShape{OMS}{zavm}{m}{n}{<-> s*[.85] zavmr7y}{}
+
+\SetSymbolFont{operators}   {normal}{OT1}{zavm}{m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{zavm}{m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{zavm}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{iwona}{m}{n}

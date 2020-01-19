@@ -3,7 +3,7 @@
 \begin{frame}\begin{definition}[Schmaler Fluss mit Zurücksetzen]\label{def-thin-flow}
 		Seien ein statischer $s$-$t$-Fluss $x'$ von Wert $F$ in einem Netzwerk mit Versorgungsrate $d$ sowie $E_1\subseteq E$ gegeben. \\
 		Der Fluss $x'$ ist ein \emph{schmaler Fluss mit Zurücksetzen auf $E_1$}, falls $l'\in\R^V$ existiert mit:
-		\begin{enumerate}[label=(T\arabic*)]
+		\begin{enumerate}[leftmargin=2.5em, label=(T\arabic*)]
 			\item\label{def-thin-flow-source} $l_s' = F/d$,
 			\item\label{def-thin-flow-x-zero} $l_w' \leq l_v'$, \tabto{5cm} für $vw\in E \setminus E_1$ mit $x'_{vw}=0$,
 			\item\label{def-thin-flow-x-positive} $l_w' = \max(l_v', x'_{vw} / u_{vw} )$, \tabto{5cm} für $vw\in E\setminus E_1$ mit $x'_{vw} > 0$,
@@ -19,11 +19,13 @@
 	\end{definition}
 
 	\begin{definition}[$\alpha$-Erweiterung]
-		Seien ein dynamischer Nash-Fluss $f$ mit Horizont $T$ und ein schmaler Fluss mit Zurücksetzen auf $E_1 \coloneq \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \}$ im Graphen $G_T$ und ein $\alpha > 0$ gegeben.
+		Seien ein dyn. Nash-Fluss $f$ mit Horizont $T$ und ein normierter schmaler Fluss $x'$ mit Zurücksetzen auf $E_1 \coloneq \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \}$ im Graphen $G_T$ und ein $\alpha > 0$ gegeben.
 		
-		Ergänzt man $f$, sodass für zur Zeit $T$ aktive Kanten $vw\in E_T$
-		$\tilde{f}_{vw}^+(\theta)\coloneq x_{vw}'/l_v'$ für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und \\
-		$\tilde{f}_{vw}^-(\theta)\coloneq x_{vw}'/l_w'$ für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$
+		Ergänzt man $f$, sodass für zur Zeit $T$ aktive Kanten $vw$
+		\begin{align*}
+			\tilde{f}_{vw}^+(\theta)\coloneq x_{vw}'/l_v'& \text{~~~für $\theta\in [l_v(T), l_v(T)+\alpha l_v')$ und } \\
+			\tilde{f}_{vw}^-(\theta)\coloneq x_{vw}'/l_w'& \text{~~~für $\theta\in [l_w(T), l_w(T)+\alpha l_w')$}
+		\end{align*}
 		gelten, erhält man eine \emph{$\alpha$-Erweiterung $\tilde{f}$ von $f$}.
 	\end{definition}
 \end{frame}
