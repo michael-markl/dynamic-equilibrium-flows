@@ -40,11 +40,11 @@
 		\begin{enumerate}[leftmargin=2.5em, label=(F\arabic*)]
 			\pause\item\label{def-feasible-flow-capacity} Kapazitätsbedingung: $\forall e\in E, \theta\in\R: f_e^-(\theta)\leq u_e$.
 			\pause\item\label{def-feasible-flow-no-negative-flow} Keine Flussentstehung in Kanten:\\ $\forall e\in E, \theta\in\R: F_e^-(\theta + \tau_e) \leq F_e^+(\theta).$
-			\pause\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten:
+			\pause\item\label{def-feasible-flow-no-flow-at-node} Flusserhaltung in Knoten: $\forall v\in V, \theta\in\R:$
 			\setlength{\belowdisplayskip}{0em}			\setlength{\abovedisplayskip}{0em}
 			\begin{align*}
-				\forall\theta\in\R: \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) \begin{cases}
-					\geq 0, \text{ falls $v=s$,}\\
+			  \sum_{e\in\delta^+(v)}f^+_e(\theta) - \sum_{e\in\delta^-(v)} f_e^-(\theta) \begin{cases}
+					\eqcolon d(\theta) \geq 0, \text{ falls $v=s$,}\\
 					\leq 0, \text{ falls $v=t$,}\\
 					= 0, \text{ sonst.}
 				\end{cases}
