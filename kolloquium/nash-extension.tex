@@ -1,7 +1,9 @@
-\section{Erweiterung dynamischer Nash-Flüsse}
+\section{Berechnung dynamischer Nash-Flüsse}
+
+\subsection{Erweiterung dynamischer Nash-Flüsse}
 
 \begin{frame}
-\begin{definition}
+\begin{definition}[$s$-Fluss]
 	Ist $f$ ein $b$-Fluss und $s$ ein Knoten, so nennt man $f$ einen $s$-Fluss, falls $b_v\leq 0$ für alle $v\neq s$ gilt.
 \end{definition}
 
@@ -13,8 +15,8 @@
 			x'_{vw} / u_{vw}, & \text{falls $vw\in E_1$,}
 			\end{cases}
 			\]
-			\item\pause $l'^P(l'_s)\coloneq \rho_{e_k}(\,\cdot\,, x'_{e_k}) \circ \cdots \circ \rho_{e_1}(\,\cdot\,, x'_{e_1}) (l'_s)$ die Auslastung des $s$-$v$-Pfads $(e_1, \cdots e_k)$ bzgl. $x'$,
-			\item\pause $l'_v(\theta) \coloneq \min_{P\in\mathcal{P}_v} l'^P(l_s')$ die Auslastung des Knoten $v$.
+			\item\pause $l'^P\coloneq \rho_{e_k}(\,\cdot\,, x'_{e_k}) \circ \cdots \circ \rho_{e_1}(\,\cdot\,, x'_{e_1}) (l'_s)$ die Auslastung des $s$-$v$-Pfads $(e_1, \cdots e_k)$ bzgl. $x'$,
+			\item\pause $l'_v \coloneq \min_{P\in\mathcal{P}_v} l'^P(l_s')$ die Auslastung des Knoten $v$.
 		\end{itemize}
 		\pause Gilt $l_v' = l'^P$ für jeden $s$-$v$-Pfad $P$ mit positivem Fluss, so heißt $x'$ ein schmaler Fluss mit Zurücksetzen auf $E_1$.
 		Ist $l_s' = 1$, so nennt man $x'$ normiert.
@@ -26,7 +28,7 @@
 		Ein \emph{dynamischer Fluss $f$ mit Zeithorizont $T\geq0$} ist ein Fluss, für dessen Zufluss $d(\theta)= 0$ für $\theta\geq T$ gilt.
 	\end{definition}
 
-	\begin{definition}[$\alpha$-Erweiterung]
+	\pause\begin{definition}[$\alpha$-Erweiterung]
 		Seien ein dynamischer Nash-Fluss $f$ mit Zeithorizont $T$ und ein normierter schmaler $s$-$t$-Fluss $x'$ in $G_T$ mit Zurücksetzen auf $E_1 \coloneq \{ vw\in E \mid q_{vw}(l_v(\theta)) > 0 \}$ und ein $\alpha > 0$ gegeben.
 		Ergänzt man $f$, sodass für zur Zeit $T$ aktive Kanten $vw$
 		\begin{align*}

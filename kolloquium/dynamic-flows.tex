@@ -55,16 +55,3 @@
 		\end{enumerate}
 	\end{definition}
 \end{frame}
-
-\subsection{Eigenschaften zulässiger Flüsse}
-\begin{frame}{Eigenschaften zulässiger Flüsse}
-	\begin{proposition}\label{prop-feasible-flow}
-		Für eine Kante $e\in E$ gilt in einem zulässigen dynamischen Fluss $f$:
-		\begin{enumerate}[label=(\roman*)]
-			\item\label{prop-feasible-flow-T-mon-inc-cont} Die Funktion $\theta \mapsto \theta + q_e(\theta)$ ist monoton wachsend und stetig.
-			\item\label{prop-feasible-flow-positive-queue} Für alle $\theta\in\R$ ist die Warteschlange $z_e$ auf $(\theta, \theta + q_e(\theta))$ positiv.
-			\item\label{prop-feasible-flow-det-outflow} Zu jeder Zeit $\theta\in\R$ gilt $F_e^+(\theta) = F_e^-(T_e(\theta))$.
-		\end{enumerate}
-	\end{proposition}
-\end{frame}
-

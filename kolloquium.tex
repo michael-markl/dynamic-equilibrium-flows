@@ -1,5 +1,5 @@
 
-\documentclass[envcountsect, handout]{beamer}
+\documentclass[envcountsect]{beamer}
 \usetheme[headheight=0em, logo=none, themepath=beamercolorthemefibeamer, nofonts]{fibeamer}
 \usepackage{beamercolorthemefibeamer}
 
@@ -14,7 +14,12 @@
 \usepackage{tabto}
 \usepackage{enumitem}
 \usepackage{mathabx}
-\usetikzlibrary{arrows, shapes}
+\usepackage{mathtools}
+\usepackage{framed}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
 
 %-------------------------------------------------------------------------------
 % Hilfreiche Befehle
@@ -50,7 +55,11 @@
 \newtheorem{proposition}[theorem]{Proposition}
 
 \definecolor{darkblue}{HTML}{00446B}
+\definecolor{darkgreen}{HTML}{006B44}
 
+\newcommand{\bigO}{\mathcal{O}}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\newcommand{\size}[1]{\langle#1\rangle}
 \newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
 
 
@@ -147,17 +156,16 @@
 	
 	\input{kolloquium/nash-extension}
 	
+	\input{kolloquium/thin-flow}
 
 	\begin{noheadline}
 		\begin{frame}<presentation:0>[noframenumbering]
 			\cite{Koch2011}
-			\cite{Cominetti2011}
+			\cite{Koch2012}
 			\cite{Cominetti2015}
-			\cite{Elstrodt2011Abs}
-			\cite{Elstrodt2011Top}
 		\end{frame}
 	
-		\begin{frame}[allowframebreaks]{Literatur}
+		\begin{frame}{Literatur}
 			\scriptsize
 			\bibliographystyle{alphadin}
 			\bibliography{literature}
