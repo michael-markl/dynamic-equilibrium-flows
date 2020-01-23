@@ -4,7 +4,12 @@
 	\begin{definition}[Kürzeste Wege]
 		Für einen Fluss $f$ bezeichne:
 		\begin{itemize}[label=\color{darkblue}$\bullet$]
-			\item\pause $l^P(\theta)\coloneq T_{e_k}\circ\dots\circ T_{e_1}(\theta)$ die Ankunftszeit am Endknoten eines Pfades $P=(e_1,\dots,e_k)$ zur Startzeit $\theta$ am Startknoten,
+			\item\pause $l^P(\theta)$ die Ankunftszeit am Endknoten eines Pfades $P$ zur Startzeit $\theta$ am Startknoten, definiert durch \[
+				l^P(\theta) \coloneq \begin{cases}
+					\theta, &\text{ falls $P$ der leere Pfad ist,}\\
+					T_e( \l^{\tilde{P}}(\theta)), &\text{ falls $P=(\tilde{P}, e)$,}
+				\end{cases}
+			\]
 			\item\pause $\mathcal{P}_w$ die Menge aller $s$-$w$-Pfade,
 			\item\pause $l_w(\theta) \coloneq \min_{P\in\mathcal{P}_w} l^P(\theta)$ die früheste Ankunftszeit bei $w$ zur Startzeit $\theta$.
 		\end{itemize}

@@ -1,31 +1,16 @@
-\section{Dynamische Nash-Flüsse}
+\subsection{Dynamische Nash-Flüsse}
 
-\begin{frame}
-	\begin{definition}
-		Für einen zulässigen Fluss $f$ und einen Zeitpunkt $\theta$ bezeichne
-		\begin{itemize}[label=\color{darkblue}$\bullet$]
-			\item $x_{vw}^+(\theta)\coloneq  F_{vw}^+(l_v(\theta))$ bzw. $x_{vw}^-(\theta)\coloneq  F^-_{vw}(l_w(\theta))$ für $vw\in E$,
-			\pause\item $b_v(\theta) \coloneq  \sum_{e\in\delta^+(v)} x_e^+(\theta) - \sum_{e\in\delta^-(v)} x_e^-(\theta)$ für $v\in V$.
-		\end{itemize}
+\begin{frame}{Dynamische Nash-Flüsse}
+	\begin{definition}[Nash-Fluss]
+		Ein zulässiger dynamischer Fluss $f$ heißt \emph{Nash-Fluss}, falls er nur entlang aktiver Kanten fließt, d. h. falls $f_{vw}^+(\theta) > 0$ für fast alle $\theta\in\R$ bereits $\theta\in l_v(\Theta_{vw})$ impliziert.
 	\end{definition}
-	
-	\pause\begin{definition}\label{def-flow-along-active-edges}
-		Man sage, der Fluss $f$ \emph{fließe nur entlang aktiver Kanten}, falls $f_{vw}^+(\theta) > 0$ für fast alle $\theta\in\R$ bereits $\theta\in l_v(\Theta_{vw})$ impliziert.
-	\end{definition}
-
 	\pause\begin{definition}
-	Man sage, der Fluss $f$ \emph{fließe ohne Überholungsmöglichkeiten}, falls $b_s(\theta) = -b_t(\theta)$ für alle $\theta\in\R$ gilt.
+		Für einen zulässigen Fluss $f$ und einen Zeitpunkt $\theta$ bezeichne
+		$x_{vw}^+(\theta)\coloneq  F_{vw}^+(l_v(\theta))$ bzw. $x_{vw}^-(\theta)\coloneq  F^-_{vw}(l_w(\theta))$ für $vw\in E$.
 	\end{definition}
-\end{frame}
-
-\begin{frame}
-	\begin{theorem}[Charakterisierung dynamischer Nash-Flüsse]\label{thm-equivalencies-nash-flow}
-		Für einen zulässigen dynamischen Fluss $f$ sind die Aussagen
-		\begin{enumerate}[label=(\roman*)]
-			\item Der Fluss $f$ fließt nur entlang aktiver Kanten.
-			\item Für alle $e\in E$ und $\theta\in\R$ gilt $x_e^+(\theta) = x_e^-(\theta)$.
-			\item Der Fluss $f$ fließt ohne Überholungsmöglichkeiten.
-		\end{enumerate}
-		äquivalent. Gilt eine davon, so nennt man $f$ einen \emph{dynamischen Nash-Fluss} und man definiere $x_e(\theta)\coloneq x_e^+(\theta) = x_e^-(\theta)$ für $e\in E$.
+	\pause\begin{theorem}
+	Ein zulässiger dynamischer Fluss $f$ ist genau dann ein Nash-Fluss,
+	wenn $x_e^+(\theta) = x_e^-(\theta)$ für alle $e\in E$ und $\theta\in\R$ gilt.
+	Ist dies der Fall, so definiere man $x_e(\theta)\coloneq x_e^+(\theta) = x_e^-(\theta)$ für $e\in E$.
 	\end{theorem}
 \end{frame}
