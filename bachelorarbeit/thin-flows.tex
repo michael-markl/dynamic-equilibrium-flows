@@ -651,12 +651,12 @@ Die Funktionsweise des Algorithmus soll durch das folgende Beispiel illustriert 
 			\newnode{6}{(13,2)}{$g$}{$-16$}
 			
 			\begin{scope}[-Latex]
-			\path [-Latex] (0) edge node[above] {$10/4$} (1);
-			\path [-Latex] (0) edge[bend right] node[above right] {$4/4$} (2);
-			\path [-Latex] (0) edge[bend left] node[above] {$18/4$} (4);
+			\path [-Latex] (0) edge node[above] {$4/4$} (1);
+			\path [-Latex] (0) edge[bend right] node[above right] {$18/4$} (2);
+			\path [-Latex] (0) edge[bend left] node[above] {$10/4$} (4);
 			\path [-Latex] (1) edge node[above right] {$0/2$} (2);
-			\path [-Latex] (1) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$16/2$} (3);
-			\path [-Latex] (2) edge node[above left] {$4/2$} (3);
+			\path [-Latex] (1) edge node[above] {$4/2$} (3);
+			\path [-Latex] (2) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above left] {$16/2$} (3);
 			\path [-Latex] (3) edge node[above] {$0/1$} (4);
 			\path [-Latex] (3) edge node[above] {$8/2$} (5);
 			\path [-Latex] (4) edge[snake=snake,segment amplitude=.4mm,segment length=2mm,line after snake=2mm] node[above] {$8/1$} (6);
