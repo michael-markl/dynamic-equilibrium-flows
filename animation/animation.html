@@ -649,6 +649,29 @@
                     update()
                 }, 1000 / 60)
             });
+            document.getElementById('fast-step').addEventListener('click', () => {
+                if (interval !== null) {
+                    clearInterval(interval)
+                }
+                targetT = null
+                const steps = getSteps()
+                for (const step of steps) {
+                    if (step > currentT) {
+                        targetT = step
+                        break
+                    }
+                }
+                if (targetT === null) return;
+
+                interval = setInterval(() => {
+                    if (currentT < targetT) {
+                        currentT = Math.min(targetT, currentT + speed*2 / (1000 / 60))
+                    } else {
+                        clearInterval(interval)
+                    }
+                    update()
+                }, 1000 / 60)
+            });
             document.getElementById('reset').addEventListener('click', () => {
                 if (interval !== null) {
                     clearInterval(interval)
@@ -731,6 +754,7 @@
             <input id="range" type="range" min="0" max="80" step="0.1" value="0" />
         </div>
         <button id="next-step">🡆</button>
+        <button id="fast-step">⯮</button>
         <div style="display: flex, flex-drection: column">
         <div>
                 <input type="radio" id="flow1radio" name="flow" value="flow1" checked >
